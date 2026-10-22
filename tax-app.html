@@ -448,6 +448,21 @@
             animation: fadeIn 0.4s ease forwards;
         }
 
+        .sidebar-backdrop {
+            display: none;
+            position: fixed;
+            top: 56px;
+            left: 0;
+            width: 100vw;
+            height: calc(100vh - 56px);
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 999;
+            backdrop-filter: blur(2px);
+        }
+        .sidebar-backdrop.show {
+            display: block;
+        }
+
         @media (max-width: 991px) {
             .sidebar {
                 left: -260px;
@@ -458,6 +473,48 @@
             .content {
                 margin-left: 0;
                 padding: 20px 16px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .portfolio-nav-bar {
+                height: 50px;
+                padding: 0 12px;
+            }
+            .portfolio-nav-bar .project-title-text {
+                font-size: 12px;
+            }
+            .portfolio-nav-bar .project-tech-text {
+                font-size: 9px;
+            }
+            .top-header {
+                flex-direction: column;
+                align-items: flex-start !important;
+                gap: 10px;
+                padding: 14px 16px;
+                margin-bottom: 20px;
+            }
+            .welcome-text {
+                font-size: 16px;
+            }
+            .user-profile {
+                align-self: flex-end;
+                padding: 4px 12px;
+                font-size: 12px;
+            }
+            .content {
+                padding: 14px 10px;
+            }
+            .card-box {
+                padding: 16px;
+                border-radius: 12px;
+                margin-bottom: 16px;
+            }
+            .card-box.hero-card .title {
+                font-size: 20px;
+            }
+            .card-box.hero-card .subtitle {
+                font-size: 13px;
             }
         }
     </style>
@@ -484,7 +541,8 @@
     </div>
 </div>
 
-<!-- 2. SIDEBAR -->
+<!-- 2. SIDEBAR BACKDROP & SIDEBAR -->
+<div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleSidebar()"></div>
 <div class="sidebar" id="appSidebar">
     <div class="sidebar-brand">
         <i class="bi bi-hexagon-fill"></i>
@@ -2412,9 +2470,9 @@
 
         // Close mobile sidebar if open
         const sidebar = document.getElementById('appSidebar');
-        if (sidebar) {
-            sidebar.classList.remove('show');
-        }
+        const backdrop = document.getElementById('sidebarBackdrop');
+        if (sidebar) sidebar.classList.remove('show');
+        if (backdrop) backdrop.classList.remove('show');
 
         // Update URL hash without scroll jump
         if (history.pushState) {
@@ -2428,8 +2486,14 @@
 
     function toggleSidebar() {
         const sidebar = document.getElementById('appSidebar');
+        const backdrop = document.getElementById('sidebarBackdrop');
         if (sidebar) {
             sidebar.classList.toggle('show');
+            const isShow = sidebar.classList.contains('show');
+            if (backdrop) {
+                if (isShow) backdrop.classList.add('show');
+                else backdrop.classList.remove('show');
+            }
         }
     }
 

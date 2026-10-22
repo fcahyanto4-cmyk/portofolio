@@ -147,6 +147,21 @@
       display: none !important;
     }
 
+    /* Mobile enhancements */
+    @media (max-width: 767px) {
+      .slicer-collapsible {
+        display: none;
+      }
+      .slicer-collapsible.open {
+        display: flex;
+      }
+    }
+    @media (min-width: 768px) {
+      .slicer-collapsible {
+        display: flex !important;
+      }
+    }
+
     /* Custom scrollbars */
     ::-webkit-scrollbar {
       width: 5px;
@@ -164,22 +179,22 @@
 <body class="p-2 sm:p-4 md:p-5 select-none">
 
   <!-- Standalone Header (Shown only when opened directly in a new tab) -->
-  <div class="standalone-nav rounded-lg px-4 py-2 mb-3 flex items-center justify-between shadow-md">
-    <div class="flex items-center gap-3">
-      <a href="index.html#projek" class="w-7 h-7 rounded bg-white/10 hover:bg-white/20 flex items-center justify-center text-white text-xs transition">
+  <div class="standalone-nav rounded-lg px-3 sm:px-4 py-2 mb-3 flex flex-wrap items-center justify-between gap-2 shadow-md">
+    <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+      <a href="index.html#projek" class="w-7 h-7 shrink-0 rounded bg-white/10 hover:bg-white/20 flex items-center justify-center text-white text-xs transition" title="Kembali ke Portofolio">
         <i class="fa-solid fa-arrow-left"></i>
       </a>
-      <div class="flex flex-col">
-        <span class="text-xs font-bold text-white tracking-wide">Fajar Sidiq Cahyanto — Portofolio Power BI</span>
-        <span class="text-[10px] text-amber-400 font-mono">Retail Performance Cockpit • Halaman 1: Executive Overview</span>
+      <div class="flex flex-col min-w-0">
+        <span class="text-xs font-bold text-white tracking-wide truncate">Fajar Sidiq Cahyanto — Portofolio Power BI</span>
+        <span class="text-[10px] text-amber-400 font-mono truncate">Retail Performance Cockpit • Halaman 1: Executive Overview</span>
       </div>
     </div>
-    <div class="flex items-center gap-2">
-      <button onclick="resetSlicers()" class="px-2.5 py-1 rounded bg-white/10 hover:bg-white/20 text-white text-[11px] font-mono flex items-center gap-1.5 transition">
-        <i class="fa-solid fa-rotate-left text-[10px] text-amber-400"></i> Reset Slicers
+    <div class="flex items-center gap-2 shrink-0">
+      <button onclick="resetSlicers()" class="px-2 py-1 rounded bg-white/10 hover:bg-white/20 text-white text-[10px] sm:text-[11px] font-mono flex items-center gap-1.5 transition">
+        <i class="fa-solid fa-rotate-left text-[9px] text-amber-400"></i> Reset Slicers
       </button>
-      <a href="index.html#projek" class="px-3 py-1 rounded bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold text-xs transition">
-        Kembali ke Portofolio
+      <a href="index.html#projek" class="px-2.5 py-1 rounded bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold text-[11px] sm:text-xs transition">
+        Kembali
       </a>
     </div>
   </div>
@@ -236,52 +251,52 @@
   <!-- =====================================================================
        ROW 1: 6 KPI CARDS (MATCHING EXACT REPORT VALUES)
   ===================================================================== -->
-  <section class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 mb-3">
+  <section class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-2.5 mb-3">
     <!-- KPI 1: Net Sales -->
-    <div class="kpi-card p-3 flex flex-col justify-between">
-      <span class="text-xs text-[#5a6a80] font-medium">Net Sales</span>
-      <div class="mt-2">
-        <span id="kpi-net-sales" class="text-3xl font-bold tracking-tight text-[#0a192f]">4T</span>
+    <div class="kpi-card p-2.5 sm:p-3 flex flex-col justify-between">
+      <span class="text-[11px] sm:text-xs text-[#5a6a80] font-medium">Net Sales</span>
+      <div class="mt-1 sm:mt-2">
+        <span id="kpi-net-sales" class="text-2xl sm:text-3xl font-bold tracking-tight text-[#0a192f]">4T</span>
       </div>
     </div>
 
     <!-- KPI 2: Gross Margin % -->
-    <div class="kpi-card p-3 flex flex-col justify-between">
-      <span class="text-xs text-[#5a6a80] font-medium">Gross Margin %</span>
-      <div class="mt-2">
-        <span id="kpi-gross-margin" class="text-3xl font-bold tracking-tight text-[#0a192f]">27.8%</span>
+    <div class="kpi-card p-2.5 sm:p-3 flex flex-col justify-between">
+      <span class="text-[11px] sm:text-xs text-[#5a6a80] font-medium">Gross Margin %</span>
+      <div class="mt-1 sm:mt-2">
+        <span id="kpi-gross-margin" class="text-2xl sm:text-3xl font-bold tracking-tight text-[#0a192f]">27.8%</span>
       </div>
     </div>
 
     <!-- KPI 3: LFL Growth % -->
-    <div class="kpi-card p-3 flex flex-col justify-between">
-      <span class="text-xs text-[#5a6a80] font-medium">LFL Growth %</span>
-      <div class="mt-2">
-        <span id="kpi-lfl-growth" class="text-3xl font-bold tracking-tight text-[#0a192f]">44.0%</span>
+    <div class="kpi-card p-2.5 sm:p-3 flex flex-col justify-between">
+      <span class="text-[11px] sm:text-xs text-[#5a6a80] font-medium">LFL Growth %</span>
+      <div class="mt-1 sm:mt-2">
+        <span id="kpi-lfl-growth" class="text-2xl sm:text-3xl font-bold tracking-tight text-[#0a192f]">44.0%</span>
       </div>
     </div>
 
     <!-- KPI 4: Target Achievement % -->
-    <div class="kpi-card p-3 flex flex-col justify-between">
-      <span class="text-xs text-[#5a6a80] font-medium">Target Achievement %</span>
-      <div class="mt-2">
-        <span id="kpi-target-ach" class="text-3xl font-bold tracking-tight text-[#0a192f]">99.2%</span>
+    <div class="kpi-card p-2.5 sm:p-3 flex flex-col justify-between">
+      <span class="text-[11px] sm:text-xs text-[#5a6a80] font-medium">Target Achievement %</span>
+      <div class="mt-1 sm:mt-2">
+        <span id="kpi-target-ach" class="text-2xl sm:text-3xl font-bold tracking-tight text-[#0a192f]">99.2%</span>
       </div>
     </div>
 
     <!-- KPI 5: EBITDA % -->
-    <div class="kpi-card p-3 flex flex-col justify-between">
-      <span class="text-xs text-[#5a6a80] font-medium">EBITDA %</span>
-      <div class="mt-2">
-        <span id="kpi-ebitda" class="text-3xl font-bold tracking-tight text-[#0a192f]">7.4%</span>
+    <div class="kpi-card p-2.5 sm:p-3 flex flex-col justify-between">
+      <span class="text-[11px] sm:text-xs text-[#5a6a80] font-medium">EBITDA %</span>
+      <div class="mt-1 sm:mt-2">
+        <span id="kpi-ebitda" class="text-2xl sm:text-3xl font-bold tracking-tight text-[#0a192f]">7.4%</span>
       </div>
     </div>
 
     <!-- KPI 6: Return Rate % -->
-    <div class="kpi-card p-3 flex flex-col justify-between">
-      <span class="text-xs text-[#5a6a80] font-medium">Return Rate %</span>
-      <div class="mt-2">
-        <span id="kpi-return-rate" class="text-3xl font-bold tracking-tight text-[#0a192f]">1.9%</span>
+    <div class="kpi-card p-2.5 sm:p-3 flex flex-col justify-between">
+      <span class="text-[11px] sm:text-xs text-[#5a6a80] font-medium">Return Rate %</span>
+      <div class="mt-1 sm:mt-2">
+        <span id="kpi-return-rate" class="text-2xl sm:text-3xl font-bold tracking-tight text-[#0a192f]">1.9%</span>
       </div>
     </div>
   </section>
@@ -295,115 +310,127 @@
          LEFT COLUMN: SLICERS / FILTERS (WIDTH ~ 2.2 / 12)
     -------------------------------------------------------------- -->
     <aside class="md:col-span-3 lg:col-span-2 flex flex-col gap-2.5">
-      
-      <!-- Slicer: Year -->
-      <div class="slicer-card p-2.5">
-        <div class="relative">
-          <select id="slicer-year" onchange="applyFilters()" class="w-full appearance-none border border-[#cbd5e1] rounded px-3 py-1.5 pr-7 bg-white text-base font-semibold text-[#0a192f] cursor-pointer hover:border-[#94a3b8] focus:outline-none focus:ring-1 focus:ring-[#0b1c32]">
-            <option value="2023" selected>2023</option>
-            <option value="2024">2024 (YTD)</option>
-            <option value="2022">2022 (Audited)</option>
-            <option value="ALL">Semua Tahun (2022-2024)</option>
-          </select>
-          <i class="fa-solid fa-chevron-down text-[10px] text-[#64748b] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
-        </div>
-      </div>
 
-      <!-- Slicer: Pilih Metrik -->
-      <div class="slicer-card p-2.5 flex flex-col gap-1.5">
-        <div class="text-[11px] font-bold text-[#0a192f] border-b border-[#f1f5f9] pb-1 flex items-center justify-between">
-          <span>Pilih Metrik</span>
-          <button onclick="resetSlicers()" class="text-[9px] text-amber-600 hover:text-amber-700 font-mono font-medium hover:underline flex items-center gap-1" title="Reset Semua Filter">
-            <i class="fa-solid fa-rotate-left text-[8px]"></i> Reset
-          </button>
-        </div>
-        <div class="flex flex-col gap-1.5 pt-1 text-xs text-[#1e293b]">
-          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
-            <input type="checkbox" class="pbi-checkbox filter-metric" data-metric="Net Sales" onchange="applyFilters()" />
-            <span>Net Sales</span>
-          </label>
-          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
-            <input type="checkbox" class="pbi-checkbox filter-metric" data-metric="EBITDA %" onchange="applyFilters()" />
-            <span>EBITDA %</span>
-          </label>
-          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
-            <input type="checkbox" class="pbi-checkbox filter-metric" data-metric="Target Achievement %" onchange="applyFilters()" />
-            <span>Target Achievement %</span>
-          </label>
-          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
-            <input type="checkbox" class="pbi-checkbox filter-metric" data-metric="LFL Growth %" onchange="applyFilters()" />
-            <span>LFL Growth %</span>
-          </label>
-        </div>
-      </div>
+      <!-- Mobile Slicer Toggle Button -->
+      <button type="button" onclick="toggleMobileSlicers()" class="md:hidden flex items-center justify-between w-full p-2.5 bg-white border border-[#e2e8f0] rounded-lg shadow-sm text-xs font-bold text-[#0a192f] hover:bg-slate-50 transition">
+        <span class="flex items-center gap-2">
+          <i class="fa-solid fa-sliders text-amber-500"></i>
+          <span>Filter & Slicer Data</span>
+        </span>
+        <span id="slicer-toggle-badge" class="font-mono text-[10px] text-slate-500 bg-slate-100 px-2 py-0.5 rounded">Buka ▾</span>
+      </button>
 
-      <!-- Slicer: Category -->
-      <div class="slicer-card p-2.5 flex flex-col gap-1.5">
-        <div class="text-[11px] font-bold text-[#0a192f] border-b border-[#f1f5f9] pb-1">
-          Category
+      <!-- Slicer Container (Collapsible on Mobile, Always Visible on Desktop) -->
+      <div id="slicer-container" class="slicer-collapsible flex-col gap-2.5">
+        <!-- Slicer: Year -->
+        <div class="slicer-card p-2.5">
+          <div class="relative">
+            <select id="slicer-year" onchange="applyFilters()" class="w-full appearance-none border border-[#cbd5e1] rounded px-3 py-1.5 pr-7 bg-white text-base font-semibold text-[#0a192f] cursor-pointer hover:border-[#94a3b8] focus:outline-none focus:ring-1 focus:ring-[#0b1c32]">
+              <option value="2023" selected>2023</option>
+              <option value="2024">2024 (YTD)</option>
+              <option value="2022">2022 (Audited)</option>
+              <option value="ALL">Semua Tahun (2022-2024)</option>
+            </select>
+            <i class="fa-solid fa-chevron-down text-[10px] text-[#64748b] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+          </div>
         </div>
-        <div class="flex flex-col gap-1.5 pt-1 text-xs text-[#1e293b]">
-          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
-            <input type="checkbox" class="pbi-checkbox filter-cat" data-category="Elektronik" onchange="applyFilters()" />
-            <span>Elektronik</span>
-          </label>
-          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
-            <input type="checkbox" class="pbi-checkbox filter-cat" data-category="Fashion" onchange="applyFilters()" />
-            <span>Fashion</span>
-          </label>
-          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
-            <input type="checkbox" class="pbi-checkbox filter-cat" data-category="Ibu & Bayi" onchange="applyFilters()" />
-            <span>Ibu &amp; Bayi</span>
-          </label>
-          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
-            <input type="checkbox" class="pbi-checkbox filter-cat" data-category="Kebutuhan Rumah Tangga" onchange="applyFilters()" />
-            <span>Kebutuhan Rumah Tangga</span>
-          </label>
-          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
-            <input type="checkbox" class="pbi-checkbox filter-cat" data-category="Makanan Kemasan" onchange="applyFilters()" />
-            <span>Makanan Kemasan</span>
-          </label>
-          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
-            <input type="checkbox" class="pbi-checkbox filter-cat" data-category="Makanan Segar" onchange="applyFilters()" />
-            <span>Makanan Segar</span>
-          </label>
-        </div>
-      </div>
 
-      <!-- Slicer: Region -->
-      <div class="slicer-card p-2.5 flex flex-col gap-1.5 flex-1">
-        <div class="text-[11px] font-bold text-[#0a192f] border-b border-[#f1f5f9] pb-1">
-          Region
+        <!-- Slicer: Pilih Metrik -->
+        <div class="slicer-card p-2.5 flex flex-col gap-1.5">
+          <div class="text-[11px] font-bold text-[#0a192f] border-b border-[#f1f5f9] pb-1 flex items-center justify-between">
+            <span>Pilih Metrik</span>
+            <button onclick="resetSlicers()" class="text-[9px] text-amber-600 hover:text-amber-700 font-mono font-medium hover:underline flex items-center gap-1" title="Reset Semua Filter">
+              <i class="fa-solid fa-rotate-left text-[8px]"></i> Reset
+            </button>
+          </div>
+          <div class="flex flex-col gap-1.5 pt-1 text-xs text-[#1e293b]">
+            <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+              <input type="checkbox" class="pbi-checkbox filter-metric" data-metric="Net Sales" onchange="applyFilters()" />
+              <span>Net Sales</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+              <input type="checkbox" class="pbi-checkbox filter-metric" data-metric="EBITDA %" onchange="applyFilters()" />
+              <span>EBITDA %</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+              <input type="checkbox" class="pbi-checkbox filter-metric" data-metric="Target Achievement %" onchange="applyFilters()" />
+              <span>Target Achievement %</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+              <input type="checkbox" class="pbi-checkbox filter-metric" data-metric="LFL Growth %" onchange="applyFilters()" />
+              <span>LFL Growth %</span>
+            </label>
+          </div>
         </div>
-        <div class="flex flex-col gap-1.5 pt-1 text-xs text-[#1e293b]">
-          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
-            <input type="checkbox" class="pbi-checkbox filter-reg" data-region="Bali & Nusa Tenggara" onchange="applyFilters()" />
-            <span>Bali &amp; Nusa Tenggara</span>
-          </label>
-          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
-            <input type="checkbox" class="pbi-checkbox filter-reg" data-region="Jabodetabek" onchange="applyFilters()" />
-            <span>Jabodetabek</span>
-          </label>
-          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
-            <input type="checkbox" class="pbi-checkbox filter-reg" data-region="Jawa (Non-Jabodetabek)" onchange="applyFilters()" />
-            <span>Jawa (Non-Jabodetabek)</span>
-          </label>
-          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
-            <input type="checkbox" class="pbi-checkbox filter-reg" data-region="Kalimantan" onchange="applyFilters()" />
-            <span>Kalimantan</span>
-          </label>
-          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
-            <input type="checkbox" class="pbi-checkbox filter-reg" data-region="Maluku & Papua" onchange="applyFilters()" />
-            <span>Maluku &amp; Papua</span>
-          </label>
-          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
-            <input type="checkbox" class="pbi-checkbox filter-reg" data-region="Sulawesi" onchange="applyFilters()" />
-            <span>Sulawesi</span>
-          </label>
-          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
-            <input type="checkbox" class="pbi-checkbox filter-reg" data-region="Sumatera" onchange="applyFilters()" />
-            <span>Sumatera</span>
-          </label>
+
+        <!-- Slicer: Category -->
+        <div class="slicer-card p-2.5 flex flex-col gap-1.5">
+          <div class="text-[11px] font-bold text-[#0a192f] border-b border-[#f1f5f9] pb-1">
+            Category
+          </div>
+          <div class="flex flex-col gap-1.5 pt-1 text-xs text-[#1e293b]">
+            <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+              <input type="checkbox" class="pbi-checkbox filter-cat" data-category="Elektronik" onchange="applyFilters()" />
+              <span>Elektronik</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+              <input type="checkbox" class="pbi-checkbox filter-cat" data-category="Fashion" onchange="applyFilters()" />
+              <span>Fashion</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+              <input type="checkbox" class="pbi-checkbox filter-cat" data-category="Ibu & Bayi" onchange="applyFilters()" />
+              <span>Ibu &amp; Bayi</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+              <input type="checkbox" class="pbi-checkbox filter-cat" data-category="Kebutuhan Rumah Tangga" onchange="applyFilters()" />
+              <span>Kebutuhan Rumah Tangga</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+              <input type="checkbox" class="pbi-checkbox filter-cat" data-category="Makanan Kemasan" onchange="applyFilters()" />
+              <span>Makanan Kemasan</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+              <input type="checkbox" class="pbi-checkbox filter-cat" data-category="Makanan Segar" onchange="applyFilters()" />
+              <span>Makanan Segar</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Slicer: Region -->
+        <div class="slicer-card p-2.5 flex flex-col gap-1.5 flex-1">
+          <div class="text-[11px] font-bold text-[#0a192f] border-b border-[#f1f5f9] pb-1">
+            Region
+          </div>
+          <div class="flex flex-col gap-1.5 pt-1 text-xs text-[#1e293b]">
+            <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+              <input type="checkbox" class="pbi-checkbox filter-reg" data-region="Bali & Nusa Tenggara" onchange="applyFilters()" />
+              <span>Bali &amp; Nusa Tenggara</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+              <input type="checkbox" class="pbi-checkbox filter-reg" data-region="Jabodetabek" onchange="applyFilters()" />
+              <span>Jabodetabek</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+              <input type="checkbox" class="pbi-checkbox filter-reg" data-region="Jawa (Non-Jabodetabek)" onchange="applyFilters()" />
+              <span>Jawa (Non-Jabodetabek)</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+              <input type="checkbox" class="pbi-checkbox filter-reg" data-region="Kalimantan" onchange="applyFilters()" />
+              <span>Kalimantan</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+              <input type="checkbox" class="pbi-checkbox filter-reg" data-region="Maluku & Papua" onchange="applyFilters()" />
+              <span>Maluku &amp; Papua</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+              <input type="checkbox" class="pbi-checkbox filter-reg" data-region="Sulawesi" onchange="applyFilters()" />
+              <span>Sulawesi</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+              <input type="checkbox" class="pbi-checkbox filter-reg" data-region="Sumatera" onchange="applyFilters()" />
+              <span>Sumatera</span>
+            </label>
+          </div>
         </div>
       </div>
 
@@ -1102,6 +1129,18 @@
       document.querySelectorAll('.pbi-checkbox').forEach(cb => cb.checked = false);
       applyFilters();
       showToast('Slicers telah di-reset ke data default (2023 Audited).');
+    }
+
+    function toggleMobileSlicers() {
+      const container = document.getElementById('slicer-container');
+      const badge = document.getElementById('slicer-toggle-badge');
+      if (container) {
+        container.classList.toggle('open');
+        const isOpen = container.classList.contains('open');
+        if (badge) {
+          badge.textContent = isOpen ? 'Tutup ▴' : 'Buka ▾';
+        }
+      }
     }
 
     // -------------------------------------------------------------

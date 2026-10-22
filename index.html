@@ -710,7 +710,7 @@
 
         <!-- Project 1: Power BI Retail Cockpit -->
         <article class="project-card editorial-card rounded-2xl overflow-hidden flex flex-col" data-category="bi">
-          <div class="h-56 bg-zinc-950 relative overflow-hidden border-b border-zinc-200 dark:border-zinc-800 group">
+          <div class="h-48 sm:h-56 bg-zinc-950 relative overflow-hidden border-b border-zinc-200 dark:border-zinc-800 group">
             <img src="assets/images/powerbi.png" alt="Retail Executive Dashboard Power BI"
               class="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105" />
             <div class="absolute top-3 left-3">
@@ -721,46 +721,55 @@
             </div>
             <div
               class="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-zinc-950/85 backdrop-blur-md border border-amber-500/30 shadow-md">
-
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+              <span class="font-mono text-[10px] text-amber-400 font-semibold uppercase">Interactive BI</span>
             </div>
             <!-- Hover Overlay with Blur -->
-            <a href="demo-viewer.html?project=powerbi" target="_blank" rel="opener"
+            <a href="retail-dashboard.html" target="_blank" rel="noopener noreferrer"
               class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-2 text-white font-mono text-xs font-semibold backdrop-blur-[2px]">
-              <span class="w-10 h-10 rounded-full bg-brand-600/95 flex items-center justify-center shadow-lg"><i
+              <span class="w-10 h-10 rounded-full bg-amber-500/95 text-zinc-950 flex items-center justify-center shadow-lg"><i
                   class="fa-solid fa-play text-sm ml-0.5"></i></span>
-              <span>Lihat</span>
+              <span>Buka Dashboard</span>
             </a>
           </div>
-          <div class="p-6 flex flex-col flex-1 space-y-3">
+          <div class="p-5 sm:p-6 flex flex-col flex-1 space-y-3">
             <div class="flex items-baseline justify-between">
-              <h3 class="text-lg font-bold text-zinc-900 dark:text-zinc-100">Retail Analytics Executive Cockpit</h3>
+              <h3 class="text-base sm:text-lg font-bold text-zinc-900 dark:text-zinc-100">Retail Analytics Executive Cockpit</h3>
             </div>
-            <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed flex-1">
+            <p class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed flex-1">
               Dashboard eksekutif Power BI untuk ritel modern. Menganalisis Net Sales 4T, Gross Margin 27.8%, LFL Growth
               44.0%, Target Achievement 99.2%, EBITDA 7.4%, dan sebaran spasial toko nasional.
             </p>
-            <div class="flex flex-wrap gap-1.5 pt-2">
+            <div class="flex flex-wrap gap-1.5 pt-1 sm:pt-2">
               <span
-                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">Power
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[10px] sm:text-[11px]">Power
                 BI</span>
               <span
-                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">DAX
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[10px] sm:text-[11px]">DAX
                 Measures</span>
               <span
-                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">Star
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[10px] sm:text-[11px]">Star
                 Schema</span>
               <span
-                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">RFM
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[10px] sm:text-[11px]">RFM
                 &amp; Pareto</span>
             </div>
-            <div class="flex items-center gap-3 pt-3 border-t border-zinc-100 dark:border-zinc-800/80">
+            <div class="flex items-center justify-between pt-3 border-t border-zinc-100 dark:border-zinc-800/80 text-xs">
+              <a href="retail-dashboard.html" target="_blank" class="font-mono text-amber-600 dark:text-amber-400 hover:underline flex items-center gap-1.5 font-semibold">
+                <span>Buka Dashboard Interaktif</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+              <a href="demo-viewer.html?project=powerbi" target="_blank" rel="opener" class="hidden sm:inline-flex font-mono text-zinc-500 dark:text-zinc-400 hover:text-amber-400 items-center gap-1 transition-colors text-[11px]">
+                <i class="fa-solid fa-expand text-[10px]"></i>
+                <span>Frame</span>
+              </a>
             </div>
           </div>
         </article>
 
         <!-- Project 2: DJP Tax Machine Learning Clustering -->
         <article class="project-card editorial-card rounded-2xl overflow-hidden flex flex-col" data-category="ml">
-          <div class="h-56 bg-zinc-950 relative overflow-hidden border-b border-zinc-200 dark:border-zinc-800 group">
+          <div class="h-48 sm:h-56 bg-zinc-950 relative overflow-hidden border-b border-zinc-200 dark:border-zinc-800 group">
             <img src="assets/images/kmeans.png" alt="Sistem Klastering Kepatuhan Pajak K-Means"
               class="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105" />
             <div class="absolute top-3 left-3">
@@ -771,36 +780,46 @@
             </div>
             <div
               class="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-zinc-950/85 backdrop-blur-md border border-brand-500/30 shadow-md">
+              <span class="w-1.5 h-1.5 rounded-full bg-brand-400"></span>
+              <span class="font-mono text-[10px] text-brand-400 font-semibold uppercase">ML Clustering</span>
             </div>
             <!-- Hover Overlay with Blur -->
-            <a href="demo-viewer.html?project=tax-app" target="_blank" rel="opener"
+            <a href="tax-app.html" target="_blank" rel="noopener noreferrer"
               class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-2 text-white font-mono text-xs font-semibold backdrop-blur-[2px]">
               <span class="w-10 h-10 rounded-full bg-brand-600/95 flex items-center justify-center shadow-lg"><i
                   class="fa-solid fa-play text-sm ml-0.5"></i></span>
-              <span>Lihat</span>
+              <span>Buka Demo</span>
             </a>
           </div>
-          <div class="p-6 flex flex-col flex-1 space-y-3">
+          <div class="p-5 sm:p-6 flex flex-col flex-1 space-y-3">
             <div class="flex items-baseline justify-between">
-              <h3 class="text-lg font-bold text-zinc-900 dark:text-zinc-100">Sistem Klastering Kepatuhan Pajak DJP</h3>
+              <h3 class="text-base sm:text-lg font-bold text-zinc-900 dark:text-zinc-100">Sistem Klastering Kepatuhan Pajak DJP</h3>
             </div>
-            <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed flex-1">
+            <p class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed flex-1">
               Riset berbasis CRISP-DM untuk mengelompokkan kepatuhan Wajib Pajak berdasarkan keterlambatan setoran
               PPh/PPN. Dilengkapi 6 modul: Input Data, Preprocessing, Evaluasi Kewajiban, dan Clustering K-Means.
             </p>
-            <div class="flex flex-wrap gap-1.5 pt-2">
+            <div class="flex flex-wrap gap-1.5 pt-1 sm:pt-2">
               <span
-                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">Python
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[10px] sm:text-[11px]">Python
                 (Flask)</span>
               <span
-                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">K-Means
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[10px] sm:text-[11px]">K-Means
                 (k=3)</span>
               <span
-                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">CRISP-DM</span>
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[10px] sm:text-[11px]">CRISP-DM</span>
               <span
-                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">SQLite</span>
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[10px] sm:text-[11px]">SQLite</span>
             </div>
-            <div class="flex items-center gap-3 pt-3 border-t border-zinc-100 dark:border-zinc-800/80">
+            <div class="flex items-center justify-between pt-3 border-t border-zinc-100 dark:border-zinc-800/80 text-xs">
+              <a href="tax-app.html" target="_blank" class="font-mono text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1.5 font-semibold">
+                <span>Buka Sistem Pajak DJP</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+              <a href="demo-viewer.html?project=tax-app" target="_blank" rel="opener" class="hidden sm:inline-flex font-mono text-zinc-500 dark:text-zinc-400 hover:text-brand-400 items-center gap-1 transition-colors text-[11px]">
+                <i class="fa-solid fa-expand text-[10px]"></i>
+                <span>Frame</span>
+              </a>
             </div>
           </div>
         </article>
@@ -809,7 +828,7 @@
         <article id="automation-showcase"
           class="project-card editorial-card rounded-2xl overflow-hidden flex flex-col scroll-mt-28"
           data-category="web">
-          <div class="h-56 bg-zinc-950 relative overflow-hidden border-b border-zinc-200 dark:border-zinc-800 group">
+          <div class="h-48 sm:h-56 bg-zinc-950 relative overflow-hidden border-b border-zinc-200 dark:border-zinc-800 group">
             <img src="assets/images/automation.png" alt="Arsitektur Workflow n8n — Asisten Keuangan &amp; Invoicing"
               class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105" />
             <div class="absolute top-3 left-3">
@@ -820,48 +839,60 @@
             </div>
             <div
               class="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-zinc-950/85 backdrop-blur-md border border-orange-500/30 shadow-md">
+              <span class="w-1.5 h-1.5 rounded-full bg-orange-400"></span>
+              <span class="font-mono text-[10px] text-orange-400 font-semibold uppercase">n8n Pipeline</span>
             </div>
             <!-- Hover Overlay with Blur -->
-            <a href="demo-viewer.html?project=automation" target="_blank" rel="opener"
+            <a href="automation-showcase.html" target="_blank" rel="noopener noreferrer"
               class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-2 text-white font-mono text-xs font-semibold backdrop-blur-[2px]">
               <span class="w-10 h-10 rounded-full bg-orange-600/95 flex items-center justify-center shadow-lg"><i
                   class="fa-solid fa-play text-sm ml-0.5"></i></span>
-              <span> Lihat</span>
+              <span>Buka Showcase</span>
             </a>
           </div>
-          <div class="p-6 flex flex-col flex-1 space-y-3">
+          <div class="p-5 sm:p-6 flex flex-col flex-1 space-y-3">
             <div class="flex items-baseline justify-between">
-              <h3 class="text-lg font-bold text-zinc-900 dark:text-zinc-100">Asisten Keuangan Cerdas &amp; Auto-Invoice
+              <h3 class="text-base sm:text-lg font-bold text-zinc-900 dark:text-zinc-100">Asisten Keuangan Cerdas &amp; Auto-Invoice
                 AI</h3>
             </div>
-            <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed flex-1">
+            <p class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed flex-1">
               Sistem otomasi finansial end-to-end: penyerapan multi-channel transaksi via Telegram Bot API, ekstraksi
               cerdas Claude 3.5 Sonnet Vision (struk fisik &amp; teks bebas), database lokal Excel OpenPyXL dengan
               proteksi file-locking, dan pembuatan dokumen invoice PDF instan via Python ReportLab.
             </p>
-            <div class="flex flex-wrap gap-1.5 pt-2">
+            <div class="flex flex-wrap gap-1.5 pt-1 sm:pt-2">
               <span
-                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">Telegram
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[10px] sm:text-[11px]">Telegram
                 API</span>
               <span
-                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">n8n
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[10px] sm:text-[11px]">n8n
                 Workflow</span>
               <span
-                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">Claude
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[10px] sm:text-[11px]">Claude
                 3.5 Sonnet</span>
               <span
-                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">Python
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[10px] sm:text-[11px]">Python
                 ReportLab</span>
               <span
-                class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-mono text-[11px] border border-emerald-500/20 font-semibold">
-                <i class="fa-solid fa-file-excel mr-1"></i>Sheet 'Laporan Keuangan' (Rp 1.326.000)</span>
+                class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-mono text-[10px] sm:text-[11px] border border-emerald-500/20 font-semibold">
+                <i class="fa-solid fa-file-excel mr-1"></i>Excel 'Laporan Keuangan'</span>
+            </div>
+            <div class="flex items-center justify-between pt-3 border-t border-zinc-100 dark:border-zinc-800/80 text-xs">
+              <a href="automation-showcase.html" target="_blank" class="font-mono text-orange-600 dark:text-orange-400 hover:underline flex items-center gap-1.5 font-semibold">
+                <span>Buka Studi Kasus Otomasi</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+              <a href="assets/images/Laporan_Keuangan.xlsx" download class="font-mono text-zinc-500 dark:text-zinc-400 hover:text-emerald-400 flex items-center gap-1 transition-colors text-[11px]">
+                <i class="fa-solid fa-download text-[10px]"></i>
+                <span>Unduh .xlsx</span>
+              </a>
             </div>
           </div>
         </article>
 
         <!-- Project 4: Yuk Main Bola (YMB) - Fullstack Community & Mabar Platform -->
         <article class="project-card editorial-card rounded-2xl overflow-hidden flex flex-col" data-category="web">
-          <div class="h-56 bg-zinc-950 relative overflow-hidden border-b border-zinc-200 dark:border-zinc-800 group">
+          <div class="h-48 sm:h-56 bg-zinc-950 relative overflow-hidden border-b border-zinc-200 dark:border-zinc-800 group">
             <img src="assets/images/ymb.png" alt="Yuk Main Bola Platform Komunitas &amp; Booking Minisoccer"
               class="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105" />
             <div class="absolute top-3 left-3">
@@ -883,31 +914,40 @@
               <span>Buka Live Demo</span>
             </a>
           </div>
-          <div class="p-6 flex flex-col flex-1 space-y-3">
+          <div class="p-5 sm:p-6 flex flex-col flex-1 space-y-3">
             <div class="flex items-baseline justify-between">
-              <h3 class="text-lg font-bold text-zinc-900 dark:text-zinc-100">Yuk Main Bola (YMB) — Platform Komunitas
+              <h3 class="text-base sm:text-lg font-bold text-zinc-900 dark:text-zinc-100">Yuk Main Bola (YMB) — Platform Komunitas
                 &amp; Booking Minisoccer</h3>
             </div>
-            <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed flex-1">
+            <p class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed flex-1">
               Platform web interaktif untuk pengelolaan komunitas minisoccer dan sistem pemesanan slot mabar real-time.
               Dilengkapi fitur jadwal mabar otomatis, slot lock kuota pemain, integrasi Midtrans QRIS/VA, auto-expire
               pesanan, dan sistem loyalitas member.
             </p>
-            <div class="flex flex-wrap gap-1.5 pt-2">
+            <div class="flex flex-wrap gap-1.5 pt-1 sm:pt-2">
               <span
-                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">Next.js
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[10px] sm:text-[11px]">Next.js
                 16</span>
               <span
-                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">React
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[10px] sm:text-[11px]">React
                 19</span>
               <span
-                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">Supabase</span>
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[10px] sm:text-[11px]">Supabase</span>
               <span
-                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">Midtrans
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[10px] sm:text-[11px]">Midtrans
                 QRIS</span>
               <span
-                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">Tailwind
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[10px] sm:text-[11px]">Tailwind
                 v4</span>
+            </div>
+            <div class="flex items-center justify-between pt-3 border-t border-zinc-100 dark:border-zinc-800/80 text-xs">
+              <a href="https://aplikasi-booking-system-adfw.vercel.app" target="_blank" rel="noopener noreferrer" class="font-mono text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1.5 font-semibold">
+                <span>Buka Live Web Booking</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+              <span class="font-mono text-[10px] text-emerald-500/80 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                Live Vercel
+              </span>
             </div>
           </div>
         </article>
