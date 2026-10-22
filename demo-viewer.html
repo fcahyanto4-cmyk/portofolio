@@ -120,6 +120,10 @@
     const urlParams = new URLSearchParams(window.location.search);
     const projectId = urlParams.get('project');
 
+    if (projectId === 'yukmainbola') {
+      window.location.replace("https://aplikasi-booking-system-adfw.vercel.app");
+    }
+
     const projects = {
       'tax-app': {
         title: 'Sistem Kepatuhan Pajak DJP',
@@ -137,6 +141,8 @@
         title: 'Yuk Main Bola (YMB) — Platform Komunitas & Booking Minisoccer',
         tech: 'Next.js 16 • React 19 • Supabase • Midtrans Webhook • Tailwind v4',
         url: 'booking-demo.html',
+        externalUrl: 'https://aplikasi-booking-system-adfw.vercel.app',
+        externalLabel: 'Buka Live App (Vercel)',
         requiresLocalServer: false
       },
       'automation': {
@@ -175,7 +181,14 @@
 
     document.getElementById('project-title').textContent = project.title;
     document.getElementById('project-tech').textContent = project.tech;
-    document.getElementById('external-link').href = project.url;
+    
+    const extLink = document.getElementById('external-link');
+    extLink.href = project.externalUrl || project.url;
+    if (project.externalLabel) {
+      extLink.querySelector('span').textContent = project.externalLabel;
+      extLink.classList.remove('bg-zinc-100', 'text-zinc-900');
+      extLink.classList.add('bg-emerald-500', 'hover:bg-emerald-400', 'text-zinc-950', 'font-bold');
+    }
     
     if (project.requiresLocalServer) {
       document.getElementById('local-server-warning').classList.remove('hidden');

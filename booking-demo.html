@@ -11,6 +11,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   
+  <!-- Auto-redirect to Live Production Vercel App -->
+  <script>
+    window.location.replace("https://aplikasi-booking-system-adfw.vercel.app");
+  </script>
+  
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -76,6 +81,22 @@
   </style>
 </head>
 <body class="min-h-screen pitch-grid flex flex-col antialiased selection:bg-primary/20 selection:text-primary">
+
+  <!-- ===================================================================
+       LIVE PRODUCTION VERCEL BANNER
+  =================================================================== -->
+  <div class="bg-gradient-to-r from-emerald-950 via-[#0b1f16] to-[#0a0f1a] border-b border-emerald-500/30 px-4 py-2 text-xs font-mono flex items-center justify-between text-zinc-300 z-50">
+    <div class="flex items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap">
+      <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/40 text-[10px]">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> LIVE PRODUCTION
+      </span>
+      <span class="text-zinc-400 text-[11px] hidden sm:inline">Aplikasi Next.js 16 live &amp; terhubung Supabase &amp; Midtrans Payment:</span>
+    </div>
+    <a href="https://aplikasi-booking-system-adfw.vercel.app" target="_blank" rel="noopener noreferrer" class="shrink-0 flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold transition-colors shadow-sm text-xs">
+      <span>Buka Aplikasi Live</span>
+      <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+    </a>
+  </div>
 
   <!-- ===================================================================
        NAVBAR (MATCHING YUK MAIN BOLA Navbar.tsx - DYNAMIC AUTH)
