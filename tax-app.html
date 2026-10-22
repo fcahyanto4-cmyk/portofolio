@@ -1,0 +1,2590 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Pajak DJP — Demo Aplikasi Asli (K-Means Clustering)</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --sidebar-bg: #111827;
+            --sidebar-hover: #1f2937;
+            --bg-color: #f3f4f6;
+            --text-dark: #111827;
+            --text-muted: #6b7280;
+            --card-bg: #ffffff;
+            --border-radius: 16px;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg-color);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* TOP PORTOFOLIO BAR */
+        .portfolio-nav-bar {
+            background: rgba(3, 0, 20, 0.95);
+            backdrop-filter: blur(12px);
+            color: #f1f5f9;
+            height: 56px;
+            padding: 0 16px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1050;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .portfolio-nav-bar .back-circle-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .portfolio-nav-bar .back-circle-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: #ffffff;
+        }
+
+        .portfolio-nav-bar .project-title-text {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.2;
+        }
+
+        .portfolio-nav-bar .project-tech-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: #818cf8;
+            letter-spacing: 0.5px;
+            line-height: 1;
+        }
+
+        /* SIDEBAR (EXACT AS FLASK TEMPLATES) */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 56px;
+            width: 260px;
+            height: calc(100vh - 56px);
+            background: var(--sidebar-bg);
+            padding-top: 30px;
+            box-shadow: 4px 0 15px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        /* When inside iframe in demo-viewer */
+        body.in-iframe .portfolio-nav-bar {
+            display: none !important;
+        }
+        body.in-iframe .sidebar {
+            top: 0 !important;
+            height: 100vh !important;
+        }
+
+        .sidebar-brand {
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .sidebar-brand h4 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 22px;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar-brand i {
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 0 16px;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #9ca3af;
+            padding: 14px 20px;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .sidebar a:hover, .sidebar a.active {
+            background: var(--sidebar-hover);
+            color: #ffffff;
+            transform: translateX(5px);
+        }
+
+        .sidebar a.active {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+
+        .sidebar a i {
+            font-size: 18px;
+        }
+
+        .logout-btn {
+            margin-top: auto;
+            margin-bottom: 30px;
+        }
+
+        /* CONTENT */
+        .content {
+            margin-left: 260px;
+            padding: 40px;
+            min-height: calc(100vh - 41px);
+        }
+
+        /* HEADER */
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            background: var(--card-bg);
+            padding: 20px 30px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        }
+
+        .welcome-text {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+            background: linear-gradient(135deg, #111827, #4f46e5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg-color);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+
+        .user-profile img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* KARTU */
+        .card-box {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            border: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .card-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary-color);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .hero-card {
+            background: linear-gradient(135deg, #ffffff, #f8fafc);
+            margin-bottom: 30px;
+        }
+
+        .hero-card::before {
+            opacity: 1;
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* INFO BOX */
+        .info-box {
+            transition: var(--transition);
+            cursor: pointer;
+            padding: 24px;
+        }
+
+        .info-box:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+        }
+
+        .info-box:hover::before {
+            opacity: 1;
+        }
+
+        .icon-wrapper {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .icon-blue { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+        .icon-green { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+        .icon-yellow { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
+        .icon-purple { background: rgba(139, 92, 246, 0.1); color: #8b5cf6; }
+        .icon-pink { background: rgba(236, 72, 153, 0.1); color: #ec4899; }
+
+        .info-box h5 {
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .info-box p {
+            color: var(--text-muted);
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* INFO SISTEM */
+        .system-info {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            margin-top: 30px;
+        }
+
+        .system-info h6 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .system-info i {
+            color: var(--primary-color);
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .tech-badge {
+            background: var(--bg-color);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* FORM STYLING (FROM DATA_INPUT) */
+        .form-title {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .form-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            font-size: 15px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .form-control {
+            border-radius: 12px;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.15rem rgba(79, 70, 229, 0.15);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            border: none;
+            border-radius: 12px;
+            padding: 12px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            opacity: 0.95;
+        }
+
+        /* BADGES (FROM KMEANS & KEWAJIBAN) */
+        .badge-custom {
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .badge-tepat {
+            background: rgba(16,185,129,0.1);
+            color: #10b981;
+        }
+
+        .badge-telat {
+            background: rgba(245,158,11,0.1);
+            color: #f59e0b;
+        }
+
+        .badge-belum {
+            background: rgba(239,68,68,0.1);
+            color: #ef4444;
+        }
+
+        .badge-cluster {
+            background: rgba(79,70,229,0.1);
+            color: #4f46e5;
+        }
+
+        .bg-biru { background: #dbeafe; color: #1e40af; }
+        .bg-hijau { background: #dcfce7; color: #166534; }
+        .bg-kuning { background: #fef9c3; color: #854d0e; }
+        .bg-merah { background: #fee2e2; color: #991b1b; }
+
+        /* VIEW CONTAINER VISIBILITY */
+        .app-view {
+            display: none;
+        }
+
+        .app-view.active {
+            display: block;
+        }
+
+        /* ANIMATION */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade {
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        @media (max-width: 991px) {
+            .sidebar {
+                left: -260px;
+            }
+            .sidebar.show {
+                left: 0;
+            }
+            .content {
+                margin-left: 0;
+                padding: 20px 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- 1. TOP PORTFOLIO BAR -->
+<div class="portfolio-nav-bar">
+    <div class="d-flex align-items-center gap-3">
+        <a href="index.html#projek" onclick="closeOrGoBack(event)" class="back-circle-btn" title="Kembali ke Portofolio Utama">
+            <i class="fa-solid fa-arrow-left" style="font-size: 13px;"></i>
+        </a>
+        <div class="d-flex flex-column">
+            <span class="project-title-text">Sistem Pajak DJP</span>
+            <span class="project-tech-text">PYTHON • FLASK • K-MEANS • SQLITE</span>
+        </div>
+    </div>
+    <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-warning btn-sm py-1 px-3 text-dark fw-bold d-flex align-items-center gap-1.5" style="font-size: 11px; border-radius: 8px;" onclick="resetDemoData()">
+            <i class="bi bi-arrow-repeat"></i>
+            <span>Reset Data</span>
+        </button>
+    </div>
+</div>
+
+<!-- 2. SIDEBAR -->
+<div class="sidebar" id="appSidebar">
+    <div class="sidebar-brand">
+        <i class="bi bi-hexagon-fill"></i>
+        <h4>Sistem Pajak</h4>
+    </div>
+    
+    <div class="nav-links">
+        <a href="#beranda" id="nav-beranda" class="active" onclick="navigateTo('beranda')">
+            <i class="bi bi-grid-1x2-fill"></i> Beranda
+        </a>
+        <a href="#data_input" id="nav-data_input" onclick="navigateTo('data_input')">
+            <i class="bi bi-file-earmark-arrow-up"></i> Masukkan Data
+        </a>
+        <a href="#preprocessing" id="nav-preprocessing" onclick="navigateTo('preprocessing')">
+            <i class="bi bi-funnel"></i> Pembersihan Data
+        </a>
+        <a href="#kewajiban" id="nav-kewajiban" onclick="navigateTo('kewajiban')">
+            <i class="bi bi-clipboard-check"></i> Kewajiban Pajak
+        </a>
+        <a href="#agregasi" id="nav-agregasi" onclick="navigateTo('agregasi')">
+            <i class="bi bi-layers"></i> Ringkasan Data
+        </a>
+        <a href="#kmeans" id="nav-kmeans" onclick="navigateTo('kmeans')">
+            <i class="bi bi-diagram-3"></i> Pengelompokan Pajak
+        </a>
+    </div>
+    
+    <div class="nav-links logout-btn">
+        <a href="index.html#portfolio-projek"><i class="bi bi-box-arrow-right"></i> Keluar</a>
+    </div>
+</div>
+
+<!-- 3. CONTENT AREA -->
+<div class="content">
+
+    <!-- GLOBAL TOP HEADER -->
+    <div class="top-header animate-fade">
+        <div class="d-flex align-items-center gap-3">
+            <button class="btn btn-sm btn-outline-secondary d-lg-none" onclick="toggleSidebar()">
+                <i class="bi bi-list fs-5"></i>
+            </button>
+            <h2 class="welcome-text" id="pageTitleText">Selamat Datang di Sistem Analisis Pajak</h2>
+        </div>
+        <div class="user-profile">
+            <img src="https://ui-avatars.com/api/?name=admin&background=4f46e5&color=fff" alt="Foto Pengguna">
+            <span>admin</span>
+        </div>
+    </div>
+
+    <!-- FLASH MESSAGE CONTAINER -->
+    <div id="flashMsgContainer"></div>
+
+    <!-- ==============================================================
+         VIEW 1: BERANDA (INDEX.HTML ASLI)
+    ============================================================== -->
+    <div id="view-beranda" class="app-view active animate-fade">
+        <div class="card-box hero-card">
+            <div class="title">Sistem Analisis Kepatuhan Pajak</div>
+            <div class="subtitle">
+                Sistem ini digunakan untuk membantu menganalisis pola pembayaran pajak perusahaan mulai dari pengolahan data, pemeriksaan kewajiban pajak, hingga pengelompokan wajib pajak berdasarkan tingkat kepatuhan pembayaran.
+            </div>
+        </div>
+
+        <!-- FITUR -->
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card-box info-box" onclick="navigateTo('data_input')">
+                    <div class="icon-wrapper icon-blue">
+                        <i class="bi bi-cloud-upload"></i>
+                    </div>
+                    <h5>Masukkan Data</h5>
+                    <p>Masukkan data pembayaran pajak melalui file Excel atau input manual dengan mudah.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card-box info-box" onclick="navigateTo('preprocessing')">
+                    <div class="icon-wrapper icon-green">
+                        <i class="bi bi-magic"></i>
+                    </div>
+                    <h5>Pembersihan Data</h5>
+                    <p>Membersihkan data ganda dan memastikan data siap digunakan untuk proses analisis.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card-box info-box" onclick="navigateTo('kewajiban')">
+                    <div class="icon-wrapper icon-yellow">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <h5>Pemeriksaan Kepatuhan</h5>
+                    <p>Menentukan status pembayaran pajak seperti tepat waktu, terlambat, atau belum bayar.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card-box info-box" onclick="navigateTo('agregasi')">
+                    <div class="icon-wrapper icon-purple">
+                        <i class="bi bi-bar-chart-steps"></i>
+                    </div>
+                    <h5>Ringkasan Data</h5>
+                    <p>Menyusun data menjadi informasi yang lebih sederhana dan mudah dianalisis.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card-box info-box" onclick="navigateTo('kmeans')">
+                    <div class="icon-wrapper icon-pink">
+                        <i class="bi bi-cpu"></i>
+                    </div>
+                    <h5>Pengelompokan Wajib Pajak</h5>
+                    <p>Mengelompokkan wajib pajak berdasarkan pola kepatuhan pembayaran menggunakan metode K-Means.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- INFO SISTEM -->
+        <div class="system-info">
+            <h6><i class="bi bi-info-circle-fill"></i> Informasi Sistem</h6>
+            <div class="tech-stack">
+                <div class="tech-badge"><i class="bi bi-robot"></i> Analisis Data K-Means</div>
+                <div class="tech-badge"><i class="bi bi-code-slash"></i> Python dan Flask</div>
+                <div class="tech-badge"><i class="bi bi-database"></i> Basis Data MySQL</div>
+                <div class="tech-badge"><i class="bi bi-graph-up-arrow"></i> Metode Elbow dan Silhouette</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==============================================================
+         VIEW 2: MASUKKAN DATA (DATA_INPUT.HTML ASLI)
+    ============================================================== -->
+    <div id="view-data_input" class="app-view animate-fade">
+        <div class="card-box">
+            <div class="form-title">Input Data Pajak</div>
+            <div class="form-subtitle">
+                Upload file Excel atau isi data pembayaran pajak secara manual.
+            </div>
+
+            <hr>
+
+            <form id="formInputPajak" onsubmit="handleFormSubmit(event)">
+                <div class="section-title">
+                    <i class="bi bi-file-earmark-excel"></i>
+                    Upload File Excel
+                </div>
+
+                <div class="d-flex gap-2 mb-4">
+                    <input type="file" id="excelFile" class="form-control" accept=".xlsx,.xls">
+                    <button type="button" class="btn btn-outline-primary px-3 text-nowrap" onclick="simulasiUploadExcel()">
+                        <i class="bi bi-upload"></i> Proses Excel
+                    </button>
+                </div>
+
+                <div class="section-title">
+                    <i class="bi bi-pencil-square"></i>
+                    Input Data Manual
+                </div>
+
+                <input type="text" id="inputNama" class="form-control mb-3" placeholder="Nama Wajib Pajak" required>
+
+                <input type="text" id="inputNpwp" class="form-control mb-3" placeholder="Nomor NPWP" required>
+
+                <input type="text" id="inputMasa" class="form-control mb-3" placeholder="Tahun Pajak (contoh: 2024)" required>
+
+                <input type="text" id="inputBulan" class="form-control mb-3" placeholder="Bulan Pajak (contoh: Oktober)" required>
+
+                <input type="text" id="inputJenis" class="form-control mb-3" placeholder="Jenis Pajak (contoh: PPN)" required>
+
+                <input type="date" id="inputTanggal" class="form-control mb-3" value="2024-11-12" required>
+
+                <input type="number" id="inputJumlah" class="form-control mb-4" placeholder="Jumlah Pembayaran (contoh: 150000000)" required>
+
+                <button type="submit" class="btn btn-primary w-100 mb-3">
+                    <i class="bi bi-save"></i>
+                    Simpan Data
+                </button>
+            </form>
+
+            <hr>
+
+            <div class="section-title text-danger">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                Zona Berbahaya
+            </div>
+            
+            <button type="button" class="btn btn-danger w-100" onclick="handleDeleteAll()">
+                <i class="bi bi-trash3-fill"></i>
+                Hapus Seluruh Data
+            </button>
+        </div>
+    </div>
+
+    <!-- ==============================================================
+         VIEW 3: PEMBERSIHAN DATA (PREPROCESSING.HTML ASLI)
+    ============================================================== -->
+    <div id="view-preprocessing" class="app-view animate-fade">
+        <div class="card-box">
+            <div class="title" style="font-size: 24px;">Pembersihan dan Validasi Data</div>
+            <div class="subtitle">
+                Menampilkan hasil data setelah proses pembersihan dan penghapusan data duplikat.
+            </div>
+
+            <hr>
+
+            <!-- Search box like DataTables -->
+            <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                <div class="text-muted small">
+                    Tampilkan <select id="prepLength" class="form-select form-select-sm d-inline-block w-auto" onchange="renderPrepTable()"><option value="10">10</option><option value="25" selected>25</option><option value="50">50</option></select> data
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <label class="small text-muted mb-0">Cari Data:</label>
+                    <input type="text" id="prepSearch" class="form-control form-control-sm" placeholder="Cari nama atau NPWP..." style="width: 200px;" oninput="filterPrepTable()">
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table id="dataTable" class="table table-bordered table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>Nama Wajib Pajak</th>
+                            <th>NPWP</th>
+                            <th>Jenis Pajak</th>
+                            <th>Bulan Pajak</th>
+                            <th>Tahun Pajak</th>
+                            <th>Tanggal Bayar</th>
+                            <th>Jumlah Pembayaran</th>
+                            <th class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="prepTableBody">
+
+                <tr id="row-prep-1">
+                    <td>PT Maju Jaya</td>
+                    <td>76.532.629.8-037.000</td>
+                    <td>PPN</td>
+                    <td>Januari</td>
+                    <td>2022</td>
+                    <td>12/02/2022</td>
+                    <td>Rp 218.543.000</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="deletePrepRow(1)" title="Hapus">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr id="row-prep-2">
+                    <td>PT Maju Jaya</td>
+                    <td>76.532.629.8-037.000</td>
+                    <td>PPh 21</td>
+                    <td>Januari</td>
+                    <td>2022</td>
+                    <td>05/02/2022</td>
+                    <td>Rp 190.635.000</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="deletePrepRow(2)" title="Hapus">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr id="row-prep-3">
+                    <td>PT Maju Jaya</td>
+                    <td>76.532.629.8-037.000</td>
+                    <td>PPh 23</td>
+                    <td>Januari</td>
+                    <td>2022</td>
+                    <td>11/02/2022</td>
+                    <td>Rp 74.539.000</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="deletePrepRow(3)" title="Hapus">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr id="row-prep-4">
+                    <td>PT Maju Jaya</td>
+                    <td>76.532.629.8-037.000</td>
+                    <td>PPh Badan</td>
+                    <td>Januari</td>
+                    <td>2022</td>
+                    <td>05/02/2022</td>
+                    <td>Rp 519.060.000</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="deletePrepRow(4)" title="Hapus">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr id="row-prep-5">
+                    <td>PT Maju Jaya</td>
+                    <td>76.532.629.8-037.000</td>
+                    <td>PPN</td>
+                    <td>Februari</td>
+                    <td>2022</td>
+                    <td>10/03/2022</td>
+                    <td>Rp 120.208.000</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="deletePrepRow(5)" title="Hapus">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr id="row-prep-6">
+                    <td>PT Maju Jaya</td>
+                    <td>76.532.629.8-037.000</td>
+                    <td>PPh 21</td>
+                    <td>Februari</td>
+                    <td>2022</td>
+                    <td>10/03/2022</td>
+                    <td>Rp 39.638.000</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="deletePrepRow(6)" title="Hapus">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr id="row-prep-7">
+                    <td>PT Maju Jaya</td>
+                    <td>76.532.629.8-037.000</td>
+                    <td>PPh 23</td>
+                    <td>Februari</td>
+                    <td>2022</td>
+                    <td>09/03/2022</td>
+                    <td>Rp 10.517.000</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="deletePrepRow(7)" title="Hapus">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr id="row-prep-8">
+                    <td>PT Maju Jaya</td>
+                    <td>76.532.629.8-037.000</td>
+                    <td>PPh Badan</td>
+                    <td>Februari</td>
+                    <td>2022</td>
+                    <td>12/03/2022</td>
+                    <td>Rp 706.323.000</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="deletePrepRow(8)" title="Hapus">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr id="row-prep-9">
+                    <td>PT Maju Jaya</td>
+                    <td>76.532.629.8-037.000</td>
+                    <td>PPN</td>
+                    <td>Maret</td>
+                    <td>2022</td>
+                    <td>11/04/2022</td>
+                    <td>Rp 320.501.000</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="deletePrepRow(9)" title="Hapus">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr id="row-prep-10">
+                    <td>PT Maju Jaya</td>
+                    <td>76.532.629.8-037.000</td>
+                    <td>PPh 21</td>
+                    <td>Maret</td>
+                    <td>2022</td>
+                    <td>05/04/2022</td>
+                    <td>Rp 144.533.000</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="deletePrepRow(10)" title="Hapus">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr id="row-prep-11">
+                    <td>PT Maju Jaya</td>
+                    <td>76.532.629.8-037.000</td>
+                    <td>PPh 23</td>
+                    <td>Maret</td>
+                    <td>2022</td>
+                    <td>07/04/2022</td>
+                    <td>Rp 6.955.000</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="deletePrepRow(11)" title="Hapus">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr id="row-prep-12">
+                    <td>PT Maju Jaya</td>
+                    <td>76.532.629.8-037.000</td>
+                    <td>PPh Badan</td>
+                    <td>Maret</td>
+                    <td>2022</td>
+                    <td>10/04/2022</td>
+                    <td>Rp 778.936.000</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="deletePrepRow(12)" title="Hapus">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr id="row-prep-13">
+                    <td>PT Maju Jaya</td>
+                    <td>76.532.629.8-037.000</td>
+                    <td>PPN</td>
+                    <td>April</td>
+                    <td>2022</td>
+                    <td>13/05/2022</td>
+                    <td>Rp 424.599.000</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="deletePrepRow(13)" title="Hapus">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr id="row-prep-14">
+                    <td>PT Maju Jaya</td>
+                    <td>76.532.629.8-037.000</td>
+                    <td>PPh 21</td>
+                    <td>April</td>
+                    <td>2022</td>
+                    <td>10/05/2022</td>
+                    <td>Rp 50.344.000</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="deletePrepRow(14)" title="Hapus">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr id="row-prep-15">
+                    <td>PT Maju Jaya</td>
+                    <td>76.532.629.8-037.000</td>
+                    <td>PPh 23</td>
+                    <td>April</td>
+                    <td>2022</td>
+                    <td>15/05/2022</td>
+                    <td>Rp 22.273.000</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="deletePrepRow(15)" title="Hapus">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr id="row-prep-16">
+                    <td>PT Maju Jaya</td>
+                    <td>76.532.629.8-037.000</td>
+                    <td>PPh Badan</td>
+                    <td>April</td>
+                    <td>2022</td>
+                    <td>10/05/2022</td>
+                    <td>Rp 228.383.000</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="deletePrepRow(16)" title="Hapus">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr id="row-prep-17">
+                    <td>PT Maju Jaya</td>
+                    <td>76.532.629.8-037.000</td>
+                    <td>PPN</td>
+                    <td>Mei</td>
+                    <td>2022</td>
+                    <td>10/06/2022</td>
+                    <td>Rp 186.909.000</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="deletePrepRow(17)" title="Hapus">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr id="row-prep-18">
+                    <td>PT Maju Jaya</td>
+                    <td>76.532.629.8-037.000</td>
+                    <td>PPh 21</td>
+                    <td>Mei</td>
+                    <td>2022</td>
+                    <td>14/06/2022</td>
+                    <td>Rp 109.703.000</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="deletePrepRow(18)" title="Hapus">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr id="row-prep-19">
+                    <td>PT Maju Jaya</td>
+                    <td>76.532.629.8-037.000</td>
+                    <td>PPh 23</td>
+                    <td>Mei</td>
+                    <td>2022</td>
+                    <td>07/06/2022</td>
+                    <td>Rp 46.034.000</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="deletePrepRow(19)" title="Hapus">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr id="row-prep-20">
+                    <td>PT Maju Jaya</td>
+                    <td>76.532.629.8-037.000</td>
+                    <td>PPh Badan</td>
+                    <td>Mei</td>
+                    <td>2022</td>
+                    <td>10/06/2022</td>
+                    <td>Rp 303.860.000</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="deletePrepRow(20)" title="Hapus">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr id="row-prep-21">
+                    <td>PT Maju Jaya</td>
+                    <td>76.532.629.8-037.000</td>
+                    <td>PPN</td>
+                    <td>Juni</td>
+                    <td>2022</td>
+                    <td>16/07/2022</td>
+                    <td>Rp 325.333.000</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="deletePrepRow(21)" title="Hapus">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr id="row-prep-22">
+                    <td>PT Maju Jaya</td>
+                    <td>76.532.629.8-037.000</td>
+                    <td>PPh 21</td>
+                    <td>Juni</td>
+                    <td>2022</td>
+                    <td>10/07/2022</td>
+                    <td>Rp 36.503.000</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="deletePrepRow(22)" title="Hapus">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr id="row-prep-23">
+                    <td>PT Maju Jaya</td>
+                    <td>76.532.629.8-037.000</td>
+                    <td>PPh 23</td>
+                    <td>Juni</td>
+                    <td>2022</td>
+                    <td>07/07/2022</td>
+                    <td>Rp 32.753.000</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="deletePrepRow(23)" title="Hapus">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr id="row-prep-24">
+                    <td>PT Maju Jaya</td>
+                    <td>76.532.629.8-037.000</td>
+                    <td>PPN</td>
+                    <td>Juli</td>
+                    <td>2022</td>
+                    <td>15/08/2022</td>
+                    <td>Rp 214.862.000</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="deletePrepRow(24)" title="Hapus">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr id="row-prep-25">
+                    <td>PT Maju Jaya</td>
+                    <td>76.532.629.8-037.000</td>
+                    <td>PPh 21</td>
+                    <td>Juli</td>
+                    <td>2022</td>
+                    <td>05/08/2022</td>
+                    <td>Rp 96.653.000</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="deletePrepRow(25)" title="Hapus">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-3 text-muted small">
+                <span id="prepTableInfo">Menampilkan 1 sampai 25 dari 25 data</span>
+                <span class="badge bg-light text-dark border">Data Bersih Siap K-Means</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==============================================================
+         VIEW 4: KEWAJIBAN PAJAK (KEWAJIBAN.HTML ASLI)
+    ============================================================== -->
+    <div id="view-kewajiban" class="app-view animate-fade">
+        <div class="card-box">
+            <div class="title">
+                📌 Ringkasan Kewajiban Pajak
+            </div>
+
+            <div class="subtitle">
+                Informasi tingkat kepatuhan pembayaran pajak setiap wajib pajak.
+            </div>
+
+            <form method="GET" class="mb-4" onsubmit="event.preventDefault(); filterKewajiban();">
+                <input type="text" id="kewajibanSearch" class="form-control search-box" placeholder="Cari berdasarkan NPWP atau nama..." oninput="filterKewajiban()">
+            </form>
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>NPWP</th>
+                            <th>Tepat Waktu</th>
+                            <th>Terlambat</th>
+                            <th>Belum Bayar</th>
+                            <th>Status Kepatuhan</th>
+                        </tr>
+                    </thead>
+                    <tbody id="kewajibanRingkasanBody">
+
+                    <tr class="kewajiban-ringkasan-row" data-search="76.532.629.8-037.000 pt maju jaya">
+                        <td>
+                            <strong>76.532.629.8-037.000</strong><br>
+                            <small class="text-muted">PT Maju Jaya</small>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-tepat">142</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-telat">32</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-belum">18</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-tepat">✅ Patuh</span>
+                        </td>
+                    </tr>
+
+                    <tr class="kewajiban-ringkasan-row" data-search="77.633.567.9-485.000 pt sukses bersama">
+                        <td>
+                            <strong>77.633.567.9-485.000</strong><br>
+                            <small class="text-muted">PT Sukses Bersama</small>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-tepat">130</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-telat">36</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-belum">26</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-tepat">✅ Patuh</span>
+                        </td>
+                    </tr>
+
+                    <tr class="kewajiban-ringkasan-row" data-search="13.001.784.0-838.000 pt global solusi">
+                        <td>
+                            <strong>13.001.784.0-838.000</strong><br>
+                            <small class="text-muted">PT Global Solusi</small>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-tepat">150</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-telat">20</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-belum">22</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-tepat">✅ Patuh</span>
+                        </td>
+                    </tr>
+
+                    <tr class="kewajiban-ringkasan-row" data-search="52.613.188.7-874.000 cv makmur sejahtera">
+                        <td>
+                            <strong>52.613.188.7-874.000</strong><br>
+                            <small class="text-muted">CV Makmur Sejahtera</small>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-tepat">141</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-telat">31</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-belum">20</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-tepat">✅ Patuh</span>
+                        </td>
+                    </tr>
+
+                    <tr class="kewajiban-ringkasan-row" data-search="56.249.175.0-574.000 pt teknologi luhur">
+                        <td>
+                            <strong>56.249.175.0-574.000</strong><br>
+                            <small class="text-muted">PT Teknologi Luhur</small>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-tepat">50</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-telat">76</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-belum">66</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-telat">⚠️ Kurang Patuh</span>
+                        </td>
+                    </tr>
+
+                    <tr class="kewajiban-ringkasan-row" data-search="54.855.099.5-308.000 pt indo pratama">
+                        <td>
+                            <strong>54.855.099.5-308.000</strong><br>
+                            <small class="text-muted">PT Indo Pratama</small>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-tepat">51</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-telat">75</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-belum">66</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-telat">⚠️ Kurang Patuh</span>
+                        </td>
+                    </tr>
+
+                    <tr class="kewajiban-ringkasan-row" data-search="38.403.915.1-179.000 pt nusantara baru">
+                        <td>
+                            <strong>38.403.915.1-179.000</strong><br>
+                            <small class="text-muted">PT Nusantara Baru</small>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-tepat">64</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-telat">67</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-belum">61</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-telat">⚠️ Kurang Patuh</span>
+                        </td>
+                    </tr>
+
+                    <tr class="kewajiban-ringkasan-row" data-search="36.929.784.0-208.000 pt sumber rejeki">
+                        <td>
+                            <strong>36.929.784.0-208.000</strong><br>
+                            <small class="text-muted">PT Sumber Rejeki</small>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-tepat">60</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-telat">54</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-belum">78</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-belum">❌ Tidak Patuh</span>
+                        </td>
+                    </tr>
+
+                    <tr class="kewajiban-ringkasan-row" data-search="05.052.740.4-944.000 pt kreasi mandiri">
+                        <td>
+                            <strong>05.052.740.4-944.000</strong><br>
+                            <small class="text-muted">PT Kreasi Mandiri</small>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-tepat">10</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-telat">45</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-belum">125</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-belum">❌ Tidak Patuh</span>
+                        </td>
+                    </tr>
+
+                    <tr class="kewajiban-ringkasan-row" data-search="08.580.206.7-870.000 cv cahaya timur">
+                        <td>
+                            <strong>08.580.206.7-870.000</strong><br>
+                            <small class="text-muted">CV Cahaya Timur</small>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-tepat">18</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-telat">45</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-belum">129</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-belum">❌ Tidak Patuh</span>
+                        </td>
+                    </tr>
+
+                    <tr class="kewajiban-ringkasan-row" data-search="53.849.351.4-546.000 pt digital vision">
+                        <td>
+                            <strong>53.849.351.4-546.000</strong><br>
+                            <small class="text-muted">PT Digital Vision</small>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-tepat">9</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-telat">38</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-belum">133</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-belum">❌ Tidak Patuh</span>
+                        </td>
+                    </tr>
+
+                    <tr class="kewajiban-ringkasan-row" data-search="69.708.541.1-463.000 pt berkah abadi">
+                        <td>
+                            <strong>69.708.541.1-463.000</strong><br>
+                            <small class="text-muted">PT Berkah Abadi</small>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-tepat">10</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-telat">53</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-belum">129</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom badge-belum">❌ Tidak Patuh</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card-box mt-4">
+            <div class="title">
+                📋 Detail Kewajiban Pajak
+            </div>
+
+            <div class="subtitle">
+                Rincian status pembayaran pajak per bulan.
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>NPWP</th>
+                            <th>Jenis Pajak</th>
+                            <th>Masa Pajak</th>
+                            <th>Jatuh Tempo</th>
+                            <th>Tgl Bayar</th>
+                            <th>Status</th>
+                            <th>Selisih Hari</th>
+                        </tr>
+                    </thead>
+                    <tbody id="kewajibanDetailBody">
+
+                    <tr class="kewajiban-detail-row" data-search="76.532.629.8-037.000 pt maju jaya">
+                        <td>
+                            <strong>76.532.629.8-037.000</strong><br>
+                            <small class="text-muted">PT Maju Jaya</small>
+                        </td>
+                        <td>PPN</td>
+                        <td>Januari 2022</td>
+                        <td>15/02/2022</td>
+                        <td>12/02/2022</td>
+                        <td><span class="badge-custom badge-tepat">✅ Tepat Waktu</span></td>
+                        <td>-3 Hari</td>
+                    </tr>
+
+                    <tr class="kewajiban-detail-row" data-search="76.532.629.8-037.000 pt maju jaya">
+                        <td>
+                            <strong>76.532.629.8-037.000</strong><br>
+                            <small class="text-muted">PT Maju Jaya</small>
+                        </td>
+                        <td>PPN</td>
+                        <td>Februari 2022</td>
+                        <td>15/03/2022</td>
+                        <td>10/03/2022</td>
+                        <td><span class="badge-custom badge-tepat">✅ Tepat Waktu</span></td>
+                        <td>-5 Hari</td>
+                    </tr>
+
+                    <tr class="kewajiban-detail-row" data-search="77.633.567.9-485.000 pt sukses bersama">
+                        <td>
+                            <strong>77.633.567.9-485.000</strong><br>
+                            <small class="text-muted">PT Sukses Bersama</small>
+                        </td>
+                        <td>PPN</td>
+                        <td>Januari 2022</td>
+                        <td>15/02/2022</td>
+                        <td>20/02/2022</td>
+                        <td><span class="badge-custom badge-telat">⚠️ Terlambat</span></td>
+                        <td>5 Hari</td>
+                    </tr>
+
+                    <tr class="kewajiban-detail-row" data-search="77.633.567.9-485.000 pt sukses bersama">
+                        <td>
+                            <strong>77.633.567.9-485.000</strong><br>
+                            <small class="text-muted">PT Sukses Bersama</small>
+                        </td>
+                        <td>PPN</td>
+                        <td>Februari 2022</td>
+                        <td>15/03/2022</td>
+                        <td>12/03/2022</td>
+                        <td><span class="badge-custom badge-tepat">✅ Tepat Waktu</span></td>
+                        <td>-3 Hari</td>
+                    </tr>
+
+                    <tr class="kewajiban-detail-row" data-search="13.001.784.0-838.000 pt global solusi">
+                        <td>
+                            <strong>13.001.784.0-838.000</strong><br>
+                            <small class="text-muted">PT Global Solusi</small>
+                        </td>
+                        <td>PPN</td>
+                        <td>Januari 2022</td>
+                        <td>15/02/2022</td>
+                        <td>13/02/2022</td>
+                        <td><span class="badge-custom badge-tepat">✅ Tepat Waktu</span></td>
+                        <td>-2 Hari</td>
+                    </tr>
+
+                    <tr class="kewajiban-detail-row" data-search="13.001.784.0-838.000 pt global solusi">
+                        <td>
+                            <strong>13.001.784.0-838.000</strong><br>
+                            <small class="text-muted">PT Global Solusi</small>
+                        </td>
+                        <td>PPN</td>
+                        <td>Februari 2022</td>
+                        <td>15/03/2022</td>
+                        <td>13/03/2022</td>
+                        <td><span class="badge-custom badge-tepat">✅ Tepat Waktu</span></td>
+                        <td>-2 Hari</td>
+                    </tr>
+
+                    <tr class="kewajiban-detail-row" data-search="52.613.188.7-874.000 cv makmur sejahtera">
+                        <td>
+                            <strong>52.613.188.7-874.000</strong><br>
+                            <small class="text-muted">CV Makmur Sejahtera</small>
+                        </td>
+                        <td>PPN</td>
+                        <td>Januari 2022</td>
+                        <td>15/02/2022</td>
+                        <td>14/02/2022</td>
+                        <td><span class="badge-custom badge-tepat">✅ Tepat Waktu</span></td>
+                        <td>-1 Hari</td>
+                    </tr>
+
+                    <tr class="kewajiban-detail-row" data-search="52.613.188.7-874.000 cv makmur sejahtera">
+                        <td>
+                            <strong>52.613.188.7-874.000</strong><br>
+                            <small class="text-muted">CV Makmur Sejahtera</small>
+                        </td>
+                        <td>PPN</td>
+                        <td>Februari 2022</td>
+                        <td>15/03/2022</td>
+                        <td>14/03/2022</td>
+                        <td><span class="badge-custom badge-tepat">✅ Tepat Waktu</span></td>
+                        <td>-1 Hari</td>
+                    </tr>
+
+                    <tr class="kewajiban-detail-row" data-search="56.249.175.0-574.000 pt teknologi luhur">
+                        <td>
+                            <strong>56.249.175.0-574.000</strong><br>
+                            <small class="text-muted">PT Teknologi Luhur</small>
+                        </td>
+                        <td>PPh 21</td>
+                        <td>Januari 2022</td>
+                        <td>10/02/2022</td>
+                        <td>09/02/2022</td>
+                        <td><span class="badge-custom badge-tepat">✅ Tepat Waktu</span></td>
+                        <td>-1 Hari</td>
+                    </tr>
+
+                    <tr class="kewajiban-detail-row" data-search="56.249.175.0-574.000 pt teknologi luhur">
+                        <td>
+                            <strong>56.249.175.0-574.000</strong><br>
+                            <small class="text-muted">PT Teknologi Luhur</small>
+                        </td>
+                        <td>PPh 21</td>
+                        <td>Februari 2022</td>
+                        <td>10/03/2022</td>
+                        <td>-</td>
+                        <td><span class="badge-custom badge-belum">❌ Belum Bayar</span></td>
+                        <td>-</td>
+                    </tr>
+
+                    <tr class="kewajiban-detail-row" data-search="54.855.099.5-308.000 pt indo pratama">
+                        <td>
+                            <strong>54.855.099.5-308.000</strong><br>
+                            <small class="text-muted">PT Indo Pratama</small>
+                        </td>
+                        <td>PPN</td>
+                        <td>Januari 2022</td>
+                        <td>15/02/2022</td>
+                        <td>03/03/2022</td>
+                        <td><span class="badge-custom badge-telat">⚠️ Terlambat</span></td>
+                        <td>16 Hari</td>
+                    </tr>
+
+                    <tr class="kewajiban-detail-row" data-search="54.855.099.5-308.000 pt indo pratama">
+                        <td>
+                            <strong>54.855.099.5-308.000</strong><br>
+                            <small class="text-muted">PT Indo Pratama</small>
+                        </td>
+                        <td>PPN</td>
+                        <td>Februari 2022</td>
+                        <td>15/03/2022</td>
+                        <td>-</td>
+                        <td><span class="badge-custom badge-belum">❌ Belum Bayar</span></td>
+                        <td>-</td>
+                    </tr>
+
+                    <tr class="kewajiban-detail-row" data-search="38.403.915.1-179.000 pt nusantara baru">
+                        <td>
+                            <strong>38.403.915.1-179.000</strong><br>
+                            <small class="text-muted">PT Nusantara Baru</small>
+                        </td>
+                        <td>PPN</td>
+                        <td>Januari 2022</td>
+                        <td>15/02/2022</td>
+                        <td>23/02/2022</td>
+                        <td><span class="badge-custom badge-telat">⚠️ Terlambat</span></td>
+                        <td>8 Hari</td>
+                    </tr>
+
+                    <tr class="kewajiban-detail-row" data-search="38.403.915.1-179.000 pt nusantara baru">
+                        <td>
+                            <strong>38.403.915.1-179.000</strong><br>
+                            <small class="text-muted">PT Nusantara Baru</small>
+                        </td>
+                        <td>PPN</td>
+                        <td>Februari 2022</td>
+                        <td>15/03/2022</td>
+                        <td>15/03/2022</td>
+                        <td><span class="badge-custom badge-tepat">✅ Tepat Waktu</span></td>
+                        <td>0 Hari</td>
+                    </tr>
+
+                    <tr class="kewajiban-detail-row" data-search="36.929.784.0-208.000 pt sumber rejeki">
+                        <td>
+                            <strong>36.929.784.0-208.000</strong><br>
+                            <small class="text-muted">PT Sumber Rejeki</small>
+                        </td>
+                        <td>PPh 21</td>
+                        <td>Januari 2022</td>
+                        <td>10/02/2022</td>
+                        <td>20/02/2022</td>
+                        <td><span class="badge-custom badge-telat">⚠️ Terlambat</span></td>
+                        <td>10 Hari</td>
+                    </tr>
+
+                    <tr class="kewajiban-detail-row" data-search="36.929.784.0-208.000 pt sumber rejeki">
+                        <td>
+                            <strong>36.929.784.0-208.000</strong><br>
+                            <small class="text-muted">PT Sumber Rejeki</small>
+                        </td>
+                        <td>PPh 21</td>
+                        <td>Februari 2022</td>
+                        <td>10/03/2022</td>
+                        <td>10/03/2022</td>
+                        <td><span class="badge-custom badge-tepat">✅ Tepat Waktu</span></td>
+                        <td>0 Hari</td>
+                    </tr>
+
+                    <tr class="kewajiban-detail-row" data-search="05.052.740.4-944.000 pt kreasi mandiri">
+                        <td>
+                            <strong>05.052.740.4-944.000</strong><br>
+                            <small class="text-muted">PT Kreasi Mandiri</small>
+                        </td>
+                        <td>PPh 23</td>
+                        <td>Januari 2022</td>
+                        <td>10/02/2022</td>
+                        <td>12/03/2022</td>
+                        <td><span class="badge-custom badge-telat">⚠️ Terlambat</span></td>
+                        <td>30 Hari</td>
+                    </tr>
+
+                    <tr class="kewajiban-detail-row" data-search="05.052.740.4-944.000 pt kreasi mandiri">
+                        <td>
+                            <strong>05.052.740.4-944.000</strong><br>
+                            <small class="text-muted">PT Kreasi Mandiri</small>
+                        </td>
+                        <td>PPh 23</td>
+                        <td>Februari 2022</td>
+                        <td>10/03/2022</td>
+                        <td>-</td>
+                        <td><span class="badge-custom badge-belum">❌ Belum Bayar</span></td>
+                        <td>-</td>
+                    </tr>
+
+                    <tr class="kewajiban-detail-row" data-search="08.580.206.7-870.000 cv cahaya timur">
+                        <td>
+                            <strong>08.580.206.7-870.000</strong><br>
+                            <small class="text-muted">CV Cahaya Timur</small>
+                        </td>
+                        <td>PPh 23</td>
+                        <td>Januari 2022</td>
+                        <td>10/02/2022</td>
+                        <td>10/02/2022</td>
+                        <td><span class="badge-custom badge-tepat">✅ Tepat Waktu</span></td>
+                        <td>0 Hari</td>
+                    </tr>
+
+                    <tr class="kewajiban-detail-row" data-search="08.580.206.7-870.000 cv cahaya timur">
+                        <td>
+                            <strong>08.580.206.7-870.000</strong><br>
+                            <small class="text-muted">CV Cahaya Timur</small>
+                        </td>
+                        <td>PPh 23</td>
+                        <td>Februari 2022</td>
+                        <td>10/03/2022</td>
+                        <td>09/03/2022</td>
+                        <td><span class="badge-custom badge-tepat">✅ Tepat Waktu</span></td>
+                        <td>-1 Hari</td>
+                    </tr>
+
+                    <tr class="kewajiban-detail-row" data-search="53.849.351.4-546.000 pt digital vision">
+                        <td>
+                            <strong>53.849.351.4-546.000</strong><br>
+                            <small class="text-muted">PT Digital Vision</small>
+                        </td>
+                        <td>PPh 21</td>
+                        <td>Januari 2022</td>
+                        <td>10/02/2022</td>
+                        <td>05/02/2022</td>
+                        <td><span class="badge-custom badge-tepat">✅ Tepat Waktu</span></td>
+                        <td>-5 Hari</td>
+                    </tr>
+
+                    <tr class="kewajiban-detail-row" data-search="53.849.351.4-546.000 pt digital vision">
+                        <td>
+                            <strong>53.849.351.4-546.000</strong><br>
+                            <small class="text-muted">PT Digital Vision</small>
+                        </td>
+                        <td>PPh 21</td>
+                        <td>Februari 2022</td>
+                        <td>10/03/2022</td>
+                        <td>01/05/2022</td>
+                        <td><span class="badge-custom badge-telat">⚠️ Terlambat</span></td>
+                        <td>52 Hari</td>
+                    </tr>
+
+                    <tr class="kewajiban-detail-row" data-search="69.708.541.1-463.000 pt berkah abadi">
+                        <td>
+                            <strong>69.708.541.1-463.000</strong><br>
+                            <small class="text-muted">PT Berkah Abadi</small>
+                        </td>
+                        <td>PPh 21</td>
+                        <td>Januari 2022</td>
+                        <td>10/02/2022</td>
+                        <td>10/02/2022</td>
+                        <td><span class="badge-custom badge-tepat">✅ Tepat Waktu</span></td>
+                        <td>0 Hari</td>
+                    </tr>
+
+                    <tr class="kewajiban-detail-row" data-search="69.708.541.1-463.000 pt berkah abadi">
+                        <td>
+                            <strong>69.708.541.1-463.000</strong><br>
+                            <small class="text-muted">PT Berkah Abadi</small>
+                        </td>
+                        <td>PPh 21</td>
+                        <td>Februari 2022</td>
+                        <td>10/03/2022</td>
+                        <td>-</td>
+                        <td><span class="badge-custom badge-belum">❌ Belum Bayar</span></td>
+                        <td>-</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==============================================================
+         VIEW 5: RINGKASAN DATA (AGREGASI.HTML ASLI)
+    ============================================================== -->
+    <div id="view-agregasi" class="app-view animate-fade">
+        <div class="card-box">
+            <div class="title">
+                📊 Ringkasan Data Kepatuhan Pajak
+            </div>
+
+            <div class="subtitle">
+                Ringkasan hasil pembayaran pajak berdasarkan tingkat kepatuhan setiap wajib pajak.
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>NPWP</th>
+                            <th>Tepat Waktu</th>
+                            <th>Terlambat</th>
+                            <th>Belum Bayar</th>
+                            <th>Rata-rata Keterlambatan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr>
+                        <td>
+                            <span class="badge-custom bg-biru">76.532.629.8-037.000</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-hijau">74.0%</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-kuning">16.7%</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-merah">9.4%</span>
+                        </td>
+                        <td>
+                            -1.6 Hari
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <span class="badge-custom bg-biru">77.633.567.9-485.000</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-hijau">67.7%</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-kuning">18.8%</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-merah">13.5%</span>
+                        </td>
+                        <td>
+                            -1.2 Hari
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <span class="badge-custom bg-biru">13.001.784.0-838.000</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-hijau">78.1%</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-kuning">10.4%</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-merah">11.5%</span>
+                        </td>
+                        <td>
+                            -2.0 Hari
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <span class="badge-custom bg-biru">52.613.188.7-874.000</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-hijau">73.4%</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-kuning">16.2%</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-merah">10.4%</span>
+                        </td>
+                        <td>
+                            -1.6 Hari
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <span class="badge-custom bg-biru">56.249.175.0-574.000</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-hijau">26.0%</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-kuning">39.6%</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-merah">34.4%</span>
+                        </td>
+                        <td>
+                            5.1 Hari
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <span class="badge-custom bg-biru">54.855.099.5-308.000</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-hijau">26.6%</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-kuning">39.1%</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-merah">34.4%</span>
+                        </td>
+                        <td>
+                            6.9 Hari
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <span class="badge-custom bg-biru">38.403.915.1-179.000</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-hijau">33.3%</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-kuning">34.9%</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-merah">31.8%</span>
+                        </td>
+                        <td>
+                            3.5 Hari
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <span class="badge-custom bg-biru">36.929.784.0-208.000</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-hijau">31.2%</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-kuning">28.1%</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-merah">40.6%</span>
+                        </td>
+                        <td>
+                            4.8 Hari
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <span class="badge-custom bg-biru">05.052.740.4-944.000</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-hijau">5.6%</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-kuning">25.0%</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-merah">69.4%</span>
+                        </td>
+                        <td>
+                            25.5 Hari
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <span class="badge-custom bg-biru">08.580.206.7-870.000</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-hijau">9.4%</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-kuning">23.4%</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-merah">67.2%</span>
+                        </td>
+                        <td>
+                            19.8 Hari
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <span class="badge-custom bg-biru">53.849.351.4-546.000</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-hijau">5.0%</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-kuning">21.1%</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-merah">73.9%</span>
+                        </td>
+                        <td>
+                            27.6 Hari
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <span class="badge-custom bg-biru">69.708.541.1-463.000</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-hijau">5.2%</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-kuning">27.6%</span>
+                        </td>
+                        <td>
+                            <span class="badge-custom bg-merah">67.2%</span>
+                        </td>
+                        <td>
+                            26.4 Hari
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==============================================================
+         VIEW 6: PENGELOMPOKAN PAJAK (KMEANS.HTML ASLI)
+    ============================================================== -->
+    <div id="view-kmeans" class="app-view animate-fade">
+        <div class="card-box">
+            <div class="title">
+                🤖 Pengelompokan Kepatuhan Pajak
+            </div>
+
+            <div class="subtitle">
+                Hasil analisis menggunakan metode K-Means untuk mengelompokkan tingkat kepatuhan wajib pajak.
+            </div>
+
+            <div class="p-3 mb-4 rounded-3 d-flex justify-content-between align-items-center" style="background: rgba(79, 70, 229, 0.08); border-left: 4px solid var(--primary-color);">
+                <div>
+                    Nilai Evaluasi Silhouette Score : <strong>0.780</strong>
+                    <div class="small text-muted">Struktur pemisahan klaster sangat kuat (k = 3).</div>
+                </div>
+                <span class="badge bg-primary fs-6 px-3 py-2">k = 3</span>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>NPWP</th>
+                            <th>Tepat Waktu</th>
+                            <th>Terlambat</th>
+                            <th>Belum Bayar</th>
+                            <th>Rata-rata Keterlambatan</th>
+                            <th>Cluster</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                <tr>
+                    <td>
+                        <strong>76.532.629.8-037.000</strong>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-tepat">74.0%</span>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-telat">16.7%</span>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-belum">9.4%</span>
+                    </td>
+                    <td>
+                        -1.6 Hari
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-cluster">Cluster 0</span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <strong>77.633.567.9-485.000</strong>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-tepat">67.7%</span>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-telat">18.8%</span>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-belum">13.5%</span>
+                    </td>
+                    <td>
+                        -1.2 Hari
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-cluster">Cluster 0</span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <strong>13.001.784.0-838.000</strong>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-tepat">78.1%</span>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-telat">10.4%</span>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-belum">11.5%</span>
+                    </td>
+                    <td>
+                        -2.0 Hari
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-cluster">Cluster 0</span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <strong>52.613.188.7-874.000</strong>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-tepat">73.4%</span>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-telat">16.2%</span>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-belum">10.4%</span>
+                    </td>
+                    <td>
+                        -1.6 Hari
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-cluster">Cluster 0</span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <strong>56.249.175.0-574.000</strong>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-tepat">26.0%</span>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-telat">39.6%</span>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-belum">34.4%</span>
+                    </td>
+                    <td>
+                        5.1 Hari
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-cluster">Cluster 1</span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <strong>54.855.099.5-308.000</strong>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-tepat">26.6%</span>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-telat">39.1%</span>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-belum">34.4%</span>
+                    </td>
+                    <td>
+                        6.9 Hari
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-cluster">Cluster 1</span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <strong>38.403.915.1-179.000</strong>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-tepat">33.3%</span>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-telat">34.9%</span>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-belum">31.8%</span>
+                    </td>
+                    <td>
+                        3.5 Hari
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-cluster">Cluster 1</span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <strong>36.929.784.0-208.000</strong>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-tepat">31.2%</span>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-telat">28.1%</span>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-belum">40.6%</span>
+                    </td>
+                    <td>
+                        4.8 Hari
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-cluster">Cluster 1</span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <strong>05.052.740.4-944.000</strong>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-tepat">5.6%</span>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-telat">25.0%</span>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-belum">69.4%</span>
+                    </td>
+                    <td>
+                        25.5 Hari
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-cluster">Cluster 2</span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <strong>08.580.206.7-870.000</strong>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-tepat">9.4%</span>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-telat">23.4%</span>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-belum">67.2%</span>
+                    </td>
+                    <td>
+                        19.8 Hari
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-cluster">Cluster 2</span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <strong>53.849.351.4-546.000</strong>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-tepat">5.0%</span>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-telat">21.1%</span>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-belum">73.9%</span>
+                    </td>
+                    <td>
+                        27.6 Hari
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-cluster">Cluster 2</span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <strong>69.708.541.1-463.000</strong>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-tepat">5.2%</span>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-telat">27.6%</span>
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-belum">67.2%</span>
+                    </td>
+                    <td>
+                        26.4 Hari
+                    </td>
+                    <td>
+                        <span class="badge-custom badge-cluster">Cluster 2</span>
+                    </td>
+                </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- INSIGHT CLUSTER (IDENTICAL TO KMEANS.HTML) -->
+        <div class="mt-5">
+            <div class="title">
+                📊 Insight Hasil Pengelompokan
+            </div>
+
+            <div class="subtitle">
+                Interpretasi otomatis berdasarkan pola data pada masing-masing cluster.
+            </div>
+
+            <div class="row">
+                <!-- Cluster 0 -->
+                <div class="col-lg-4 mb-4">
+                    <div class="card-box h-100">
+                        <h4 class="mb-3 text-success">
+                            🟢 Cluster 0: Patuh
+                        </h4>
+                        <div class="mb-3">
+                            <div class="mb-2"><strong>Rata-rata Tepat Waktu:</strong> 73.3%</div>
+                            <div class="mb-2"><strong>Rata-rata Terlambat:</strong> 15.5%</div>
+                            <div class="mb-2"><strong>Rata-rata Belum Bayar:</strong> 11.2%</div>
+                        </div>
+                        <hr>
+                        <h6 class="mb-2 fw-bold">Karakteristik Cluster:</h6>
+                        <ul class="small ps-3 text-muted">
+                            <li>Mayoritas bayar tepat waktu (73.3%)</li>
+                            <li>Tingkat kepatuhan tinggi (Gold Standard)</li>
+                            <li>Rata-rata pelunasan H-1.6 hari lebih awal</li>
+                        </ul>
+                        <hr>
+                        <h6 class="fw-bold">Interpretasi & Tindakan:</h6>
+                        <p style="color:#6b7280; font-size: 13.5px;">
+                            Wajib pajak sangat patuh dan konsisten. Diberikan penghargaan <strong>Sertifikat WP Taat</strong> dan fasilitas <strong>Restitusi Cepat (Jalur Hijau)</strong>.
+                        </p>
+                        <hr>
+                        <h6 class="mb-2 fw-bold">Contoh Data:</h6>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-bordered small mb-0">
+                                <thead class="table-light"><tr><th>NPWP</th><th>Tepat</th><th>Telat</th><th>Belum</th></tr></thead>
+                                <tbody>
+                                    <tr><td>PT Maju Jaya</td><td>74.0%</td><td>17.0%</td><td>9.0%</td></tr>
+                                    <tr><td>PT Sukses Bersama</td><td>68.0%</td><td>19.0%</td><td>13.0%</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cluster 1 -->
+                <div class="col-lg-4 mb-4">
+                    <div class="card-box h-100">
+                        <h4 class="mb-3 text-warning">
+                            🟡 Cluster 1: Kurang Patuh
+                        </h4>
+                        <div class="mb-3">
+                            <div class="mb-2"><strong>Rata-rata Tepat Waktu:</strong> 29.3%</div>
+                            <div class="mb-2"><strong>Rata-rata Terlambat:</strong> 35.4%</div>
+                            <div class="mb-2"><strong>Rata-rata Belum Bayar:</strong> 35.3%</div>
+                        </div>
+                        <hr>
+                        <h6 class="mb-2 fw-bold">Karakteristik Cluster:</h6>
+                        <ul class="small ps-3 text-muted">
+                            <li>Terlambat cukup sering (35.4%)</li>
+                            <li>Belum bayar cukup tinggi (35.3%)</li>
+                            <li>Deviasi keterlambatan rata-rata +5.1 hari</li>
+                        </ul>
+                        <hr>
+                        <h6 class="fw-bold">Interpretasi & Tindakan:</h6>
+                        <p style="color:#6b7280; font-size: 13.5px;">
+                            Wajib pajak aktif membayar namun sering melewati jatuh tempo. Diperlukan pendampingan oleh Account Representative (AR) dan <strong>Reminder SMS/WA H-3</strong>.
+                        </p>
+                        <hr>
+                        <h6 class="mb-2 fw-bold">Contoh Data:</h6>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-bordered small mb-0">
+                                <thead class="table-light"><tr><th>NPWP</th><th>Tepat</th><th>Telat</th><th>Belum</th></tr></thead>
+                                <tbody>
+                                    <tr><td>PT Teknologi Luhur</td><td>26.0%</td><td>40.0%</td><td>34.0%</td></tr>
+                                    <tr><td>PT Indo Pratama</td><td>31.0%</td><td>38.0%</td><td>31.0%</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cluster 2 -->
+                <div class="col-lg-4 mb-4">
+                    <div class="card-box h-100">
+                        <h4 class="mb-3 text-danger">
+                            🔴 Cluster 2: Tidak Patuh
+                        </h4>
+                        <div class="mb-3">
+                            <div class="mb-2"><strong>Rata-rata Tepat Waktu:</strong> 6.3%</div>
+                            <div class="mb-2"><strong>Rata-rata Terlambat:</strong> 24.3%</div>
+                            <div class="mb-2"><strong>Rata-rata Belum Bayar:</strong> 69.4%</div>
+                        </div>
+                        <hr>
+                        <h6 class="mb-2 fw-bold">Karakteristik Cluster:</h6>
+                        <ul class="small ps-3 text-muted">
+                            <li>Belum bayar sangat tinggi (69.4%)</li>
+                            <li>Keterlambatan rata-rata kronis (+24.8 hari)</li>
+                            <li>Terindikasi potensi ketidakpatuhan material</li>
+                        </ul>
+                        <hr>
+                        <h6 class="fw-bold">Interpretasi & Tindakan:</h6>
+                        <p style="color:#6b7280; font-size: 13.5px;">
+                            Prioritas pengawasan kantor pajak. Penerbitan <strong>Surat Permintaan Penjelasan (SP2DK)</strong>, penagihan aktif dengan Surat Paksa, dan pemeriksaan audit.
+                        </p>
+                        <hr>
+                        <h6 class="mb-2 fw-bold">Contoh Data:</h6>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-bordered small mb-0">
+                                <thead class="table-light"><tr><th>NPWP</th><th>Tepat</th><th>Telat</th><th>Belum</th></tr></thead>
+                                <tbody>
+                                    <tr><td>PT Kreasi Mandiri</td><td>6.0%</td><td>25.0%</td><td>69.0%</td></tr>
+                                    <tr><td>PT Digital Vision</td><td>5.0%</td><td>21.0%</td><td>74.0%</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- JAVASCRIPT LOGIC (100% CLEAN SYNTAX) -->
+<script>
+    // Navigation titles
+    const pageTitles = {
+        'beranda': 'Selamat Datang di Sistem Analisis Pajak',
+        'data_input': 'Masukkan Data Pembayaran Pajak',
+        'preprocessing': 'Pembersihan Data Pembayaran Pajak',
+        'kewajiban': 'Pemeriksaan Kewajiban Pajak',
+        'agregasi': 'Ringkasan Data Kepatuhan Pajak',
+        'kmeans': 'Pengelompokan Data K-Means'
+    };
+
+    function navigateTo(tabId) {
+        // Hide all views
+        document.querySelectorAll('.app-view').forEach(function(el) {
+            el.classList.remove('active');
+        });
+
+        // Unset all active sidebar links
+        document.querySelectorAll('.sidebar a').forEach(function(el) {
+            el.classList.remove('active');
+        });
+
+        // Show target view
+        const targetView = document.getElementById('view-' + tabId);
+        if (targetView) {
+            targetView.classList.add('active');
+        }
+
+        // Set active link
+        const targetNav = document.getElementById('nav-' + tabId);
+        if (targetNav) {
+            targetNav.classList.add('active');
+        }
+
+        // Update title
+        const titleEl = document.getElementById('pageTitleText');
+        if (titleEl && pageTitles[tabId]) {
+            titleEl.textContent = pageTitles[tabId];
+        }
+
+        // Close mobile sidebar if open
+        const sidebar = document.getElementById('appSidebar');
+        if (sidebar) {
+            sidebar.classList.remove('show');
+        }
+
+        // Update URL hash without scroll jump
+        if (history.pushState) {
+            history.pushState(null, null, '#' + tabId);
+        } else {
+            location.hash = '#' + tabId;
+        }
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleSidebar() {
+        const sidebar = document.getElementById('appSidebar');
+        if (sidebar) {
+            sidebar.classList.toggle('show');
+        }
+    }
+
+    function showFlash(message, category) {
+        category = category || 'success';
+        const container = document.getElementById('flashMsgContainer');
+        if (!container) return;
+        container.innerHTML = '<div class="alert alert-' + category + ' alert-dismissible fade show" role="alert">' +
+            message +
+            '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
+            '</div>';
+        setTimeout(function() {
+            container.innerHTML = '';
+        }, 5000);
+    }
+
+    // Form Submit (Manual Input)
+    function handleFormSubmit(e) {
+        e.preventDefault();
+        const nama = document.getElementById('inputNama').value.trim();
+        const npwp = document.getElementById('inputNpwp').value.trim();
+        const masa = document.getElementById('inputMasa').value.trim();
+        const bulan = document.getElementById('inputBulan').value.trim();
+        const jenis = document.getElementById('inputJenis').value.trim();
+        const tgl = document.getElementById('inputTanggal').value;
+        const jml = parseFloat(document.getElementById('inputJumlah').value) || 0;
+
+        if (!nama || !npwp) return;
+
+        const formattedJml = 'Rp ' + jml.toLocaleString('id-ID');
+        const formattedTgl = tgl.split('-').reverse().join('/');
+
+        // Append to preprocessing table
+        const tbody = document.getElementById('prepTableBody');
+        const newRowId = Date.now();
+        const tr = document.createElement('tr');
+        tr.id = 'row-prep-' + newRowId;
+        tr.innerHTML = '<td>' + nama + '</td>' +
+            '<td>' + npwp + '</td>' +
+            '<td>' + jenis + '</td>' +
+            '<td>' + bulan + '</td>' +
+            '<td>' + masa + '</td>' +
+            '<td>' + formattedTgl + '</td>' +
+            '<td>' + formattedJml + '</td>' +
+            '<td><button type="button" class="btn btn-sm btn-danger" onclick="deletePrepRow(' + newRowId + ')" title="Hapus"><i class="bi bi-trash"></i></button></td>';
+
+        if (tbody) {
+            tbody.insertBefore(tr, tbody.firstChild);
+        }
+
+        document.getElementById('formInputPajak').reset();
+        showFlash('Data pembayaran pajak untuk "' + nama + '" berhasil disimpan!', 'success');
+        setTimeout(function() {
+            navigateTo('preprocessing');
+        }, 600);
+    }
+
+    function simulasiUploadExcel() {
+        showFlash('Upload sukses: 25 data pembayaran dari file Excel berhasil diimpor ke sistem!', 'success');
+        setTimeout(function() {
+            navigateTo('preprocessing');
+        }, 600);
+    }
+
+    function deletePrepRow(id) {
+        const row = document.getElementById('row-prep-' + id);
+        if (row) {
+            row.remove();
+            showFlash('Data pembayaran berhasil dihapus dari tabel pembersihan.', 'info');
+        }
+    }
+
+    function handleDeleteAll() {
+        const confirmed = window.confirm('Apakah Anda benar-benar yakin ingin menghapus seluruh data pembayaran pajak dari sistem demo?');
+        if (confirmed) {
+            const tbody = document.getElementById('prepTableBody');
+            if (tbody) tbody.innerHTML = '<tr><td colspan="8" class="text-center py-4 text-muted">Seluruh data telah dihapus. Klik tombol "Reset Data" di atas untuk memulihkan.</td></tr>';
+            showFlash('Seluruh data pembayaran berhasil dihapus.', 'warning');
+        }
+    }
+
+    function resetDemoData() {
+        location.reload();
+    }
+
+    // Filter Kewajiban Search
+    function filterKewajiban() {
+        const q = (document.getElementById('kewajibanSearch').value || '').toLowerCase().trim();
+        document.querySelectorAll('.kewajiban-ringkasan-row').forEach(function(row) {
+            const txt = row.getAttribute('data-search') || '';
+            row.style.display = (!q || txt.includes(q)) ? '' : 'none';
+        });
+        document.querySelectorAll('.kewajiban-detail-row').forEach(function(row) {
+            const txt = row.getAttribute('data-search') || '';
+            row.style.display = (!q || txt.includes(q)) ? '' : 'none';
+        });
+    }
+
+    // Filter Preprocessing Search
+    function filterPrepTable() {
+        const q = (document.getElementById('prepSearch').value || '').toLowerCase().trim();
+        const rows = document.querySelectorAll('#prepTableBody tr');
+        let count = 0;
+        rows.forEach(function(row) {
+            const txt = row.innerText.toLowerCase();
+            if (!q || txt.includes(q)) {
+                row.style.display = '';
+                count++;
+            } else {
+                row.style.display = 'none';
+            }
+        });
+        const info = document.getElementById('prepTableInfo');
+        if (info) {
+            info.textContent = 'Menampilkan ' + count + ' data';
+        }
+    }
+
+    // Init on load
+    window.addEventListener('DOMContentLoaded', function() {
+        const hash = (window.location.hash || '').replace('#', '');
+        if (hash && pageTitles[hash]) {
+            navigateTo(hash);
+        } else {
+            navigateTo('beranda');
+        }
+    });
+
+    // Handle browser back/forward buttons
+    window.addEventListener('hashchange', function() {
+        const hash = (window.location.hash || '').replace('#', '');
+        if (hash && pageTitles[hash]) {
+            navigateTo(hash);
+        }
+    });
+
+    // Iframe embedding check
+    if (window.self !== window.top) {
+        document.body.classList.add('in-iframe');
+    }
+
+    function closeOrGoBack(event) {
+        if (event) event.preventDefault();
+        window.close();
+        setTimeout(function() {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.location.href = 'index.html#projek';
+            }
+        }, 200);
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Executive Overview — Power BI Report</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Leaflet CSS & JS for Power BI Authentic Indonesia Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    /* Power BI authentic typography and palette */
+    :root {
+      --pbi-canvas: #f1f3f6;
+      --pbi-navy: #0b1c32;
+      --pbi-navy-hover: #071322;
+      --pbi-card-bg: #ffffff;
+      --pbi-border: #e2e8f0;
+      --pbi-text-title: #0a192f;
+      --pbi-text-sub: #5a6a80;
+      --pbi-text-body: #1e293b;
+    }
+
+    body {
+      background-color: var(--pbi-canvas);
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+      color: var(--pbi-text-body);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Custom Checkbox Styling to look like Power BI Desktop Slicers */
+    .pbi-checkbox {
+      appearance: none;
+      width: 13px;
+      height: 13px;
+      border: 1.5px solid #94a3b8;
+      border-radius: 2px;
+      outline: none;
+      cursor: pointer;
+      display: inline-block;
+      position: relative;
+      background: #ffffff;
+      margin-top: 1px;
+    }
+
+    .pbi-checkbox:checked {
+      background-color: #0b1c32;
+      border-color: #0b1c32;
+    }
+
+    .pbi-checkbox:checked::after {
+      content: '';
+      position: absolute;
+      left: 3.5px;
+      top: 1px;
+      width: 4px;
+      height: 7px;
+      border: solid white;
+      border-width: 0 1.5px 1.5px 0;
+      transform: rotate(45deg);
+    }
+
+    /* Slicer card */
+    .slicer-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+
+    /* KPI card */
+    .kpi-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .kpi-card:hover {
+      box-shadow: 0 3px 8px rgba(0,0,0,0.07);
+    }
+
+    /* Chart card */
+    .chart-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    /* Tabs */
+    .tab-btn {
+      font-size: 11px;
+      line-height: 1.2;
+      padding: 6px 10px;
+      border-radius: 3px;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      cursor: pointer;
+      text-align: center;
+      font-weight: 500;
+    }
+    .tab-active {
+      background-color: #0b1c32;
+      color: #ffffff;
+      font-weight: 600;
+      border: 1px solid #0b1c32;
+    }
+    .tab-inactive {
+      background-color: #ffffff;
+      color: #334155;
+      border: 1px solid #d8dee8;
+    }
+    .tab-inactive:hover {
+      background-color: #f8fafc;
+      border-color: #cbd5e1;
+    }
+
+    /* Custom Leaflet Map styling */
+    .leaflet-container {
+      background: #aad3df !important;
+      font-family: inherit;
+    }
+    .leaflet-control-attribution {
+      font-size: 8px !important;
+      background: rgba(255,255,255,0.85) !important;
+      padding: 1px 4px !important;
+    }
+
+    /* Floating navigation bar when loaded outside iframe */
+    .standalone-nav {
+      background: #0f172a;
+      color: #fff;
+    }
+    body.in-iframe .standalone-nav {
+      display: none !important;
+    }
+
+    /* Custom scrollbars */
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body class="p-2 sm:p-4 md:p-5 select-none">
+
+  <!-- Standalone Header (Shown only when opened directly in a new tab) -->
+  <div class="standalone-nav rounded-lg px-4 py-2 mb-3 flex items-center justify-between shadow-md">
+    <div class="flex items-center gap-3">
+      <a href="index.html#projek" class="w-7 h-7 rounded bg-white/10 hover:bg-white/20 flex items-center justify-center text-white text-xs transition">
+        <i class="fa-solid fa-arrow-left"></i>
+      </a>
+      <div class="flex flex-col">
+        <span class="text-xs font-bold text-white tracking-wide">Fajar Sidiq Cahyanto — Portofolio Power BI</span>
+        <span class="text-[10px] text-amber-400 font-mono">Retail Performance Cockpit • Halaman 1: Executive Overview</span>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <button onclick="resetSlicers()" class="px-2.5 py-1 rounded bg-white/10 hover:bg-white/20 text-white text-[11px] font-mono flex items-center gap-1.5 transition">
+        <i class="fa-solid fa-rotate-left text-[10px] text-amber-400"></i> Reset Slicers
+      </button>
+      <a href="index.html#projek" class="px-3 py-1 rounded bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold text-xs transition">
+        Kembali ke Portofolio
+      </a>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       TOP BAR: REPORT TITLE & 10 NAVIGATION TABS
+  ===================================================================== -->
+  <header class="w-full flex flex-col xl:flex-row xl:items-center justify-between gap-3 mb-3">
+    <!-- Title and Subtitle -->
+    <div>
+      <h1 class="text-2xl font-bold tracking-tight text-[#0a192f] flex items-center gap-2">
+        <span>Executive Overview</span>
+      </h1>
+      <p class="text-xs text-[#5a6a80] mt-0.5 font-normal">
+        Ringkasan kinerja korporat: penjualan, margin, EBITDA, pencapaian target, dan sebaran toko
+      </p>
+    </div>
+
+    <!-- 10 Navigation Tabs (Identical to Power BI Report) -->
+    <div class="flex items-center gap-1.5 overflow-x-auto pb-1 xl:pb-0 scrollbar-none">
+      <button class="tab-btn tab-active" onclick="switchTab('overview')">
+        Executive<br/>Overview
+      </button>
+      <button class="tab-btn tab-inactive" onclick="switchTab('penjualan')">
+        Penjualan &amp;<br/>Tren
+      </button>
+      <button class="tab-btn tab-inactive" onclick="switchTab('toko')">
+        Toko &amp; Wilayah
+      </button>
+      <button class="tab-btn tab-inactive" onclick="switchTab('produk')">
+        Produk &amp;<br/>Kategori
+      </button>
+      <button class="tab-btn tab-inactive" onclick="switchTab('promosi')">
+        Promosi
+      </button>
+      <button class="tab-btn tab-inactive" onclick="switchTab('inventori')">
+        Inventori &amp;<br/>Supplier
+      </button>
+      <button class="tab-btn tab-inactive" onclick="switchTab('pelanggan')">
+        Pelanggan &amp;<br/>Loyalty
+      </button>
+      <button class="tab-btn tab-inactive" onclick="switchTab('omnichannel')">
+        Omnichannel &amp;<br/>Layanan
+      </button>
+      <button class="tab-btn tab-inactive" onclick="switchTab('profitabilitas')">
+        Operasional &amp;<br/>Profitabilitas
+      </button>
+      <button class="tab-btn tab-inactive" onclick="switchTab('whatif')">
+        Simulasi What-If
+      </button>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       ROW 1: 6 KPI CARDS (MATCHING EXACT REPORT VALUES)
+  ===================================================================== -->
+  <section class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 mb-3">
+    <!-- KPI 1: Net Sales -->
+    <div class="kpi-card p-3 flex flex-col justify-between">
+      <span class="text-xs text-[#5a6a80] font-medium">Net Sales</span>
+      <div class="mt-2">
+        <span id="kpi-net-sales" class="text-3xl font-bold tracking-tight text-[#0a192f]">4T</span>
+      </div>
+    </div>
+
+    <!-- KPI 2: Gross Margin % -->
+    <div class="kpi-card p-3 flex flex-col justify-between">
+      <span class="text-xs text-[#5a6a80] font-medium">Gross Margin %</span>
+      <div class="mt-2">
+        <span id="kpi-gross-margin" class="text-3xl font-bold tracking-tight text-[#0a192f]">27.8%</span>
+      </div>
+    </div>
+
+    <!-- KPI 3: LFL Growth % -->
+    <div class="kpi-card p-3 flex flex-col justify-between">
+      <span class="text-xs text-[#5a6a80] font-medium">LFL Growth %</span>
+      <div class="mt-2">
+        <span id="kpi-lfl-growth" class="text-3xl font-bold tracking-tight text-[#0a192f]">44.0%</span>
+      </div>
+    </div>
+
+    <!-- KPI 4: Target Achievement % -->
+    <div class="kpi-card p-3 flex flex-col justify-between">
+      <span class="text-xs text-[#5a6a80] font-medium">Target Achievement %</span>
+      <div class="mt-2">
+        <span id="kpi-target-ach" class="text-3xl font-bold tracking-tight text-[#0a192f]">99.2%</span>
+      </div>
+    </div>
+
+    <!-- KPI 5: EBITDA % -->
+    <div class="kpi-card p-3 flex flex-col justify-between">
+      <span class="text-xs text-[#5a6a80] font-medium">EBITDA %</span>
+      <div class="mt-2">
+        <span id="kpi-ebitda" class="text-3xl font-bold tracking-tight text-[#0a192f]">7.4%</span>
+      </div>
+    </div>
+
+    <!-- KPI 6: Return Rate % -->
+    <div class="kpi-card p-3 flex flex-col justify-between">
+      <span class="text-xs text-[#5a6a80] font-medium">Return Rate %</span>
+      <div class="mt-2">
+        <span id="kpi-return-rate" class="text-3xl font-bold tracking-tight text-[#0a192f]">1.9%</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       MAIN DASHBOARD GRID: SLICERS (LEFT) | CHARTS (CENTER) | MAP (RIGHT)
+  ===================================================================== -->
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-3 flex-1 items-stretch">
+
+    <!-- -------------------------------------------------------------
+         LEFT COLUMN: SLICERS / FILTERS (WIDTH ~ 2.2 / 12)
+    -------------------------------------------------------------- -->
+    <aside class="md:col-span-3 lg:col-span-2 flex flex-col gap-2.5">
+      
+      <!-- Slicer: Year -->
+      <div class="slicer-card p-2.5">
+        <div class="relative">
+          <select id="slicer-year" onchange="applyFilters()" class="w-full appearance-none border border-[#cbd5e1] rounded px-3 py-1.5 pr-7 bg-white text-base font-semibold text-[#0a192f] cursor-pointer hover:border-[#94a3b8] focus:outline-none focus:ring-1 focus:ring-[#0b1c32]">
+            <option value="2023" selected>2023</option>
+            <option value="2024">2024 (YTD)</option>
+            <option value="2022">2022 (Audited)</option>
+            <option value="ALL">Semua Tahun (2022-2024)</option>
+          </select>
+          <i class="fa-solid fa-chevron-down text-[10px] text-[#64748b] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+        </div>
+      </div>
+
+      <!-- Slicer: Pilih Metrik -->
+      <div class="slicer-card p-2.5 flex flex-col gap-1.5">
+        <div class="text-[11px] font-bold text-[#0a192f] border-b border-[#f1f5f9] pb-1 flex items-center justify-between">
+          <span>Pilih Metrik</span>
+          <button onclick="resetSlicers()" class="text-[9px] text-amber-600 hover:text-amber-700 font-mono font-medium hover:underline flex items-center gap-1" title="Reset Semua Filter">
+            <i class="fa-solid fa-rotate-left text-[8px]"></i> Reset
+          </button>
+        </div>
+        <div class="flex flex-col gap-1.5 pt-1 text-xs text-[#1e293b]">
+          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+            <input type="checkbox" class="pbi-checkbox filter-metric" data-metric="Net Sales" onchange="applyFilters()" />
+            <span>Net Sales</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+            <input type="checkbox" class="pbi-checkbox filter-metric" data-metric="EBITDA %" onchange="applyFilters()" />
+            <span>EBITDA %</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+            <input type="checkbox" class="pbi-checkbox filter-metric" data-metric="Target Achievement %" onchange="applyFilters()" />
+            <span>Target Achievement %</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+            <input type="checkbox" class="pbi-checkbox filter-metric" data-metric="LFL Growth %" onchange="applyFilters()" />
+            <span>LFL Growth %</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Slicer: Category -->
+      <div class="slicer-card p-2.5 flex flex-col gap-1.5">
+        <div class="text-[11px] font-bold text-[#0a192f] border-b border-[#f1f5f9] pb-1">
+          Category
+        </div>
+        <div class="flex flex-col gap-1.5 pt-1 text-xs text-[#1e293b]">
+          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+            <input type="checkbox" class="pbi-checkbox filter-cat" data-category="Elektronik" onchange="applyFilters()" />
+            <span>Elektronik</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+            <input type="checkbox" class="pbi-checkbox filter-cat" data-category="Fashion" onchange="applyFilters()" />
+            <span>Fashion</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+            <input type="checkbox" class="pbi-checkbox filter-cat" data-category="Ibu & Bayi" onchange="applyFilters()" />
+            <span>Ibu &amp; Bayi</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+            <input type="checkbox" class="pbi-checkbox filter-cat" data-category="Kebutuhan Rumah Tangga" onchange="applyFilters()" />
+            <span>Kebutuhan Rumah Tangga</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+            <input type="checkbox" class="pbi-checkbox filter-cat" data-category="Makanan Kemasan" onchange="applyFilters()" />
+            <span>Makanan Kemasan</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+            <input type="checkbox" class="pbi-checkbox filter-cat" data-category="Makanan Segar" onchange="applyFilters()" />
+            <span>Makanan Segar</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Slicer: Region -->
+      <div class="slicer-card p-2.5 flex flex-col gap-1.5 flex-1">
+        <div class="text-[11px] font-bold text-[#0a192f] border-b border-[#f1f5f9] pb-1">
+          Region
+        </div>
+        <div class="flex flex-col gap-1.5 pt-1 text-xs text-[#1e293b]">
+          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+            <input type="checkbox" class="pbi-checkbox filter-reg" data-region="Bali & Nusa Tenggara" onchange="applyFilters()" />
+            <span>Bali &amp; Nusa Tenggara</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+            <input type="checkbox" class="pbi-checkbox filter-reg" data-region="Jabodetabek" onchange="applyFilters()" />
+            <span>Jabodetabek</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+            <input type="checkbox" class="pbi-checkbox filter-reg" data-region="Jawa (Non-Jabodetabek)" onchange="applyFilters()" />
+            <span>Jawa (Non-Jabodetabek)</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+            <input type="checkbox" class="pbi-checkbox filter-reg" data-region="Kalimantan" onchange="applyFilters()" />
+            <span>Kalimantan</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+            <input type="checkbox" class="pbi-checkbox filter-reg" data-region="Maluku & Papua" onchange="applyFilters()" />
+            <span>Maluku &amp; Papua</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+            <input type="checkbox" class="pbi-checkbox filter-reg" data-region="Sulawesi" onchange="applyFilters()" />
+            <span>Sulawesi</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer hover:text-[#0b1c32]">
+            <input type="checkbox" class="pbi-checkbox filter-reg" data-region="Sumatera" onchange="applyFilters()" />
+            <span>Sumatera</span>
+          </label>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- -------------------------------------------------------------
+         CENTER COLUMN: TREN BULANAN & NET SALES PER REGION (WIDTH ~ 6 / 12)
+    -------------------------------------------------------------- -->
+    <main class="md:col-span-9 lg:col-span-6 flex flex-col gap-3">
+      
+      <!-- Visual 1: Tren Bulanan (Line Chart) -->
+      <div class="chart-card p-3 flex flex-col">
+        <div class="mb-2">
+          <h2 class="text-xs font-bold text-[#0a192f]">Tren Bulanan</h2>
+          <p class="text-[10px] text-[#5a6a80] truncate">
+            Net Sales, EBITDA %, Target Achievement %, LFL Growth %, Return Rate % and Gross Mar...
+          </p>
+        </div>
+        <div class="relative h-[210px] w-full">
+          <canvas id="trenBulananChart"></canvas>
+        </div>
+        <!-- Authentic Legend matching Power BI -->
+        <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 mt-2 text-[10px] text-[#5a6a80]">
+          <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-[#0b1c32]"></span> Net Sales</span>
+          <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-[#2563eb]"></span> EBITDA %</span>
+          <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-[#38bdf8]"></span> Target Achievement %</span>
+          <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-[#f59e0b]"></span> LFL Growth %</span>
+          <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-[#ef4444]"></span> Return Rate %</span>
+          <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-[#94a3b8]"></span> Gross Margin %</span>
+        </div>
+      </div>
+
+      <!-- Visual 2: Net Sales per Region (Horizontal Bar Chart) -->
+      <div class="chart-card p-3 flex flex-col flex-1">
+        <div class="mb-1">
+          <h2 class="text-xs font-bold text-[#0a192f]">Net Sales per Region</h2>
+          <p class="text-[10px] text-[#5a6a80]">Net Sales by Region</p>
+        </div>
+        <div class="relative flex-1 min-h-[220px] w-full">
+          <canvas id="regionBarChart"></canvas>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- -------------------------------------------------------------
+         RIGHT COLUMN: SEBARAN TOKO MAP (WIDTH ~ 4 / 12)
+    -------------------------------------------------------------- -->
+    <section class="md:col-span-12 lg:col-span-4 flex flex-col">
+      <div class="chart-card p-3 flex flex-col h-full min-h-[460px]">
+        <div class="mb-2">
+          <h2 class="text-xs font-bold text-[#0a192f]">Sebaran Toko (ukuran = Net Sales)</h2>
+          <p class="text-[10px] text-[#5a6a80]">Net Sales by Latitude and Longitude</p>
+        </div>
+        <!-- Interactive Map Container -->
+        <div class="relative flex-1 w-full rounded border border-[#e2e8f0] overflow-hidden min-h-[380px]">
+          <div id="indonesiaMap" class="w-full h-full"></div>
+          
+          <!-- Authentic Microsoft Bing Attribution Badge -->
+          <div class="absolute bottom-1 left-2 z-[400] flex items-center gap-1 bg-white/80 backdrop-blur-sm px-1.5 py-0.5 rounded text-[9px] font-sans text-neutral-700 shadow-sm pointer-events-none">
+            <span class="font-bold text-[#008272] flex items-center gap-0.5">
+              <i class="fa-brands fa-microsoft text-[10px]"></i> Bing
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Notification Toast for Tab Switching -->
+  <div id="toastNotification" class="fixed bottom-4 right-4 z-50 bg-[#0b1c32] text-white px-4 py-2.5 rounded-lg shadow-xl text-xs font-medium flex items-center gap-2 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <i class="fa-solid fa-circle-info text-amber-400"></i>
+    <span id="toastMessage">Modul analitik dimuat.</span>
+  </div>
+
+  <!-- =====================================================================
+       JAVASCRIPT LOGIC & AUTHENTIC CHARTS CONFIGURATION
+  ===================================================================== -->
+  <script>
+    // Check if loaded inside an iframe (like in demo-viewer.html)
+    if (window.self !== window.top) {
+      document.body.classList.add('in-iframe');
+    }
+
+    // =============================================================
+    // ENTERPRISE MULTIDIMENSIONAL POWER BI DATA ENGINE
+    // =============================================================
+
+    // 1. YEAR BASELINE DIMENSION (FactSales aggregated by Year)
+    const YEAR_DATA = {
+      '2023': {
+        kpi: { netSales: 4.00, grossMargin: 27.8, lflGrowth: 44.0, targetAch: 99.2, ebitda: 7.4, returnRate: 1.9 },
+        monthlyCurve: [68, 62, 59, 74, 66, 85, 78, 88, 74, 98, 79, 122, 96, 110, 102],
+        ebitdaMonthly: [7.4, 7.2, 7.5, 7.3, 7.6, 7.8, 7.4, 7.5, 7.2, 7.6, 7.4, 7.5, 7.3, 7.4, 7.4],
+        targetMonthly: [99.2, 98.5, 99.0, 99.5, 98.8, 99.4, 99.1, 99.6, 98.9, 99.3, 99.0, 99.7, 99.2, 99.2, 99.2],
+        lflMonthly: [44.0, 42.5, 43.8, 44.5, 43.2, 45.0, 44.1, 45.5, 43.9, 44.8, 44.2, 45.2, 44.0, 44.0, 44.0],
+        regions: [
+          { region: 'Jabodetabek', sales: 1.92, stores: 142, salesSqm: 4.2, lat: -6.2088, lng: 106.8456, color: '#0f766e', radius: 26 },
+          { region: 'Jawa (Non-Jabodetabek)', sales: 0.94, stores: 98, salesSqm: 3.5, lat: -7.2575, lng: 112.7521, color: '#991b1b', radius: 18 },
+          { region: 'Sumatera', sales: 0.31, stores: 44, salesSqm: 2.9, lat: -2.9761, lng: 104.7754, color: '#b91c1c', radius: 13 },
+          { region: 'Bali & Nusa Tenggara', sales: 0.22, stores: 28, salesSqm: 3.8, lat: -8.6705, lng: 115.2126, color: '#dc2626', radius: 11 },
+          { region: 'Sulawesi', sales: 0.21, stores: 25, salesSqm: 2.7, lat: -5.1477, lng: 119.4327, color: '#ef4444', radius: 10 },
+          { region: 'Kalimantan', sales: 0.17, stores: 22, salesSqm: 2.8, lat: -1.2654, lng: 116.8312, color: '#f87171', radius: 9 },
+          { region: 'Maluku & Papua', sales: 0.03, stores: 8, salesSqm: 2.1, lat: -2.5337, lng: 140.7181, color: '#fca5a5', radius: 6 }
+        ]
+      },
+      '2024': {
+        kpi: { netSales: 5.15, grossMargin: 29.4, lflGrowth: 32.1, targetAch: 103.5, ebitda: 8.2, returnRate: 1.7 },
+        monthlyCurve: [85, 92, 88, 104, 98, 115, 110, 128, 118, 135, 125, 155, 140, 148, 142],
+        ebitdaMonthly: [8.0, 8.1, 7.9, 8.4, 8.2, 8.5, 8.1, 8.6, 8.3, 8.7, 8.4, 8.8, 8.5, 8.6, 8.2],
+        targetMonthly: [102.1, 103.0, 101.5, 104.2, 102.8, 105.1, 103.4, 105.8, 102.9, 106.2, 104.0, 107.5, 103.5, 104.2, 103.5],
+        lflMonthly: [33.5, 34.1, 31.8, 35.0, 32.4, 36.2, 33.1, 37.0, 31.9, 38.5, 33.4, 39.2, 34.0, 35.1, 32.1],
+        regions: [
+          { region: 'Jabodetabek', sales: 2.45, stores: 168, salesSqm: 4.8, lat: -6.2088, lng: 106.8456, color: '#0f766e', radius: 28 },
+          { region: 'Jawa (Non-Jabodetabek)', sales: 1.25, stores: 115, salesSqm: 3.9, lat: -7.2575, lng: 112.7521, color: '#991b1b', radius: 20 },
+          { region: 'Sumatera', sales: 0.42, stores: 52, salesSqm: 3.2, lat: -2.9761, lng: 104.7754, color: '#b91c1c', radius: 14 },
+          { region: 'Bali & Nusa Tenggara', sales: 0.30, stores: 34, salesSqm: 4.1, lat: -8.6705, lng: 115.2126, color: '#dc2626', radius: 12 },
+          { region: 'Sulawesi', sales: 0.31, stores: 31, salesSqm: 3.0, lat: -5.1477, lng: 119.4327, color: '#ef4444', radius: 12 },
+          { region: 'Kalimantan', sales: 0.34, stores: 30, salesSqm: 3.4, lat: -1.2654, lng: 116.8312, color: '#f87171', radius: 12 },
+          { region: 'Maluku & Papua', sales: 0.08, stores: 12, salesSqm: 2.5, lat: -2.5337, lng: 140.7181, color: '#fca5a5', radius: 7 }
+        ]
+      },
+      '2022': {
+        kpi: { netSales: 2.85, grossMargin: 26.2, lflGrowth: 28.5, targetAch: 95.4, ebitda: 6.8, returnRate: 2.1 },
+        monthlyCurve: [48, 45, 42, 55, 50, 62, 58, 66, 56, 72, 60, 85, 70, 78, 72],
+        ebitdaMonthly: [6.5, 6.4, 6.7, 6.6, 6.8, 7.0, 6.7, 6.9, 6.5, 7.1, 6.8, 7.2, 6.9, 7.0, 6.8],
+        targetMonthly: [94.5, 93.8, 95.0, 96.2, 94.8, 97.0, 95.5, 97.4, 94.9, 98.0, 96.2, 99.1, 95.4, 96.0, 95.4],
+        lflMonthly: [27.0, 26.5, 28.0, 29.2, 27.8, 30.1, 28.5, 30.8, 27.9, 31.5, 29.0, 32.4, 28.5, 29.0, 28.5],
+        regions: [
+          { region: 'Jabodetabek', sales: 1.40, stores: 120, salesSqm: 3.8, lat: -6.2088, lng: 106.8456, color: '#0f766e', radius: 23 },
+          { region: 'Jawa (Non-Jabodetabek)', sales: 0.68, stores: 82, salesSqm: 3.1, lat: -7.2575, lng: 112.7521, color: '#991b1b', radius: 16 },
+          { region: 'Sumatera', sales: 0.22, stores: 36, salesSqm: 2.6, lat: -2.9761, lng: 104.7754, color: '#b91c1c', radius: 11 },
+          { region: 'Bali & Nusa Tenggara', sales: 0.16, stores: 22, salesSqm: 3.4, lat: -8.6705, lng: 115.2126, color: '#dc2626', radius: 10 },
+          { region: 'Sulawesi', sales: 0.15, stores: 19, salesSqm: 2.4, lat: -5.1477, lng: 119.4327, color: '#ef4444', radius: 9 },
+          { region: 'Kalimantan', sales: 0.20, stores: 18, salesSqm: 2.5, lat: -1.2654, lng: 116.8312, color: '#f87171', radius: 10 },
+          { region: 'Maluku & Papua', sales: 0.04, stores: 6, salesSqm: 1.9, lat: -2.5337, lng: 140.7181, color: '#fca5a5', radius: 6 }
+        ]
+      },
+      'ALL': {
+        kpi: { netSales: 12.00, grossMargin: 27.9, lflGrowth: 34.8, targetAch: 99.8, ebitda: 7.5, returnRate: 1.9 },
+        monthlyCurve: [201, 199, 189, 233, 214, 262, 246, 282, 248, 305, 264, 362, 306, 336, 316],
+        ebitdaMonthly: [7.3, 7.2, 7.4, 7.4, 7.5, 7.8, 7.4, 7.7, 7.3, 7.8, 7.5, 7.8, 7.6, 7.7, 7.5],
+        targetMonthly: [98.6, 98.4, 98.5, 100.0, 98.8, 100.5, 99.3, 100.9, 98.9, 101.2, 99.7, 102.1, 99.4, 99.8, 99.8],
+        lflMonthly: [34.8, 34.3, 34.5, 36.2, 34.5, 37.1, 35.2, 37.8, 34.6, 38.3, 35.5, 38.9, 35.5, 36.0, 34.8],
+        regions: [
+          { region: 'Jabodetabek', sales: 5.77, stores: 168, salesSqm: 4.4, lat: -6.2088, lng: 106.8456, color: '#0f766e', radius: 30 },
+          { region: 'Jawa (Non-Jabodetabek)', sales: 2.87, stores: 115, salesSqm: 3.6, lat: -7.2575, lng: 112.7521, color: '#991b1b', radius: 22 },
+          { region: 'Sumatera', sales: 0.95, stores: 52, salesSqm: 3.0, lat: -2.9761, lng: 104.7754, color: '#b91c1c', radius: 16 },
+          { region: 'Bali & Nusa Tenggara', sales: 0.68, stores: 34, salesSqm: 3.8, lat: -8.6705, lng: 115.2126, color: '#dc2626', radius: 14 },
+          { region: 'Sulawesi', sales: 0.67, stores: 31, salesSqm: 2.8, lat: -5.1477, lng: 119.4327, color: '#ef4444', radius: 13 },
+          { region: 'Kalimantan', sales: 0.71, stores: 30, salesSqm: 3.1, lat: -1.2654, lng: 116.8312, color: '#f87171', radius: 14 },
+          { region: 'Maluku & Papua', sales: 0.15, stores: 12, salesSqm: 2.3, lat: -2.5337, lng: 140.7181, color: '#fca5a5', radius: 8 }
+        ]
+      }
+    };
+
+    // 2. CATEGORY PROFILE DIMENSION
+    const CATEGORY_PROFILES = {
+      'Elektronik': {
+        share: 0.35, gm: 22.4, lfl: 39.5, target: 98.6, ebitda: 6.2, returnR: 2.8,
+        // Peaks dramatically in Q4 (10.10, 11.11, Harbolnas, Festive season)
+        seasonality: [0.75, 0.70, 0.68, 0.80, 0.76, 0.85, 0.80, 0.92, 0.88, 1.35, 1.20, 1.80, 1.15, 1.30, 1.25],
+        regionBias: { 'Jabodetabek': 1.35, 'Jawa (Non-Jabodetabek)': 0.95, 'Sumatera': 0.70, 'Bali & Nusa Tenggara': 0.85, 'Sulawesi': 0.65, 'Kalimantan': 0.70, 'Maluku & Papua': 0.40 }
+      },
+      'Fashion': {
+        share: 0.22, gm: 41.2, lfl: 48.2, target: 101.4, ebitda: 10.5, returnR: 2.4,
+        // Peaks heavily in Q2 during Ramadan / Idul Fitri seasonal buying
+        seasonality: [0.85, 1.45, 1.35, 1.65, 0.90, 0.85, 0.80, 0.95, 0.85, 1.10, 0.90, 1.25, 0.95, 1.15, 1.05],
+        regionBias: { 'Jabodetabek': 1.15, 'Jawa (Non-Jabodetabek)': 1.25, 'Sumatera': 0.85, 'Bali & Nusa Tenggara': 0.95, 'Sulawesi': 0.70, 'Kalimantan': 0.65, 'Maluku & Papua': 0.45 }
+      },
+      'Ibu & Bayi': {
+        share: 0.10, gm: 31.5, lfl: 52.4, target: 102.1, ebitda: 8.8, returnR: 0.9,
+        // Steady upward loyalty trajectory
+        seasonality: [0.88, 0.90, 0.92, 0.95, 0.96, 0.99, 1.01, 1.03, 1.05, 1.09, 1.11, 1.16, 1.13, 1.17, 1.15],
+        regionBias: { 'Jabodetabek': 1.25, 'Jawa (Non-Jabodetabek)': 1.05, 'Sumatera': 0.80, 'Bali & Nusa Tenggara': 0.80, 'Sulawesi': 0.75, 'Kalimantan': 0.75, 'Maluku & Papua': 0.50 }
+      },
+      'Kebutuhan Rumah Tangga': {
+        share: 0.11, gm: 28.0, lfl: 36.5, target: 98.9, ebitda: 7.1, returnR: 1.2,
+        // Steady with payday cycles
+        seasonality: [0.95, 0.94, 0.96, 0.98, 0.97, 1.00, 0.99, 1.01, 0.98, 1.02, 1.00, 1.05, 1.01, 1.03, 1.02],
+        regionBias: { 'Jabodetabek': 1.05, 'Jawa (Non-Jabodetabek)': 1.05, 'Sumatera': 0.95, 'Bali & Nusa Tenggara': 0.90, 'Sulawesi': 0.90, 'Kalimantan': 0.95, 'Maluku & Papua': 0.65 }
+      },
+      'Makanan Kemasan': {
+        share: 0.14, gm: 25.8, lfl: 40.2, target: 99.5, ebitda: 6.9, returnR: 0.8,
+        // Resilient FMCG staples
+        seasonality: [0.98, 1.02, 0.99, 1.08, 1.00, 1.01, 1.00, 1.04, 1.00, 1.06, 1.02, 1.10, 1.04, 1.06, 1.05],
+        regionBias: { 'Jabodetabek': 0.95, 'Jawa (Non-Jabodetabek)': 1.10, 'Sumatera': 1.05, 'Bali & Nusa Tenggara': 0.95, 'Sulawesi': 1.00, 'Kalimantan': 1.05, 'Maluku & Papua': 0.80 }
+      },
+      'Makanan Segar': {
+        share: 0.08, gm: 19.5, lfl: 46.0, target: 97.8, ebitda: 5.4, returnR: 0.5,
+        // Fresh produce daily turnover
+        seasonality: [0.96, 0.98, 0.97, 1.05, 0.99, 1.00, 0.99, 1.02, 0.98, 1.04, 1.01, 1.08, 1.02, 1.05, 1.03],
+        regionBias: { 'Jabodetabek': 1.20, 'Jawa (Non-Jabodetabek)': 1.15, 'Sumatera': 0.80, 'Bali & Nusa Tenggara': 1.10, 'Sulawesi': 0.70, 'Kalimantan': 0.70, 'Maluku & Papua': 0.40 }
+      }
+    };
+
+    // Sub-stores detailed locations for realistic cluster density
+    const SUB_STORES = [
+      { name: 'Store Bandung Sukajadi', region: 'Jawa (Non-Jabodetabek)', sales: 0.28, lat: -6.8925, lng: 107.5983, color: '#991b1b', radius: 12 },
+      { name: 'Store Semarang Pandanaran', region: 'Jawa (Non-Jabodetabek)', sales: 0.22, lat: -6.9890, lng: 110.4210, color: '#b91c1c', radius: 11 },
+      { name: 'Store Solo Paragon', region: 'Jawa (Non-Jabodetabek)', sales: 0.16, lat: -7.5619, lng: 110.8142, color: '#dc2626', radius: 9 },
+      { name: 'Store Yogyakarta Malioboro', region: 'Jawa (Non-Jabodetabek)', sales: 0.21, lat: -7.7956, lng: 110.3695, color: '#b91c1c', radius: 10 },
+      { name: 'Store Surabaya Tunjungan', region: 'Jawa (Non-Jabodetabek)', sales: 0.38, lat: -7.2608, lng: 112.7383, color: '#0f766e', radius: 15 },
+      { name: 'Store Malang Town Square', region: 'Jawa (Non-Jabodetabek)', sales: 0.14, lat: -7.9572, lng: 112.6171, color: '#dc2626', radius: 8 },
+      { name: 'Store Medan Sun Plaza', region: 'Sumatera', sales: 0.18, lat: 3.5852, lng: 98.6712, color: '#991b1b', radius: 10 },
+      { name: 'Store Palembang Icon', region: 'Sumatera', sales: 0.13, lat: -2.9805, lng: 104.7570, color: '#b91c1c', radius: 8 },
+      { name: 'Store Balikpapan Plaza', region: 'Kalimantan', sales: 0.11, lat: -1.2721, lng: 116.8290, color: '#ef4444', radius: 7 },
+      { name: 'Store Samarinda Central', region: 'Kalimantan', sales: 0.08, lat: -0.5021, lng: 117.1537, color: '#f87171', radius: 6 },
+      { name: 'Store Makassar Trans Studio', region: 'Sulawesi', sales: 0.15, lat: -5.1585, lng: 119.3980, color: '#b91c1c', radius: 9 },
+      { name: 'Store Manado Mega Mall', region: 'Sulawesi', sales: 0.07, lat: 1.4884, lng: 124.8413, color: '#ef4444', radius: 6 },
+      { name: 'Store Denpasar Teuku Umar', region: 'Bali & Nusa Tenggara', sales: 0.17, lat: -8.6784, lng: 115.2078, color: '#dc2626', radius: 9 },
+      { name: 'Store Mataram Epicentrum', region: 'Bali & Nusa Tenggara', sales: 0.06, lat: -8.5915, lng: 116.1018, color: '#f87171', radius: 5 },
+      { name: 'Store Jayapura Mall', region: 'Maluku & Papua', sales: 0.03, lat: -2.5337, lng: 140.7181, color: '#fca5a5', radius: 5 }
+    ];
+
+    let trenChart = null;
+    let regionChart = null;
+    let mapInstance = null;
+    let mapMarkersLayer = null;
+
+    // Time Labels for Tren Bulanan (15 monthly snapshots Jan 2023 - Jul 2026)
+    const TIME_LABELS = [
+      'Jan 2023', 'Apr 2023', 'Jul 2023', 'Okt 2023',
+      'Jan 2024', 'Apr 2024', 'Jul 2024', 'Okt 2024',
+      'Jan 2025', 'Apr 2025', 'Jul 2025', 'Okt 2025',
+      'Jan 2026', 'Apr 2026', 'Jul 2026'
+    ];
+
+    // -------------------------------------------------------------
+    // 1. TREN BULANAN LINE CHART INITIALIZATION
+    // -------------------------------------------------------------
+    function initTrenBulananChart() {
+      const ctx = document.getElementById('trenBulananChart').getContext('2d');
+      const base = YEAR_DATA['2023'];
+
+      trenChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: TIME_LABELS,
+          datasets: [
+            {
+              label: 'Net Sales',
+              data: [...base.monthlyCurve],
+              borderColor: '#0b1c32',
+              borderWidth: 2.5,
+              fill: false,
+              tension: 0.35,
+              pointRadius: 0,
+              pointHoverRadius: 5,
+              pointHoverBackgroundColor: '#0b1c32',
+              yAxisID: 'y'
+            },
+            {
+              label: 'EBITDA %',
+              data: [0.074, 0.072, 0.075, 0.073, 0.076, 0.078, 0.074, 0.075, 0.072, 0.076, 0.074, 0.075, 0.073, 0.074, 0.074],
+              borderColor: '#2563eb',
+              borderWidth: 1.2,
+              fill: false,
+              tension: 0.2,
+              pointRadius: 0,
+              yAxisID: 'y'
+            },
+            {
+              label: 'Target Achievement %',
+              data: [0.992, 0.985, 0.990, 0.995, 0.988, 0.994, 0.991, 0.996, 0.989, 0.993, 0.990, 0.997, 0.992, 0.992, 0.992],
+              borderColor: '#38bdf8',
+              borderWidth: 1.2,
+              fill: false,
+              tension: 0.2,
+              pointRadius: 0,
+              yAxisID: 'y'
+            },
+            {
+              label: 'LFL Growth %',
+              data: [0.440, 0.425, 0.438, 0.445, 0.432, 0.450, 0.441, 0.455, 0.439, 0.448, 0.442, 0.452, 0.440, 0.440, 0.440],
+              borderColor: '#f59e0b',
+              borderWidth: 1.2,
+              fill: false,
+              tension: 0.2,
+              pointRadius: 0,
+              yAxisID: 'y'
+            },
+            {
+              label: 'Return Rate %',
+              data: [0.019, 0.018, 0.019, 0.020, 0.019, 0.018, 0.019, 0.019, 0.020, 0.018, 0.019, 0.019, 0.019, 0.019, 0.019],
+              borderColor: '#ef4444',
+              borderWidth: 1.2,
+              fill: false,
+              tension: 0.2,
+              pointRadius: 0,
+              yAxisID: 'y'
+            },
+            {
+              label: 'Gross Margin %',
+              data: [0.278, 0.275, 0.279, 0.281, 0.276, 0.280, 0.277, 0.282, 0.275, 0.279, 0.278, 0.280, 0.278, 0.278, 0.278],
+              borderColor: '#94a3b8',
+              borderWidth: 1.2,
+              fill: false,
+              tension: 0.2,
+              pointRadius: 0,
+              yAxisID: 'y'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: {
+            mode: 'index',
+            intersect: false
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: 'rgba(11, 28, 50, 0.95)',
+              titleFont: { size: 11, family: 'Segoe UI' },
+              bodyFont: { size: 10, family: 'Segoe UI' },
+              padding: 8,
+              cornerRadius: 4,
+              callbacks: {
+                label: function(context) {
+                  let val = context.parsed.y;
+                  if (context.datasetIndex === 0) {
+                    return `Net Sales: Rp ${Math.round(val)}bn`;
+                  }
+                  // Check if we are displaying highlighted percentage axis
+                  let pct = (val < 2.0) ? (val * 100).toFixed(1) : val.toFixed(1);
+                  return `${context.dataset.label}: ${pct}%`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: {
+                color: '#64748b',
+                font: { size: 9, family: 'Segoe UI' },
+                maxRotation: 0,
+                autoSkip: true,
+                maxTicksLimit: 7
+              }
+            },
+            y: {
+              min: -50,
+              max: 150,
+              ticks: {
+                stepSize: 50,
+                color: '#64748b',
+                font: { size: 9, family: 'Segoe UI' },
+                callback: function(value) {
+                  return value + 'bn';
+                }
+              },
+              grid: {
+                color: '#f1f5f9',
+                drawBorder: false
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // -------------------------------------------------------------
+    // 2. NET SALES PER REGION HORIZONTAL BAR CHART
+    // -------------------------------------------------------------
+    function initRegionBarChart() {
+      const ctx = document.getElementById('regionBarChart').getContext('2d');
+      const base = YEAR_DATA['2023'];
+
+      const regions = base.regions.map(d => d.region);
+      const sales = base.regions.map(d => d.sales);
+
+      regionChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: regions,
+          datasets: [{
+            data: sales,
+            backgroundColor: '#0c1f38',
+            hoverBackgroundColor: '#1e3a5f',
+            borderRadius: 2,
+            barThickness: 13
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: 'rgba(11, 28, 50, 0.95)',
+              titleFont: { size: 11, family: 'Segoe UI' },
+              bodyFont: { size: 10, family: 'Segoe UI' },
+              padding: 8,
+              callbacks: {
+                label: function(context) {
+                  const val = context.parsed.x;
+                  return `Net Sales: ${val >= 1.0 ? val.toFixed(2) + 'T' : Math.round(val * 1000) + ' Milyar'}`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              min: 0.0,
+              max: 2.0,
+              ticks: {
+                stepSize: 0.5,
+                color: '#64748b',
+                font: { size: 9, family: 'Segoe UI' },
+                callback: function(value) {
+                  return value.toFixed(1) + 'T';
+                }
+              },
+              grid: {
+                color: '#f1f5f9'
+              }
+            },
+            y: {
+              grid: { display: false },
+              ticks: {
+                color: '#0a192f',
+                font: { size: 10, weight: '500', family: 'Segoe UI' }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // -------------------------------------------------------------
+    // 3. SEBARAN TOKO MAP OF INDONESIA (ESRI LIGHT GRAY BASE)
+    // -------------------------------------------------------------
+    function initIndonesiaMap() {
+      mapInstance = L.map('indonesiaMap', {
+        center: [-2.5, 118.0],
+        zoom: 4.6,
+        minZoom: 3,
+        maxZoom: 9,
+        zoomControl: false,
+        attributionControl: true
+      });
+
+      L.control.zoom({ position: 'topright' }).addTo(mapInstance);
+
+      // Esri Canvas World Light Gray Base (Power BI Bing Map style)
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+        attribution: '&copy; 2026 TomTom, &copy; 2026 Microsoft Corporation, &copy; OpenStreetMap',
+        maxZoom: 16
+      }).addTo(mapInstance);
+
+      mapMarkersLayer = L.layerGroup().addTo(mapInstance);
+      renderMapMarkers(YEAR_DATA['2023'].regions);
+    }
+
+    function renderMapMarkers(data) {
+      if (!mapMarkersLayer) return;
+      mapMarkersLayer.clearLayers();
+
+      data.forEach(d => {
+        const circle = L.circleMarker([d.lat, d.lng], {
+          radius: d.radius,
+          fillColor: d.color,
+          color: '#ffffff',
+          weight: 1.5,
+          opacity: 0.9,
+          fillOpacity: 0.65
+        });
+
+        circle.bindTooltip(`
+          <div style="font-family:'Segoe UI'; font-size:11px; padding:2px;">
+            <b>${d.region}</b><br/>
+            Net Sales: <b>${d.sales >= 1.0 ? d.sales.toFixed(2) + 'T' : Math.round(d.sales * 1000) + 'M'}</b><br/>
+            Jumlah Gerai: ${d.stores || '-'} Toko<br/>
+            Sales/m²: Rp ${d.salesSqm || 3.2} Jt
+          </div>
+        `, { direction: 'top', offset: [0, -5] });
+
+        mapMarkersLayer.addLayer(circle);
+      });
+
+      // Filter sub-stores according to current regions
+      const activeRegNames = data.map(d => d.region);
+      SUB_STORES.filter(s => activeRegNames.includes(s.region)).forEach(s => {
+        const subCircle = L.circleMarker([s.lat, s.lng], {
+          radius: s.radius,
+          fillColor: s.color,
+          color: '#ffffff',
+          weight: 1.2,
+          opacity: 0.85,
+          fillOpacity: 0.6
+        });
+
+        subCircle.bindTooltip(`
+          <div style="font-family:'Segoe UI'; font-size:11px; padding:2px;">
+            <b>${s.name}</b><br/>
+            Sales: Rp ${s.sales}T
+          </div>
+        `, { direction: 'top' });
+
+        mapMarkersLayer.addLayer(subCircle);
+      });
+    }
+
+    // -------------------------------------------------------------
+    // 4. MULTIDIMENSIONAL CROSS-FILTERING RECALCULATION ENGINE
+    // -------------------------------------------------------------
+    function applyFilters() {
+      const yearSelect = document.getElementById('slicer-year');
+      const selectedYear = yearSelect ? yearSelect.value : '2023';
+
+      const selectedCats = Array.from(document.querySelectorAll('.filter-cat:checked')).map(el => el.dataset.category);
+      const selectedRegs = Array.from(document.querySelectorAll('.filter-reg:checked')).map(el => el.dataset.region);
+      const selectedMetrics = Array.from(document.querySelectorAll('.filter-metric:checked')).map(el => el.dataset.metric);
+
+      const yearObj = YEAR_DATA[selectedYear] || YEAR_DATA['2023'];
+      
+      // Compute Category Composite Multipliers
+      let catShareSum = 0;
+      let blendedGm = 0;
+      let blendedLfl = 0;
+      let blendedTarget = 0;
+      let blendedEbitda = 0;
+      let blendedReturn = 0;
+      let compositeSeasonality = new Array(TIME_LABELS.length).fill(0);
+
+      if (selectedCats.length > 0) {
+        selectedCats.forEach(catName => {
+          const prof = CATEGORY_PROFILES[catName];
+          if (prof) {
+            catShareSum += prof.share;
+            blendedGm += prof.gm * prof.share;
+            blendedLfl += prof.lfl * prof.share;
+            blendedTarget += prof.target * prof.share;
+            blendedEbitda += prof.ebitda * prof.share;
+            blendedReturn += prof.returnR * prof.share;
+            for (let i = 0; i < TIME_LABELS.length; i++) {
+              compositeSeasonality[i] += prof.seasonality[i] * prof.share;
+            }
+          }
+        });
+        // Normalize by selected share
+        blendedGm = (blendedGm / catShareSum);
+        blendedLfl = (blendedLfl / catShareSum);
+        blendedTarget = (blendedTarget / catShareSum);
+        blendedEbitda = (blendedEbitda / catShareSum);
+        blendedReturn = (blendedReturn / catShareSum);
+        for (let i = 0; i < TIME_LABELS.length; i++) {
+          compositeSeasonality[i] = compositeSeasonality[i] / catShareSum;
+        }
+      } else {
+        // Default to year baseline
+        catShareSum = 1.0;
+        blendedGm = yearObj.kpi.grossMargin;
+        blendedLfl = yearObj.kpi.lflGrowth;
+        blendedTarget = yearObj.kpi.targetAch;
+        blendedEbitda = yearObj.kpi.ebitda;
+        blendedReturn = yearObj.kpi.returnRate;
+        for (let i = 0; i < TIME_LABELS.length; i++) {
+          compositeSeasonality[i] = 1.0;
+        }
+      }
+
+      // Filter Regions
+      let regionalData = yearObj.regions.map(r => ({ ...r }));
+      if (selectedRegs.length > 0) {
+        regionalData = regionalData.filter(d => selectedRegs.includes(d.region));
+      }
+
+      // Apply category regionBias & volume scaling
+      regionalData.forEach(r => {
+        let bias = 1.0;
+        if (selectedCats.length > 0) {
+          let bSum = 0;
+          selectedCats.forEach(cat => {
+            const p = CATEGORY_PROFILES[cat];
+            if (p && p.regionBias && p.regionBias[r.region]) {
+              bSum += p.regionBias[r.region] * p.share;
+            } else {
+              bSum += 1.0 * (p ? p.share : 1);
+            }
+          });
+          bias = bSum / catShareSum;
+        }
+        r.sales = +(r.sales * catShareSum * bias).toFixed(2);
+        // Adjust map radius proportionally
+        r.radius = Math.max(5, Math.min(32, Math.round(Math.sqrt(r.sales * 100) * 4)));
+      });
+
+      // Total Net Sales
+      const totalNetSales = regionalData.reduce((acc, curr) => acc + curr.sales, 0);
+
+      // UPDATE KPI CARDS
+      const salesDisplay = totalNetSales >= 1.0 ? totalNetSales.toFixed(2).replace(/\.00$/, '') + 'T' : Math.round(totalNetSales * 1000) + 'M';
+      document.getElementById('kpi-net-sales').textContent = salesDisplay;
+      document.getElementById('kpi-gross-margin').textContent = blendedGm.toFixed(1) + '%';
+      document.getElementById('kpi-lfl-growth').textContent = blendedLfl.toFixed(1) + '%';
+      document.getElementById('kpi-target-ach').textContent = blendedTarget.toFixed(1) + '%';
+      document.getElementById('kpi-ebitda').textContent = blendedEbitda.toFixed(1) + '%';
+      document.getElementById('kpi-return-rate').textContent = blendedReturn.toFixed(1) + '%';
+
+      // UPDATE TREN BULANAN CHART
+      if (trenChart) {
+        // Calculate dynamic monthly line based on year curve and composite seasonality
+        const baseSalesCurve = yearObj.monthlyCurve;
+        const scaleFactor = (totalNetSales / yearObj.kpi.netSales);
+        
+        const dynamicMonthly = baseSalesCurve.map((val, idx) => {
+          return Math.round(val * scaleFactor * compositeSeasonality[idx]);
+        });
+
+        trenChart.data.datasets[0].data = dynamicMonthly;
+
+        // Check if specific metric is selected to highlight
+        const highlightEbitda = selectedMetrics.includes('EBITDA %');
+        const highlightTarget = selectedMetrics.includes('Target Achievement %');
+        const highlightLfl = selectedMetrics.includes('LFL Growth %');
+
+        if (highlightTarget) {
+          // Highlight Target Achievement % around 100% line
+          trenChart.data.datasets[2].borderWidth = 3;
+          trenChart.data.datasets[2].pointRadius = 3;
+          trenChart.data.datasets[2].data = yearObj.targetMonthly.map(v => +(v * (blendedTarget / yearObj.kpi.targetAch)).toFixed(1));
+          showToast('Menyorot tren bulanan: Target Achievement %');
+        } else {
+          trenChart.data.datasets[2].borderWidth = 1.2;
+          trenChart.data.datasets[2].pointRadius = 0;
+          trenChart.data.datasets[2].data = [0.992, 0.985, 0.990, 0.995, 0.988, 0.994, 0.991, 0.996, 0.989, 0.993, 0.990, 0.997, 0.992, 0.992, 0.992];
+        }
+
+        if (highlightEbitda) {
+          trenChart.data.datasets[1].borderWidth = 3;
+          trenChart.data.datasets[1].pointRadius = 3;
+          trenChart.data.datasets[1].data = yearObj.ebitdaMonthly.map(v => +(v * (blendedEbitda / yearObj.kpi.ebitda)).toFixed(1));
+          showToast('Menyorot tren bulanan: EBITDA %');
+        } else {
+          trenChart.data.datasets[1].borderWidth = 1.2;
+          trenChart.data.datasets[1].pointRadius = 0;
+          trenChart.data.datasets[1].data = [0.074, 0.072, 0.075, 0.073, 0.076, 0.078, 0.074, 0.075, 0.072, 0.076, 0.074, 0.075, 0.073, 0.074, 0.074];
+        }
+
+        if (highlightLfl) {
+          trenChart.data.datasets[3].borderWidth = 3;
+          trenChart.data.datasets[3].pointRadius = 3;
+          trenChart.data.datasets[3].data = yearObj.lflMonthly.map(v => +(v * (blendedLfl / yearObj.kpi.lflGrowth)).toFixed(1));
+          showToast('Menyorot tren bulanan: LFL Growth %');
+        } else {
+          trenChart.data.datasets[3].borderWidth = 1.2;
+          trenChart.data.datasets[3].pointRadius = 0;
+          trenChart.data.datasets[3].data = [0.440, 0.425, 0.438, 0.445, 0.432, 0.450, 0.441, 0.455, 0.439, 0.448, 0.442, 0.452, 0.440, 0.440, 0.440];
+        }
+
+        // Adjust Y scale if totalNetSales exceeds 6T
+        if (totalNetSales > 6.0) {
+          trenChart.options.scales.y.max = 400;
+        } else {
+          trenChart.options.scales.y.max = 150;
+        }
+
+        trenChart.update();
+      }
+
+      // UPDATE REGIONAL BAR CHART
+      if (regionChart) {
+        regionChart.data.labels = regionalData.map(d => d.region);
+        regionChart.data.datasets[0].data = regionalData.map(d => d.sales);
+        const maxBarVal = Math.max(...regionalData.map(d => d.sales), 0.5);
+        regionChart.options.scales.x.max = maxBarVal > 2.0 ? Math.ceil(maxBarVal * 1.2) : 2.0;
+        regionChart.update();
+      }
+
+      // UPDATE MAP
+      renderMapMarkers(regionalData);
+
+      // Recenter Map if single region is selected
+      if (selectedRegs.length === 1 && regionalData.length === 1) {
+        mapInstance.setView([regionalData[0].lat, regionalData[0].lng], 6, { animate: true });
+      } else if (selectedRegs.length === 0) {
+        mapInstance.setView([-2.5, 118.0], 4.6, { animate: true });
+      }
+
+      // Flash visual confirmation
+      document.getElementById('kpi-net-sales').classList.add('text-amber-600');
+      setTimeout(() => {
+        document.getElementById('kpi-net-sales').classList.remove('text-amber-600');
+      }, 300);
+    }
+
+    function resetSlicers() {
+      const yearSelect = document.getElementById('slicer-year');
+      if (yearSelect) yearSelect.value = '2023';
+      document.querySelectorAll('.pbi-checkbox').forEach(cb => cb.checked = false);
+      applyFilters();
+      showToast('Slicers telah di-reset ke data default (2023 Audited).');
+    }
+
+    // -------------------------------------------------------------
+    // 5. 10 TAB MODULE SIMULATOR
+    // -------------------------------------------------------------
+    function switchTab(tabId) {
+      const tabNames = {
+        'overview': 'Executive Overview',
+        'penjualan': 'Penjualan & Tren',
+        'toko': 'Toko & Wilayah',
+        'produk': 'Produk & Kategori',
+        'promosi': 'Promosi',
+        'inventori': 'Inventori & Supplier',
+        'pelanggan': 'Pelanggan & Loyalty',
+        'omnichannel': 'Omnichannel & Layanan',
+        'profitabilitas': 'Operasional & Profitabilitas',
+        'whatif': 'Simulasi What-If'
+      };
+      
+      const buttons = document.querySelectorAll('.tab-btn');
+      buttons.forEach(btn => {
+        btn.classList.remove('tab-active');
+        btn.classList.add('tab-inactive');
+      });
+
+      const clickedBtn = event.currentTarget;
+      if (clickedBtn) {
+        clickedBtn.classList.remove('tab-inactive');
+        clickedBtn.classList.add('tab-active');
+      }
+
+      // If user clicks other analytical modules, adapt visual feedback
+      if (tabId === 'overview') {
+        resetSlicers();
+        showToast('Menampilkan halaman utama: Executive Overview (Sesuai Laporan PBI)');
+      } else if (tabId === 'penjualan') {
+        // Highlight YoY growth trend
+        const lflCb = document.querySelector('.filter-metric[data-metric="LFL Growth %"]');
+        if (lflCb) lflCb.checked = true;
+        applyFilters();
+        showToast("Modul 'Penjualan & Tren': Membedah YoY & MoM Growth bulanan.");
+      } else if (tabId === 'toko') {
+        // Zoom to Top Store Region
+        const regCb = document.querySelector('.filter-reg[data-region="Jabodetabek"]');
+        if (regCb) regCb.checked = true;
+        applyFilters();
+        showToast("Modul 'Toko & Wilayah': Analisis efisiensi gerai (Sales/m²).");
+      } else if (tabId === 'produk') {
+        // Select Top Pareto Category
+        const catCb = document.querySelector('.filter-cat[data-category="Elektronik"]');
+        if (catCb) catCb.checked = true;
+        applyFilters();
+        showToast("Modul 'Produk & Kategori': Segmentasi Pareto ABC 80/20.");
+      } else if (tabId === 'promosi') {
+        const catCb = document.querySelector('.filter-cat[data-category="Fashion"]');
+        if (catCb) catCb.checked = true;
+        applyFilters();
+        showToast("Modul 'Promosi': Efektivitas diskon & lonjakan musiman.");
+      } else if (tabId === 'whatif') {
+        const yr = document.getElementById('slicer-year');
+        if (yr) yr.value = '2024';
+        applyFilters();
+        showToast("Modul 'Simulasi What-If': Proyeksi pertumbuhan 2024 YTD (+28.7%).");
+      } else {
+        showToast(`Navigasi ke modul '${tabNames[tabId]}'. Modul analitik terhubung.`);
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toastNotification');
+      const text = document.getElementById('toastMessage');
+      if (!toast || !text) return;
+      text.textContent = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3000);
+    }
+
+    // Initialize all components on DOM Load
+    window.addEventListener('DOMContentLoaded', () => {
+      initTrenBulananChart();
+      initRegionBarChart();
+      initIndonesiaMap();
+    });
+  </script>
+</body>
+</html>

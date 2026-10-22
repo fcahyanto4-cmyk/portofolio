@@ -1,0 +1,2020 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth dark">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Portofolio resmi Fajar Sidiq Cahyanto — Junior Data Analyst, Power BI & SQL Specialist, Web Developer, dan Workflow Automation Builder." />
+  <meta name="author" content="Fajar Sidiq Cahyanto" />
+  <meta property="og:title" content="Fajar Sidiq Cahyanto — Data Analyst Portfolio" />
+  <meta property="og:description"
+    content="Portfolio analitik data, Power BI Executive Dashboard, K-Means Clustering, Web Application, dan Workflow Automation." />
+  <meta property="og:type" content="website" />
+  <title>Fajar Sidiq Cahyanto — Junior Data Analyst & BI Developer</title>
+
+  <!-- Typography & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              300: '#93c5fd',
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            },
+            surface: {
+              dark: '#09090b',
+              'dark-card': '#111114',
+              'dark-subtle': '#18181c',
+              'dark-border': '#27272a',
+              light: '#fafaf9',
+              'light-card': '#ffffff',
+              'light-subtle': '#f4f4f5',
+              'light-border': '#e4e4e7',
+            }
+          },
+          fontFamily: {
+            sans: ["'Plus Jakarta Sans'", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+            mono: ["'JetBrains Mono'", "monospace"]
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Instant Theme Initializer (Prevents Flash) -->
+  <script>
+    (function () {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light') {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('light');
+      } else {
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
+      }
+    })();
+  </script>
+
+  <style>
+    /* ===================================================================
+       REFINED MINIMALIST DESIGN SYSTEM (LINEAR / VERCEL / APPLE AESTHETICS)
+       NO AI SLOP: No neon blur blobs, no cosmic purple gradients, no jitter
+    =================================================================== */
+    :root {
+      --bg-primary: #09090b;
+      --bg-card: #111114;
+      --bg-subtle: #18181c;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.2);
+      --text-primary: #fafafa;
+      --text-secondary: #a1a1aa;
+      --text-muted: #71717a;
+    }
+
+    html.light {
+      --bg-primary: #fafaf9;
+      --bg-card: #ffffff;
+      --bg-subtle: #f4f4f5;
+      --border-color: rgba(0, 0, 0, 0.08);
+      --border-hover: rgba(0, 0, 0, 0.2);
+      --text-primary: #18181b;
+      --text-secondary: #52525b;
+      --text-muted: #71717a;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      transition: background-color 0.25s ease, color 0.25s ease;
+      letter-spacing: -0.01em;
+    }
+
+    /* Refined Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #3f3f46;
+      border-radius: 9999px;
+    }
+
+    html.light ::-webkit-scrollbar-thumb {
+      background: #d4d4d8;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #71717a;
+    }
+
+    /* Selection */
+    ::selection {
+      background: #2563eb;
+      color: #ffffff;
+    }
+
+    /* Hairline border utility */
+    .hairline-border {
+      border: 1px solid var(--border-color);
+    }
+
+    .hairline-border:hover {
+      border-color: var(--border-hover);
+    }
+
+    /* Tactile Minimal Card */
+    .editorial-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      transition: border-color 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+    }
+
+    .editorial-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.25);
+    }
+
+    html.light .editorial-card:hover {
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Subtle active nav pill */
+    .nav-pill {
+      transition: all 0.2s ease;
+    }
+
+    .nav-pill.active {
+      color: #ffffff !important;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    html.light .nav-pill.active {
+      color: #18181b !important;
+      background-color: rgba(0, 0, 0, 0.06);
+    }
+
+    /* Scroll reveal transitions */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Pulse dot */
+    .status-dot {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: #10b981;
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
+      animation: pulse-ring 2.4s infinite cubic-bezier(0.4, 0, 0.6, 1);
+    }
+
+    @keyframes pulse-ring {
+      0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
+      }
+
+      70% {
+        box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+      }
+    }
+
+    /* Tabular figures for data metrics */
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Modal Animation */
+    .modal-enter {
+      animation: modalIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes modalIn {
+      from {
+        opacity: 0;
+        transform: scale(0.97) translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body class="min-h-screen antialiased flex flex-col font-sans">
+
+  <!-- ===================================================================
+       PROGRESS BAR (MINIMAL ACCENT)
+  =================================================================== -->
+  <div id="scroll-progress" class="fixed top-0 left-0 h-[2px] bg-brand-500 z-50 transition-all duration-100 ease-out"
+    style="width: 0%;"></div>
+
+  <!-- ===================================================================
+       HEADER NAVIGATION
+  =================================================================== -->
+  <header
+    class="fixed top-0 left-0 right-0 z-40 backdrop-blur-md bg-[#09090b]/80 dark:bg-[#09090b]/80 bg-[#fafaf9]/85 light:bg-[#fafaf9]/85 border-b border-zinc-200/80 dark:border-zinc-800/80 transition-colors duration-200"
+    id="site-header">
+    <div class="h-16 w-full max-w-6xl mx-auto px-5 sm:px-8 flex items-center justify-between gap-4">
+
+      <!-- Identity / Wordmark -->
+      <a href="#hero" class="flex items-center gap-2.5 group">
+        <img src="assets/images/fajar.png" alt="Fajar Sidiq Cahyanto"
+          class="w-7 h-7 rounded-full object-cover object-top border border-zinc-300 dark:border-zinc-700 shadow-xs group-hover:border-brand-500 transition-colors" />
+        <span
+          class="font-mono text-xs font-semibold tracking-wider uppercase text-zinc-900 dark:text-zinc-100 group-hover:text-brand-500 transition-colors">
+          Fajar Sidiq Cahyanto
+        </span>
+        <span class="hidden sm:inline-block text-zinc-400 dark:text-zinc-600 font-mono text-xs">/</span>
+        <span
+          class="hidden sm:inline-block font-mono text-[11px] text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
+          Data Analyst
+        </span>
+      </a>
+
+      <!-- Center Nav Links -->
+      <nav
+        class="hidden md:flex items-center gap-1 bg-zinc-100 dark:bg-zinc-900/90 p-1 rounded-full border border-zinc-200 dark:border-zinc-800 text-xs font-medium text-zinc-600 dark:text-zinc-400">
+        <a href="#hero" data-nav="hero"
+          class="nav-pill active px-3.5 py-1.5 rounded-full hover:text-zinc-900 dark:hover:text-zinc-100">Beranda</a>
+        <a href="#tentang" data-nav="tentang"
+          class="nav-pill px-3.5 py-1.5 rounded-full hover:text-zinc-900 dark:hover:text-zinc-100">Tentang</a>
+        <a href="#projek" data-nav="projek"
+          class="nav-pill px-3.5 py-1.5 rounded-full hover:text-zinc-900 dark:hover:text-zinc-100">Projek</a>
+        <a href="#kontak" data-nav="kontak"
+          class="nav-pill px-3.5 py-1.5 rounded-full hover:text-zinc-900 dark:hover:text-zinc-100">Kontak</a>
+      </nav>
+
+      <!-- Dark / Light Mode Toggle Button -->
+      <button id="theme-toggle-btn"
+        class="w-8 h-8 rounded-lg border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 bg-white dark:bg-zinc-900 transition-colors cursor-pointer"
+        aria-label="Toggle Theme" title="Beralih tema">
+        <i id="theme-toggle-icon" class="fa-solid fa-sun text-xs"></i>
+      </button>
+
+      <!-- Mobile Menu Toggle -->
+      <button id="mobile-menu-btn"
+        class="md:hidden w-8 h-8 rounded-lg border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-600 dark:text-zinc-300"
+        aria-label="Buka Menu">
+        <i class="fa-solid fa-bars text-xs"></i>
+      </button>
+    </div>
+
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-nav-menu"
+      class="hidden md:hidden bg-white/95 dark:bg-zinc-950/95 backdrop-blur-xl border-b border-zinc-200 dark:border-zinc-800 px-6 py-4 flex flex-col gap-3 font-mono text-xs uppercase tracking-wider">
+      <a href="#hero" class="mobile-link py-1.5 text-zinc-600 dark:text-zinc-400 hover:text-brand-500">Beranda</a>
+      <a href="#tentang" class="mobile-link py-1.5 text-zinc-600 dark:text-zinc-400 hover:text-brand-500">Tentang</a>
+      <a href="#projek" class="mobile-link py-1.5 text-zinc-600 dark:text-zinc-400 hover:text-brand-500">Projek
+        Portfolio</a>
+      <a href="#automation-showcase"
+        class="mobile-link py-1.5 text-zinc-600 dark:text-zinc-400 hover:text-brand-500">Otomasi AI</a>
+      <a href="#kontak" class="mobile-link py-1.5 text-zinc-600 dark:text-zinc-400 hover:text-brand-500">Kontak</a>
+      <div class="pt-2 border-t border-zinc-200 dark:border-zinc-800 flex gap-2">
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================================================================
+       MAIN CONTAINER
+  =================================================================== -->
+  <main class="w-full flex-1 pt-24 sm:pt-28">
+
+    <!-- ===================================================================
+         HERO SECTION (EDITORIAL & PRECISE)
+    =================================================================== -->
+    <section id="hero" class="w-full max-w-6xl mx-auto px-5 sm:px-8 pb-16 pt-4 scroll-mt-24">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+
+        <!-- Left: Candidacy & Narrative -->
+        <div class="lg:col-span-7 space-y-6">
+
+          <!-- Availability Tag -->
+          <div
+            class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-mono text-[11px] font-medium reveal">
+            <span class="status-dot"></span>
+            <span>Tersedia untuk Peluang Kerja (Full-Time / Hybrid)</span>
+          </div>
+
+          <!-- Headline -->
+          <div class="space-y-2 reveal">
+            <h1
+              class="text-3xl sm:text-5xl lg:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50 leading-[1.12]">
+              Mengubah Data Kompleks Menjadi <span class="text-brand-600 dark:text-brand-400">Keputusan
+                Strategis.</span>
+            </h1>
+            <p class="font-mono text-sm sm:text-base text-zinc-500 dark:text-zinc-400 font-medium pt-1">
+              Fajar Sidiq Cahyanto — <span id="role-typewriter"
+                class="text-zinc-800 dark:text-zinc-200 font-semibold">Junior Data Analyst</span>
+            </p>
+          </div>
+
+          <!-- Bio -->
+          <p class="text-zinc-600 dark:text-zinc-400 text-base sm:text-lg leading-relaxed max-w-xl font-normal reveal">
+            Lulusan <strong class="text-zinc-900 dark:text-zinc-200 font-semibold">S1 Teknik Informatika Universitas
+              Budi Luhur</strong> yang berfokus pada Business Intelligence, perancangan dashboard eksekutif <strong
+              class="text-zinc-900 dark:text-zinc-200 font-semibold">Power BI (DAX &amp; Star Schema)</strong>, querying
+            relasional (<strong class="text-zinc-900 dark:text-zinc-200 font-semibold">SQL &amp; Python</strong>), serta
+            otomasi workflow (<strong class="text-zinc-900 dark:text-zinc-200 font-semibold">n8n</strong>).
+          </p>
+
+          <!-- Core Tech Icons (Icon-Only 1:1 Super Sharp Brand Logos) -->
+          <div class="space-y-2.5 pt-1 reveal">
+            <span class="font-mono text-[11px] text-zinc-400 dark:text-zinc-500 uppercase tracking-wider block">Keahlian
+              &amp; Alat Utama:</span>
+            <div class="flex flex-wrap items-center gap-2.5 sm:gap-3">
+
+              <!-- Power BI -->
+              <div class="group relative" title="Microsoft Power BI &amp; DAX">
+                <div
+                  class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-zinc-100/90 dark:bg-zinc-800/80 border border-zinc-200/90 dark:border-zinc-700/60 flex items-center justify-center p-2.5 shadow-2xs hover:border-zinc-400 dark:hover:border-zinc-500 hover:bg-white dark:hover:bg-zinc-800 transition-all duration-200 cursor-help">
+                  <img src="assets/images/logos/powerbi.svg" alt="Microsoft Power BI"
+                    class="w-full h-full aspect-square object-contain transition-transform duration-200 group-hover:scale-110"
+                    style="image-rendering: -webkit-optimize-contrast;" width="48" height="48" />
+                </div>
+                <span
+                  class="pointer-events-none absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-900 dark:bg-zinc-100 px-2 py-0.5 font-mono text-[10px] text-white dark:text-zinc-900 opacity-0 transition-opacity duration-150 group-hover:opacity-100 z-30 shadow-xs">
+                  Power BI &amp; DAX
+                </span>
+              </div>
+
+              <!-- Looker Studio -->
+              <div class="group relative" title="Google Looker Studio">
+                <div
+                  class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-zinc-100/90 dark:bg-zinc-800/80 border border-zinc-200/90 dark:border-zinc-700/60 flex items-center justify-center p-2.5 shadow-2xs hover:border-zinc-400 dark:hover:border-zinc-500 hover:bg-white dark:hover:bg-zinc-800 transition-all duration-200 cursor-help">
+                  <img src="assets/images/logos/looker.svg" alt="Google Looker Studio"
+                    class="w-full h-full aspect-square object-contain transition-transform duration-200 group-hover:scale-110"
+                    style="image-rendering: -webkit-optimize-contrast;" width="48" height="48" />
+                </div>
+                <span
+                  class="pointer-events-none absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-900 dark:bg-zinc-100 px-2 py-0.5 font-mono text-[10px] text-white dark:text-zinc-900 opacity-0 transition-opacity duration-150 group-hover:opacity-100 z-30 shadow-xs">
+                  Looker Studio
+                </span>
+              </div>
+
+              <!-- PostgreSQL / SQL -->
+              <div class="group relative" title="SQL / PostgreSQL">
+                <div
+                  class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-zinc-100/90 dark:bg-zinc-800/80 border border-zinc-200/90 dark:border-zinc-700/60 flex items-center justify-center p-2.5 shadow-2xs hover:border-zinc-400 dark:hover:border-zinc-500 hover:bg-white dark:hover:bg-zinc-800 transition-all duration-200 cursor-help">
+                  <img src="assets/images/logos/postgresql.svg" alt="PostgreSQL"
+                    class="w-full h-full aspect-square object-contain transition-transform duration-200 group-hover:scale-110"
+                    style="image-rendering: -webkit-optimize-contrast;" width="48" height="48" />
+                </div>
+                <span
+                  class="pointer-events-none absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-900 dark:bg-zinc-100 px-2 py-0.5 font-mono text-[10px] text-white dark:text-zinc-900 opacity-0 transition-opacity duration-150 group-hover:opacity-100 z-30 shadow-xs">
+                  SQL / PostgreSQL
+                </span>
+              </div>
+
+              <!-- Python (Pandas) -->
+              <div class="group relative" title="Python (Pandas)">
+                <div
+                  class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-zinc-100/90 dark:bg-zinc-800/80 border border-zinc-200/90 dark:border-zinc-700/60 flex items-center justify-center p-2.5 shadow-2xs hover:border-zinc-400 dark:hover:border-zinc-500 hover:bg-white dark:hover:bg-zinc-800 transition-all duration-200 cursor-help">
+                  <img src="assets/images/logos/python.svg" alt="Python (Pandas)"
+                    class="w-full h-full aspect-square object-contain transition-transform duration-200 group-hover:scale-110"
+                    style="image-rendering: -webkit-optimize-contrast;" width="48" height="48" />
+                </div>
+                <span
+                  class="pointer-events-none absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-900 dark:bg-zinc-100 px-2 py-0.5 font-mono text-[10px] text-white dark:text-zinc-900 opacity-0 transition-opacity duration-150 group-hover:opacity-100 z-30 shadow-xs">
+                  Python (Pandas)
+                </span>
+              </div>
+
+              <!-- Advanced Excel -->
+              <div class="group relative" title="Microsoft Excel">
+                <div
+                  class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-zinc-100/90 dark:bg-zinc-800/80 border border-zinc-200/90 dark:border-zinc-700/60 flex items-center justify-center p-2.5 shadow-2xs hover:border-zinc-400 dark:hover:border-zinc-500 hover:bg-white dark:hover:bg-zinc-800 transition-all duration-200 cursor-help">
+                  <img src="assets/images/logos/excel.svg" alt="Microsoft Excel"
+                    class="w-full h-full aspect-square object-contain transition-transform duration-200 group-hover:scale-110"
+                    style="image-rendering: -webkit-optimize-contrast;" width="48" height="48" />
+                </div>
+                <span
+                  class="pointer-events-none absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-900 dark:bg-zinc-100 px-2 py-0.5 font-mono text-[10px] text-white dark:text-zinc-900 opacity-0 transition-opacity duration-150 group-hover:opacity-100 z-30 shadow-xs">
+                  Advanced Excel
+                </span>
+              </div>
+
+              <!-- Canva -->
+              <div class="group relative" title="Canva (Reporting &amp; Visuals)">
+                <div
+                  class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-zinc-100/90 dark:bg-zinc-800/80 border border-zinc-200/90 dark:border-zinc-700/60 flex items-center justify-center p-2.5 shadow-2xs hover:border-zinc-400 dark:hover:border-zinc-500 hover:bg-white dark:hover:bg-zinc-800 transition-all duration-200 cursor-help">
+                  <img src="assets/images/logos/canva.svg" alt="Canva"
+                    class="w-full h-full aspect-square object-contain transition-transform duration-200 group-hover:scale-110"
+                    style="image-rendering: -webkit-optimize-contrast;" width="48" height="48" />
+                </div>
+                <span
+                  class="pointer-events-none absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-900 dark:bg-zinc-100 px-2 py-0.5 font-mono text-[10px] text-white dark:text-zinc-900 opacity-0 transition-opacity duration-150 group-hover:opacity-100 z-30 shadow-xs">
+                  Canva
+                </span>
+              </div>
+
+              <!-- n8n Automation -->
+              <div class="group relative" title="n8n Workflow Automation">
+                <div
+                  class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-zinc-100/90 dark:bg-zinc-800/80 border border-zinc-200/90 dark:border-zinc-700/60 flex items-center justify-center p-2.5 shadow-2xs hover:border-zinc-400 dark:hover:border-zinc-500 hover:bg-white dark:hover:bg-zinc-800 transition-all duration-200 cursor-help">
+                  <img src="assets/images/logos/n8n.svg" alt="n8n Automation"
+                    class="w-full h-full aspect-square object-contain transition-transform duration-200 group-hover:scale-110"
+                    style="image-rendering: -webkit-optimize-contrast;" width="48" height="48" />
+                </div>
+                <span
+                  class="pointer-events-none absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-900 dark:bg-zinc-100 px-2 py-0.5 font-mono text-[10px] text-white dark:text-zinc-900 opacity-0 transition-opacity duration-150 group-hover:opacity-100 z-30 shadow-xs">
+                  n8n Automation
+                </span>
+              </div>
+
+              <!-- Scikit-Learn (K-Means ML) -->
+              <div class="group relative" title="Scikit-Learn (K-Means Clustering)">
+                <div
+                  class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-zinc-100/90 dark:bg-zinc-800/80 border border-zinc-200/90 dark:border-zinc-700/60 flex items-center justify-center p-2.5 shadow-2xs hover:border-zinc-400 dark:hover:border-zinc-500 hover:bg-white dark:hover:bg-zinc-800 transition-all duration-200 cursor-help">
+                  <img src="assets/images/logos/scikitlearn.svg" alt="Scikit-Learn"
+                    class="w-full h-full aspect-square object-contain transition-transform duration-200 group-hover:scale-110"
+                    style="image-rendering: -webkit-optimize-contrast;" width="48" height="48" />
+                </div>
+                <span
+                  class="pointer-events-none absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-900 dark:bg-zinc-100 px-2 py-0.5 font-mono text-[10px] text-white dark:text-zinc-900 opacity-0 transition-opacity duration-150 group-hover:opacity-100 z-30 shadow-xs">
+                  Scikit-Learn ML
+                </span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Primary CTAs -->
+          <div class="flex flex-wrap items-center gap-3 pt-3 reveal">
+            <button onclick="openCvModal()"
+              class="px-4 py-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-white text-white dark:text-zinc-900 font-mono text-xs font-semibold uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-sm">
+              <i class="fa-regular fa-file-lines text-xs"></i>
+              <span>Lihat CV Lengkap</span>
+            </button>
+
+            <a href="https://wa.me/6281398764002?text=Halo%20Fajar,%20saya%20melihat%20portofolio%20Anda%20dan%20tertarik%20untuk%20berdiskusi."
+              target="_blank" rel="noopener noreferrer"
+              class="px-4 py-2.5 rounded-lg border border-zinc-300 dark:border-zinc-700 hover:border-emerald-500 bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 hover:text-emerald-600 dark:hover:text-emerald-400 font-mono text-xs font-semibold uppercase tracking-wider transition-colors flex items-center gap-2 shadow-xs">
+              <i class="fa-brands fa-whatsapp text-emerald-500 text-sm"></i>
+              <span>WhatsApp</span>
+            </a>
+
+            <a href="#projek"
+              class="px-4 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-600 dark:text-zinc-400 font-mono text-xs uppercase tracking-wider transition-colors flex items-center gap-1.5">
+              <span>Eksplor Projek</span>
+              <i class="fa-solid fa-arrow-down text-[10px]"></i>
+            </a>
+          </div>
+
+          <!-- Contact Channels (Quick Icons) -->
+          <div class="flex items-center gap-3 pt-2 text-zinc-500 dark:text-zinc-400 font-mono text-xs reveal">
+            <span class="text-zinc-400 dark:text-zinc-500 text-[11px] uppercase tracking-wider">Kanal:</span>
+            <a href="https://github.com/fcahyanto4-cmyk" target="_blank" rel="noopener noreferrer"
+              class="hover:text-zinc-900 dark:hover:text-white transition-colors" title="GitHub Profile">
+              <i class="fa-brands fa-github text-base"></i>
+            </a>
+            <a href="https://linkedin.com/in/fajar-sidiq-cahyanto" target="_blank" rel="noopener noreferrer"
+              class="hover:text-brand-500 transition-colors" title="LinkedIn Profile">
+              <i class="fa-brands fa-linkedin text-base"></i>
+            </a>
+            <button onclick="copyToClipboard('fcahyanto4@gmail.com')"
+              class="hover:text-zinc-900 dark:hover:text-white transition-colors cursor-pointer" title="Salin Email">
+              <i class="fa-regular fa-envelope text-base"></i>
+            </button>
+            <button onclick="copyToClipboard('+6281398764002')"
+              class="hover:text-emerald-500 transition-colors cursor-pointer" title="Salin No. HP">
+              <i class="fa-solid fa-phone text-xs"></i>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Right: Profile Portrait & Recruiter Quick Scan (Clean, No Orbit AI Slop) -->
+        <div class="lg:col-span-5 flex flex-col items-center lg:items-end space-y-5 reveal">
+
+          <!-- Clean Framed Portrait (Compact 4:5 Executive Ratio, Cropped Headroom) -->
+          <div
+            class="relative w-full max-w-[280px] sm:max-w-[295px] rounded-2xl overflow-hidden border border-zinc-300 dark:border-zinc-700/80 bg-zinc-100 dark:bg-zinc-900 shadow-sm transition-all duration-300 hover:border-zinc-400 dark:hover:border-zinc-500">
+            <div class="relative overflow-hidden aspect-[4/5] bg-zinc-100 dark:bg-zinc-900">
+              <img src="assets/images/fajar.png?v=4" alt="Fajar Sidiq Cahyanto"
+                class="w-full h-full object-cover object-top" style="image-rendering: -webkit-optimize-contrast;" />
+            </div>
+            <div
+              class="p-3.5 bg-white dark:bg-zinc-900 border-t border-zinc-200 dark:border-zinc-800 flex items-center justify-between font-mono text-xs">
+              <div class="flex flex-col">
+                <span class="font-bold text-zinc-900 dark:text-zinc-100">Fajar Sidiq Cahyanto</span>
+                <span class="text-[10px] text-zinc-500">Jakarta &amp; Tangerang</span>
+              </div>
+              <span
+                class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-semibold border border-emerald-500/20">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Siap Kerja
+              </span>
+            </div>
+          </div>
+
+          <!-- Recruiter Quick Scan Card (Concise, High Signal) -->
+          <div
+            class="w-full max-w-[280px] sm:max-w-[295px] p-3.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 space-y-2 font-mono text-xs shadow-xs">
+            <div
+              class="flex items-center justify-between pb-1.5 border-b border-zinc-100 dark:border-zinc-800 text-[11px] text-zinc-400 uppercase tracking-wider font-semibold">
+              <span>Recruiter Quick Scan</span>
+              <span class="text-brand-500 font-bold">INFO</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <i class="fa-solid fa-graduation-cap text-zinc-400 mt-0.5 text-xs"></i>
+              <span class="text-zinc-600 dark:text-zinc-300 text-[11px]">S1 Teknik Informatika (Univ. Budi Luhur)</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <i class="fa-solid fa-location-dot text-zinc-400 mt-0.5 text-xs"></i>
+              <span class="text-zinc-600 dark:text-zinc-300 text-[11px]">Tangerang / Jakarta (WFO / Hybrid)</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <i class="fa-solid fa-clock text-zinc-400 mt-0.5 text-xs"></i>
+              <span class="text-zinc-600 dark:text-zinc-300 text-[11px]">Ketersediaan: Segera (Immediately)</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         ABOUT SECTION (PHILOSOPHY, COMPETENCIES & CRISP-DM)
+    =================================================================== -->
+    <section id="tentang" class="w-full max-w-6xl mx-auto px-5 sm:px-8 py-20 scroll-mt-24">
+      <div class="flex items-center gap-3 mb-8">
+        <span class="font-mono text-xs uppercase tracking-widest text-brand-600 dark:text-brand-400 font-semibold">
+          01 / Latar Belakang &amp; Filosofi Analitik
+        </span>
+        <div class="h-px bg-zinc-200 dark:bg-zinc-800 flex-1"></div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+
+        <!-- Narrative -->
+        <div class="lg:col-span-7 space-y-5 text-zinc-600 dark:text-zinc-400 leading-relaxed text-base">
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900 dark:text-zinc-100 tracking-tight leading-snug">
+            Data Analitik Bukan Sekadar Grafik Indah, Melainkan Jawaban Atas Pertanyaan Bisnis.
+          </h2>
+
+          <p>
+            Bagi saya, analisis data berawal dari pemahaman konteks bisnis secara mendalam: mengurai proses operasional,
+            merancang pemodelan dimensional (<strong class="text-zinc-900 dark:text-zinc-200">Star Schema: Tabel Fakta
+              &amp; Dimensi</strong>), menjaga integritas data melalui pipeline pembersihan terstruktur, hingga
+            menghasilkan visualisasi yang memicu aksi manajerial.
+          </p>
+
+          <p>
+            Fondasi pendidikan <strong class="text-zinc-900 dark:text-zinc-200">Teknik Informatika Universitas Budi
+              Luhur</strong> membekali saya dengan pemikiran komputasional yang kuat: mulai dari penulisan query SQL
+            teroptimasi, manipulasi dataset Python (Pandas/NumPy), riset pengelompokan Machine Learning berstandar
+            industri (<strong class="text-zinc-900 dark:text-zinc-200">CRISP-DM</strong>), hingga otomatisasi alur kerja
+            backend menggunakan <strong class="text-zinc-900 dark:text-zinc-200">n8n</strong>.
+          </p>
+
+          <!-- Analytical Principle Quote -->
+          <div
+            class="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/60 space-y-1">
+            <span
+              class="font-mono text-xs text-brand-600 dark:text-brand-400 uppercase tracking-wider font-semibold block">
+              Prinsip Kerja Analitik:
+            </span>
+            <p class="text-xs sm:text-sm italic text-zinc-700 dark:text-zinc-300">
+              "A metric without context is merely an opinion; a dashboard that doesn't compel an action is an expensive
+              decoration."
+            </p>
+          </div>
+        </div>
+
+        <!-- 3 Pillars of Competence -->
+        <div class="lg:col-span-5 space-y-3.5">
+
+          <div class="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 space-y-1">
+            <div
+              class="flex items-center gap-2 text-xs font-mono font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wider">
+              <i class="fa-solid fa-chart-pie text-brand-500"></i>
+              <span>1. Business Intelligence &amp; Modeling</span>
+            </div>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 leading-normal">
+              Pemodelan Star Schema, kalkulasi DAX dinamis (YoY, MoM, Pareto ABC, RFM Customer Scoring), dan visualisasi
+              interaktif multi-dimensi (Power BI, Looker Studio, &amp; Canva Reporting).
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 space-y-1">
+            <div
+              class="flex items-center gap-2 text-xs font-mono font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wider">
+              <i class="fa-solid fa-database text-sky-500"></i>
+              <span>2. SQL &amp; Data Pipeline Wrangling</span>
+            </div>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 leading-normal">
+              Query PostgreSQL/MySQL, data aggregation, JOIN multi-tabel, CASE WHEN, window functions, serta pembersihan
+              data dengan Python Pandas.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 space-y-1">
+            <div
+              class="flex items-center gap-2 text-xs font-mono font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wider">
+              <i class="fa-solid fa-brain text-purple-500"></i>
+              <span>3. Machine Learning &amp; Automation</span>
+            </div>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 leading-normal">
+              Penerapan metodologi CRISP-DM, K-Means Clustering dengan evaluasi Silhouette Score (0.684), dan integrasi
+              Webhook via n8n.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         PORTFOLIO PROJECTS SECTION (FILTERABLE & ACCESSIBLE)
+    =================================================================== -->
+    <section id="projek" class="w-full max-w-6xl mx-auto px-5 sm:px-8 py-20 scroll-mt-24">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+        <div>
+          <span
+            class="font-mono text-xs uppercase tracking-widest text-brand-600 dark:text-brand-400 font-semibold block mb-1">
+            02 / Showcase Projek
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900 dark:text-zinc-100 tracking-tight">
+            Studi Kasus &amp; Implementasi Nyata
+          </h2>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div
+          class="flex flex-wrap items-center gap-1.5 p-1 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs font-mono">
+          <button onclick="filterProjects('all')" id="filter-btn-all"
+            class="filter-tab active px-3 py-1.5 rounded-lg font-medium transition-colors cursor-pointer bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 shadow-xs">
+            Semua (4)
+          </button>
+          <button onclick="filterProjects('bi')" id="filter-btn-bi"
+            class="filter-tab px-3 py-1.5 rounded-lg font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors cursor-pointer">
+            Power BI
+          </button>
+          <button onclick="filterProjects('ml')" id="filter-btn-ml"
+            class="filter-tab px-3 py-1.5 rounded-lg font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors cursor-pointer">
+            Machine Learning
+          </button>
+          <button onclick="filterProjects('web')" id="filter-btn-web"
+            class="filter-tab px-3 py-1.5 rounded-lg font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors cursor-pointer">
+            Web &amp; Automasi
+          </button>
+        </div>
+      </div>
+
+      <!-- Projects Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- Project 1: Power BI Retail Cockpit -->
+        <article class="project-card editorial-card rounded-2xl overflow-hidden flex flex-col" data-category="bi">
+          <div class="h-56 bg-zinc-950 relative overflow-hidden border-b border-zinc-200 dark:border-zinc-800 group">
+            <img src="assets/images/powerbi.png" alt="Retail Executive Dashboard Power BI"
+              class="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105" />
+            <div class="absolute top-3 left-3">
+              <span
+                class="px-2.5 py-1 rounded bg-zinc-950/80 backdrop-blur-md border border-white/10 font-mono text-[10px] text-amber-400 font-semibold uppercase">
+                Power BI Enterprise
+              </span>
+            </div>
+            <div
+              class="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-zinc-950/85 backdrop-blur-md border border-amber-500/30 shadow-md">
+
+            </div>
+            <!-- Hover Overlay with Blur -->
+            <a href="demo-viewer.html?project=powerbi" target="_blank" rel="opener"
+              class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-2 text-white font-mono text-xs font-semibold backdrop-blur-[2px]">
+              <span class="w-10 h-10 rounded-full bg-brand-600/95 flex items-center justify-center shadow-lg"><i
+                  class="fa-solid fa-play text-sm ml-0.5"></i></span>
+              <span>Lihat</span>
+            </a>
+          </div>
+          <div class="p-6 flex flex-col flex-1 space-y-3">
+            <div class="flex items-baseline justify-between">
+              <h3 class="text-lg font-bold text-zinc-900 dark:text-zinc-100">Retail Analytics Executive Cockpit</h3>
+            </div>
+            <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed flex-1">
+              Dashboard eksekutif Power BI untuk ritel modern. Menganalisis Net Sales 4T, Gross Margin 27.8%, LFL Growth 44.0%, Target Achievement 99.2%, EBITDA 7.4%, dan sebaran spasial toko nasional.
+            </p>
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">Power
+                BI</span>
+              <span
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">DAX
+                Measures</span>
+              <span
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">Star
+                Schema</span>
+              <span
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">RFM
+                &amp; Pareto</span>
+            </div>
+            <div class="flex items-center gap-3 pt-3 border-t border-zinc-100 dark:border-zinc-800/80">
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 2: DJP Tax Machine Learning Clustering -->
+        <article class="project-card editorial-card rounded-2xl overflow-hidden flex flex-col" data-category="ml">
+          <div class="h-56 bg-zinc-950 relative overflow-hidden border-b border-zinc-200 dark:border-zinc-800 group">
+            <img src="assets/images/kmeans.png" alt="Sistem Klastering Kepatuhan Pajak K-Means"
+              class="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105" />
+            <div class="absolute top-3 left-3">
+              <span
+                class="px-2.5 py-1 rounded bg-zinc-950/80 backdrop-blur-md border border-white/10 font-mono text-[10px] text-brand-400 font-semibold uppercase">
+                Machine Learning • Python
+              </span>
+            </div>
+            <div
+              class="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-zinc-950/85 backdrop-blur-md border border-brand-500/30 shadow-md">
+            </div>
+            <!-- Hover Overlay with Blur -->
+            <a href="demo-viewer.html?project=tax-app" target="_blank" rel="opener"
+              class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-2 text-white font-mono text-xs font-semibold backdrop-blur-[2px]">
+              <span class="w-10 h-10 rounded-full bg-brand-600/95 flex items-center justify-center shadow-lg"><i
+                  class="fa-solid fa-play text-sm ml-0.5"></i></span>
+              <span>Lihat</span>
+            </a>
+          </div>
+          <div class="p-6 flex flex-col flex-1 space-y-3">
+            <div class="flex items-baseline justify-between">
+              <h3 class="text-lg font-bold text-zinc-900 dark:text-zinc-100">Sistem Klastering Kepatuhan Pajak DJP</h3>
+            </div>
+            <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed flex-1">
+              Riset berbasis CRISP-DM untuk mengelompokkan kepatuhan Wajib Pajak berdasarkan keterlambatan setoran
+              PPh/PPN. Dilengkapi 6 modul: Input Data, Preprocessing, Evaluasi Kewajiban, dan Clustering K-Means.
+            </p>
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">Python
+                (Flask)</span>
+              <span
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">K-Means
+                (k=3)</span>
+              <span
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">CRISP-DM</span>
+              <span
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">SQLite</span>
+            </div>
+            <div class="flex items-center gap-3 pt-3 border-t border-zinc-100 dark:border-zinc-800/80">
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 3: AI Financial Assistant & Smart Invoicing Automation -->
+        <article id="automation-showcase"
+          class="project-card editorial-card rounded-2xl overflow-hidden flex flex-col scroll-mt-28"
+          data-category="web">
+          <div class="h-56 bg-zinc-950 relative overflow-hidden border-b border-zinc-200 dark:border-zinc-800 group">
+            <img src="assets/images/automation.png" alt="Arsitektur Workflow n8n — Asisten Keuangan &amp; Invoicing"
+              class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105" />
+            <div class="absolute top-3 left-3">
+              <span
+                class="px-2.5 py-1 rounded bg-zinc-950/80 backdrop-blur-md border border-white/10 font-mono text-[10px] text-orange-400 font-semibold uppercase">
+                AI Automation • n8n &amp; Python
+              </span>
+            </div>
+            <div
+              class="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-zinc-950/85 backdrop-blur-md border border-orange-500/30 shadow-md">
+            </div>
+            <!-- Hover Overlay with Blur -->
+            <a href="demo-viewer.html?project=automation" target="_blank" rel="opener"
+              class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-2 text-white font-mono text-xs font-semibold backdrop-blur-[2px]">
+              <span class="w-10 h-10 rounded-full bg-orange-600/95 flex items-center justify-center shadow-lg"><i
+                  class="fa-solid fa-play text-sm ml-0.5"></i></span>
+              <span> Lihat</span>
+            </a>
+          </div>
+          <div class="p-6 flex flex-col flex-1 space-y-3">
+            <div class="flex items-baseline justify-between">
+              <h3 class="text-lg font-bold text-zinc-900 dark:text-zinc-100">Asisten Keuangan Cerdas &amp; Auto-Invoice
+                AI</h3>
+            </div>
+            <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed flex-1">
+              Sistem otomasi finansial end-to-end: penyerapan multi-channel transaksi via Telegram Bot API, ekstraksi
+              cerdas Claude 3.5 Sonnet Vision (struk fisik &amp; teks bebas), database lokal Excel OpenPyXL dengan
+              proteksi file-locking, dan pembuatan dokumen invoice PDF instan via Python ReportLab.
+            </p>
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">Telegram
+                API</span>
+              <span
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">n8n
+                Workflow</span>
+              <span
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">Claude
+                3.5 Sonnet</span>
+              <span
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">Python
+                ReportLab</span>
+              <span
+                class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-mono text-[11px] border border-emerald-500/20 font-semibold">
+                <i class="fa-solid fa-file-excel mr-1"></i>Sheet 'Laporan Keuangan' (Rp 1.326.000)</span>
+            </div>
+            <div class="flex items-center justify-between pt-3 border-t border-zinc-100 dark:border-zinc-800/80 text-xs">
+              <a href="demo-viewer.html?project=automation" target="_blank" rel="opener" class="font-mono text-orange-600 dark:text-orange-400 hover:underline flex items-center gap-1.5 font-semibold">
+                <span>Lihat Studi Kasus &amp; Excel</span>
+                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+              </a>
+              <a href="assets/images/Laporan_Keuangan.xlsx" download class="font-mono text-zinc-500 dark:text-zinc-400 hover:text-emerald-400 flex items-center gap-1 transition-colors">
+                <i class="fa-solid fa-download text-[11px]"></i>
+                <span>Unduh .xlsx</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 4: Yuk Main Bola (YMB) - Fullstack Community & Mabar Platform -->
+        <article class="project-card editorial-card rounded-2xl overflow-hidden flex flex-col" data-category="web">
+          <div class="h-56 bg-zinc-950 relative overflow-hidden border-b border-zinc-200 dark:border-zinc-800 group">
+            <img src="assets/images/ymb.png" alt="Yuk Main Bola Platform Komunitas &amp; Booking Minisoccer"
+              class="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105" />
+            <div class="absolute top-3 left-3">
+              <span
+                class="px-2.5 py-1 rounded bg-zinc-950/80 backdrop-blur-md border border-white/10 font-mono text-[10px] text-emerald-400 font-semibold uppercase">
+                Fullstack Web App • Next.js
+              </span>
+            </div>
+            <div
+              class="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-zinc-950/85 backdrop-blur-md border border-emerald-500/30 shadow-md">
+
+            </div>
+            <!-- Hover Overlay with Blur -->
+            <a href="demo-viewer.html?project=yukmainbola" target="_blank" rel="opener"
+              class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-2 text-white font-mono text-xs font-semibold backdrop-blur-[2px]">
+              <span class="w-10 h-10 rounded-full bg-emerald-600/95 flex items-center justify-center shadow-lg"><i
+                  class="fa-solid fa-play text-sm ml-0.5"></i></span>
+              <span>Lihat</span>
+            </a>
+          </div>
+          <div class="p-6 flex flex-col flex-1 space-y-3">
+            <div class="flex items-baseline justify-between">
+              <h3 class="text-lg font-bold text-zinc-900 dark:text-zinc-100">Yuk Main Bola (YMB) — Platform Komunitas
+                &amp; Booking Minisoccer</h3>
+            </div>
+            <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed flex-1">
+              Platform web interaktif untuk pengelolaan komunitas minisoccer dan sistem pemesanan slot mabar real-time.
+              Dilengkapi fitur jadwal mabar otomatis, slot lock kuota pemain, integrasi Midtrans QRIS/VA, auto-expire
+              pesanan, dan sistem loyalitas member.
+            </p>
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">Next.js
+                16</span>
+              <span
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">React
+                19</span>
+              <span
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">Supabase</span>
+              <span
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">Midtrans
+                QRIS</span>
+              <span
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[11px]">Tailwind
+                v4</span>
+            </div>
+            <div class="flex items-center gap-3 pt-3 border-t border-zinc-100 dark:border-zinc-800/80">
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+
+    <!-- ===================================================================
+         CONTACT & INVITATION SECTION
+    =================================================================== -->
+    <section id="kontak" class="w-full max-w-6xl mx-auto px-5 sm:px-8 py-20 scroll-mt-24">
+      <div class="flex items-center gap-3 mb-8">
+        <span class="font-mono text-xs uppercase tracking-widest text-brand-600 dark:text-brand-400 font-semibold">
+          03 / Kontak &amp; Kolaborasi
+        </span>
+        <div class="h-px bg-zinc-200 dark:bg-zinc-800 flex-1"></div>
+      </div>
+
+      <!-- Main Editorial Contact Card (Inspired by Modern Dark Grid Banner) -->
+      <div class="editorial-card rounded-3xl p-6 sm:p-10 lg:p-12 border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/70 backdrop-blur-xl shadow-2xl relative overflow-hidden">
+        
+        <!-- Subtle Background Glow -->
+        <div class="absolute -top-24 -left-24 w-72 h-72 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -right-24 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center relative z-10">
+
+          <!-- Left Column: Heading, Subtext & Status -->
+          <div class="lg:col-span-5 space-y-6 flex flex-col justify-between">
+            <div class="space-y-3">
+              <div class="inline-flex items-center gap-2">
+                <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-black uppercase tracking-tight text-zinc-900 dark:text-zinc-100 font-sans leading-[1.08]">
+                  LET’S WORK<br />TOGETHER
+                </h2>
+                <span class="text-brand-500 dark:text-brand-400 text-2xl sm:text-3xl self-start mt-1 animate-pulse select-none">✦</span>
+              </div>
+              <p class="text-zinc-600 dark:text-zinc-400 text-sm sm:text-base leading-relaxed max-w-md pt-1">
+                Saya siap segera berkontribusi penuh sebagai <strong class="text-zinc-900 dark:text-zinc-200 font-semibold">Junior Data Analyst</strong>, <strong class="text-zinc-900 dark:text-zinc-200 font-semibold">Power BI Developer</strong>, atau <strong class="text-zinc-900 dark:text-zinc-200 font-semibold">BI Specialist</strong>. Mari berkolaborasi menghasilkan insight data yang mendorong hasil nyata.
+              </p>
+            </div>
+
+            <!-- Availability & CV Action Buttons -->
+            <div class="space-y-4 pt-2">
+              <div class="inline-flex items-center gap-3 px-3.5 py-1.5 rounded-full border border-zinc-300 dark:border-zinc-700/80 bg-zinc-100/90 dark:bg-zinc-800/60 text-zinc-800 dark:text-zinc-200 font-mono text-[11px] font-semibold tracking-wide">
+                <span class="w-6 h-6 rounded-full border border-brand-500/40 bg-brand-500/10 flex items-center justify-center text-brand-600 dark:text-brand-400 shrink-0">
+                  <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                </span>
+                <span>AVAILABLE FOR FULL-TIME / HYBRID</span>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-3 pt-1">
+                <button onclick="openCvModal()"
+                  class="px-4 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-white text-white dark:text-zinc-900 font-mono text-xs uppercase tracking-wider font-semibold transition-all cursor-pointer flex items-center gap-2 shadow-sm hover:scale-[1.02]">
+                  <i class="fa-regular fa-file-lines text-xs"></i>
+                  <span>Lihat CV Online</span>
+                </button>
+                <a href="assets/documents/CV_Fajar_Sidiq_Cahyanto.pdf" download
+                  class="px-4 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-800 dark:text-zinc-200 font-mono text-xs uppercase tracking-wider transition-colors flex items-center gap-2">
+                  <i class="fa-solid fa-download text-xs"></i>
+                  <span>Unduh PDF CV</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Middle Column: Horizontal Border Separated Contact Rows -->
+          <div class="lg:col-span-4 flex flex-col justify-center divide-y divide-zinc-200 dark:divide-zinc-800/80 border-y border-zinc-200 dark:border-zinc-800/80 lg:border-y-0 font-mono py-2 lg:py-0">
+
+            <!-- Email -->
+            <button onclick="copyToClipboard('fcahyanto4@gmail.com')"
+              class="group py-4 sm:py-4.5 flex items-center gap-4 text-left transition-colors hover:text-brand-600 dark:hover:text-brand-400 cursor-pointer w-full"
+              title="Klik untuk salin email">
+              <div class="w-11 h-11 rounded-full border border-zinc-300 dark:border-zinc-700 flex items-center justify-center text-zinc-600 dark:text-zinc-400 group-hover:border-brand-500 group-hover:text-brand-500 group-hover:bg-brand-500/10 transition-all shrink-0">
+                <i class="fa-regular fa-envelope text-sm"></i>
+              </div>
+              <div class="min-w-0 flex-1">
+                <div class="text-[10px] text-zinc-400 uppercase tracking-wider">Email</div>
+                <div class="text-xs sm:text-sm font-bold text-zinc-900 dark:text-zinc-100 truncate group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                  fcahyanto4@gmail.com
+                </div>
+              </div>
+              <span class="text-xs text-zinc-400 group-hover:text-brand-500 transition-colors shrink-0">
+                <i class="fa-regular fa-copy text-xs"></i>
+              </span>
+            </button>
+
+            <!-- LinkedIn -->
+            <a href="https://linkedin.com/in/fajar-sidiq-cahyanto" target="_blank" rel="noopener noreferrer"
+              class="group py-4 sm:py-4.5 flex items-center gap-4 text-left transition-colors hover:text-sky-600 dark:hover:text-sky-400"
+              title="Buka profil LinkedIn">
+              <div class="w-11 h-11 rounded-full border border-zinc-300 dark:border-zinc-700 flex items-center justify-center text-zinc-600 dark:text-zinc-400 group-hover:border-sky-500 group-hover:text-sky-500 group-hover:bg-sky-500/10 transition-all shrink-0">
+                <i class="fa-brands fa-linkedin-in text-sm"></i>
+              </div>
+              <div class="min-w-0 flex-1">
+                <div class="text-[10px] text-zinc-400 uppercase tracking-wider">LinkedIn</div>
+                <div class="text-xs sm:text-sm font-bold text-zinc-900 dark:text-zinc-100 truncate group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
+                  fajar-sidiq-cahyanto
+                </div>
+              </div>
+              <span class="text-xs text-zinc-400 group-hover:text-sky-500 transition-colors shrink-0">
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </span>
+            </a>
+
+            <!-- GitHub -->
+            <a href="https://github.com/fcahyanto4-cmyk" target="_blank" rel="noopener noreferrer"
+              class="group py-4 sm:py-4.5 flex items-center gap-4 text-left transition-colors hover:text-zinc-900 dark:hover:text-white"
+              title="Buka profil GitHub">
+              <div class="w-11 h-11 rounded-full border border-zinc-300 dark:border-zinc-700 flex items-center justify-center text-zinc-600 dark:text-zinc-400 group-hover:border-zinc-900 dark:group-hover:border-white group-hover:text-zinc-900 dark:group-hover:text-white group-hover:bg-zinc-500/10 transition-all shrink-0">
+                <i class="fa-brands fa-github text-sm"></i>
+              </div>
+              <div class="min-w-0 flex-1">
+                <div class="text-[10px] text-zinc-400 uppercase tracking-wider">GitHub</div>
+                <div class="text-xs sm:text-sm font-bold text-zinc-900 dark:text-zinc-100 truncate group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">
+                  fcahyanto4-cmyk
+                </div>
+              </div>
+              <span class="text-xs text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors shrink-0">
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </span>
+            </a>
+
+            <!-- WhatsApp / Phone -->
+            <a href="https://wa.me/6281398764002?text=Halo%20Fajar,%20saya%20melihat%20portofolio%20Anda%20dan%20tertarik%20untuk%20berdiskusi."
+              target="_blank" rel="noopener noreferrer"
+              class="group py-4 sm:py-4.5 flex items-center gap-4 text-left transition-colors hover:text-emerald-600 dark:hover:text-emerald-400"
+              title="Hubungi via WhatsApp">
+              <div class="w-11 h-11 rounded-full border border-zinc-300 dark:border-zinc-700 flex items-center justify-center text-zinc-600 dark:text-zinc-400 group-hover:border-emerald-500 group-hover:text-emerald-500 group-hover:bg-emerald-500/10 transition-all shrink-0">
+                <i class="fa-brands fa-whatsapp text-sm"></i>
+              </div>
+              <div class="min-w-0 flex-1">
+                <div class="text-[10px] text-zinc-400 uppercase tracking-wider">WhatsApp / Telepon</div>
+                <div class="text-xs sm:text-sm font-bold text-zinc-900 dark:text-zinc-100 truncate group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                  +62 813-9876-4002
+                </div>
+              </div>
+              <span class="text-xs text-zinc-400 group-hover:text-emerald-500 transition-colors shrink-0">
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </span>
+            </a>
+
+            <!-- Location -->
+            <div class="group py-4 sm:py-4.5 flex items-center gap-4 text-left">
+              <div class="w-11 h-11 rounded-full border border-zinc-300 dark:border-zinc-700 flex items-center justify-center text-zinc-600 dark:text-zinc-400 transition-all shrink-0">
+                <i class="fa-solid fa-location-dot text-sm"></i>
+              </div>
+              <div class="min-w-0 flex-1">
+                <div class="text-[10px] text-zinc-400 uppercase tracking-wider">Domisili / Lokasi</div>
+                <div class="text-xs sm:text-sm font-bold text-zinc-900 dark:text-zinc-100 truncate">
+                  Jakarta, Indonesia
+                </div>
+              </div>
+              <span class="text-[10px] text-emerald-500 font-mono">
+                WIB (UTC+7)
+              </span>
+            </div>
+
+          </div>
+
+          <!-- Right Column: Visual Portrait Frame with Ambient Studio Lighting -->
+          <div class="lg:col-span-3 flex justify-center items-center">
+            <div class="w-full max-w-[280px] lg:max-w-none rounded-2xl border border-zinc-200/90 dark:border-zinc-800/90 bg-gradient-to-b from-zinc-100 via-zinc-200/50 to-zinc-100 dark:from-zinc-950/80 dark:via-zinc-900/60 dark:to-zinc-950/90 p-3 pb-0 relative overflow-hidden group shadow-lg">
+              
+              <!-- Ambient Subtle Ring -->
+              <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-48 h-48 bg-brand-500/15 rounded-full blur-2xl pointer-events-none"></div>
+
+              <!-- Top Micro Header Inside Photo Card -->
+              <div class="flex items-center justify-between font-mono text-[10px] text-zinc-500 dark:text-zinc-400 px-2 pt-1 pb-2">
+                <span class="uppercase tracking-widest font-semibold flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-brand-500"></span> CANDIDATE
+                </span>
+                <span class="text-zinc-400">FAJAR S. C.</span>
+              </div>
+
+              <!-- Portrait Image -->
+              <div class="relative overflow-hidden rounded-xl flex justify-center items-end h-[280px] sm:h-[320px] bg-zinc-900">
+                <img src="assets/images/fajar.png" alt="Fajar Sidiq Cahyanto"
+                  class="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105" />
+                
+                <!-- Bottom Fade Overlay -->
+                <div class="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-zinc-950/90 via-zinc-950/40 to-transparent pointer-events-none"></div>
+
+                <!-- Floating Role Tag -->
+                <div class="absolute bottom-3 inset-x-3 p-2.5 rounded-xl bg-zinc-900/90 dark:bg-zinc-900/90 light:bg-white/95 backdrop-blur-md border border-white/10 dark:border-white/10 light:border-zinc-200 shadow-xl flex items-center justify-between">
+                  <div class="truncate">
+                    <div class="text-[11px] font-bold text-white dark:text-white light:text-zinc-900 truncate">Fajar Sidiq Cahyanto</div>
+                    <div class="text-[9px] font-mono text-brand-400 dark:text-brand-400 light:text-brand-600 truncate">Junior Data Analyst</div>
+                  </div>
+                  <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-mono text-[9px] font-semibold shrink-0">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Open
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================================================================
+       FOOTER
+  =================================================================== -->
+  <footer class="w-full border-t border-zinc-200 dark:border-zinc-800/80 py-8 bg-zinc-50 dark:bg-[#09090b]">
+    <div
+      class="max-w-6xl mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-zinc-500">
+      <div class="flex items-center gap-2">
+        <span class="font-bold text-zinc-900 dark:text-zinc-100">FAJAR SIDIQ CAHYANTO</span>
+        <span>•</span>
+        <span>Junior Data Analyst Portfolio</span>
+      </div>
+      <div>
+        <span>Desain Elegan, Minimalis &amp; Interaktif • 2026</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================================================================
+       CV ONLINE VIEWER MODAL
+  =================================================================== -->
+  <div id="cv-modal"
+    class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden flex items-center justify-center p-4 sm:p-6 transition-all duration-200">
+    <div
+      class="modal-enter bg-white dark:bg-zinc-900 max-w-4xl w-full max-h-[92vh] rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-2xl overflow-y-auto flex flex-col">
+
+      <!-- Header -->
+      <div
+        class="sticky top-0 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800 px-6 py-4 flex items-center justify-between z-20">
+        <div class="flex items-center gap-2 font-mono text-xs">
+          <span class="text-brand-600 dark:text-brand-400 font-bold uppercase">CURRICULUM VITAE</span>
+          <span class="text-zinc-400">/</span>
+          <span class="text-zinc-700 dark:text-zinc-300">FAJAR SIDIQ CAHYANTO</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <a href="assets/documents/CV_Fajar_Sidiq_Cahyanto.pdf" download
+            class="px-3 py-1.5 rounded-lg bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 text-xs font-mono font-medium flex items-center gap-1.5">
+            <i class="fa-solid fa-download text-xs"></i>
+            <span>Unduh PDF</span>
+          </a>
+          <button onclick="closeModal('cv-modal')"
+            class="w-8 h-8 rounded-lg border border-zinc-200 dark:border-zinc-700 flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
+            aria-label="Tutup">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- CV Image Pages -->
+      <div class="p-6 md:p-8 space-y-6">
+        <div class="rounded-xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-100">
+          <img src="assets/images/cv-preview-1.png" alt="CV Halaman 1" class="w-full h-auto block" />
+        </div>
+        <div class="rounded-xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-100">
+          <img src="assets/images/cv-preview-2.png" alt="CV Halaman 2" class="w-full h-auto block" />
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       CRISP-DM METHODOLOGY MODAL
+  =================================================================== -->
+  <div id="crisp-modal"
+    class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden flex items-center justify-center p-4 sm:p-6 transition-all duration-200">
+    <div
+      class="modal-enter bg-white dark:bg-zinc-900 max-w-3xl w-full max-h-[92vh] rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-2xl overflow-y-auto flex flex-col">
+
+      <div
+        class="sticky top-0 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800 px-6 py-4 flex items-center justify-between z-20">
+        <div class="flex items-center gap-2 font-mono text-xs">
+          <span class="text-brand-600 dark:text-brand-400 font-bold uppercase">METODOLOGI CRISP-DM</span>
+          <span class="text-zinc-400">/</span>
+          <span class="text-zinc-700 dark:text-zinc-300">RISET DATA MINING S1</span>
+        </div>
+        <button onclick="closeModal('crisp-modal')"
+          class="w-8 h-8 rounded-lg border border-zinc-200 dark:border-zinc-700 flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
+          aria-label="Tutup">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="p-6 md:p-8 space-y-6">
+        <div>
+          <h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-100">6 Fase CRISP-DM Pada Klastering Kepatuhan Pajak
+          </h3>
+          <p class="text-xs text-zinc-500 mt-1">Standar industri analitik data yang diterapkan dalam skripsi riset
+            Teknik Informatika.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div
+            class="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/40 space-y-1">
+            <span class="font-mono text-[10px] text-brand-600 dark:text-brand-400 font-bold">01. BUSINESS
+              UNDERSTANDING</span>
+            <p class="text-xs text-zinc-600 dark:text-zinc-300">Menentukan regulasi jatuh tempo setoran PPN (tgl 15) dan
+              PPh (tgl 10) sebagai batas toleransi.</p>
+          </div>
+          <div
+            class="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/40 space-y-1">
+            <span class="font-mono text-[10px] text-brand-600 dark:text-brand-400 font-bold">02. DATA
+              UNDERSTANDING</span>
+            <p class="text-xs text-zinc-600 dark:text-zinc-300">Audit integritas 1.200+ record riwayat pembayaran wajib
+              pajak dari database KPP.</p>
+          </div>
+          <div
+            class="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/40 space-y-1">
+            <span class="font-mono text-[10px] text-brand-600 dark:text-brand-400 font-bold">03. DATA PREPARATION</span>
+            <p class="text-xs text-zinc-600 dark:text-zinc-300">Feature engineering kalkulasi selisih hari bayar
+              (avg_diff) dan standarisasi skala fitur.</p>
+          </div>
+          <div
+            class="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/40 space-y-1">
+            <span class="font-mono text-[10px] text-brand-600 dark:text-brand-400 font-bold">04. MODELING</span>
+            <p class="text-xs text-zinc-600 dark:text-zinc-300">Algoritma K-Means dengan penentuan cluster optimum k=3
+              menggunakan Elbow Method.</p>
+          </div>
+          <div
+            class="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/40 space-y-1">
+            <span class="font-mono text-[10px] text-brand-600 dark:text-brand-400 font-bold">05. EVALUATION</span>
+            <p class="text-xs text-zinc-600 dark:text-zinc-300">Uji validitas Silhouette Score 0.684 membuktikan
+              pemisahan antar klaster sangat kuat.</p>
+          </div>
+          <div
+            class="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/40 space-y-1">
+            <span class="font-mono text-[10px] text-brand-600 dark:text-brand-400 font-bold">06. DEPLOYMENT</span>
+            <p class="text-xs text-zinc-600 dark:text-zinc-300">Implementasi web app Flask + SQLite dengan UI
+              visualisasi distribusi klaster.</p>
+          </div>
+        </div>
+
+        <div class="flex justify-end pt-4 border-t border-zinc-200 dark:border-zinc-800">
+          <button onclick="closeModal('crisp-modal')"
+            class="px-4 py-2 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 font-mono text-xs cursor-pointer">
+            Tutup Jendela
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast"
+    class="fixed bottom-6 right-6 z-50 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 border border-zinc-700 dark:border-zinc-300 px-4 py-2.5 rounded-xl shadow-xl font-mono text-xs hidden items-center gap-2">
+    <i class="fa-solid fa-check text-emerald-500"></i>
+    <span id="toast-text">Tersalin ke clipboard!</span>
+  </div>
+
+  <!-- Floating Back to Top Button -->
+  <button id="back-to-top"
+    class="fixed bottom-6 right-6 z-30 w-10 h-10 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-200 hover:border-brand-500 shadow-md cursor-pointer"
+    aria-label="Kembali ke atas">
+    <i class="fa-solid fa-arrow-up text-xs"></i>
+  </button>
+
+  <!-- ===================================================================
+       JAVASCRIPT APPLICATION LOGIC
+  =================================================================== -->
+  <script>
+    // 10 POWER BI MODULES REGISTRY
+    const powerBiPages = [
+      {
+        id: 'overview',
+        title: '1. Executive Overview',
+        kpi: 'Net Sales: Rp 14.82 M | Gross Margin: 34.8% | Transaksi: 184.2k',
+        desc: 'Halaman ringkasan eksekutif tingkat tinggi menampilkan tren penjualan bulanan, pencapaian target tahunan, kontribusi Net Sales per wilayah, dan sebaran toko geografis.',
+        dax: `// Measure: Total Net Sales
+Net Sales = SUMX(FactSales, FactSales[Qty] * FactSales[UnitPrice] * (1 - FactSales[DiscountPct]))`
+      },
+      {
+        id: 'sales-trends',
+        title: '2. Penjualan & Tren',
+        kpi: 'YoY Growth: +18.4% | MoM Growth: +4.2% | Peak Day: Weekend',
+        desc: 'Analisis mendalam pergerakan tren bulanan & kuartalan, Ribbon Chart peringkat kategori produk, serta visual matriks heatmap Net Sales (Bulan × Hari).',
+        dax: `// Measure: Sales Growth YoY %
+Sales YoY % = 
+VAR PrevYear = CALCULATE([Net Sales], SAMEPERIODLASTYEAR(DimDate[Date]))
+RETURN DIVIDE([Net Sales] - PrevYear, PrevYear, 0)`
+      },
+      {
+        id: 'stores-region',
+        title: '3. Toko & Wilayah',
+        kpi: 'Toko Terbaik: Grand Indonesia | Sales/m²: Rp 4.2 Juta',
+        desc: 'Evaluasi efisiensi ruang gerai fisik menggunakan Scatter Chart (Sales per meter persegi vs Gross Margin %) serta tabel pencapaian target bulanan per toko.',
+        dax: `// Measure: Sales Efficiency per Square Meter
+Sales per SqM = DIVIDE([Net Sales], SELECTEDVALUE(DimStore[FloorArea_SqM]), 0)`
+      },
+      {
+        id: 'products-abc',
+        title: '4. Produk & Kategori (Pareto ABC)',
+        kpi: 'Kelas A: 70% Revenue (20% SKU) | Kelas B: 20% | Kelas C: 10%',
+        desc: 'Klasifikasi inventori menggunakan hukum Pareto 80/20. Memetakan produk kontributor pendapatan utama dan Decomposition Tree penelusuran akar penjualan.',
+        dax: `// Measure: Cumulative Sales % for Pareto ABC
+Cumulative Sales % = 
+VAR CurrentSales = [Net Sales]
+VAR TotalSales = CALCULATE([Net Sales], ALLSELECTED(DimProduct))
+RETURN DIVIDE(CurrentSales, TotalSales, 0)`
+      },
+      {
+        id: 'promotion',
+        title: '5. Promosi & Efektivitas Diskon',
+        kpi: 'Rasio Profit/Diskon: 3.2x | Promo Terbaik: Bundling Weekend',
+        desc: 'Mengukur ROI promosi ritel. Scatter chart biaya diskon vs Net Sales dan perbandingan Gross Margin antara produk berdiskon vs harga reguler.',
+        dax: `// Measure: Profit per Rp Discount
+Profit per Discount = DIVIDE([Gross Profit], [Total Discount Cost], 0)`
+      },
+      {
+        id: 'inventory',
+        title: '6. Inventori & Kinerja Supplier',
+        kpi: 'DIO: 42 Hari | Fill Rate Supplier: 94.8% | Stockout: 3.1 Hari',
+        desc: 'Monitoring kesehatan rantai pasok ritel: Days Inventory Outstanding (DIO), kartu skor pemenuhan PO supplier, serta tingkat waste & shrinkage.',
+        dax: `// Measure: Days Inventory Outstanding (DIO)
+DIO = DIVIDE([Average Inventory Value], [COGS], 0) * 365`
+      },
+      {
+        id: 'customers-rfm',
+        title: '7. Pelanggan & Loyalty (RFM Matrix)',
+        kpi: 'Active Members: 42.1k | Champions: 18% | At-Risk: 12%',
+        desc: 'Segmentasi pelanggan menggunakan model RFM (Recency, Frequency, Monetary Value) untuk membedakan loyalitas tier (Gold, Silver, Bronze) dan laju retensi.',
+        dax: `// DAX Calculated Column: RFM Segment
+RFM_Segment = 
+SWITCH(TRUE(),
+    [R_Score] >= 4 && [F_Score] >= 4, "Champion",
+    [R_Score] >= 3 && [F_Score] >= 3, "Loyal Customer",
+    [R_Score] <= 2, "At Risk",
+    "Standard")`
+      },
+      {
+        id: 'omnichannel',
+        title: '8. Omnichannel & Layanan Pengiriman',
+        kpi: 'Avg Delivery: 2.1 Hari | Return Rate: 1.8% | Top Pay: QRIS (46%)',
+        desc: 'Analisis performa penjualan multi-kanal (Offline Store vs Mobile App vs Web) serta kecepatan fulfillment regional dan preferensi sistem pembayaran.',
+        dax: `// Measure: Cancellation Rate %
+Cancel Rate % = DIVIDE([Cancelled Orders], [Total Orders Placed], 0)`
+      },
+      {
+        id: 'profitability',
+        title: '9. Operasional & Profitabilitas (EBITDA)',
+        kpi: 'EBITDA Margin: 16.2% | Payroll % Sales: 8.4% | Store Conversion: 24%',
+        desc: 'Analisis kesehatan keuangan gerai: Footfall toko vs rasio konversi pembeli, Gross Profit vs OpEx vs EBITDA per wilayah operasi.',
+        dax: `// Measure: EBITDA Margin %
+EBITDA Margin % = DIVIDE([Gross Profit] - [Total Operating Expenses], [Net Sales], 0)`
+      },
+      {
+        id: 'what-if',
+        title: '10. Simulasi Skenario What-if',
+        kpi: 'Simulasi Dinamis: Sensitivitas Diskon & Target Inflasi',
+        desc: 'Menggunakan parameter DAX interaktif untuk memproyeksikan laba bersih saat terjadi penyesuaian harga jual, penambahan diskon, atau fluktuasi biaya sewa gerai.',
+        dax: `// What-If Parameter Measure
+Simulated Revenue = [Net Sales] * (1 + 'Price Parameter'[Price Value])`
+      }
+    ];
+
+    // n8n AUTOMATION NODES REGISTRY
+    const automationNodesData = {
+      1: {
+        title: 'Node 1: Webhook Trigger (Incoming Ingestion)',
+        desc: 'Menerima payload JSON secara asinkron dari sistem eksternal atau form submit web.',
+        code: `{\n  "event": "tax_payment.submitted",\n  "wp_npwp": "012345678901000",\n  "jenis_pajak": "PPN",\n  "masa_pajak": "September",\n  "tanggal_bayar": "2026-10-12",\n  "jumlah_bayar": 45000000,\n  "timestamp": "2026-10-12T14:22:00+07:00"\n}`
+      },
+      2: {
+        title: 'Node 2: Sanitasi & Validasi Regex (Function Code)',
+        desc: 'Membersihkan format teks, validasi nomor NPWP (15 atau 16 digit angka), memverifikasi format tanggal ISO, dan menghitung selisih hari jatuh tempo.',
+        code: `// n8n Function Code Node\nconst items = $input.all();\nreturn items.map(item => {\n  const rawNpwp = item.json.wp_npwp || "";\n  const cleanNpwp = rawNpwp.replace(/[^0-9]/g, "");\n  const isValid = cleanNpwp.length === 15 || cleanNpwp.length === 16;\n  return {\n    json: {\n      ...item.json,\n      clean_npwp: cleanNpwp,\n      is_valid: isValid,\n      processed_at: new Date().toISOString()\n    }\n  };\n});`
+      },
+      3: {
+        title: 'Node 3: Relational DB Upsert (MySQL / Supabase)',
+        desc: 'Menyimpan record tervalidasi ke tabel relasional database dengan proteksi duplikasi data (idempotency key).',
+        code: `INSERT INTO pajak_transaksi (\n  npwp, masa_pajak, jenis_pajak, tanggal_bayar, jumlah_bayar, status_verifikasi\n) VALUES (\n  '012345678901000', 'September', 'PPN', '2026-10-12', 45000000, 'VERIFIED'\n) ON DUPLICATE KEY UPDATE \n  tanggal_bayar = VALUES(tanggal_bayar),\n  jumlah_bayar = VALUES(jumlah_bayar);`
+      },
+      4: {
+        title: 'Node 4: Automated Alerts & BI Sync (Telegram / WhatsApp)',
+        desc: 'Memicu pengiriman ringkasan notifikasi ke admin via bot Telegram serta refresh endpoint dataset Power BI.',
+        code: `{\n  "chat_id": "@monitoring_kpp_internal",\n  "text": "✅ [DATA PIPELINE SUCCESS]\\nNPWP: 012345678901000\\nStatus: Tepat Waktu (H-3 Jatuh Tempo PPN)\\nPower BI Dataset: Synchronized",\n  "parse_mode": "Markdown"\n}`
+      }
+    };
+
+    // DOM INITIALIZATION
+    document.addEventListener('DOMContentLoaded', () => {
+      initTheme();
+      initMobileNav();
+      initPowerBiExplorer();
+      initKmeansLab();
+      initScrollProgressAndNav();
+      initTypewriter();
+      initCounterAnimation();
+    });
+
+    // THEME ENGINE (DARK / LIGHT)
+    function initTheme() {
+      const btn = document.getElementById('theme-toggle-btn');
+      const icon = document.getElementById('theme-toggle-icon');
+      const htmlEl = document.documentElement;
+
+      function updateUI(theme) {
+        if (theme === 'dark') {
+          htmlEl.classList.add('dark');
+          htmlEl.classList.remove('light');
+          if (icon) icon.className = 'fa-solid fa-sun text-xs text-amber-400';
+          if (btn) btn.title = 'Beralih ke Mode Terang';
+        } else {
+          htmlEl.classList.remove('dark');
+          htmlEl.classList.add('light');
+          if (icon) icon.className = 'fa-solid fa-moon text-xs text-zinc-700';
+          if (btn) btn.title = 'Beralih ke Mode Gelap';
+        }
+      }
+
+      function toggleTheme() {
+        const isDark = htmlEl.classList.contains('dark');
+        const next = isDark ? 'light' : 'dark';
+        localStorage.setItem('theme', next);
+        updateUI(next);
+      }
+
+      const saved = localStorage.getItem('theme');
+      if (saved) {
+        updateUI(saved);
+      } else {
+        updateUI(htmlEl.classList.contains('dark') ? 'dark' : 'light');
+      }
+
+      if (btn) btn.addEventListener('click', toggleTheme);
+    }
+
+    // MOBILE NAVIGATION
+    function initMobileNav() {
+      const btn = document.getElementById('mobile-menu-btn');
+      const menu = document.getElementById('mobile-nav-menu');
+      if (btn && menu) {
+        btn.addEventListener('click', () => {
+          menu.classList.toggle('hidden');
+        });
+        menu.querySelectorAll('a, button').forEach(el => {
+          el.addEventListener('click', () => menu.classList.add('hidden'));
+        });
+      }
+    }
+
+    // PROJECT GALLERY FILTER
+    function filterProjects(cat) {
+      const cards = document.querySelectorAll('.project-card');
+      const buttons = document.querySelectorAll('.filter-tab');
+
+      buttons.forEach(b => {
+        b.classList.remove('active', 'bg-white', 'dark:bg-zinc-800', 'text-zinc-900', 'dark:text-zinc-100', 'shadow-xs');
+        b.classList.add('text-zinc-500', 'dark:text-zinc-400');
+      });
+
+      const activeBtn = document.getElementById(`filter-btn-${cat}`);
+      if (activeBtn) {
+        activeBtn.classList.add('active', 'bg-white', 'dark:bg-zinc-800', 'text-zinc-900', 'dark:text-zinc-100', 'shadow-xs');
+        activeBtn.classList.remove('text-zinc-500', 'dark:text-zinc-400');
+      }
+
+      cards.forEach(card => {
+        const cardCat = card.getAttribute('data-category');
+        if (cat === 'all' || cardCat === cat) {
+          card.style.display = 'flex';
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(10px)';
+          setTimeout(() => {
+            card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          }, 10);
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // POWER BI MODULE EXPLORER
+    let currentPbiIndex = 0;
+    function initPowerBiExplorer() {
+      const nav = document.getElementById('pbi-modules-nav');
+      if (!nav) return;
+
+      nav.innerHTML = powerBiPages.map((page, idx) => `
+        <button onclick="selectPbiPage(${idx})" class="pbi-btn px-3 py-1.5 rounded-lg font-mono text-xs border transition-all cursor-pointer ${idx === 0 ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30 font-bold' : 'border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 hover:border-zinc-400'}">
+          ${page.title}
+        </button>
+      `).join('');
+    }
+
+    function selectPbiPage(idx) {
+      currentPbiIndex = idx;
+      const page = powerBiPages[idx];
+      document.getElementById('pbi-active-title').textContent = page.title;
+      document.getElementById('pbi-active-kpi').textContent = page.kpi;
+      document.getElementById('pbi-active-desc').textContent = page.desc;
+      document.getElementById('pbi-active-dax').textContent = page.dax;
+
+      const buttons = document.querySelectorAll('.pbi-btn');
+      buttons.forEach((btn, i) => {
+        if (i === idx) {
+          btn.className = 'pbi-btn px-3 py-1.5 rounded-lg font-mono text-xs border transition-all cursor-pointer bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30 font-bold';
+        } else {
+          btn.className = 'pbi-btn px-3 py-1.5 rounded-lg font-mono text-xs border transition-all cursor-pointer border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 hover:border-zinc-400';
+        }
+      });
+    }
+
+    function copyDaxCode() {
+      const code = powerBiPages[currentPbiIndex].dax;
+      copyToClipboard(code);
+      const text = document.getElementById('copy-dax-text');
+      if (text) {
+        text.textContent = 'Tersalin!';
+        setTimeout(() => { text.textContent = 'Salin DAX'; }, 2000);
+      }
+    }
+
+    // K-MEANS INTERACTIVE LAB
+    function initKmeansLab() {
+      const slider = document.getElementById('sim-slider');
+      const select = document.getElementById('sim-tax-select');
+      const delayDisplay = document.getElementById('sim-delay-display');
+      const badge = document.getElementById('sim-result-badge');
+      const desc = document.getElementById('sim-result-desc');
+      const centroid = document.getElementById('sim-centroid-val');
+      const action = document.getElementById('sim-action-val');
+
+      function update(val) {
+        const delay = parseInt(val);
+        const taxType = select ? select.value : 'ppn';
+        const deadline = taxType === 'ppn' ? 'tgl 15' : 'tgl 10';
+
+        if (delayDisplay) {
+          delayDisplay.textContent = delay > 0 ? `+${delay} Hari (Terlambat)` : `${delay} Hari (Tepat Waktu / Awal)`;
+        }
+
+        if (delay <= 0) {
+          if (badge) {
+            badge.textContent = 'Cluster 0: Sangat Patuh (Low Risk)';
+            badge.className = 'inline-block px-3.5 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-mono text-sm font-bold';
+          }
+          if (desc) desc.textContent = `Wajib Pajak menyetorkan pajak sebelum atau tepat batas jatuh tempo (${deadline}). Masuk ke profil risiko kepatuhan rendah.`;
+          if (centroid) centroid.textContent = '0.12 (Sangat Dekat Centroid 0)';
+          if (action) {
+            action.textContent = 'Pelayanan Prioritas & Bebas Teguran';
+            action.className = 'font-bold text-emerald-600 dark:text-emerald-400';
+          }
+        } else if (delay <= 20) {
+          if (badge) {
+            badge.textContent = 'Cluster 1: Cukup Patuh (Moderate Risk)';
+            badge.className = 'inline-block px-3.5 py-1.5 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 font-mono text-sm font-bold';
+          }
+          if (desc) desc.textContent = `Terlambat antara 1 s/d 20 hari dari batas akhir (${deadline}). Terindikasi kendala administratif atau likuiditas jangka pendek.`;
+          if (centroid) centroid.textContent = '0.34 (Moderate Centroid 1)';
+          if (action) {
+            action.textContent = 'Kirim Peringatan Notifikasi Terjadwal';
+            action.className = 'font-bold text-amber-600 dark:text-amber-400';
+          }
+        } else {
+          if (badge) {
+            badge.textContent = 'Cluster 2: Tidak Patuh (High Risk)';
+            badge.className = 'inline-block px-3.5 py-1.5 rounded-lg bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/20 font-mono text-sm font-bold';
+          }
+          if (desc) desc.textContent = `Keterlambatan melebihi 20 hari dari jatuh tempo regulasi (${deadline}). Membutuhkan perhatian serius fiskus.`;
+          if (centroid) centroid.textContent = '0.88 (High Risk Centroid 2)';
+          if (action) {
+            action.textContent = 'Eskalasi Surat Teguran & Penagihan Aktif';
+            action.className = 'font-bold text-red-600 dark:text-red-400';
+          }
+        }
+      }
+
+      if (slider) {
+        slider.addEventListener('input', (e) => update(e.target.value));
+      }
+      if (select) {
+        select.addEventListener('change', () => update(slider ? slider.value : 0));
+      }
+    }
+
+    // AUTOMATION PIPELINE STEP SWITCHER
+    let currentAutoStep = 1;
+    function selectAutoStep(step) {
+      currentAutoStep = step;
+      const data = automationNodesData[step];
+      if (!data) return;
+
+      document.getElementById('auto-title').textContent = data.title;
+      document.getElementById('auto-desc').textContent = data.desc;
+      document.getElementById('auto-code').textContent = data.code;
+
+      for (let i = 1; i <= 4; i++) {
+        const btn = document.getElementById(`auto-node-${i}`);
+        if (btn) {
+          if (i === step) {
+            btn.className = 'auto-node-btn p-3.5 rounded-xl border border-orange-500 bg-orange-500/10 text-left transition-all cursor-pointer';
+            btn.querySelector('span:first-child').className = 'font-mono text-[10px] text-orange-500 font-bold block';
+            btn.querySelector('span:last-child').className = 'text-xs font-bold text-zinc-900 dark:text-zinc-100';
+          } else {
+            btn.className = 'auto-node-btn p-3.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-left transition-all cursor-pointer';
+            btn.querySelector('span:first-child').className = 'font-mono text-[10px] text-zinc-400 font-bold block';
+            btn.querySelector('span:last-child').className = 'text-xs font-bold text-zinc-700 dark:text-zinc-300';
+          }
+        }
+      }
+    }
+
+    function copyAutoCode() {
+      const code = automationNodesData[currentAutoStep].code;
+      copyToClipboard(code);
+      const text = document.getElementById('copy-auto-text');
+      if (text) {
+        text.textContent = 'Tersalin!';
+        setTimeout(() => { text.textContent = 'Salin Payload / Query'; }, 2000);
+      }
+    }
+
+    // MODAL HELPERS
+    function openModal(id) {
+      const m = document.getElementById(id);
+      if (m) {
+        m.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeModal(id) {
+      const m = document.getElementById(id);
+      if (m) {
+        m.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    }
+
+    function openCvModal() { openModal('cv-modal'); }
+    function openCrispModal() { openModal('crisp-modal'); }
+
+    // Close modals on backdrop click or ESC key
+    ['cv-modal', 'crisp-modal'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('click', (e) => {
+          if (e.target === el) closeModal(id);
+        });
+      }
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        ['cv-modal', 'crisp-modal'].forEach(id => closeModal(id));
+      }
+    });
+
+    // CLIPBOARD UTILITY WITH TOAST
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(`Tersalin: ${text}`);
+      }).catch(() => {
+        showToast('Berhasil disalin ke clipboard');
+      });
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      const span = document.getElementById('toast-text');
+      if (t && span) {
+        span.textContent = msg;
+        t.classList.remove('hidden');
+        t.classList.add('flex');
+        setTimeout(() => {
+          t.classList.add('hidden');
+          t.classList.remove('flex');
+        }, 3000);
+      }
+    }
+
+    // TYPEWRITER ROLE CYCLING
+    function initTypewriter() {
+      const el = document.getElementById('role-typewriter');
+      if (!el) return;
+
+      const roles = [
+        "Junior Data Analyst",
+        "Power BI & DAX Specialist",
+        "SQL & Relational Modeler",
+        "Workflow Automation Builder",
+        "K-Means Machine Learning Specialist"
+      ];
+
+      let rIndex = 0;
+      let cIndex = roles[0].length;
+      let isDeleting = true;
+
+      function step() {
+        const role = roles[rIndex];
+        if (isDeleting) {
+          el.textContent = role.substring(0, cIndex - 1);
+          cIndex--;
+          if (cIndex === 0) {
+            isDeleting = false;
+            rIndex = (rIndex + 1) % roles.length;
+            setTimeout(step, 400);
+            return;
+          }
+          setTimeout(step, 35);
+        } else {
+          el.textContent = role.substring(0, cIndex + 1);
+          cIndex++;
+          if (cIndex === role.length) {
+            isDeleting = true;
+            setTimeout(step, 2400);
+            return;
+          }
+          setTimeout(step, 80);
+        }
+      }
+      setTimeout(step, 2000);
+    }
+
+    // STATISTICAL COUNTER ANIMATION
+    let countersDone = false;
+    function initCounterAnimation() {
+      const elements = document.querySelectorAll('.counter-val');
+      if (!elements.length) return;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !countersDone) {
+            countersDone = true;
+            elements.forEach(counter => {
+              const target = parseFloat(counter.getAttribute('data-target'));
+              const decimals = parseInt(counter.getAttribute('data-decimals') || '0');
+              const suffix = counter.getAttribute('data-suffix') || '';
+              const duration = 1600;
+              const startTime = performance.now();
+
+              function count(now) {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const ease = 1 - Math.pow(1 - progress, 3);
+                const current = target * ease;
+
+                counter.textContent = (decimals > 0 ? current.toFixed(decimals) : Math.floor(current)) + suffix;
+
+                if (progress < 1) {
+                  requestAnimationFrame(count);
+                } else {
+                  counter.textContent = (decimals > 0 ? target.toFixed(decimals) : target) + suffix;
+                }
+              }
+              requestAnimationFrame(count);
+            });
+          }
+        });
+      }, { threshold: 0.2 });
+
+      elements.forEach(el => observer.observe(el));
+    }
+
+    // SCENARIO SIMULATOR FOR AUTOMATION SHOWCASE (AUTHENTIC PRODUCTION DATA)
+    const mainScenarios = {
+      1: {
+        userMsg: `
+          <div class="rounded-lg overflow-hidden border border-white/10 max-w-[200px] mb-1.5">
+            <a href="assets/images/foto dan teks (1).png" target="_blank" title="Klik untuk memperbesar">
+              <img src="assets/images/foto dan teks (1).png" alt="Nota Laundry" class="w-full h-28 object-cover object-top cursor-zoom-in" />
+            </a>
+          </div>
+          <div>cuci rompi</div>
+        `,
+        terminal: `
+          <div class="text-blue-400">[Telegram Ingestion] Webhook received image (310 KB)...</div>
+          <div class="text-blue-400">[User Caption] "cuci rompi"</div>
+          <div class="text-blue-400">[n8n Router] Passing binary payload to Claude 3.5 Sonnet Vision...</div>
+          <div class="text-emerald-400">[AI Vision] Extracted: Nota #382, Cuci + Setrika 3.2 Kg, Rp 20000, Lunas QRIS</div>
+          <div class="text-blue-400">[OpenPyXL Engine] Acquiring file lock on LaporanKeuangan.xlsx...</div>
+          <div class="text-emerald-400">[Database Sync] Row inserted at tab 'Laporan Keuangan' (Category: Pengeluaran)</div>
+          <div class="text-emerald-400">[Telegram API] sendMessage 200 OK -> "✅ Transaksi Berhasil Dicatat! (Versi Foto)"</div>
+        `,
+        botMsg: `
+          <div>✅ <b>Transaksi Berhasil Dicatat!</b> <i>(Versi Foto)</i></div>
+          <div>📅 <b>Tanggal:</b> 2026-10-07</div>
+          <div>📝 <b>Keterangan:</b> -</div>
+          <div>🏦 <b>Metode:</b> -</div>
+          <div>💰 <b>Nominal:</b> Rp 20000</div>
+          <div>📁 <b>Kategori:</b> Pengeluaran</div>
+          <div class="text-[11px] text-zinc-400 pt-1 italic">📁 Tersimpan di tab 'Laporan Keuangan' (LaporanKeuangan.xlsx)</div>
+          <div class="text-[10px] text-zinc-500 pt-0.5">This message was sent automatically with n8n</div>
+        `,
+        time: '15:02'
+      },
+      2: {
+        userMsg: `
+          <div class="rounded-lg overflow-hidden border border-white/10 max-w-[200px]">
+            <a href="assets/images/foto struck atau tf.png" target="_blank" title="Klik untuk memperbesar">
+              <img src="assets/images/foto struck atau tf.png" alt="Nota Sultan Productions" class="w-full h-28 object-cover object-top cursor-zoom-in" />
+            </a>
+          </div>
+        `,
+        terminal: `
+          <div class="text-blue-400">[Telegram Ingestion] Webhook received vendor invoice photo (252 KB)...</div>
+          <div class="text-blue-400">[Telegram Bot] Sent: "⏳ Sedang menganalisis bukti transaksi dengan Claude Vision..."</div>
+          <div class="text-blue-400">[Claude AI Vision] Analyzing OCR: Nota No. 4978 Sultan Productions...</div>
+          <div class="text-emerald-400">[AI Vision] Merchant: "SULTAN PRODUCTIONS", Recipient: "BP FAJAR"</div>
+          <div class="text-emerald-400">[AI Vision] Bank: "BCA - 6033090353 a.n. PUJI HERNAWATI", Amount: 790000</div>
+          <div class="text-blue-400">[Excel Engine] Syncing to Laporan_Keuangan.xlsx...</div>
+          <div class="text-emerald-400">[Database Sync] Transaction logged successfully under Pengeluaran</div>
+          <div class="text-emerald-400">[Telegram API] sendMessage 200 OK -> "✅ Transaksi Berhasil Dicatat!"</div>
+        `,
+        botMsg: `
+          <div class="text-zinc-400 text-[11px] mb-1 italic">⏳ Sedang menganalisis bukti transaksi dengan Claude Vision...</div>
+          <div>✅ <b>Transaksi Berhasil Dicatat!</b></div>
+          <div>📅 <b>Tanggal Bukti:</b> 2026-09-16</div>
+          <div>👤 <b>Nama / Merchant:</b> SULTAN PRODUCTIONS (Kepada Yth: BP FAJAR)</div>
+          <div>🏦 <b>Metode / Bank:</b> BCA - 6033090353 a.n. PUJI HERNAWATI</div>
+          <div>💰 <b>Nominal:</b> Rp 790,000</div>
+          <div>📁 <b>Kategori:</b> Pengeluaran</div>
+          <div>📊 <b>Status:</b> Berhasil</div>
+          <div class="text-[11px] text-zinc-400 pt-1 italic">📁 Tersimpan otomatis ke file: Laporan_Keuangan.xlsx</div>
+        `,
+        time: '18:05'
+      },
+      3: {
+        userMsg: `<div>buatkan invoice daru semua laporan keuangan untuk V2G</div>`,
+        terminal: `
+          <div class="text-blue-400">[Telegram Ingestion] Plain text command: "buatkan invoice daru semua laporan keuangan untuk V2G"</div>
+          <div class="text-blue-400">[NLP Router] Triggering Multi-Item Compilation for Client: "V2G"...</div>
+          <div class="text-blue-400">[Excel Query] Reading Laporan_Keuangan.xlsx records -> 5 rows detected</div>
+          <div class="text-blue-400">[Data Aggregation] 5 Items: O**-SY****L (75k), FAJAR (391k), SULTAN (790k), Bensin (50k), Mega Laundry (20k)</div>
+          <div class="text-blue-400">[ReportLab Engine] Compiling Invoice_INV-20261020-584.pdf (3.4 KB)...</div>
+          <div class="text-emerald-400">[Telegram API] sendDocument 200 OK -> Invoice_INV-20261020-584.pdf</div>
+          <div class="text-emerald-400">[Database Sync] Invoice registered in tab 'Daftar Invoice'</div>
+        `,
+        botMsg: `
+          <div class="mb-2 p-2 rounded-lg bg-black/40 border border-white/10 flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-file-pdf text-red-400 text-lg"></i>
+              <div>
+                <div class="font-bold text-[11px]">Invoice_INV-20261020-584.pdf</div>
+                <div class="text-[9px] text-zinc-400">3.4 KB • Dokumen Resmi Terverifikasi</div>
+              </div>
+            </div>
+            <a href="assets/images/hasil invoice.pdf" target="_blank" class="text-sky-400 text-xs hover:underline flex items-center gap-1 font-mono">
+              <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> Buka
+            </a>
+          </div>
+          <div class="text-[11px] text-zinc-400 mb-1">📄 <i>Invoice INV-20261020-584 untuk V2G (Total Rp 1.326.000)</i></div>
+          <div>✅ <b>Invoice Berhasil Diterbitkan Berdasarkan Data!</b></div>
+          <div>📄 <b>No Invoice:</b> INV-20261020-584</div>
+          <div>🏢 <b>Tagihan Kepada:</b> V2G</div>
+          <div>🧾 <b>Rincian Item (5):</b></div>
+          <div class="text-[11px] text-zinc-300 pl-2 space-y-0.5">
+            <div>• O**-SY****L HI****T (Rp 75.000)</div>
+            <div>• FAJAR SIDIQ CAHYANTO (Rp 391.000)</div>
+            <div>• SULTAN PRODUCTIONS (Rp 790.000)</div>
+            <div>• Beli bensin pertamax (Rp 50.000)</div>
+            <div>• Mega Laundry - Cuci dan Setrika (Rp 20.000)</div>
+          </div>
+          <div class="font-bold text-emerald-400 pt-1">💰 Total Tagihan: Rp 1.326.000</div>
+          <div class="text-[11px] text-zinc-400 pt-1 italic">📁 Dokumen PDF resmi telah dikirim ke chat Telegram &amp; tercatat di tab 'Daftar Invoice'</div>
+          <div class="text-[10px] text-zinc-500 pt-0.5">This message was sent automatically with n8n</div>
+        `,
+        time: '15:39'
+      },
+      4: {
+        userMsg: `<div>Beli bensin pertamax 50rb bca</div>`,
+        terminal: `
+          <div class="text-blue-400">[Telegram Ingestion] Webhook received plain text: "Beli bensin pertamax 50rb bca"</div>
+          <div class="text-blue-400">[Claude NLP] Parsing natural language intent...</div>
+          <div class="text-emerald-400">[Claude NLP] Extracted: Item="Beli bensin pertamax", Category="Transportasi", Amount=50000, Bank="BCA"</div>
+          <div class="text-blue-400">[OpenPyXL Engine] Appending row to Laporan_Keuangan.xlsx...</div>
+          <div class="text-emerald-400">[Database Sync] Row inserted at index #143 (Status: Verified)</div>
+          <div class="text-emerald-400">[Telegram API] sendMessage 200 OK -> "✅ Pengeluaran dicatat!"</div>
+        `,
+        botMsg: `
+          <div>✅ <b>Catatan Pengeluaran Tersimpan!</b></div>
+          <div>⛽ <b>Deskripsi:</b> Beli bensin pertamax</div>
+          <div>🏷️ <b>Kategori:</b> Transportasi / Operasional</div>
+          <div>💰 <b>Nominal:</b> Rp 50.000</div>
+          <div>🏦 <b>Metode:</b> Bank BCA</div>
+          <div class="text-[11px] text-zinc-400 pt-1 italic">📁 Tercatat real-time di database Excel lokal</div>
+        `,
+        time: '11:15'
+      }
+    };
+
+    function switchMainScenario(num) {
+      for (let i = 1; i <= 4; i++) {
+        const btn = document.getElementById(`main-sc-btn-${i}`);
+        if (btn) {
+          if (i === num) {
+            btn.className = 'px-2.5 py-1 rounded-md bg-brand-600 text-white font-semibold cursor-pointer';
+          } else {
+            btn.className = 'px-2.5 py-1 rounded-md border border-zinc-300 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 cursor-pointer';
+          }
+        }
+      }
+
+      const sc = mainScenarios[num];
+      const termEl = document.getElementById('main-terminal-content');
+      if (termEl) termEl.innerHTML = sc.terminal;
+
+      const chatEl = document.getElementById('main-tg-chat-history');
+      if (chatEl) {
+        chatEl.innerHTML = `
+          <div class="self-end bg-[#2b5278] text-white p-2.5 rounded-xl rounded-br-xs max-w-[85%] ml-auto text-xs sm:text-sm space-y-1.5">
+            <div>${sc.userMsg}</div>
+            <div class="text-[10px] text-zinc-300 text-right mt-1">${sc.time || '14:22'}</div>
+          </div>
+          <div class="bg-[#182533] border border-white/5 text-[#e4ecf2] p-3 rounded-xl rounded-bl-xs max-w-[90%] text-xs sm:text-sm space-y-1">
+            ${sc.botMsg}
+            <div class="text-[10px] text-zinc-400 text-right mt-1">${sc.time || '14:22'}</div>
+          </div>
+        `;
+      }
+    }
+
+    // SCROLL PROGRESS, SCROLLSPY, REVEAL OBSERVER & BACK-TO-TOP
+    function initScrollProgressAndNav() {
+      const progressBar = document.getElementById('scroll-progress');
+      const backToTop = document.getElementById('back-to-top');
+      const navLinks = document.querySelectorAll('.nav-pill');
+      const reveals = document.querySelectorAll('.reveal');
+
+      // IntersectionObserver for clean scroll reveal
+      if (reveals.length) {
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (e.isIntersecting) {
+              e.target.classList.add('is-visible');
+            }
+          });
+        }, { threshold: 0.1 });
+
+        reveals.forEach(r => obs.observe(r));
+      }
+
+      // ScrollSpy sections
+      const sections = ['hero', 'tentang', 'projek', 'automation-showcase', 'kontak'];
+
+      function handleScroll() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+
+        // Progress bar
+        if (progressBar) progressBar.style.width = `${progress}%`;
+
+        // Back to top button
+        if (backToTop) {
+          if (scrollTop > 300) {
+            backToTop.classList.remove('opacity-0', 'pointer-events-none');
+            backToTop.classList.add('opacity-100');
+          } else {
+            backToTop.classList.add('opacity-0', 'pointer-events-none');
+            backToTop.classList.remove('opacity-100');
+          }
+        }
+
+        // Active Nav Link Spy
+        let currentSec = 'hero';
+        sections.forEach(id => {
+          const sec = document.getElementById(id);
+          if (sec) {
+            const top = sec.offsetTop - 120;
+            const h = sec.offsetHeight;
+            if (scrollTop >= top && scrollTop < top + h) {
+              currentSec = id;
+            }
+          }
+        });
+
+        // If reached bottom of page, force 'kontak' active
+        if ((window.innerHeight + scrollTop) >= document.documentElement.scrollHeight - 70) {
+          currentSec = 'kontak';
+        }
+
+        navLinks.forEach(link => {
+          if (link.getAttribute('data-nav') === currentSec) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      handleScroll();
+
+      if (backToTop) {
+        backToTop.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+    }
+  </script>
+
+</body>
+
+</html>

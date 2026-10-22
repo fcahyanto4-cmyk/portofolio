@@ -1,0 +1,96 @@
+<svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="n8nBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0e111d"/>
+      <stop offset="100%" stop-color="#161c2d"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" rx="16" fill="url(#n8nBg)" stroke="#1e293b" stroke-width="2"/>
+  <rect x="0" y="0" width="800" height="48" rx="16" fill="#111827"/>
+  <rect x="0" y="32" width="800" height="16" fill="#111827"/>
+  <circle cx="28" cy="24" r="6" fill="#ef4444"/>
+  <circle cx="48" cy="24" r="6" fill="#f59e0b"/>
+  <circle cx="68" cy="24" r="6" fill="#10b981"/>
+  <text x="96" y="29" fill="#f8fafc" font-family="sans-serif" font-size="14" font-weight="bold">Workflow Automation Architecture — n8n &amp; Data Pipeline</text>
+  <rect x="635" y="14" width="145" height="20" rx="10" fill="#ea580c" fill-opacity="0.2" stroke="#ea580c" stroke-width="1"/>
+  <text x="647" y="28" fill="#fb923c" font-family="sans-serif" font-size="11">⚡ Pipeline Architecture</text>
+
+  <path d="M155 180 C 190 180, 200 180, 245 180" stroke="#ea580c" stroke-width="3" stroke-dasharray="6" fill="none"/>
+  <path d="M375 180 C 410 180, 420 180, 465 180" stroke="#f59e0b" stroke-width="3" stroke-dasharray="6" fill="none"/>
+  <path d="M595 180 C 625 180, 625 125, 655 125" stroke="#10b981" stroke-width="3" stroke-dasharray="6" fill="none"/>
+  <path d="M595 180 C 625 180, 625 245, 655 245" stroke="#06b6d4" stroke-width="3" stroke-dasharray="6" fill="none"/>
+
+  <g transform="translate(35, 125)">
+    <rect width="120" height="110" rx="12" fill="#1f2937" stroke="#ea580c" stroke-width="2"/>
+    <rect x="10" y="10" width="32" height="32" rx="8" fill="#ea580c"/>
+    <text x="18" y="32" fill="#fff" font-family="sans-serif" font-size="16" font-weight="bold">⚡</text>
+    <text x="50" y="28" fill="#f8fafc" font-family="sans-serif" font-size="12" font-weight="bold">Webhook</text>
+    <text x="50" y="42" fill="#9ca3af" font-family="sans-serif" font-size="9">Trigger Ingestion</text>
+    <line x1="10" y1="52" x2="110" y2="52" stroke="#374151"/>
+    <text x="12" y="72" fill="#d1d5db" font-family="sans-serif" font-size="9">• POST /api/data</text>
+    <text x="12" y="88" fill="#d1d5db" font-family="sans-serif" font-size="9">• Webhook trigger</text>
+    <circle cx="120" cy="55" r="5" fill="#ea580c"/>
+  </g>
+
+  <g transform="translate(245, 125)">
+    <rect width="130" height="110" rx="12" fill="#1f2937" stroke="#f59e0b" stroke-width="2"/>
+    <circle cx="0" cy="55" r="5" fill="#f59e0b"/>
+    <rect x="10" y="10" width="32" height="32" rx="8" fill="#f59e0b"/>
+    <text x="16" y="32" fill="#111" font-family="sans-serif" font-size="14" font-weight="bold">&lt;/&gt;</text>
+    <text x="50" y="28" fill="#f8fafc" font-family="sans-serif" font-size="12" font-weight="bold">Data Clean</text>
+    <text x="50" y="42" fill="#9ca3af" font-family="sans-serif" font-size="9">ETL &amp; Validation</text>
+    <line x1="10" y1="52" x2="120" y2="52" stroke="#374151"/>
+    <text x="12" y="72" fill="#d1d5db" font-family="sans-serif" font-size="9">• Schema normalize</text>
+    <text x="12" y="88" fill="#d1d5db" font-family="sans-serif" font-size="9">• Deduplication</text>
+    <circle cx="130" cy="55" r="5" fill="#f59e0b"/>
+  </g>
+
+  <g transform="translate(465, 125)">
+    <rect width="130" height="110" rx="12" fill="#1f2937" stroke="#3b82f6" stroke-width="2"/>
+    <circle cx="0" cy="55" r="5" fill="#3b82f6"/>
+    <rect x="10" y="10" width="32" height="32" rx="8" fill="#3b82f6"/>
+    <text x="19" y="32" fill="#fff" font-family="sans-serif" font-size="14" font-weight="bold">🗄️</text>
+    <text x="50" y="28" fill="#f8fafc" font-family="sans-serif" font-size="12" font-weight="bold">DB Pipeline</text>
+    <text x="50" y="42" fill="#9ca3af" font-family="sans-serif" font-size="9">MySQL / Supabase</text>
+    <line x1="10" y1="52" x2="120" y2="52" stroke="#374151"/>
+    <text x="12" y="72" fill="#d1d5db" font-family="sans-serif" font-size="9">• Upsert records</text>
+    <text x="12" y="88" fill="#d1d5db" font-family="sans-serif" font-size="9">• Trigger ML calc</text>
+    <circle cx="130" cy="55" r="5" fill="#3b82f6"/>
+  </g>
+
+  <g transform="translate(655, 70)">
+    <rect width="115" height="90" rx="10" fill="#1f2937" stroke="#10b981" stroke-width="2"/>
+    <circle cx="0" cy="45" r="5" fill="#10b981"/>
+    <rect x="10" y="10" width="28" height="28" rx="6" fill="#10b981"/>
+    <text x="16" y="30" fill="#fff" font-family="sans-serif" font-size="13">🔔</text>
+    <text x="44" y="26" fill="#f8fafc" font-family="sans-serif" font-size="11" font-weight="bold">Alert Bot</text>
+    <text x="44" y="38" fill="#9ca3af" font-family="sans-serif" font-size="8">Telegram/WA</text>
+    <text x="12" y="60" fill="#d1d5db" font-family="sans-serif" font-size="9">• Summary send</text>
+    <text x="12" y="74" fill="#d1d5db" font-family="sans-serif" font-size="9">• Anomaly alert</text>
+  </g>
+
+  <g transform="translate(655, 195)">
+    <rect width="115" height="90" rx="10" fill="#1f2937" stroke="#06b6d4" stroke-width="2"/>
+    <circle cx="0" cy="45" r="5" fill="#06b6d4"/>
+    <rect x="10" y="10" width="28" height="28" rx="6" fill="#06b6d4"/>
+    <text x="16" y="30" fill="#fff" font-family="sans-serif" font-size="13">📊</text>
+    <text x="44" y="26" fill="#f8fafc" font-family="sans-serif" font-size="11" font-weight="bold">BI Refresh</text>
+    <text x="44" y="38" fill="#9ca3af" font-family="sans-serif" font-size="8">Daily Cron</text>
+    <text x="12" y="60" fill="#d1d5db" font-family="sans-serif" font-size="9">• Auto dataset sync</text>
+    <text x="12" y="74" fill="#d1d5db" font-family="sans-serif" font-size="9">• Power BI refresh</text>
+  </g>
+
+  <rect x="35" y="300" width="735" height="125" rx="12" fill="#111827" stroke="#1e293b"/>
+  <text x="55" y="330" fill="#f8fafc" font-family="sans-serif" font-size="13" font-weight="bold">Workflow Automation Architecture &amp; Execution Pipeline</text>
+  <text x="55" y="352" fill="#94a3b8" font-family="sans-serif" font-size="11">Mengotomatisasi pemrosesan data berulang tanpa intervensi manual: validasi webhook, pembersihan data terpusat,</text>
+  <text x="55" y="370" fill="#94a3b8" font-family="sans-serif" font-size="11">pengiriman sinyal notifikasi anomali, hingga orkestrasi pembaruan dataset BI secara berkala.</text>
+  
+  <rect x="55" y="385" width="135" height="24" rx="6" fill="#1e293b"/>
+  <text x="68" y="401" fill="#38bdf8" font-family="sans-serif" font-size="10" font-weight="bold">✓ Zero Human Error</text>
+
+  <rect x="200" y="385" width="145" height="24" rx="6" fill="#1e293b"/>
+  <text x="212" y="401" fill="#34d399" font-family="sans-serif" font-size="10" font-weight="bold">✓ Real-time Sync (API)</text>
+
+  <rect x="355" y="385" width="140" height="24" rx="6" fill="#1e293b"/>
+  <text x="367" y="401" fill="#fbbf24" font-family="sans-serif" font-size="10" font-weight="bold">✓ Event-Driven Cron</text>
+</svg>

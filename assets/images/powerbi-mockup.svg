@@ -1,0 +1,114 @@
+<svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="pbiBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0e1525"/>
+      <stop offset="100%" stop-color="#182338"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" rx="16" fill="url(#pbiBg)" stroke="#1e293b" stroke-width="2"/>
+  <rect x="0" y="0" width="800" height="48" rx="16" fill="#111c30"/>
+  <rect x="0" y="32" width="800" height="16" fill="#111c30"/>
+  <circle cx="28" cy="24" r="6" fill="#ef4444"/>
+  <circle cx="48" cy="24" r="6" fill="#f59e0b"/>
+  <circle cx="68" cy="24" r="6" fill="#10b981"/>
+  <rect x="96" y="12" width="24" height="24" rx="4" fill="#f59e0b"/>
+  <path d="M104 28 L104 22 M108 28 L108 18 M112 28 L112 15" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+  <text x="130" y="28" fill="#f1f5f9" font-family="sans-serif" font-size="14" font-weight="bold">Retail Executive Dashboard — Power BI Enterprise</text>
+  <rect x="660" y="14" width="120" height="20" rx="10" fill="#1e293b"/>
+  <text x="675" y="28" fill="#38bdf8" font-family="sans-serif" font-size="11">10 Analytical Pages</text>
+
+  <!-- Left Side Page Nav -->
+  <rect x="16" y="60" width="170" height="374" rx="10" fill="#0b1120" stroke="#1e293b"/>
+  <text x="28" y="84" fill="#94a3b8" font-family="sans-serif" font-size="11" font-weight="bold" letter-spacing="1">PAGES NAVIGATOR</text>
+  <rect x="22" y="96" width="158" height="26" rx="6" fill="#0284c7" fill-opacity="0.2" stroke="#0284c7" stroke-width="1"/>
+  <circle cx="34" cy="109" r="3" fill="#38bdf8"/>
+  <text x="44" y="113" fill="#38bdf8" font-family="sans-serif" font-size="11" font-weight="600">Executive Overview</text>
+  <text x="44" y="137" fill="#cbd5e1" font-family="sans-serif" font-size="11">Penjualan &amp; Tren</text>
+  <text x="44" y="161" fill="#cbd5e1" font-family="sans-serif" font-size="11">Toko &amp; Wilayah</text>
+  <text x="44" y="185" fill="#cbd5e1" font-family="sans-serif" font-size="11">Produk &amp; Kategori</text>
+  <text x="44" y="209" fill="#cbd5e1" font-family="sans-serif" font-size="11">Promosi &amp; ROI</text>
+  <text x="44" y="233" fill="#cbd5e1" font-family="sans-serif" font-size="11">Inventori &amp; Supplier</text>
+  <text x="44" y="257" fill="#cbd5e1" font-family="sans-serif" font-size="11">Pelanggan &amp; Loyalty</text>
+  <text x="44" y="281" fill="#cbd5e1" font-family="sans-serif" font-size="11">Omnichannel Layanan</text>
+  <text x="44" y="305" fill="#cbd5e1" font-family="sans-serif" font-size="11">Operasional Profit</text>
+  <text x="44" y="329" fill="#cbd5e1" font-family="sans-serif" font-size="11">Simulasi What-If</text>
+
+  <!-- KPI Cards Row -->
+  <rect x="198" y="60" width="138" height="72" rx="8" fill="#131e33" stroke="#1e293b"/>
+  <text x="210" y="78" fill="#94a3b8" font-family="sans-serif" font-size="10">NET SALES</text>
+  <text x="210" y="102" fill="#f8fafc" font-family="sans-serif" font-size="17" font-weight="bold">Rp 14.82 M</text>
+  <text x="210" y="120" fill="#10b981" font-family="sans-serif" font-size="10">▲ +18.4% YoY</text>
+
+  <rect x="346" y="60" width="138" height="72" rx="8" fill="#131e33" stroke="#1e293b"/>
+  <text x="358" y="78" fill="#94a3b8" font-family="sans-serif" font-size="10">GROSS MARGIN %</text>
+  <text x="358" y="102" fill="#38bdf8" font-family="sans-serif" font-size="17" font-weight="bold">34.8 %</text>
+  <text x="358" y="120" fill="#10b981" font-family="sans-serif" font-size="10">▲ +2.1 pts vs LY</text>
+
+  <rect x="494" y="60" width="138" height="72" rx="8" fill="#131e33" stroke="#1e293b"/>
+  <text x="506" y="78" fill="#94a3b8" font-family="sans-serif" font-size="10">TOTAL TRANSACTIONS</text>
+  <text x="506" y="102" fill="#f8fafc" font-family="sans-serif" font-size="17" font-weight="bold">184,290</text>
+  <text x="506" y="120" fill="#10b981" font-family="sans-serif" font-size="10">Avg Basket Rp 80.4k</text>
+
+  <rect x="642" y="60" width="142" height="72" rx="8" fill="#131e33" stroke="#1e293b"/>
+  <text x="654" y="78" fill="#94a3b8" font-family="sans-serif" font-size="10">EBITDA MARGIN</text>
+  <text x="654" y="102" fill="#f59e0b" font-family="sans-serif" font-size="17" font-weight="bold">16.2 %</text>
+  <text x="654" y="120" fill="#94a3b8" font-family="sans-serif" font-size="10">Optimal OpEx Ratio</text>
+
+  <!-- Chart 1: Monthly Trend Combo Chart -->
+  <rect x="198" y="142" width="340" height="140" rx="8" fill="#131e33" stroke="#1e293b"/>
+  <text x="210" y="162" fill="#f1f5f9" font-family="sans-serif" font-size="11" font-weight="600">Tren Bulanan: Net Sales &amp; Target</text>
+  <rect x="218" y="220" width="14" height="45" rx="2" fill="#0284c7" opacity="0.8"/>
+  <rect x="242" y="210" width="14" height="55" rx="2" fill="#0284c7" opacity="0.8"/>
+  <rect x="266" y="195" width="14" height="70" rx="2" fill="#0284c7" opacity="0.8"/>
+  <rect x="290" y="205" width="14" height="60" rx="2" fill="#0284c7" opacity="0.8"/>
+  <rect x="314" y="185" width="14" height="80" rx="2" fill="#0284c7" opacity="0.8"/>
+  <rect x="338" y="175" width="14" height="90" rx="2" fill="#0284c7" opacity="0.8"/>
+  <rect x="362" y="190" width="14" height="75" rx="2" fill="#0284c7" opacity="0.8"/>
+  <rect x="386" y="170" width="14" height="95" rx="2" fill="#0284c7" opacity="0.8"/>
+  <rect x="410" y="165" width="14" height="100" rx="2" fill="#06b6d4"/>
+  <rect x="434" y="155" width="14" height="110" rx="2" fill="#06b6d4"/>
+  <rect x="458" y="160" width="14" height="105" rx="2" fill="#06b6d4"/>
+  <rect x="482" y="150" width="14" height="115" rx="2" fill="#06b6d4"/>
+  <path d="M225 215 Q 275 190, 325 180 T 425 155 T 489 145" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
+  <circle cx="489" cy="145" r="4" fill="#f59e0b"/>
+
+  <!-- Chart 2: Regional Contribution Clustered Bar -->
+  <rect x="548" y="142" width="236" height="140" rx="8" fill="#131e33" stroke="#1e293b"/>
+  <text x="560" y="162" fill="#f1f5f9" font-family="sans-serif" font-size="11" font-weight="600">Net Sales per Region</text>
+  <text x="560" y="185" fill="#94a3b8" font-family="sans-serif" font-size="10">Jabodetabek</text>
+  <rect x="630" y="175" width="130" height="12" rx="3" fill="#0ea5e9"/>
+  <text x="560" y="210" fill="#94a3b8" font-family="sans-serif" font-size="10">Jawa Barat</text>
+  <rect x="630" y="200" width="95" height="12" rx="3" fill="#0ea5e9" opacity="0.85"/>
+  <text x="560" y="235" fill="#94a3b8" font-family="sans-serif" font-size="10">Jawa Timur</text>
+  <rect x="630" y="225" width="80" height="12" rx="3" fill="#0ea5e9" opacity="0.7"/>
+  <text x="560" y="260" fill="#94a3b8" font-family="sans-serif" font-size="10">Sumatera</text>
+  <rect x="630" y="250" width="55" height="12" rx="3" fill="#0ea5e9" opacity="0.55"/>
+
+  <!-- Bottom Visuals: ABC Pareto & Store Efficiency -->
+  <rect x="198" y="292" width="286" height="142" rx="8" fill="#131e33" stroke="#1e293b"/>
+  <text x="210" y="312" fill="#f1f5f9" font-family="sans-serif" font-size="11" font-weight="600">Analisis Pareto ABC (80/20 Rule)</text>
+  <rect x="218" y="335" width="65" height="80" rx="4" fill="#10b981" fill-opacity="0.2" stroke="#10b981"/>
+  <text x="235" y="360" fill="#10b981" font-family="sans-serif" font-size="14" font-weight="bold">Kelas A</text>
+  <text x="225" y="380" fill="#cbd5e1" font-family="sans-serif" font-size="9">70% Revenue</text>
+  <text x="225" y="395" fill="#94a3b8" font-family="sans-serif" font-size="9">20% SKU</text>
+
+  <rect x="293" y="345" width="65" height="70" rx="4" fill="#3b82f6" fill-opacity="0.2" stroke="#3b82f6"/>
+  <text x="310" y="370" fill="#38bdf8" font-family="sans-serif" font-size="14" font-weight="bold">Kelas B</text>
+  <text x="300" y="390" fill="#cbd5e1" font-family="sans-serif" font-size="9">20% Revenue</text>
+
+  <rect x="368" y="360" width="65" height="55" rx="4" fill="#8b5cf6" fill-opacity="0.2" stroke="#8b5cf6"/>
+  <text x="385" y="385" fill="#c084fc" font-family="sans-serif" font-size="14" font-weight="bold">Kelas C</text>
+  <text x="375" y="403" fill="#cbd5e1" font-family="sans-serif" font-size="9">10% Long-tail</text>
+
+  <rect x="494" y="292" width="290" height="142" rx="8" fill="#131e33" stroke="#1e293b"/>
+  <text x="506" y="312" fill="#f1f5f9" font-family="sans-serif" font-size="11" font-weight="600">Efisiensi Toko: Sales / m² vs Margin</text>
+  <circle cx="540" cy="370" r="8" fill="#38bdf8" opacity="0.8"/>
+  <circle cx="590" cy="345" r="14" fill="#10b981" opacity="0.8"/>
+  <circle cx="640" cy="385" r="10" fill="#f59e0b" opacity="0.8"/>
+  <circle cx="710" cy="335" r="16" fill="#06b6d4" opacity="0.85"/>
+  <circle cx="745" cy="390" r="7" fill="#ec4899" opacity="0.8"/>
+  <line x1="520" y1="410" x2="760" y2="410" stroke="#334155" stroke-width="1"/>
+  <line x1="520" y1="330" x2="520" y2="410" stroke="#334155" stroke-width="1"/>
+  <text x="710" y="422" fill="#64748b" font-family="sans-serif" font-size="9">Sales/m² →</text>
+  <text x="500" y="325" fill="#64748b" font-family="sans-serif" font-size="9">Margin %</text>
+</svg>

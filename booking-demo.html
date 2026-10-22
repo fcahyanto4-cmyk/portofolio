@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="id" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yuk Main Bola (YMB) — Website Komunitas &amp; Booking Mabar Minisoccer</title>
+  
+  <!-- Typography & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            background: '#0a0f1a',
+            surface: {
+              DEFAULT: '#111827',
+              hover: '#1a2332',
+              card: '#131d31'
+            },
+            border: '#1e293b',
+            primary: {
+              DEFAULT: '#22c55e',
+              hover: '#16a34a',
+              muted: 'rgba(34, 197, 94, 0.12)'
+            },
+            accent: {
+              DEFAULT: '#10b981',
+              hover: '#059669'
+            },
+            text: {
+              DEFAULT: '#f1f5f9',
+              muted: '#94a3b8'
+            },
+            danger: {
+              DEFAULT: '#ef4444',
+              muted: 'rgba(239, 68, 68, 0.12)'
+            }
+          },
+          fontFamily: {
+            sans: ["'Plus Jakarta Sans'", "sans-serif"],
+            mono: ["'JetBrains Mono'", "monospace"]
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      background-color: #0a0f1a;
+      color: #f1f5f9;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .pitch-grid {
+      background-image: linear-gradient(to right, rgba(34, 197, 94, 0.04) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(34, 197, 94, 0.04) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+    .badge-glow {
+      box-shadow: 0 0 20px -3px rgba(34, 197, 94, 0.3);
+    }
+    .animate-scale-in {
+      animation: scaleIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes scaleIn {
+      0% { opacity: 0; transform: scale(0.96); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body class="min-h-screen pitch-grid flex flex-col antialiased selection:bg-primary/20 selection:text-primary">
+
+  <!-- ===================================================================
+       NAVBAR (MATCHING YUK MAIN BOLA Navbar.tsx - DYNAMIC AUTH)
+  =================================================================== -->
+  <nav class="sticky top-0 z-50 w-full border-b border-border bg-[#0a0f1a]/95 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Logo & Brand -->
+      <a href="#hero" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-surface border border-emerald-500/30 p-1 flex items-center justify-center aspect-square shrink-0 shadow-md group-hover:border-primary transition-colors">
+          <img src="assets/images/ymb-logo.png" alt="Yuk Main Bola Logo" class="w-full h-full object-contain aspect-square" />
+        </div>
+        <div class="flex flex-col">
+          <span class="text-base sm:text-lg font-bold text-text group-hover:text-primary transition-colors leading-none">
+            Yuk Main Bola
+          </span>
+          <span class="text-[10px] font-mono text-primary/80 mt-1">Komunitas Minisoccer Est. 2019</span>
+        </div>
+      </a>
+
+      <!-- 1. GUEST NAV LINKS (When Not Logged In) -->
+      <div id="nav-guest-links" class="hidden md:flex items-center gap-7 text-sm font-medium text-text-muted">
+        <a href="#jadwal" class="hover:text-primary transition-colors">Jadwal</a>
+        <a href="#galeri" class="hover:text-primary transition-colors">Galeri</a>
+        <a href="#testimoni" class="hover:text-primary transition-colors">Testimoni</a>
+        <a href="#venue" class="hover:text-primary transition-colors">Venue</a>
+      </div>
+
+      <!-- 2. MEMBER NAV LINKS (When Logged In) -->
+      <div id="nav-member-links" class="hidden md:flex items-center gap-7 text-sm font-semibold text-text-muted">
+        <button onclick="scrollToMemberTop()" class="text-primary hover:text-primary-hover flex items-center gap-1.5 transition-colors">
+          <i class="fa-solid fa-house text-xs"></i>
+          <span>Beranda</span>
+        </button>
+        <a href="#member-jadwal" class="hover:text-primary transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-calendar text-xs"></i>
+          <span>Jadwal Mabar</span>
+        </a>
+        <a href="#member-events" class="hover:text-primary transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-trophy text-xs"></i>
+          <span>Event &amp; Turnamen</span>
+        </a>
+        <button onclick="openTicketModal()" class="hover:text-primary transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-ticket text-xs"></i>
+          <span>Tiket Saya</span>
+        </button>
+      </div>
+
+      <!-- Right Actions: Guest vs Logged-In Member -->
+      <div class="flex items-center gap-3">
+        
+        <!-- A. GUEST AUTH BUTTONS (Default Belum Login) -->
+        <div id="auth-guest-buttons" class="flex items-center gap-2">
+          <button onclick="openLoginModal()" class="text-sm font-semibold text-text-muted hover:text-white px-3 py-1.5 transition-colors cursor-pointer">
+            Masuk
+          </button>
+          <button onclick="openLoginModal()" class="px-4 py-2 rounded-xl bg-primary hover:bg-primary-hover text-[#0a0f1a] font-bold text-xs sm:text-sm transition-all shadow-md shadow-primary/20 cursor-pointer">
+            Daftar
+          </button>
+        </div>
+
+        <!-- B. MEMBER AUTH WIDGET (Saat Sudah Login) -->
+        <div id="auth-member-widget" class="hidden items-center gap-3">
+          <!-- Notification Bell -->
+          <button onclick="showToast('Semua notifikasi booking mabar telah terkirim ke WhatsApp & email.')" class="relative w-9 h-9 rounded-xl bg-surface border border-border flex items-center justify-center text-text-muted hover:text-white transition-colors" title="Notifikasi Member">
+            <i class="fa-regular fa-bell text-sm"></i>
+            <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+          </button>
+
+          <!-- Member Avatar & Dropdown -->
+          <div class="relative">
+            <button onclick="toggleMemberDropdown()" class="flex items-center gap-2 px-2.5 py-1.5 rounded-full bg-surface border border-primary/30 hover:border-primary text-xs font-mono transition-all cursor-pointer">
+              <div class="w-7 h-7 rounded-full bg-primary/20 border border-primary text-primary flex items-center justify-center font-bold text-xs">
+                FS
+              </div>
+              <div class="hidden sm:flex flex-col text-left pr-1">
+                <span class="text-text font-bold text-xs leading-none">Fajar Sidiq</span>
+                <span class="text-[9px] text-primary font-medium mt-0.5">1,250 Poin</span>
+              </div>
+              <i class="fa-solid fa-chevron-down text-[9px] text-text-muted"></i>
+            </button>
+
+            <!-- Dropdown Menu -->
+            <div id="member-dropdown-menu" class="hidden absolute right-0 mt-2 w-56 rounded-2xl bg-surface border border-border p-2 shadow-2xl z-50 font-sans text-xs space-y-1 animate-scale-in">
+              <div class="p-2 border-b border-border/80 mb-1">
+                <div class="font-bold text-white text-sm">Fajar Sidiq</div>
+                <div class="text-text-muted text-[11px] font-mono">fajar@example.com</div>
+                <div class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-primary-muted text-primary text-[10px] font-bold mt-1.5">
+                  <i class="fa-solid fa-shield-halved text-[9px]"></i> Member Komunitas Resmi
+                </div>
+              </div>
+              <button onclick="openTicketModal()" class="w-full text-left px-3 py-2 rounded-lg hover:bg-surface-hover text-text hover:text-primary transition-colors flex items-center gap-2">
+                <i class="fa-solid fa-ticket text-xs text-primary w-4"></i>
+                <span>Tiket &amp; Booking Saya</span>
+              </button>
+              <button onclick="showToast('Fitur penukaran 1,250 poin dengan jersey &amp; diskon mabar.')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-surface-hover text-text hover:text-accent transition-colors flex items-center gap-2">
+                <i class="fa-solid fa-coins text-xs text-accent w-4"></i>
+                <span>Saldo Poin (1,250 pts)</span>
+              </button>
+              <div class="border-t border-border/60 my-1"></div>
+              <button onclick="handleLogout()" class="w-full text-left px-3 py-2 rounded-lg hover:bg-danger-muted text-danger font-semibold transition-colors flex items-center gap-2">
+                <i class="fa-solid fa-right-from-bracket text-xs w-4"></i>
+                <span>Keluar (Logout)</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Back to Portfolio Link -->
+        <a href="index.html#projek" onclick="closeOrGoBack(event)" class="px-3 py-1.5 rounded-lg border border-border bg-surface hover:bg-surface-hover text-text-muted hover:text-white font-mono text-xs transition-colors flex items-center gap-1.5 shadow-sm" title="Kembali ke Portofolio Fajar">
+          <i class="fa-solid fa-arrow-left text-[10px]"></i>
+          <span class="hidden sm:inline">Portofolio</span>
+        </a>
+
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- ===================================================================
+       VIEW 1: GUEST LANDING PAGE (SEBELUM LOGIN - MATCHING USER PHOTO)
+  =================================================================== -->
+  <div id="guest-view" class="flex-1 flex flex-col">
+    
+    <!-- Hero Section (Identical to User Photo) -->
+    <section id="hero" class="relative pt-12 pb-20 md:pt-20 md:pb-28 overflow-hidden">
+      <!-- Ambient Glow -->
+      <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[550px] h-[350px] bg-primary/10 rounded-full blur-[140px] pointer-events-none"></div>
+
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center space-y-6 relative z-10">
+        
+        <!-- Community Badge (From Photo) -->
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary-muted border border-primary/25 text-primary text-xs sm:text-sm font-semibold tracking-wide badge-glow">
+          <span>🏆 Komunitas Minisoccer #1</span>
+        </div>
+
+        <!-- Main Headline (From Photo) -->
+        <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-text leading-tight">
+          Yuk Main Bola
+        </h1>
+
+        <!-- Subtitle (From Photo) -->
+        <p class="text-base sm:text-xl text-text-muted max-w-2xl mx-auto leading-relaxed">
+          Komunitas Minisoccer Terbuka Untuk Semua. Temukan jadwal mabar, gabung tim, dan nikmati serunya bermain bola bareng.
+        </p>
+
+        <!-- Action Buttons (From Photo) -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-4">
+          <button onclick="openLoginModal()" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-primary hover:bg-primary-hover text-[#0a0f1a] font-bold text-sm tracking-wide transition-all shadow-lg shadow-primary/25 hover:scale-[1.02] flex items-center justify-center gap-2 cursor-pointer">
+            <span>Gabung Sekarang</span>
+          </button>
+          <a href="#jadwal" class="w-full sm:w-auto px-7 py-3.5 rounded-xl border border-border bg-surface hover:bg-surface-hover text-text font-semibold text-sm transition-all flex items-center justify-center gap-2">
+            <span>Lihat Jadwal</span>
+          </a>
+        </div>
+
+        <!-- Down Chevron -->
+        <div class="pt-8">
+          <a href="#jadwal" class="text-text-muted hover:text-primary transition-colors text-lg inline-block animate-bounce">
+            <i class="fa-solid fa-chevron-down"></i>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 -mt-6 mb-16 relative z-20 w-full">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-6 rounded-2xl border border-border bg-surface/90 backdrop-blur-md shadow-xl">
+        <div class="text-center p-3">
+          <span class="text-3xl sm:text-4xl font-extrabold text-primary font-mono block">120+</span>
+          <span class="text-xs sm:text-sm text-text-muted mt-1 block">Member Aktif</span>
+        </div>
+        <div class="text-center p-3 border-l border-border/60">
+          <span class="text-3xl sm:text-4xl font-extrabold text-text font-mono block">48+</span>
+          <span class="text-xs sm:text-sm text-text-muted mt-1 block">Sesi Mabar Digelar</span>
+        </div>
+        <div class="text-center p-3 border-l-0 md:border-l border-border/60">
+          <span class="text-3xl sm:text-4xl font-extrabold text-text font-mono block">5+</span>
+          <span class="text-xs sm:text-sm text-text-muted mt-1 block">Venue Rekanan</span>
+        </div>
+        <div class="text-center p-3 border-l border-border/60">
+          <span class="text-3xl sm:text-4xl font-extrabold text-primary font-mono block">12+</span>
+          <span class="text-xs sm:text-sm text-text-muted mt-1 block">Event &amp; Turnamen</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Jadwal Preview Section -->
+    <section id="jadwal" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 scroll-mt-20 space-y-8 w-full">
+      <div class="text-center space-y-2 max-w-2xl mx-auto">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-muted border border-primary/20 text-primary font-mono text-xs font-semibold">
+          <i class="fa-solid fa-calendar-check text-xs"></i>
+          <span>Jadwal Mabar Terdekat</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-text tracking-tight">
+          Pilih Jadwal &amp; Amankan Slot Anda
+        </h2>
+        <p class="text-sm sm:text-base text-text-muted">
+          Silakan masuk atau daftar akun member untuk mulai memesan slot bermain minisoccer.
+        </p>
+      </div>
+
+      <!-- Schedule Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Card 1 -->
+        <div class="rounded-2xl border border-border bg-surface flex flex-col justify-between overflow-hidden opacity-90 hover:opacity-100 transition-all">
+          <div class="p-6 space-y-4">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="font-mono text-xs text-text-muted block">Venue BSD</span>
+                <h3 class="text-lg font-bold text-text mt-0.5">Pitch Arena BSD</h3>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-danger-muted border border-danger/30 text-danger text-xs font-bold font-mono">
+                Penuh (14/14)
+              </span>
+            </div>
+            <div class="space-y-2 text-xs text-text-muted font-mono pt-1">
+              <div class="flex items-center gap-2 text-text font-sans font-medium">
+                <i class="fa-solid fa-trophy text-amber-400 w-4"></i> Fun Match Minggu Pagi
+              </div>
+              <div class="flex items-center gap-2"><i class="fa-regular fa-calendar text-text-muted w-4"></i> Minggu, 26 Okt 2026</div>
+              <div class="flex items-center gap-2"><i class="fa-regular fa-clock text-text-muted w-4"></i> 07:00 - 09:00 WIB (Pagi)</div>
+            </div>
+          </div>
+          <div class="p-6 pt-3 border-t border-border/80 flex items-center justify-between bg-surface/50">
+            <div>
+              <span class="text-[10px] text-text-muted font-mono block">Biaya / Pemain:</span>
+              <span class="text-base font-bold text-primary font-mono">Rp 65.000</span>
+            </div>
+            <button onclick="openLoginModal()" class="px-3.5 py-2 rounded-lg border border-border hover:bg-surface-hover text-text-muted hover:text-white font-mono text-xs transition-colors cursor-pointer">
+              Masuk untuk Cek
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 2 (Active Spotlight) -->
+        <div class="rounded-2xl border-2 border-primary bg-surface flex flex-col justify-between overflow-hidden shadow-xl shadow-primary/10 relative">
+          <div class="absolute top-0 right-0 bg-primary text-[#0a0f1a] font-mono text-[10px] font-extrabold px-3 py-0.5 rounded-bl-lg uppercase tracking-wider">
+            🔥 Paling Diminati
+          </div>
+          <div class="p-6 space-y-4">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="font-mono text-xs text-primary font-semibold block">Venue Bintaro Sektor 9</span>
+                <h3 class="text-lg font-bold text-text mt-0.5">Bintaro Stadium Mini</h3>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-primary-muted border border-primary/40 text-primary text-xs font-bold font-mono">
+                4 Slot Tersisa
+              </span>
+            </div>
+            <div class="space-y-2 text-xs text-text-muted font-mono pt-1">
+              <div class="flex items-center gap-2 text-text font-sans font-medium">
+                <i class="fa-solid fa-trophy text-amber-400 w-4"></i> Minisoccer Wednesday Night
+              </div>
+              <div class="flex items-center gap-2"><i class="fa-regular fa-calendar text-text-muted w-4"></i> Rabu, 29 Okt 2026</div>
+              <div class="flex items-center gap-2"><i class="fa-regular fa-clock text-text-muted w-4"></i> 19:00 - 21:00 WIB (Malam)</div>
+            </div>
+          </div>
+          <div class="p-6 pt-3 border-t border-border/80 flex items-center justify-between bg-surface/50">
+            <div>
+              <span class="text-[10px] text-text-muted font-mono block">Biaya / Pemain:</span>
+              <span class="text-base font-bold text-primary font-mono">Rp 70.000</span>
+            </div>
+            <button onclick="openLoginModal()" class="px-5 py-2.5 rounded-xl bg-primary hover:bg-primary-hover text-[#0a0f1a] font-bold font-mono text-xs transition-all shadow-md shadow-primary/25 cursor-pointer">
+              Masuk &amp; Booking
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="rounded-2xl border border-border bg-surface flex flex-col justify-between overflow-hidden opacity-90 hover:opacity-100 transition-all">
+          <div class="p-6 space-y-4">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="font-mono text-xs text-text-muted block">Venue TB Simatupang</span>
+                <h3 class="text-lg font-bold text-text mt-0.5">Cilandak Sport Centre</h3>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-primary-muted border border-primary/40 text-primary text-xs font-bold font-mono">
+                6 Slot Tersisa
+              </span>
+            </div>
+            <div class="space-y-2 text-xs text-text-muted font-mono pt-1">
+              <div class="flex items-center gap-2 text-text font-sans font-medium">
+                <i class="fa-solid fa-trophy text-amber-400 w-4"></i> Super League Community Match
+              </div>
+              <div class="flex items-center gap-2"><i class="fa-regular fa-calendar text-text-muted w-4"></i> Sabtu, 01 Nov 2026</div>
+              <div class="flex items-center gap-2"><i class="fa-regular fa-clock text-text-muted w-4"></i> 16:00 - 18:00 WIB (Sore)</div>
+            </div>
+          </div>
+          <div class="p-6 pt-3 border-t border-border/80 flex items-center justify-between bg-surface/50">
+            <div>
+              <span class="text-[10px] text-text-muted font-mono block">Biaya / Pemain:</span>
+              <span class="text-base font-bold text-primary font-mono">Rp 75.000</span>
+            </div>
+            <button onclick="openLoginModal()" class="px-4 py-2 rounded-lg border border-border hover:bg-surface-hover text-text font-mono text-xs transition-colors cursor-pointer">
+              Daftar Slot
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Venue & Galeri Preview -->
+    <section id="venue" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-border/60 w-full">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div>
+          <h2 class="text-2xl font-bold text-text">Venue Rekanan Pilihan</h2>
+          <p class="text-xs text-text-muted">Lapangan rumput sintetis standar FIFA dengan pencahayaan malam standar pertandingan</p>
+        </div>
+        <button onclick="openLoginModal()" class="text-xs text-primary font-semibold flex items-center gap-1 hover:underline">
+          <span>Lihat 5 Venue</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
+        </button>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="p-4 rounded-xl bg-surface border border-border">
+          <div class="text-primary font-bold text-sm">Pitch Arena BSD</div>
+          <div class="text-xs text-text-muted mt-1">Jl. BSD Grand Boulevard, Tangerang Selatan</div>
+          <div class="text-[11px] text-emerald-400 font-mono mt-2">⭐ 4.9 • 14 Mabar Selesai</div>
+        </div>
+        <div class="p-4 rounded-xl bg-surface border border-border">
+          <div class="text-primary font-bold text-sm">Bintaro Stadium Mini</div>
+          <div class="text-xs text-text-muted mt-1">Kawasan Bintaro Sektor 9, Tangerang Selatan</div>
+          <div class="text-[11px] text-emerald-400 font-mono mt-2">⭐ 4.8 • 18 Mabar Selesai</div>
+        </div>
+        <div class="p-4 rounded-xl bg-surface border border-border">
+          <div class="text-primary font-bold text-sm">Cilandak Sport Centre</div>
+          <div class="text-xs text-text-muted mt-1">TB Simatupang No. 12, Jakarta Selatan</div>
+          <div class="text-[11px] text-emerald-400 font-mono mt-2">⭐ 4.9 • 16 Mabar Selesai</div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ===================================================================
+       VIEW 2: MEMBER DASHBOARD (SETELAH LOGIN - MATCHING localhost:3000)
+  =================================================================== -->
+  <div id="member-view" class="hidden flex-1 flex-col py-8 animate-scale-in">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 space-y-8 w-full">
+      
+      <!-- 1. Welcome & Status Banner (Matching MemberDashboard.tsx) -->
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-surface via-surface to-primary/10 border border-border p-6 sm:p-8 shadow-sm">
+        <div class="absolute top-0 right-0 -mt-8 -mr-8 w-48 h-48 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+        
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/15 border border-primary/25 text-primary text-xs font-bold uppercase tracking-wider mb-3">
+              <i class="fa-solid fa-shield-halved text-xs"></i>
+              <span>Member Komunitas Resmi</span>
+            </div>
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-text tracking-tight">
+              Halo, Fajar Sidiq! ⚽
+            </h1>
+            <p class="text-text-muted text-sm sm:text-base mt-1 max-w-xl">
+              Selamat datang kembali. Cek jadwal mabar terdekat, amankan slot posisimu, dan kumpulkan poin loyalitas setiap bermain.
+            </p>
+          </div>
+
+          <!-- Quick Metrics Badge (Points & Active Tickets) -->
+          <div class="flex flex-wrap items-center gap-3 sm:gap-4 shrink-0">
+            <!-- Saldo Poin -->
+            <div onclick="showToast('Saldo Poin Anda: 1,250 pts. Dapat digunakan untuk potongan Rp 10.000 saat booking.')" class="flex items-center gap-3 bg-background/80 hover:bg-background border border-border/80 hover:border-primary/40 px-4 py-3 rounded-2xl transition-all shadow-sm cursor-pointer group">
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/15 text-accent flex items-center justify-center font-bold text-base">
+                <i class="fa-solid fa-coins text-accent"></i>
+              </div>
+              <div>
+                <div class="text-[11px] text-text-muted font-medium">Saldo Poin</div>
+                <div class="text-base font-black text-text group-hover:text-accent transition-colors">
+                  1,250 <span class="text-xs font-normal text-text-muted">pts</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tiket Aktif -->
+            <button onclick="openTicketModal()" class="flex items-center gap-3 bg-background/80 hover:bg-background border border-border/80 hover:border-primary/40 px-4 py-3 rounded-2xl transition-all shadow-sm cursor-pointer group text-left">
+              <div class="w-10 h-10 rounded-xl bg-primary/15 text-primary flex items-center justify-center font-bold text-base">
+                <i class="fa-solid fa-ticket text-primary"></i>
+              </div>
+              <div>
+                <div class="text-[11px] text-text-muted font-medium">Tiket Aktif</div>
+                <div class="text-base font-black text-text group-hover:text-primary transition-colors">
+                  1 <span class="text-xs font-normal text-text-muted">tiket mabar</span>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Next Match Spotlight (Tiket Pertandingan Terdekat Kamu) -->
+      <div class="rounded-2xl border-2 border-primary/40 bg-gradient-to-r from-primary/10 via-surface to-surface p-5 sm:p-6 shadow-md relative overflow-hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="space-y-1.5">
+            <div class="flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-wider">
+              <i class="fa-solid fa-sparkles text-primary animate-pulse"></i>
+              <span>Pertandingan Terdekat Kamu</span>
+            </div>
+            <h3 class="text-lg sm:text-xl font-black text-text">
+              Pitch Arena BSD — Lapangan A (Rumput FIFA Pro)
+            </h3>
+            <div class="flex flex-wrap items-center gap-3 text-xs text-text-muted pt-1">
+              <span class="flex items-center gap-1.5 font-semibold text-text">
+                <i class="fa-regular fa-calendar text-primary"></i>
+                Minggu, 26 Oktober 2026
+              </span>
+              <span>•</span>
+              <span class="flex items-center gap-1.5 font-semibold text-text">
+                <i class="fa-regular fa-clock text-primary"></i>
+                07:00 - 09:00 WIB
+              </span>
+              <span>•</span>
+              <span class="px-2 py-0.5 rounded bg-primary-muted text-primary font-bold text-[11px]">
+                1 Slot Terkonfirmasi (Midfield)
+              </span>
+            </div>
+          </div>
+
+          <button onclick="openTicketModal()" class="shrink-0 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-primary text-[#0a0f1a] font-bold text-xs sm:text-sm hover:bg-primary-hover transition-all shadow-md shadow-primary/20 cursor-pointer">
+            <i class="fa-solid fa-qrcode text-sm"></i>
+            <span>Lihat Barcode Tiket</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 3. Akses Menu Member (3 Pillars) -->
+      <div>
+        <h2 class="text-lg font-black text-text mb-4 flex items-center gap-2">
+          <span>Akses Menu Member</span>
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <!-- Action 1: Jadwal Mabar -->
+          <a href="#member-jadwal" class="group bg-surface hover:bg-surface-hover rounded-2xl p-5 border border-border hover:border-primary/50 transition-all duration-200 flex flex-col justify-between shadow-sm">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
+                <i class="fa-regular fa-calendar-days text-xl"></i>
+              </div>
+              <h3 class="text-base font-bold text-text group-hover:text-primary transition-colors">
+                Katalog Jadwal Mabar
+              </h3>
+              <p class="text-xs text-text-muted mt-1 leading-relaxed">
+                Cari sesi mabar harian, pilih venue dan jam kickoff, lalu amankan slot posisimu.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-border/60 flex items-center justify-between text-xs font-bold text-primary">
+              <span>Booking Slot Baru</span>
+              <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+            </div>
+          </a>
+
+          <!-- Action 2: Event & Turnamen -->
+          <div onclick="showToast('Event Terdekat: Minisoccer Autumn Cup 2026 — Pendaftaran Buka!')" class="group bg-surface hover:bg-surface-hover rounded-2xl p-5 border border-border hover:border-accent/50 transition-all duration-200 flex flex-col justify-between shadow-sm cursor-pointer">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-accent/15 text-accent flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
+                <i class="fa-solid fa-trophy text-xl"></i>
+              </div>
+              <h3 class="text-base font-bold text-text group-hover:text-accent transition-colors">
+                Event &amp; Turnamen
+              </h3>
+              <p class="text-xs text-text-muted mt-1 leading-relaxed">
+                Ikuti liga resmi musim ini, turnamen piala komunitas, dan coaching clinic bersama pro.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-border/60 flex items-center justify-between text-xs font-bold text-accent">
+              <span>Jelajahi Turnamen (1 Aktif)</span>
+              <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+            </div>
+          </div>
+
+          <!-- Action 3: Tiket & Riwayat -->
+          <button onclick="openTicketModal()" class="group bg-surface hover:bg-surface-hover rounded-2xl p-5 border border-border hover:border-primary/50 transition-all duration-200 flex flex-col justify-between shadow-sm text-left cursor-pointer">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
+                <i class="fa-solid fa-ticket text-xl"></i>
+              </div>
+              <h3 class="text-base font-bold text-text group-hover:text-primary transition-colors">
+                Tiket &amp; Riwayat Saya
+              </h3>
+              <p class="text-xs text-text-muted mt-1 leading-relaxed">
+                Akses barcode tiket check-in di venue, pantau riwayat pertandingan, dan klaim reward.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-border/60 flex items-center justify-between text-xs font-bold text-primary">
+              <span>Buka E-Tiket Barcode</span>
+              <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- 4. Sesi Mabar Terbuka (Booking Langsung) -->
+      <section id="member-jadwal" class="pt-4 space-y-4">
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-black text-text flex items-center gap-2">
+            <span>Sesi Mabar Tersedia Minggu Ini</span>
+          </h2>
+          <span class="text-xs font-mono text-primary font-semibold">● Realtime Slot Lock Active</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <!-- Sesi Bintaro -->
+          <div class="rounded-2xl border border-primary/40 bg-surface p-5 flex flex-col justify-between shadow-md">
+            <div class="space-y-3">
+              <div class="flex items-start justify-between">
+                <div>
+                  <h3 class="text-base font-bold text-text">Bintaro Stadium Mini — Wednesday Night</h3>
+                  <p class="text-xs text-text-muted">Rabu, 29 Okt 2026 • 19:00 - 21:00 WIB (2 Jam)</p>
+                </div>
+                <span id="badge-slot-bintaro" class="px-2.5 py-1 rounded-full bg-primary-muted border border-primary/40 text-primary text-xs font-mono font-bold">
+                  4 slot tersisa
+                </span>
+              </div>
+              
+              <!-- Slot Progress -->
+              <div class="space-y-1">
+                <div class="flex justify-between text-[11px] font-mono text-text-muted">
+                  <span id="slot-meter-label">10 / 14 Terdaftar (Sisa 4 Slot)</span>
+                  <span class="text-primary font-bold">71% Terisi</span>
+                </div>
+                <div class="w-full h-2 rounded-full bg-[#0a0f1a] overflow-hidden">
+                  <div id="slot-progress" class="h-full bg-primary rounded-full transition-all duration-300" style="width: 71.4%;"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-4 mt-4 border-t border-border/80 flex items-center justify-between">
+              <div>
+                <span class="text-[10px] text-text-muted font-mono block">Biaya / Orang:</span>
+                <span class="text-base font-bold text-primary font-mono">Rp 70.000</span>
+              </div>
+              <button onclick="openBookingModal('bintaro')" class="px-5 py-2.5 rounded-xl bg-primary hover:bg-primary-hover text-[#0a0f1a] font-bold font-mono text-xs transition-all shadow-md shadow-primary/20 cursor-pointer">
+                Pilih Slot &amp; Bayar QRIS
+              </button>
+            </div>
+          </div>
+
+          <!-- Sesi Cilandak -->
+          <div class="rounded-2xl border border-border bg-surface p-5 flex flex-col justify-between shadow-sm">
+            <div class="space-y-3">
+              <div class="flex items-start justify-between">
+                <div>
+                  <h3 class="text-base font-bold text-text">Cilandak Sport Centre — Super League</h3>
+                  <p class="text-xs text-text-muted">Sabtu, 01 Nov 2026 • 16:00 - 18:00 WIB (2 Jam)</p>
+                </div>
+                <span class="px-2.5 py-1 rounded-full bg-primary-muted border border-primary/40 text-primary text-xs font-mono font-bold">
+                  6 slot tersisa
+                </span>
+              </div>
+              <div class="space-y-1">
+                <div class="flex justify-between text-[11px] font-mono text-text-muted">
+                  <span>8 / 14 Terdaftar (Sisa 6 Slot)</span>
+                  <span class="text-primary font-bold">57% Terisi</span>
+                </div>
+                <div class="w-full h-2 rounded-full bg-[#0a0f1a] overflow-hidden">
+                  <div class="h-full bg-primary rounded-full" style="width: 57.1%;"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-4 mt-4 border-t border-border/80 flex items-center justify-between">
+              <div>
+                <span class="text-[10px] text-text-muted font-mono block">Biaya / Orang:</span>
+                <span class="text-base font-bold text-primary font-mono">Rp 75.000</span>
+              </div>
+              <button onclick="openBookingModal('cilandak')" class="px-5 py-2.5 rounded-xl border border-border hover:bg-surface-hover text-text font-bold font-mono text-xs transition-all cursor-pointer">
+                Pilih Slot &amp; Bayar QRIS
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       MODAL 1: LOGIN / MASUK FORMALITAS SHOWCASE
+  =================================================================== -->
+  <div id="login-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/75 backdrop-blur-sm p-4">
+    <div class="bg-surface border border-border rounded-3xl max-w-md w-full p-6 sm:p-7 space-y-5 shadow-2xl relative animate-scale-in">
+      
+      <!-- Close button -->
+      <button onclick="closeLoginModal()" class="absolute top-5 right-5 text-text-muted hover:text-white transition-colors w-8 h-8 rounded-full bg-background flex items-center justify-center border border-border">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <!-- Header with Logo -->
+      <div class="text-center space-y-2 pt-1">
+        <div class="w-12 h-12 rounded-2xl bg-surface border border-emerald-500/30 p-1.5 mx-auto flex items-center justify-center shadow-md">
+          <img src="assets/images/ymb-logo.png" alt="Yuk Main Bola Logo" class="w-full h-full object-contain" />
+        </div>
+        <h3 class="text-xl font-black text-text tracking-tight">Masuk ke Yuk Main Bola</h3>
+        <p class="text-xs text-text-muted max-w-xs mx-auto">
+          Akses akun member untuk memesan slot mabar real-time dan mengelola e-tiket.
+        </p>
+      </div>
+
+      <!-- Formalitas Notice Badge -->
+      <div class="p-2.5 rounded-xl bg-primary-muted border border-primary/25 text-primary text-[11px] font-mono flex items-center gap-2">
+        <i class="fa-solid fa-circle-info text-xs shrink-0"></i>
+        <span><b>Formalitas Demo:</b> Tekan tombol hijau di bawah untuk langsung masuk tanpa password.</span>
+      </div>
+
+      <!-- Form Inputs -->
+      <div class="space-y-3">
+        <div class="space-y-1">
+          <label class="text-xs font-semibold text-text-muted">Alamat Email:</label>
+          <input type="email" id="login-email" value="fajar@example.com" class="w-full px-3.5 py-2.5 rounded-xl bg-background border border-border text-text font-mono text-xs focus:outline-none focus:border-primary transition" placeholder="nama@email.com" />
+        </div>
+        <div class="space-y-1">
+          <label class="text-xs font-semibold text-text-muted">Kata Sandi:</label>
+          <input type="password" value="••••••••" class="w-full px-3.5 py-2.5 rounded-xl bg-background border border-border text-text font-mono text-xs focus:outline-none focus:border-primary transition" />
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="space-y-2.5 pt-1">
+        <button onclick="handleLoginSubmit()" class="w-full py-3 rounded-xl bg-primary hover:bg-primary-hover text-[#0a0f1a] font-bold text-sm tracking-wide transition-all shadow-lg shadow-primary/25 flex items-center justify-center gap-2 cursor-pointer">
+          <i class="fa-solid fa-right-to-bracket text-xs"></i>
+          <span>Masuk Sekarang (Simulasi)</span>
+        </button>
+        <button onclick="handleLoginSubmit()" class="w-full py-2.5 rounded-xl border border-border hover:bg-surface-hover text-text font-semibold text-xs transition cursor-pointer">
+          ⚡ Masuk Cepat sebagai Fajar Sidiq (1-Klik)
+        </button>
+      </div>
+
+      <div class="text-center text-[11px] text-text-muted pt-1">
+        Belum punya akun? <span onclick="handleLoginSubmit()" class="text-primary font-bold cursor-pointer hover:underline">Daftar Akun Baru (Instan)</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       MODAL 2: E-TIKET & BARCODE MODAL (MATCHING localhost:3000 /profil)
+  =================================================================== -->
+  <div id="ticket-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/75 backdrop-blur-sm p-4">
+    <div class="bg-surface border border-primary/40 rounded-3xl max-w-sm w-full p-6 space-y-4 shadow-2xl relative animate-scale-in">
+      
+      <button onclick="closeTicketModal()" class="absolute top-4 right-4 text-text-muted hover:text-white transition-colors w-7 h-7 rounded-full bg-background flex items-center justify-center border border-border">
+        <i class="fa-solid fa-xmark text-xs"></i>
+      </button>
+
+      <div class="text-center space-y-1">
+        <div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary-muted border border-primary/30 text-primary text-[10px] font-bold font-mono">
+          E-TIKET RESMI YUK MAIN BOLA
+        </div>
+        <h3 class="text-base font-bold text-text">Tiket Mabar Terkonfirmasi</h3>
+      </div>
+
+      <!-- Ticket Card Design -->
+      <div class="p-4 rounded-2xl bg-[#0a0f1a] border border-border space-y-3 font-mono text-xs">
+        <div class="flex items-center justify-between border-b border-border/70 pb-2">
+          <span class="text-text-muted text-[11px]">Venue:</span>
+          <span class="text-white font-bold font-sans">Pitch Arena BSD</span>
+        </div>
+        <div class="flex items-center justify-between border-b border-border/70 pb-2">
+          <span class="text-text-muted text-[11px]">Jadwal:</span>
+          <span class="text-white font-sans">Minggu, 26 Okt • 07:00 WIB</span>
+        </div>
+        <div class="flex items-center justify-between border-b border-border/70 pb-2">
+          <span class="text-text-muted text-[11px]">Pemain:</span>
+          <span class="text-primary font-bold">Fajar Sidiq</span>
+        </div>
+        <div class="flex items-center justify-between border-b border-border/70 pb-2">
+          <span class="text-text-muted text-[11px]">Posisi / Slot:</span>
+          <span class="text-white">Gelandang (Rompi Putih)</span>
+        </div>
+        <div class="flex items-center justify-between border-b border-border/70 pb-2">
+          <span class="text-text-muted text-[11px]">Status Bayar:</span>
+          <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold text-[10px]">LUNAS (Midtrans QRIS)</span>
+        </div>
+        <div class="flex items-center justify-between pt-1">
+          <span class="text-text-muted text-[11px]">PIN Check-in:</span>
+          <span class="text-amber-400 font-bold text-sm tracking-widest">#4491</span>
+        </div>
+      </div>
+
+      <!-- Simulated QR Code -->
+      <div class="p-3 rounded-2xl bg-white flex flex-col items-center justify-center text-center">
+        <!-- SVG QR Pattern -->
+        <svg class="w-36 h-36" viewBox="0 0 100 100" fill="#0a0f1a">
+          <rect x="10" y="10" width="25" height="25" fill="#0a0f1a"/>
+          <rect x="15" y="15" width="15" height="15" fill="#ffffff"/>
+          <rect x="18" y="18" width="9" height="9" fill="#0a0f1a"/>
+          
+          <rect x="65" y="10" width="25" height="25" fill="#0a0f1a"/>
+          <rect x="70" y="15" width="15" height="15" fill="#ffffff"/>
+          <rect x="73" y="18" width="9" height="9" fill="#0a0f1a"/>
+          
+          <rect x="10" y="65" width="25" height="25" fill="#0a0f1a"/>
+          <rect x="15" y="70" width="15" height="15" fill="#ffffff"/>
+          <rect x="18" y="73" width="9" height="9" fill="#0a0f1a"/>
+          
+          <rect x="42" y="12" width="6" height="6"/>
+          <rect x="52" y="18" width="6" height="6"/>
+          <rect x="42" y="28" width="10" height="6"/>
+          <rect x="42" y="42" width="16" height="16"/>
+          <rect x="62" y="42" width="8" height="8"/>
+          <rect x="75" y="55" width="14" height="6"/>
+          <rect x="42" y="65" width="6" height="12"/>
+          <rect x="55" y="72" width="12" height="6"/>
+          <rect x="72" y="72" width="15" height="15"/>
+        </svg>
+        <span class="text-[10px] text-zinc-600 font-mono font-bold mt-1">YMB-TICKET-20261026-8892</span>
+      </div>
+
+      <div class="text-center text-[10px] text-text-muted">
+        Tunjukkan barcode atau sebutkan PIN #4491 ke kapten di venue sebelum kickoff.
+      </div>
+
+      <button onclick="closeTicketModal()" class="w-full py-2.5 rounded-xl bg-surface hover:bg-surface-hover text-text font-mono text-xs border border-border cursor-pointer">
+        Tutup E-Tiket
+      </button>
+
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       MODAL 3: BOOKING & LOCK SLOT MODAL
+  =================================================================== -->
+  <div id="booking-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/75 backdrop-blur-sm p-4">
+    <div class="bg-surface border border-border rounded-2xl max-w-md w-full p-6 space-y-5 shadow-2xl relative animate-scale-in">
+      <button onclick="closeBookingModal()" class="absolute top-4 right-4 text-text-muted hover:text-white transition-colors w-7 h-7 rounded-full bg-background flex items-center justify-center border border-border">
+        <i class="fa-solid fa-xmark text-xs"></i>
+      </button>
+
+      <div>
+        <span class="text-[10px] text-primary font-mono font-bold uppercase tracking-wider block">Lock Slot Realtime</span>
+        <h3 id="modal-match-title" class="text-lg font-bold text-text mt-0.5">Minisoccer Wednesday Night</h3>
+        <p id="modal-match-time" class="text-xs text-text-muted font-mono mt-1">Rabu, 29 Okt 2026 • 19:00 - 21:00 WIB</p>
+      </div>
+
+      <!-- Quantity Selector -->
+      <div class="p-3.5 rounded-xl bg-background border border-border space-y-2">
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-text-muted">Jumlah Slot Pemain:</span>
+          <div class="flex items-center gap-3">
+            <button onclick="changeQty(-1)" class="w-7 h-7 rounded-lg bg-surface border border-border text-white flex items-center justify-center font-bold text-sm hover:border-primary transition">-</button>
+            <span id="booking-qty" class="text-sm font-bold text-primary font-mono">1</span>
+            <button onclick="changeQty(1)" class="w-7 h-7 rounded-lg bg-surface border border-border text-white flex items-center justify-center font-bold text-sm hover:border-primary transition">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Points Discount Toggle -->
+      <div class="p-3 rounded-xl bg-primary-muted border border-primary/20 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-coins text-accent text-sm"></i>
+          <div>
+            <div class="text-xs font-bold text-text">Gunakan 100 Poin</div>
+            <div class="text-[10px] text-text-muted">Potongan diskon Rp 10.000</div>
+          </div>
+        </div>
+        <input type="checkbox" id="use-points" onchange="calculateTotal()" class="w-4 h-4 accent-primary cursor-pointer" checked />
+      </div>
+
+      <!-- Summary -->
+      <div class="space-y-1.5 text-xs font-mono pt-1">
+        <div class="flex justify-between text-text-muted">
+          <span>Subtotal (<span id="calc-qty">1</span> Slot):</span>
+          <span id="calc-subtotal" class="text-white">Rp 70.000</span>
+        </div>
+        <div id="row-points-discount" class="flex justify-between text-primary">
+          <span>Diskon Loyalty Poin:</span>
+          <span>-Rp 10.000</span>
+        </div>
+        <div class="flex justify-between text-text-muted text-[11px]">
+          <span>Kode Unik Verifikasi:</span>
+          <span class="text-text-muted">+Rp 412</span>
+        </div>
+        <div class="border-t border-border pt-2 flex justify-between font-bold text-sm text-text">
+          <span>Total Pembayaran:</span>
+          <span id="calc-total" class="text-primary font-mono text-base">Rp 60.412</span>
+        </div>
+      </div>
+
+      <button onclick="openSnapModal()" class="w-full py-3 rounded-xl bg-primary hover:bg-primary-hover text-[#0a0f1a] font-bold text-xs tracking-wider uppercase transition-all shadow-lg shadow-primary/25 cursor-pointer">
+        Lanjut Pembayaran QRIS Midtrans
+      </button>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       MODAL 4: MIDTRANS QRIS PAYMENT SIMULATOR
+  =================================================================== -->
+  <div id="snap-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-md p-4">
+    <div class="bg-surface border border-primary/50 rounded-2xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl relative animate-scale-in">
+      <button onclick="closeSnapModal()" class="absolute top-4 right-4 text-text-muted hover:text-white transition-colors w-7 h-7 rounded-full bg-background flex items-center justify-center border border-border">
+        <i class="fa-solid fa-xmark text-xs"></i>
+      </button>
+
+      <div class="flex items-center justify-center gap-2">
+        <span class="text-xs font-mono font-bold text-primary">MIDTRANS PAYMENT GATEWAY</span>
+      </div>
+
+      <div id="snap-timer-box" class="p-2 rounded-lg bg-background border border-border text-xs font-mono">
+        <span class="text-text-muted">Batas Waktu Bayar: </span>
+        <span id="snap-countdown" class="text-danger font-bold">14:59</span>
+      </div>
+
+      <div id="snap-qr-container" class="p-4 bg-white rounded-xl inline-block shadow-lg mx-auto">
+        <!-- QRIS Graphic -->
+        <div class="text-black font-mono font-black text-xs tracking-widest border-b border-black/20 pb-1 mb-2">QRIS NASIONAL</div>
+        <svg class="w-40 h-40 mx-auto" viewBox="0 0 100 100" fill="#000000">
+          <rect x="5" y="5" width="28" height="28"/>
+          <rect x="9" y="9" width="20" height="20" fill="#ffffff"/>
+          <rect x="13" y="13" width="12" height="12"/>
+          <rect x="67" y="5" width="28" height="28"/>
+          <rect x="71" y="9" width="20" height="20" fill="#ffffff"/>
+          <rect x="75" y="13" width="12" height="12"/>
+          <rect x="5" y="67" width="28" height="28"/>
+          <rect x="9" y="71" width="20" height="20" fill="#ffffff"/>
+          <rect x="13" y="75" width="12" height="12"/>
+          <rect x="38" y="10" width="8" height="8"/>
+          <rect x="50" y="18" width="10" height="8"/>
+          <rect x="38" y="38" width="24" height="24"/>
+          <rect x="70" y="38" width="10" height="10"/>
+          <rect x="85" y="50" width="8" height="8"/>
+          <rect x="38" y="70" width="10" height="10"/>
+          <rect x="55" y="75" width="15" height="8"/>
+          <rect x="75" y="75" width="18" height="18"/>
+        </svg>
+        <div class="text-[9px] text-zinc-600 font-mono mt-1 font-semibold">NMID: ID1020268892YMB</div>
+      </div>
+
+      <div class="space-y-1">
+        <span class="text-xs text-text-muted font-mono block">Total Tagihan:</span>
+        <span id="snap-modal-amount" class="text-xl font-bold text-primary font-mono">Rp 60.412</span>
+      </div>
+
+      <button id="btn-simulate-pay" onclick="simulatePaymentSettlement()" class="w-full py-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-[#0a0f1a] font-bold font-mono text-xs transition-all shadow-lg shadow-emerald-500/25 cursor-pointer">
+        ⚡ Simulasi Sukses Bayar (Webhook Callback)
+      </button>
+
+      <!-- Success Settlement Box -->
+      <div id="snap-success-box" class="hidden p-4 rounded-xl bg-emerald-950/80 border border-emerald-500 space-y-3">
+        <div class="w-10 h-10 rounded-full bg-emerald-500 text-black flex items-center justify-center mx-auto text-lg">
+          <i class="fa-solid fa-check"></i>
+        </div>
+        <h4 class="text-text font-bold text-base">Pembayaran Berhasil Diverifikasi!</h4>
+        <p class="text-xs text-text-muted font-mono">Slot Anda telah diamankan di sistem Supabase.</p>
+        
+        <div class="p-3 rounded-xl bg-[#0a0f1a] border border-primary/40 font-mono space-y-1 text-left text-xs">
+          <div class="flex justify-between text-text-muted">
+            <span>Kode Tiket Mabar:</span>
+            <span class="text-primary font-bold">YMB-MBR-8892</span>
+          </div>
+          <div class="flex justify-between text-text-muted">
+            <span>PIN Check-in Lapangan:</span>
+            <span class="text-white font-bold">#4491</span>
+          </div>
+        </div>
+
+        <button onclick="finishBookingSuccess()" class="w-full py-2.5 rounded-lg bg-surface hover:bg-surface-hover text-text font-mono text-xs transition-colors border border-border cursor-pointer">
+          Lihat E-Tiket di Dashboard Member
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Global Toast Notification -->
+  <div id="toastNotification" class="fixed bottom-5 right-5 z-50 bg-[#111827] border border-primary/40 text-white px-4 py-3 rounded-xl shadow-2xl text-xs font-medium flex items-center gap-2.5 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+    <i class="fa-solid fa-circle-check text-primary text-sm"></i>
+    <span id="toastMessage">Pesan notifikasi</span>
+  </div>
+
+  <!-- ===================================================================
+       JAVASCRIPT AUTH & INTERACTION LOGIC
+  =================================================================== -->
+  <script>
+    // State: isLoggedIn (default: false for Guest view)
+    let isLoggedIn = false;
+    let currentQty = 1;
+    let baseUnitPrice = 70000;
+    let registeredPlayers = 10;
+    const maxPlayers = 14;
+
+    function updateAuthStateUI() {
+      const guestNav = document.getElementById('nav-guest-links');
+      const memberNav = document.getElementById('nav-member-links');
+      const guestAuth = document.getElementById('auth-guest-buttons');
+      const memberAuth = document.getElementById('auth-member-widget');
+      const guestView = document.getElementById('guest-view');
+      const memberView = document.getElementById('member-view');
+
+      if (isLoggedIn) {
+        if (guestNav) guestNav.style.display = 'none';
+        if (memberNav) memberNav.style.display = 'flex';
+        if (guestAuth) guestAuth.style.display = 'none';
+        if (memberAuth) memberAuth.style.display = 'flex';
+
+        if (guestView) guestView.style.display = 'none';
+        if (memberView) memberView.style.display = 'flex';
+      } else {
+        if (guestNav) guestNav.style.display = 'flex';
+        if (memberNav) memberNav.style.display = 'none';
+        if (guestAuth) guestAuth.style.display = 'flex';
+        if (memberAuth) memberAuth.style.display = 'none';
+
+        if (guestView) guestView.style.display = 'flex';
+        if (memberView) memberView.style.display = 'none';
+      }
+    }
+
+    // Modal Controls
+    function openLoginModal() {
+      document.getElementById('login-modal').classList.remove('hidden');
+      document.getElementById('login-modal').classList.add('flex');
+    }
+
+    function closeLoginModal() {
+      document.getElementById('login-modal').classList.remove('flex');
+      document.getElementById('login-modal').classList.add('hidden');
+    }
+
+    function handleLoginSubmit() {
+      isLoggedIn = true;
+      closeLoginModal();
+      updateAuthStateUI();
+      showToast('Berhasil masuk sebagai Fajar Sidiq (Member Komunitas Resmi)!');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function handleLogout() {
+      isLoggedIn = false;
+      const menu = document.getElementById('member-dropdown-menu');
+      if (menu) menu.classList.add('hidden');
+      updateAuthStateUI();
+      showToast('Anda telah keluar dari akun member.');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleMemberDropdown() {
+      const menu = document.getElementById('member-dropdown-menu');
+      if (menu) {
+        menu.classList.toggle('hidden');
+      }
+    }
+
+    function scrollToMemberTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Ticket Modal
+    function openTicketModal() {
+      const menu = document.getElementById('member-dropdown-menu');
+      if (menu) menu.classList.add('hidden');
+      document.getElementById('ticket-modal').classList.remove('hidden');
+      document.getElementById('ticket-modal').classList.add('flex');
+    }
+
+    function closeTicketModal() {
+      document.getElementById('ticket-modal').classList.remove('flex');
+      document.getElementById('ticket-modal').classList.add('hidden');
+    }
+
+    // Booking Modals
+    function openBookingModal(venueId) {
+      if (!isLoggedIn) {
+        openLoginModal();
+        return;
+      }
+      document.getElementById('booking-modal').classList.remove('hidden');
+      document.getElementById('booking-modal').classList.add('flex');
+      
+      if (venueId === 'cilandak') {
+        baseUnitPrice = 75000;
+        document.getElementById('modal-match-title').innerText = "Super League Community Match — Cilandak";
+        document.getElementById('modal-match-time').innerText = "Sabtu, 01 Nov 2026 • 16:00 - 18:00 WIB (2 Jam)";
+      } else {
+        baseUnitPrice = 70000;
+        document.getElementById('modal-match-title').innerText = "Minisoccer Wednesday Night — Bintaro Stadium";
+        document.getElementById('modal-match-time').innerText = "Rabu, 29 Okt 2026 • 19:00 - 21:00 WIB (2 Jam)";
+      }
+      calculateTotal();
+    }
+
+    function closeBookingModal() {
+      document.getElementById('booking-modal').classList.remove('flex');
+      document.getElementById('booking-modal').classList.add('hidden');
+    }
+
+    function changeQty(delta) {
+      const next = currentQty + delta;
+      if (next >= 1 && next <= (maxPlayers - registeredPlayers)) {
+        currentQty = next;
+        document.getElementById('booking-qty').innerText = currentQty;
+        document.getElementById('calc-qty').innerText = currentQty;
+        calculateTotal();
+      }
+    }
+
+    function calculateTotal() {
+      const subtotal = currentQty * baseUnitPrice;
+      const usePointsEl = document.getElementById('use-points');
+      const usePoints = usePointsEl ? usePointsEl.checked : false;
+      const discount = usePoints ? 10000 : 0;
+      const uniqueCode = 412;
+      const total = subtotal - discount + uniqueCode;
+
+      document.getElementById('calc-subtotal').innerText = 'Rp ' + subtotal.toLocaleString('id-ID');
+      
+      const rowPoints = document.getElementById('row-points-discount');
+      if (rowPoints) {
+        if (usePoints) {
+          rowPoints.classList.remove('hidden');
+          rowPoints.classList.add('flex');
+        } else {
+          rowPoints.classList.remove('flex');
+          rowPoints.classList.add('hidden');
+        }
+      }
+
+      document.getElementById('calc-total').innerText = 'Rp ' + total.toLocaleString('id-ID');
+      document.getElementById('snap-modal-amount').innerText = 'Rp ' + total.toLocaleString('id-ID');
+    }
+
+    function openSnapModal() {
+      closeBookingModal();
+      document.getElementById('snap-modal').classList.remove('hidden');
+      document.getElementById('snap-modal').classList.add('flex');
+      startSnapCountdown();
+    }
+
+    function closeSnapModal() {
+      document.getElementById('snap-modal').classList.remove('flex');
+      document.getElementById('snap-modal').classList.add('hidden');
+    }
+
+    let snapTimer;
+    function startSnapCountdown() {
+      let seconds = 899; // 14:59
+      clearInterval(snapTimer);
+      snapTimer = setInterval(() => {
+        seconds--;
+        if (seconds <= 0) {
+          clearInterval(snapTimer);
+          return;
+        }
+        const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+        const s = (seconds % 60).toString().padStart(2, '0');
+        document.getElementById('snap-countdown').innerText = `${m}:${s}`;
+      }, 1000);
+    }
+
+    function simulatePaymentSettlement() {
+      document.getElementById('snap-qr-container').classList.add('hidden');
+      document.getElementById('snap-timer-box').classList.add('hidden');
+      document.getElementById('btn-simulate-pay').classList.add('hidden');
+      document.getElementById('snap-success-box').classList.remove('hidden');
+
+      registeredPlayers += currentQty;
+      const remaining = maxPlayers - registeredPlayers;
+
+      const badgeBintaro = document.getElementById('badge-slot-bintaro');
+      if (badgeBintaro) {
+        badgeBintaro.innerText = `${remaining} slot tersisa`;
+      }
+
+      const pct = (registeredPlayers / maxPlayers) * 100;
+      document.getElementById('slot-progress').style.width = pct + '%';
+      document.getElementById('slot-meter-label').innerText = `${registeredPlayers} / 14 Terdaftar (Sisa ${remaining} Slot)`;
+    }
+
+    function finishBookingSuccess() {
+      closeSnapModal();
+      openTicketModal();
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toastNotification');
+      const text = document.getElementById('toastMessage');
+      if (!toast || !text) return;
+      text.textContent = msg;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 3200);
+    }
+
+    function closeOrGoBack(event) {
+      if (event) event.preventDefault();
+      window.close();
+      setTimeout(function() {
+        if (window.history.length > 1) {
+          window.history.back();
+        } else {
+          window.location.href = 'index.html#projek';
+        }
+      }, 200);
+    }
+
+    // Initialize UI on load
+    window.addEventListener('DOMContentLoaded', () => {
+      updateAuthStateUI();
+    });
+  </script>
+</body>
+</html>

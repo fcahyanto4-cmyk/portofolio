@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build output
+dist/
+
+# Large Archives (GitHub blocks files > 100MB)
+*.rar
+*.zip
+*.7z
+*.tar.gz
+
+# Backup files
+*.bak
+*.cosmic.bak
+*.swiss.bak
+
+# Temp / scratch workspaces
+ta_pajak_temp/
+scratch/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini

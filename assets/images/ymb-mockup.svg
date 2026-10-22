@@ -1,0 +1,72 @@
+<svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ymbBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#081711"/>
+      <stop offset="100%" stop-color="#0f2e21"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" rx="16" fill="url(#ymbBg)" stroke="#164e35" stroke-width="2"/>
+  <rect x="0" y="0" width="800" height="48" rx="16" fill="#061a12"/>
+  <rect x="0" y="32" width="800" height="16" fill="#061a12"/>
+  <circle cx="28" cy="24" r="6" fill="#ef4444"/>
+  <circle cx="48" cy="24" r="6" fill="#f59e0b"/>
+  <circle cx="68" cy="24" r="6" fill="#10b981"/>
+  <text x="96" y="29" fill="#ecfdf5" font-family="sans-serif" font-size="14" font-weight="bold">Yuk Main Bola (YMB) — Minisoccer Community Platform</text>
+  <rect x="630" y="14" width="150" height="20" rx="10" fill="#059669" fill-opacity="0.2" stroke="#10b981" stroke-width="1"/>
+  <text x="642" y="28" fill="#34d399" font-family="sans-serif" font-size="11">Next.js 16 + Supabase</text>
+
+  <rect x="24" y="64" width="460" height="360" rx="12" fill="#092319" stroke="#164e35"/>
+  <text x="40" y="92" fill="#f0fdf4" font-family="sans-serif" font-size="14" font-weight="bold">Jadwal &amp; Live Slot Minisoccer</text>
+  <text x="40" y="110" fill="#86efac" font-family="sans-serif" font-size="10">Automated Booking • Midtrans Payment Gateway • QR Check-in</text>
+
+  <rect x="40" y="128" width="428" height="80" rx="8" fill="#0d3324" stroke="#1e5b41"/>
+  <text x="56" y="152" fill="#f8fafc" font-family="sans-serif" font-size="12" font-weight="bold">Fun Match Minggu Pagi — Pitch Arena BSD</text>
+  <text x="56" y="170" fill="#94a3b8" font-family="sans-serif" font-size="10">Minggu, 07:00 - 09:00 WIB • Rumput Sintetis FIFA Pro</text>
+  <rect x="56" y="182" width="75" height="18" rx="9" fill="#ef4444" fill-opacity="0.2" stroke="#ef4444" stroke-width="1"/>
+  <text x="66" y="195" fill="#fca5a5" font-family="sans-serif" font-size="9" font-weight="bold">FULL BOOKED</text>
+  <text x="365" y="156" fill="#34d399" font-family="sans-serif" font-size="13" font-weight="bold">Rp 65.000</text>
+  <text x="380" y="170" fill="#94a3b8" font-family="sans-serif" font-size="9">/ player</text>
+
+  <rect x="40" y="220" width="428" height="80" rx="8" fill="#0d3324" stroke="#10b981" stroke-width="1.5"/>
+  <text x="56" y="244" fill="#f8fafc" font-family="sans-serif" font-size="12" font-weight="bold">Minisoccer Wednesday Night — Bintaro Stadium</text>
+  <text x="56" y="262" fill="#94a3b8" font-family="sans-serif" font-size="10">Rabu, 19:00 - 21:00 WIB • Wasit &amp; Rompi Lengkap</text>
+  <rect x="56" y="274" width="95" height="18" rx="9" fill="#10b981" fill-opacity="0.2" stroke="#10b981" stroke-width="1"/>
+  <text x="66" y="287" fill="#86efac" font-family="sans-serif" font-size="9" font-weight="bold">4 SLOT TERSISA</text>
+  <text x="365" y="248" fill="#34d399" font-family="sans-serif" font-size="13" font-weight="bold">Rp 70.000</text>
+  <rect x="365" y="268" width="85" height="24" rx="6" fill="#10b981"/>
+  <text x="382" y="284" fill="#061a12" font-family="sans-serif" font-size="10" font-weight="bold">Book Now</text>
+
+  <rect x="40" y="312" width="428" height="80" rx="8" fill="#0d3324" stroke="#1e5b41"/>
+  <text x="56" y="336" fill="#f8fafc" font-family="sans-serif" font-size="12" font-weight="bold">Super League Internal Community Match</text>
+  <text x="56" y="354" fill="#94a3b8" font-family="sans-serif" font-size="10">Sabtu, 16:00 - 18:00 WIB • Live Stream &amp; Fotografer</text>
+  <rect x="56" y="366" width="95" height="18" rx="9" fill="#38bdf8" fill-opacity="0.2" stroke="#38bdf8" stroke-width="1"/>
+  <text x="66" y="379" fill="#7dd3fc" font-family="sans-serif" font-size="9" font-weight="bold">OPEN REGIST</text>
+  <text x="365" y="340" fill="#34d399" font-family="sans-serif" font-size="13" font-weight="bold">Rp 75.000</text>
+
+  <rect x="500" y="64" width="276" height="170" rx="10" fill="#0a2217" stroke="#164e35"/>
+  <text x="516" y="88" fill="#ecfdf5" font-family="sans-serif" font-size="12" font-weight="bold">Key Production Features</text>
+  <text x="516" y="110" fill="#34d399" font-family="sans-serif" font-size="10">✓ Realtime Booking &amp; Slot Lock</text>
+  <text x="516" y="128" fill="#34d399" font-family="sans-serif" font-size="10">✓ Midtrans Payment Webhook</text>
+  <text x="516" y="146" fill="#34d399" font-family="sans-serif" font-size="10">✓ Auto-Expire Unpaid Orders (Cron)</text>
+  <text x="516" y="164" fill="#34d399" font-family="sans-serif" font-size="10">✓ Member Loyalty Point Engine</text>
+  <text x="516" y="182" fill="#34d399" font-family="sans-serif" font-size="10">✓ Admin Dashboard with Recharts</text>
+  <text x="516" y="200" fill="#34d399" font-family="sans-serif" font-size="10">✓ Role-Based Access Control</text>
+
+  <rect x="500" y="246" width="276" height="178" rx="10" fill="#0a2217" stroke="#164e35"/>
+  <text x="516" y="270" fill="#ecfdf5" font-family="sans-serif" font-size="12" font-weight="bold">Tech Stack Overview</text>
+  <rect x="516" y="285" width="115" height="26" rx="6" fill="#061a12" stroke="#1e5b41"/>
+  <text x="526" y="302" fill="#86efac" font-family="sans-serif" font-size="10">Next.js 16 (App)</text>
+
+  <rect x="643" y="285" width="118" height="26" rx="6" fill="#061a12" stroke="#1e5b41"/>
+  <text x="653" y="302" fill="#86efac" font-family="sans-serif" font-size="10">React 19 &amp; TS</text>
+
+  <rect x="516" y="320" width="115" height="26" rx="6" fill="#061a12" stroke="#1e5b41"/>
+  <text x="526" y="337" fill="#86efac" font-family="sans-serif" font-size="10">Supabase Postgres</text>
+
+  <rect x="643" y="320" width="118" height="26" rx="6" fill="#061a12" stroke="#1e5b41"/>
+  <text x="653" y="337" fill="#86efac" font-family="sans-serif" font-size="10">Tailwind CSS v4</text>
+
+  <rect x="516" y="355" width="245" height="52" rx="6" fill="#061a12" stroke="#1e5b41"/>
+  <text x="526" y="374" fill="#f8fafc" font-family="sans-serif" font-size="10" font-weight="bold">Midtrans Payment Gateway</text>
+  <text x="526" y="392" fill="#94a3b8" font-family="sans-serif" font-size="9">Virtual Account, QRIS &amp; E-Wallet</text>
+</svg>

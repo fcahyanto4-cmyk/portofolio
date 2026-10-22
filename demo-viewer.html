@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Demo Showcase — Fajar Sidiq Cahyanto</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              500: '#3b82f6',
+              600: '#2563eb'
+            }
+          },
+          fontFamily: {
+            sans: ["'Plus Jakarta Sans'", "sans-serif"],
+            mono: ["'JetBrains Mono'", "monospace"]
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      background-color: #09090b;
+      color: #fafafa;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .topbar {
+      background: rgba(9, 9, 11, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .iframe-container {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      margin: 0 auto;
+    }
+    .iframe-desktop { max-width: 100%; border-radius: 0; }
+    .iframe-tablet { max-width: 820px; border-radius: 16px; border: 8px solid #18181b; height: 90vh; margin-top: 2vh; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7); }
+    .iframe-mobile { max-width: 390px; border-radius: 36px; border: 10px solid #18181b; height: 85vh; margin-top: 3vh; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7); }
+    
+    .device-btn.active {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Topbar -->
+  <div class="topbar h-14 w-full flex items-center justify-between px-4 sm:px-6 z-50 shrink-0">
+    <div class="flex items-center gap-3">
+      <a href="index.html#projek" onclick="closeOrGoBack(event)" class="w-8 h-8 rounded-lg bg-zinc-800/80 hover:bg-zinc-700/80 border border-zinc-700/60 flex items-center justify-center text-zinc-300 hover:text-white transition-colors" title="Kembali ke Portofolio">
+        <i class="fa-solid fa-arrow-left text-xs"></i>
+      </a>
+      <div class="flex flex-col">
+        <span id="project-title" class="font-bold text-xs sm:text-sm text-zinc-100">Live Demo</span>
+        <span id="project-tech" class="font-mono text-[10px] text-zinc-400">Loading...</span>
+      </div>
+    </div>
+
+    <!-- Device Toggles -->
+    <div class="hidden sm:flex items-center gap-1 bg-zinc-900 p-1 rounded-lg border border-zinc-800">
+      <button onclick="setDevice('desktop')" id="btn-desktop" class="device-btn active px-3 py-1.5 rounded-md text-zinc-400 hover:text-white border border-transparent font-mono text-xs transition-all" title="Desktop View">
+        <i class="fa-solid fa-display text-xs mr-1"></i> Desktop
+      </button>
+      <button onclick="setDevice('tablet')" id="btn-tablet" class="device-btn px-3 py-1.5 rounded-md text-zinc-400 hover:text-white border border-transparent font-mono text-xs transition-all" title="Tablet View">
+        <i class="fa-solid fa-tablet-screen-button text-xs mr-1"></i> Tablet
+      </button>
+      <button onclick="setDevice('mobile')" id="btn-mobile" class="device-btn px-3 py-1.5 rounded-md text-zinc-400 hover:text-white border border-transparent font-mono text-xs transition-all" title="Mobile View">
+        <i class="fa-solid fa-mobile-screen-button text-xs mr-1"></i> Mobile
+      </button>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <a id="external-link" href="#" target="_blank" class="px-3.5 py-1.5 rounded-lg bg-zinc-100 hover:bg-white text-zinc-900 font-mono text-xs font-semibold uppercase tracking-wider transition-all flex items-center gap-2">
+        <span>Buka di Tab Baru</span>
+        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- Content Area -->
+  <div class="flex-1 w-full bg-[#09090b] relative overflow-hidden flex items-start justify-center">
+    
+    <div id="loading" class="absolute inset-0 flex flex-col items-center justify-center z-10 bg-[#09090b]">
+       <i class="fa-solid fa-circle-notch fa-spin text-3xl text-zinc-400 mb-4"></i>
+       <span class="font-mono text-xs text-zinc-400 uppercase tracking-wider">Memuat Live Demo...</span>
+       <p id="local-server-warning" class="text-xs text-amber-400 mt-4 max-w-md text-center hidden">
+         <i class="fa-solid fa-triangle-exclamation mr-1"></i> Untuk demo Next.js lokal (Yuk Main Bola), pastikan local server berjalan di port 3000 (<code>npm run dev</code>).
+       </p>
+    </div>
+
+    <!-- Iframe Container -->
+    <div id="iframe-wrapper" class="iframe-container iframe-desktop relative z-20 opacity-0">
+      <iframe id="demo-frame" class="w-full h-full border-0 bg-white" src="about:blank" onload="hideLoading()"></iframe>
+    </div>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const projectId = urlParams.get('project');
+
+    const projects = {
+      'tax-app': {
+        title: 'Sistem Kepatuhan Pajak DJP',
+        tech: 'Python • Flask • K-Means (k=3) • SQLite',
+        url: 'tax-app.html',
+        requiresLocalServer: false
+      },
+      'powerbi': {
+        title: 'Retail Analytics Cockpit',
+        tech: 'Power BI Enterprise • DAX Engine • 10 Halaman',
+        url: 'retail-dashboard.html',
+        requiresLocalServer: false
+      },
+      'yukmainbola': {
+        title: 'Yuk Main Bola (YMB) — Platform Komunitas & Booking Minisoccer',
+        tech: 'Next.js 16 • React 19 • Supabase • Midtrans Webhook • Tailwind v4',
+        url: 'booking-demo.html',
+        requiresLocalServer: false
+      },
+      'automation': {
+        title: 'Asisten Keuangan Cerdas & Auto-Invoice AI',
+        tech: 'n8n • Claude 3.5 Sonnet • Telegram Bot API • Python ReportLab • OpenPyXL',
+        url: 'automation-showcase.html',
+        requiresLocalServer: false
+      },
+      'n8n': {
+        title: 'Asisten Keuangan Cerdas & Auto-Invoice AI',
+        tech: 'n8n • Claude 3.5 Sonnet • Telegram Bot API • Python ReportLab • OpenPyXL',
+        url: 'automation-showcase.html',
+        requiresLocalServer: false
+      },
+      'stitch': {
+        title: 'Stitch Editorial Design',
+        tech: 'HTML • CSS • JS',
+        url: 'stitch_design/code.html',
+        requiresLocalServer: false
+      },
+      'pajak': {
+        title: 'Sistem Kepatuhan Pajak DJP',
+        tech: 'Python • Flask • K-Means • SQLite',
+        url: 'tax-app.html',
+        requiresLocalServer: false
+      },
+      'tax-clustering': {
+        title: 'Sistem Kepatuhan Pajak DJP',
+        tech: 'Python • Flask • K-Means • SQLite',
+        url: 'tax-app.html',
+        requiresLocalServer: false
+      }
+    };
+
+    const project = projects[projectId] || projects['powerbi'];
+
+    document.getElementById('project-title').textContent = project.title;
+    document.getElementById('project-tech').textContent = project.tech;
+    document.getElementById('external-link').href = project.url;
+    
+    if (project.requiresLocalServer) {
+      document.getElementById('local-server-warning').classList.remove('hidden');
+      setTimeout(() => {
+        document.getElementById('demo-frame').src = project.url;
+      }, 500);
+    } else {
+      document.getElementById('demo-frame').src = project.url;
+    }
+
+    function hideLoading() {
+      if(document.getElementById('demo-frame').src !== 'about:blank' && document.getElementById('demo-frame').src !== window.location.href) {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('iframe-wrapper').style.opacity = '1';
+      }
+    }
+
+    setTimeout(() => {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('iframe-wrapper').style.opacity = '1';
+    }, 2500);
+
+    function setDevice(device) {
+      const wrapper = document.getElementById('iframe-wrapper');
+      document.querySelectorAll('.device-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('btn-' + device).classList.add('active');
+      
+      wrapper.className = 'iframe-container z-20';
+      if(device === 'desktop') wrapper.classList.add('iframe-desktop');
+      if(device === 'tablet') wrapper.classList.add('iframe-tablet');
+      if(device === 'mobile') wrapper.classList.add('iframe-mobile');
+    }
+
+    function closeOrGoBack(event) {
+      if (event) event.preventDefault();
+      window.close();
+      setTimeout(function() {
+        if (window.history.length > 1) {
+          window.history.back();
+        } else {
+          window.location.href = 'index.html#projek';
+        }
+      }, 200);
+    }
+  </script>
+</body>
+</html>

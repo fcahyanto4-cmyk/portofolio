@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>Fajar Cahyanto — Data Analyst</title><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "on-primary": "#ffffff",
+          "on-error": "#ffffff",
+          "surface-tint": "#5f5e5e",
+          "surface-container-high": "#e8e8e6",
+          "surface": "#f9f9f7",
+          "inverse-primary": "#c8c6c5",
+          "error": "#ba1a1a",
+          "tertiary": "#000000",
+          "on-secondary-fixed": "#0f0069",
+          "outline-variant": "#c4c7c7",
+          "on-tertiary-container": "#848484",
+          "on-background": "#1a1c1b",
+          "surface-container": "#eeeeec",
+          "on-surface": "#1a1c1b",
+          "primary": "#000000",
+          "on-secondary-container": "#fffbff",
+          "outline": "#747878",
+          "on-primary-container": "#858383",
+          "surface-dim": "#dadad8",
+          "secondary": "#4b41e1",
+          "secondary-container": "#645efb",
+          "surface-container-lowest": "#ffffff",
+          "on-tertiary": "#ffffff",
+          "tertiary-fixed-dim": "#c7c6c6",
+          "error-container": "#ffdad6",
+          "tertiary-fixed": "#e4e2e2",
+          "on-secondary-fixed-variant": "#3323cc",
+          "on-tertiary-fixed-variant": "#464747",
+          "inverse-surface": "#2f3130",
+          "on-primary-fixed-variant": "#474646",
+          "secondary-fixed": "#e2dfff",
+          "surface-container-low": "#f4f4f2",
+          "surface-bright": "#f9f9f7",
+          "tertiary-container": "#1b1c1c",
+          "on-primary-fixed": "#1c1b1b",
+          "background": "#f9f9f7",
+          "primary-fixed": "#e5e2e1",
+          "surface-variant": "#e2e3e1",
+          "on-secondary": "#ffffff",
+          "primary-fixed-dim": "#c8c6c5",
+          "inverse-on-surface": "#f1f1ef",
+          "on-surface-variant": "#444748",
+          "primary-container": "#1c1b1b",
+          "on-tertiary-fixed": "#1b1c1c",
+          "surface-container-highest": "#e2e3e1",
+          "on-error-container": "#93000a",
+          "secondary-fixed-dim": "#c3c0ff"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "space-lg": "1.75rem",
+          "gutter": "1.5rem",
+          "margin-desktop": "3.5rem",
+          "space-md": "1rem",
+          "space-xs": "0.25rem",
+          "margin": "1.25rem",
+          "space-sm": "0.5rem",
+          "space-xl": "3rem",
+          "gutter-desktop": "2.5rem"
+        },
+        "fontFamily": {
+          "label-technical": [
+            "JetBrains Mono"
+          ],
+          "display": [
+            "Geist"
+          ],
+          "headline-md": [
+            "Geist"
+          ],
+          "body-md": [
+            "Geist"
+          ],
+          "display-mobile": [
+            "Geist"
+          ],
+          "body-lg": [
+            "Geist"
+          ],
+          "headline-lg-mobile": [
+            "Geist"
+          ],
+          "metric-display": [
+            "Geist"
+          ],
+          "headline-sm": [
+            "Geist"
+          ],
+          "body-sm": [
+            "Geist"
+          ],
+          "headline-lg": [
+            "Geist"
+          ]
+        },
+        "fontSize": {
+          "label-technical": [
+            "0.75rem",
+            {
+              "lineHeight": "1rem",
+              "letterSpacing": "0.04em",
+              "fontWeight": "500"
+            }
+          ],
+          "display": [
+            "4.5rem",
+            {
+              "lineHeight": "4.75rem",
+              "letterSpacing": "-0.04em",
+              "fontWeight": "600"
+            }
+          ],
+          "headline-md": [
+            "2rem",
+            {
+              "lineHeight": "2.35rem",
+              "letterSpacing": "-0.02em",
+              "fontWeight": "500"
+            }
+          ],
+          "body-md": [
+            "1rem",
+            {
+              "lineHeight": "1.6rem",
+              "letterSpacing": "-0.005em",
+              "fontWeight": "400"
+            }
+          ],
+          "display-mobile": [
+            "2.75rem",
+            {
+              "lineHeight": "3rem",
+              "letterSpacing": "-0.03em",
+              "fontWeight": "600"
+            }
+          ],
+          "body-lg": [
+            "1.125rem",
+            {
+              "lineHeight": "1.8rem",
+              "letterSpacing": "-0.01em",
+              "fontWeight": "400"
+            }
+          ],
+          "headline-lg-mobile": [
+            "2rem",
+            {
+              "lineHeight": "2.25rem",
+              "letterSpacing": "-0.025em",
+              "fontWeight": "500"
+            }
+          ],
+          "metric-display": [
+            "2.5rem",
+            {
+              "lineHeight": "2.75rem",
+              "letterSpacing": "-0.03em",
+              "fontWeight": "600"
+            }
+          ],
+          "headline-sm": [
+            "1.375rem",
+            {
+              "lineHeight": "1.75rem",
+              "letterSpacing": "-0.015em",
+              "fontWeight": "500"
+            }
+          ],
+          "body-sm": [
+            "0.875rem",
+            {
+              "lineHeight": "1.45rem",
+              "letterSpacing": "0em",
+              "fontWeight": "400"
+            }
+          ],
+          "headline-lg": [
+            "3rem",
+            {
+              "lineHeight": "3.25rem",
+              "letterSpacing": "-0.03em",
+              "fontWeight": "500"
+            }
+          ]
+        }
+      }
+    }
+  };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased selection:bg-primary selection:text-on-primary"><header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-md border-b border-outline-variant/40"><div class="h-16 w-full max-w-7xl mx-auto px-margin md:px-margin-desktop flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-sm"><a class="font-label-technical text-label-technical tracking-wider text-primary uppercase font-medium" data-path="work" href="#">FAJAR CAHYANTO</a><span class="hidden sm:inline-block font-label-technical text-label-technical text-outline">/</span><span class="hidden sm:inline-block font-label-technical text-label-technical text-on-surface-variant">DATA ANALYST</span></div><nav class="hidden md:flex items-center gap-space-lg" data-active-classes="text-primary font-medium border-b border-primary"><a aria-current="page" class="tracking-wider uppercase transition-colors py-1 text-primary font-medium border-b border-primary" data-path="work" href="#">Work</a><a class="font-label-technical text-label-technical tracking-wider uppercase text-on-surface-variant hover:text-primary transition-colors py-1" data-path="about" href="#">About</a><a class="font-label-technical text-label-technical tracking-wider uppercase text-on-surface-variant hover:text-primary transition-colors py-1" data-path="skills" href="#">Skills</a><a class="font-label-technical text-label-technical tracking-wider uppercase text-on-surface-variant hover:text-primary transition-colors py-1" data-path="experience" href="#">Experience</a><a class="font-label-technical text-label-technical tracking-wider uppercase text-on-surface-variant hover:text-primary transition-colors py-1" data-path="contact" href="#">Contact</a></nav><div class="flex items-center gap-space-md"><a class="font-label-technical text-label-technical tracking-wider uppercase px-space-md py-space-xs border border-outline-variant hover:border-primary text-on-surface hover:text-primary transition-colors flex items-center gap-1 rounded" href="#" rel="noopener noreferrer" target="_blank">↗ Resume</a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- HERO SECTION -->
+<section class="w-full max-w-7xl mx-auto px-margin md:px-margin-desktop pt-12 pb-24 relative">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-desktop items-start">
+<!-- Left Column: Typography & Narrative -->
+<div class="lg:col-span-8 flex flex-col">
+<div class="flex items-center gap-space-sm mb-6">
+<span class="inline-block w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-technical text-label-technical tracking-widest text-on-surface-variant uppercase">
+            DATA ANALYST // JAKARTA, ID
+          </span>
+<span class="text-outline text-label-technical font-label-technical">/</span>
+<span class="font-label-technical text-label-technical tracking-wider text-outline">
+            SYS.STATUS: OPERATIONAL
+          </span>
+</div>
+<h1 class="font-display text-display tracking-tight text-primary uppercase select-none leading-[0.9]">
+<span class="block">Fajar</span>
+<span class="block text-outline-variant hover:text-primary transition-colors duration-500">Cahyanto</span>
+</h1>
+<p class="font-headline-sm text-headline-sm text-on-surface max-w-2xl mt-8 mb-6 font-normal">
+          Turning complex enterprise data into clear, actionable executive insights.
+        </p>
+<!-- Tech Stack Pill Ribbon -->
+<div class="flex flex-wrap items-center gap-2 mb-10">
+<span class="px-2.5 py-1 bg-surface-container text-on-surface font-label-technical text-label-technical rounded">Power BI</span>
+<span class="text-outline-variant font-label-technical">·</span>
+<span class="px-2.5 py-1 bg-surface-container text-on-surface font-label-technical text-label-technical rounded">DAX</span>
+<span class="text-outline-variant font-label-technical">·</span>
+<span class="px-2.5 py-1 bg-surface-container text-on-surface font-label-technical text-label-technical rounded">SQL</span>
+<span class="text-outline-variant font-label-technical">·</span>
+<span class="px-2.5 py-1 bg-surface-container text-on-surface font-label-technical text-label-technical rounded">Python</span>
+<span class="text-outline-variant font-label-technical">·</span>
+<span class="px-2.5 py-1 bg-surface-container text-on-surface font-label-technical text-label-technical rounded">Power Query</span>
+<span class="text-outline-variant font-label-technical">·</span>
+<span class="px-2.5 py-1 bg-surface-container text-on-surface font-label-technical text-label-technical rounded">Excel</span>
+</div>
+<div class="flex flex-wrap items-center gap-space-md pt-2">
+<a class="px-6 py-3.5 bg-primary hover:bg-secondary text-on-primary font-label-technical text-label-technical tracking-wider uppercase rounded transition-colors duration-200 flex items-center gap-2 group" href="#selected-work">
+<span>[ Explore Selected Work ↓ ]</span>
+</a>
+<button class="px-6 py-3.5 bg-surface-container-low hover:bg-surface-container-highest text-on-surface font-label-technical text-label-technical tracking-wider uppercase rounded transition-colors duration-200 flex items-center gap-2" onclick="openModal('case-01')">
+<span>View Analytics Case Studies</span>
+<span class="material-symbols-outlined text-sm">open_in_new</span>
+</button>
+</div>
+</div>
+<!-- Right Column: Minimal Swiss Index / Telemetry Card -->
+<div class="lg:col-span-4 mt-8 lg:mt-0 flex flex-col justify-between h-full space-y-6">
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm">
+<div class="flex items-center justify-between pb-4 mb-4 bg-surface-container-low p-3 rounded">
+<span class="font-label-technical text-label-technical text-outline uppercase tracking-wider">INDEX PROTOCOL</span>
+<span class="font-label-technical text-label-technical text-primary font-medium">01 / 05</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">
+            Empirical methodology applied to high-throughput relational datasets, warehouse schema, and executive telemetry.
+          </p>
+<div class="space-y-2 font-label-technical text-label-technical">
+<div class="flex justify-between py-1 bg-surface-container-low px-2 rounded">
+<span class="text-outline">AVAILABILITY</span>
+<span class="text-secondary font-medium">CONTRACT &amp; ADVISORY</span>
+</div>
+<div class="flex justify-between py-1 bg-surface-container-low px-2 rounded">
+<span class="text-outline">TIMEZONE</span>
+<span class="text-on-surface">JAKARTA / UTC+7</span>
+</div>
+<div class="flex justify-between py-1 bg-surface-container-low px-2 rounded">
+<span class="text-outline">CORE ARCHITECTURE</span>
+<span class="text-on-surface">STAR SCHEMA</span>
+</div>
+</div>
+</div>
+<!-- Inline Visual Sparkline / Activity Tile -->
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm">
+<div class="flex items-center justify-between mb-3">
+<span class="font-label-technical text-label-technical text-outline uppercase tracking-wider">THROUGHPUT VOLUME</span>
+<span class="font-label-technical text-label-technical text-secondary font-medium">1.8M ROWS/SEC</span>
+</div>
+<div class="w-full h-12 flex items-end gap-1 pt-2">
+<div class="flex-1 bg-surface-container hover:bg-secondary h-4 transition-all rounded-xs"></div>
+<div class="flex-1 bg-surface-container hover:bg-secondary h-6 transition-all rounded-xs"></div>
+<div class="flex-1 bg-surface-container hover:bg-secondary h-5 transition-all rounded-xs"></div>
+<div class="flex-1 bg-surface-container hover:bg-secondary h-8 transition-all rounded-xs"></div>
+<div class="flex-1 bg-surface-container hover:bg-secondary h-11 transition-all rounded-xs"></div>
+<div class="flex-1 bg-surface-container hover:bg-secondary h-7 transition-all rounded-xs"></div>
+<div class="flex-1 bg-surface-container hover:bg-secondary h-9 transition-all rounded-xs"></div>
+<div class="flex-1 bg-secondary h-12 rounded-xs"></div>
+</div>
+<div class="flex justify-between mt-2 font-label-technical text-label-technical text-outline">
+<span>T-7D</span>
+<span>REALTIME PIPELINE INGESTION</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- NUMBERS / STATISTICAL ACCENT SECTION -->
+<section class="w-full bg-surface-container-low py-12">
+<div class="max-w-7xl mx-auto px-margin md:px-margin-desktop">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm flex flex-col justify-between">
+<span class="font-display text-metric-display text-primary tracking-tight">04</span>
+<div class="mt-4">
+<p class="font-label-technical text-label-technical text-primary uppercase font-medium">PROJECTS DELIVERED</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Enterprise &amp; Production Dashboards</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm flex flex-col justify-between">
+<span class="font-display text-metric-display text-primary tracking-tight">12</span>
+<div class="mt-4">
+<p class="font-label-technical text-label-technical text-primary uppercase font-medium">TOOLS &amp; FRAMEWORKS</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">BI, Modeling &amp; Pipeline Stack</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm flex flex-col justify-between">
+<span class="font-display text-metric-display text-primary tracking-tight">03</span>
+<div class="mt-4">
+<p class="font-label-technical text-label-technical text-primary uppercase font-medium">ANALYTICS DOMAINS</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Sales, Supply Chain, Churn</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm flex flex-col justify-between">
+<span class="font-display text-metric-display text-secondary tracking-tight">99.4%</span>
+<div class="mt-4">
+<p class="font-label-technical text-label-technical text-primary uppercase font-medium">INTEGRITY BENCHMARK</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Automated QA Reconciliation Rate</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 01 / ABOUT SECTION -->
+<section class="w-full max-w-7xl mx-auto px-margin md:px-margin-desktop py-24">
+<div class="flex items-center gap-3 mb-6">
+<span class="font-label-technical text-label-technical uppercase tracking-widest text-secondary font-medium">01 / ABOUT</span>
+<div class="h-px bg-surface-container-high flex-1"></div>
+</div>
+<h2 class="font-headline-lg text-headline-lg max-w-4xl text-primary font-normal leading-tight mb-16">
+      I work with data to uncover hidden patterns, engineer robust data models, and communicate high-stakes insights with uncompromising clarity.
+    </h2>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-desktop items-start">
+<!-- Narrative -->
+<div class="lg:col-span-7 space-y-6">
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+          Modern analytics often drowns in cosmetic complexity. My approach stems from classical information design and pragmatic systems engineering: understand the exact business lever first, build pristine dimensional schemas, and then construct dashboards that behave as immediate instruments of decision.
+        </p>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+          Whether optimizing supply chain turnarounds, identifying cohort retention leaks, or aggregating multi-currency transactional streams, I treat analytical models as mission-critical enterprise software—reconciled to the cent, documented, and resilient.
+        </p>
+<div class="bg-surface-container-low p-6 rounded-lg mt-8">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-secondary text-xl">analytics</span>
+<span class="font-label-technical text-label-technical text-primary font-medium uppercase">Analytical Philosophy</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            "A metric without a denominator is merely an opinion; a dashboard that doesn't compel an action is an expensive decoration."
+          </p>
+</div>
+</div>
+<!-- Structured Metadata Grid -->
+<div class="lg:col-span-5 bg-surface-container-lowest p-6 rounded-lg shadow-sm space-y-4">
+<div class="p-3 bg-surface-container-low rounded flex flex-col justify-between gap-1">
+<span class="font-label-technical text-label-technical text-outline uppercase">LOCATION &amp; CADENCE</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">Indonesia (GMT+7) — Hybrid / Remote</span>
+</div>
+<div class="p-3 bg-surface-container-low rounded flex flex-col justify-between gap-1">
+<span class="font-label-technical text-label-technical text-outline uppercase">PRIMARY FOCUS</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">Business Intelligence &amp; Data Modeling</span>
+</div>
+<div class="p-3 bg-surface-container-low rounded flex flex-col justify-between gap-1">
+<span class="font-label-technical text-label-technical text-outline uppercase">CORE METHODOLOGY</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">CRISP-DM, Dimensional Modeling (Star Schema)</span>
+</div>
+<div class="p-3 bg-surface-container-low rounded flex flex-col justify-between gap-1">
+<span class="font-label-technical text-label-technical text-outline uppercase">CORE TOOLS &amp; ENGINES</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">Power BI, PostgreSQL, Python (Pandas/NumPy)</span>
+</div>
+<div class="pt-2 flex items-center justify-between text-on-surface-variant font-label-technical text-label-technical">
+<span>ETL CADENCE</span>
+<span class="text-secondary">AUTOMATED / CRON</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 02 / SKILLS & ARCHITECTURE -->
+<section class="w-full bg-surface-container-low py-24">
+<div class="max-w-7xl mx-auto px-margin md:px-margin-desktop">
+<div class="flex items-center gap-3 mb-6">
+<span class="font-label-technical text-label-technical uppercase tracking-widest text-secondary font-medium">02 / SKILLS &amp; ARCHITECTURE</span>
+<div class="h-px bg-surface-container flex-1"></div>
+</div>
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+<h2 class="font-headline-md text-headline-md text-primary font-normal">
+          Analytical taxonomy &amp; technical tooling
+        </h2>
+<span class="font-label-technical text-label-technical text-outline uppercase mt-2 md:mt-0">NO AMBIGUOUS BARS · ONLY DISCIPLINED APPLICATION</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Column 1 -->
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between mb-6 pb-2 bg-surface-container-low p-2 rounded">
+<span class="font-label-technical text-label-technical text-outline uppercase">STACK 01</span>
+<span class="material-symbols-outlined text-secondary text-base">query_stats</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-4 font-medium">Data Analytics</h3>
+<ul class="space-y-3 font-body-sm text-body-sm text-on-surface-variant">
+<li class="flex items-center justify-between p-2 rounded bg-surface-container-low">
+<span class="text-on-surface font-medium">Power BI</span>
+<span class="font-label-technical text-label-technical text-outline">ADVANCED</span>
+</li>
+<li class="flex items-center justify-between p-2 rounded bg-surface-container-low">
+<span class="text-on-surface font-medium">PostgreSQL / SQL</span>
+<span class="font-label-technical text-label-technical text-outline">DML / DDL</span>
+</li>
+<li class="flex items-center justify-between p-2 rounded bg-surface-container-low">
+<span class="text-on-surface font-medium">Advanced Excel</span>
+<span class="font-label-technical text-label-technical text-outline">VBA / XLOOKUP</span>
+</li>
+<li class="flex items-center justify-between p-2 rounded bg-surface-container-low">
+<span class="text-on-surface font-medium">Python (Pandas)</span>
+<span class="font-label-technical text-label-technical text-outline">DATA WRANGLING</span>
+</li>
+</ul>
+</div>
+<!-- Column 2 -->
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between mb-6 pb-2 bg-surface-container-low p-2 rounded">
+<span class="font-label-technical text-label-technical text-outline uppercase">STACK 02</span>
+<span class="material-symbols-outlined text-secondary text-base">schema</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-4 font-medium">BI &amp; Modeling</h3>
+<ul class="space-y-3 font-body-sm text-body-sm text-on-surface-variant">
+<li class="flex items-center justify-between p-2 rounded bg-surface-container-low">
+<span class="text-on-surface font-medium">Power Query ETL</span>
+<span class="font-label-technical text-label-technical text-outline">M LANGUAGE</span>
+</li>
+<li class="flex items-center justify-between p-2 rounded bg-surface-container-low">
+<span class="text-on-surface font-medium">DAX Measures</span>
+<span class="font-label-technical text-label-technical text-outline">CALCULATE / FILTER</span>
+</li>
+<li class="flex items-center justify-between p-2 rounded bg-surface-container-low">
+<span class="text-on-surface font-medium">Star Schema Design</span>
+<span class="font-label-technical text-label-technical text-outline">FACTS &amp; DIMS</span>
+</li>
+<li class="flex items-center justify-between p-2 rounded bg-surface-container-low">
+<span class="text-on-surface font-medium">Executive UI / UX</span>
+<span class="font-label-technical text-label-technical text-outline">COGNITIVE FLOW</span>
+</li>
+</ul>
+</div>
+<!-- Column 3 -->
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between mb-6 pb-2 bg-surface-container-low p-2 rounded">
+<span class="font-label-technical text-label-technical text-outline uppercase">STACK 03</span>
+<span class="material-symbols-outlined text-secondary text-base">code</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-4 font-medium">Engineering &amp; Dev</h3>
+<ul class="space-y-3 font-body-sm text-body-sm text-on-surface-variant">
+<li class="flex items-center justify-between p-2 rounded bg-surface-container-low">
+<span class="text-on-surface font-medium">Query Optimization</span>
+<span class="font-label-technical text-label-technical text-outline">EXPLAIN ANALYZE</span>
+</li>
+<li class="flex items-center justify-between p-2 rounded bg-surface-container-low">
+<span class="text-on-surface font-medium">Python Scripts</span>
+<span class="font-label-technical text-label-technical text-outline">AUTOMATED CLI</span>
+</li>
+<li class="flex items-center justify-between p-2 rounded bg-surface-container-low">
+<span class="text-on-surface font-medium">Flask Data APIs</span>
+<span class="font-label-technical text-label-technical text-outline">LIGHTWEIGHT ENDPOINTS</span>
+</li>
+<li class="flex items-center justify-between p-2 rounded bg-surface-container-low">
+<span class="text-on-surface font-medium">Version Control</span>
+<span class="font-label-technical text-label-technical text-outline">GIT / GITHUB</span>
+</li>
+</ul>
+</div>
+<!-- Column 4 -->
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between mb-6 pb-2 bg-surface-container-low p-2 rounded">
+<span class="font-label-technical text-label-technical text-outline uppercase">STACK 04</span>
+<span class="material-symbols-outlined text-secondary text-base">sync_alt</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-4 font-medium">Automation</h3>
+<ul class="space-y-3 font-body-sm text-body-sm text-on-surface-variant">
+<li class="flex items-center justify-between p-2 rounded bg-surface-container-low">
+<span class="text-on-surface font-medium">n8n Workflows</span>
+<span class="font-label-technical text-label-technical text-outline">NODE PIPELINES</span>
+</li>
+<li class="flex items-center justify-between p-2 rounded bg-surface-container-low">
+<span class="text-on-surface font-medium">Scheduled Refresh</span>
+<span class="font-label-technical text-label-technical text-outline">POWER BI GATEWAYS</span>
+</li>
+<li class="flex items-center justify-between p-2 rounded bg-surface-container-low">
+<span class="text-on-surface font-medium">REST API Ingestion</span>
+<span class="font-label-technical text-label-technical text-outline">PAGINATED JSON</span>
+</li>
+<li class="flex items-center justify-between p-2 rounded bg-surface-container-low">
+<span class="text-on-surface font-medium">Automated Alerts</span>
+<span class="font-label-technical text-label-technical text-outline">SLACK / WEBHOOKS</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- 03 / SELECTED WORK (FEATURED POWER BI DASHBOARD PROJECTS) -->
+<section class="w-full max-w-7xl mx-auto px-margin md:px-margin-desktop py-24" id="selected-work">
+<div class="flex items-center gap-3 mb-6">
+<span class="font-label-technical text-label-technical uppercase tracking-widest text-secondary font-medium">03 / SELECTED WORK</span>
+<div class="h-px bg-surface-container-high flex-1"></div>
+</div>
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+<h2 class="font-headline-lg text-headline-lg text-primary font-normal">
+        Featured Power BI &amp; Analytical Models
+      </h2>
+<span class="font-label-technical text-label-technical text-outline uppercase mt-2 md:mt-0">ENTERPRISE CASE STUDIES &amp; PRODUCTION MODELS</span>
+</div>
+<div class="space-y-20">
+<!-- PROJECT 01 -->
+<article class="bg-surface-container-lowest rounded-lg shadow-sm overflow-hidden flex flex-col lg:flex-row">
+<!-- Left details -->
+<div class="lg:w-5/12 p-8 md:p-10 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 mb-3">
+<span class="font-label-technical text-label-technical text-secondary font-medium uppercase">PROJECT 01</span>
+<span class="text-outline-variant font-label-technical">·</span>
+<span class="font-label-technical text-label-technical text-outline">REVENUE INTELLIGENCE</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary font-medium tracking-tight mb-4">
+              Global Sales &amp; Revenue Executive Cockpit
+            </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">
+              A centralized telemetry system consolidating 14 cross-border entities, foreign exchange fluctuations, and SKU-level contribution margins into an interactive decision surface.
+            </p>
+<div class="space-y-3 mb-6">
+<div class="p-3 bg-surface-container-low rounded">
+<span class="font-label-technical text-label-technical text-outline uppercase block mb-1">KEY MEASURABLE IMPACT</span>
+<span class="font-body-sm text-body-sm text-primary font-medium">Identified $420K inventory leakage and automated weekly reporting for C-level executives.</span>
+</div>
+</div>
+<div class="flex flex-wrap gap-2 mb-8">
+<span class="px-2 py-1 bg-surface-container text-on-surface font-label-technical text-label-technical rounded">Power BI</span>
+<span class="px-2 py-1 bg-surface-container text-on-surface font-label-technical text-label-technical rounded">DAX</span>
+<span class="px-2 py-1 bg-surface-container text-on-surface font-label-technical text-label-technical rounded">Power Query</span>
+<span class="px-2 py-1 bg-surface-container text-on-surface font-label-technical text-label-technical rounded">Star Schema</span>
+</div>
+</div>
+<div>
+<button class="font-label-technical text-label-technical uppercase tracking-wider text-secondary hover:text-primary transition-colors flex items-center gap-2 group" onclick="openModal('case-01')">
+<span>VIEW CASE STUDY &amp; DASHBOARD</span>
+<span class="transform group-hover:translate-x-1 transition-transform">→</span>
+</button>
+</div>
+</div>
+<!-- Right: Mac Window Preview -->
+<div class="lg:w-7/12 bg-surface-container p-6 md:p-8 flex flex-col justify-center">
+<div class="w-full bg-surface-container-lowest rounded-md shadow-md overflow-hidden">
+<!-- Mac header -->
+<div class="px-4 py-3 bg-surface-container-high flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-outline-variant inline-block"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-outline-variant inline-block"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-outline-variant inline-block"></span>
+</div>
+<span class="font-label-technical text-label-technical text-outline text-[10px]">pbi_cockpit_v4_prod.pbix</span>
+<span class="font-label-technical text-label-technical text-secondary text-[10px]">● LIVE</span>
+</div>
+<!-- Dashboard Mock Body -->
+<div class="p-6 bg-surface-container-lowest space-y-4">
+<!-- KPI Row -->
+<div class="grid grid-cols-3 gap-3">
+<div class="p-3 bg-surface-container-low rounded">
+<span class="font-label-technical text-label-technical text-outline block text-[10px]">NET REVENUE YTD</span>
+<span class="font-headline-sm text-headline-sm text-primary block mt-1">$14.24M</span>
+<span class="font-label-technical text-label-technical text-secondary text-[10px]">↑ +18.4% YoY</span>
+</div>
+<div class="p-3 bg-surface-container-low rounded">
+<span class="font-label-technical text-label-technical text-outline block text-[10px]">EBITDA MARGIN</span>
+<span class="font-headline-sm text-headline-sm text-primary block mt-1">26.8%</span>
+<span class="font-label-technical text-label-technical text-secondary text-[10px]">↑ +140 bps</span>
+</div>
+<div class="p-3 bg-surface-container-low rounded">
+<span class="font-label-technical text-label-technical text-outline block text-[10px]">ACTIVE ENTITIES</span>
+<span class="font-headline-sm text-headline-sm text-primary block mt-1">14 / 14</span>
+<span class="font-label-technical text-label-technical text-outline text-[10px]">100% RECONCILED</span>
+</div>
+</div>
+<!-- SVG Sales Chart Mockup -->
+<div class="p-4 bg-surface-container-low rounded">
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-technical text-label-technical text-outline text-[10px] uppercase">Monthly Revenue vs Target Budget ($M)</span>
+<span class="font-label-technical text-label-technical text-primary text-[10px]">FY2025</span>
+</div>
+<svg class="w-full h-28" fill="none" preserveaspectratio="none" viewbox="0 0 500 120">
+<!-- Grid lines -->
+<line class="text-surface-variant" stroke="currentColor" stroke-dasharray="2 2" x1="0" x2="500" y1="20" y2="20"></line>
+<line class="text-surface-variant" stroke="currentColor" stroke-dasharray="2 2" x1="0" x2="500" y1="60" y2="60"></line>
+<line class="text-surface-variant" stroke="currentColor" stroke-dasharray="2 2" x1="0" x2="500" y1="100" y2="100"></line>
+<!-- Target Line -->
+<polyline fill="none" points="20,80 80,75 140,65 200,60 260,50 320,40 380,35 440,30 490,25" stroke="#747878" stroke-dasharray="4 4" stroke-width="1.5"></polyline>
+<!-- Actual Area -->
+<polygon class="text-secondary/10" fill="currentColor" points="20,85 80,70 140,60 200,48 260,42 320,30 380,28 440,18 490,14 490,110 20,110"></polygon>
+<!-- Actual Line -->
+<polyline fill="none" points="20,85 80,70 140,60 200,48 260,42 320,30 380,28 440,18 490,14" stroke="#4b41e1" stroke-width="2.5"></polyline>
+<!-- Data Dots -->
+<circle cx="320" cy="30" fill="#4b41e1" r="3.5"></circle>
+<circle cx="490" cy="14" fill="#4b41e1" r="3.5"></circle>
+</svg>
+</div>
+<!-- Bar breakdown -->
+<div class="grid grid-cols-2 gap-3">
+<div class="p-3 bg-surface-container-low rounded">
+<span class="font-label-technical text-label-technical text-outline text-[10px] block mb-2">TOP REGIONS</span>
+<div class="space-y-1.5">
+<div class="flex items-center justify-between text-[11px] font-label-technical">
+<span>APAC</span>
+<span class="text-primary font-medium">$6.4M</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full w-[78%]"></div>
+</div>
+<div class="flex items-center justify-between text-[11px] font-label-technical">
+<span>EMEA</span>
+<span class="text-primary font-medium">$4.8M</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full w-[58%]"></div>
+</div>
+</div>
+</div>
+<div class="p-3 bg-surface-container-low rounded flex flex-col justify-between">
+<span class="font-label-technical text-label-technical text-outline text-[10px] block">DAX CALCULATION ENGINE</span>
+<div class="bg-surface-container-lowest p-2 rounded font-label-technical text-[10px] text-on-surface-variant overflow-x-auto">
+<code>VAR ActualMargin = CALCULATE([Total Net], USERELATIONSHIP(...))</code>
+</div>
+<span class="font-label-technical text-label-technical text-secondary text-[10px]">QUERY TIME: 142ms</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- PROJECT 02 -->
+<article class="bg-surface-container-lowest rounded-lg shadow-sm overflow-hidden flex flex-col lg:flex-row">
+<!-- Left details -->
+<div class="lg:w-5/12 p-8 md:p-10 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 mb-3">
+<span class="font-label-technical text-label-technical text-secondary font-medium uppercase">PROJECT 02</span>
+<span class="text-outline-variant font-label-technical">·</span>
+<span class="font-label-technical text-label-technical text-outline">RETENTION MODELING</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary font-medium tracking-tight mb-4">
+              Customer Churn &amp; Retention Intelligence
+            </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">
+              Dynamic survival analysis and rolling retention cohort matrices engineered in PostgreSQL and surfaced via custom Power BI parameter matrices for customer success leads.
+            </p>
+<div class="space-y-3 mb-6">
+<div class="p-3 bg-surface-container-low rounded">
+<span class="font-label-technical text-label-technical text-outline uppercase block mb-1">KEY MEASURABLE IMPACT</span>
+<span class="font-body-sm text-body-sm text-primary font-medium">Decreased user attrition by 8.4% via predictive cohort segmentation and automated alert pipelines.</span>
+</div>
+</div>
+<div class="flex flex-wrap gap-2 mb-8">
+<span class="px-2 py-1 bg-surface-container text-on-surface font-label-technical text-label-technical rounded">SQL</span>
+<span class="px-2 py-1 bg-surface-container text-on-surface font-label-technical text-label-technical rounded">Python</span>
+<span class="px-2 py-1 bg-surface-container text-on-surface font-label-technical text-label-technical rounded">Power BI</span>
+<span class="px-2 py-1 bg-surface-container text-on-surface font-label-technical text-label-technical rounded">Cohort Analysis</span>
+</div>
+</div>
+<div>
+<button class="font-label-technical text-label-technical uppercase tracking-wider text-secondary hover:text-primary transition-colors flex items-center gap-2 group" onclick="openModal('case-02')">
+<span>VIEW CASE STUDY &amp; DASHBOARD</span>
+<span class="transform group-hover:translate-x-1 transition-transform">→</span>
+</button>
+</div>
+</div>
+<!-- Right: Mac Window Preview -->
+<div class="lg:w-7/12 bg-surface-container p-6 md:p-8 flex flex-col justify-center">
+<div class="w-full bg-surface-container-lowest rounded-md shadow-md overflow-hidden">
+<!-- Mac header -->
+<div class="px-4 py-3 bg-surface-container-high flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-outline-variant inline-block"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-outline-variant inline-block"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-outline-variant inline-block"></span>
+</div>
+<span class="font-label-technical text-label-technical text-outline text-[10px]">churn_cohort_matrix_v2.pbix</span>
+<span class="font-label-technical text-label-technical text-secondary text-[10px]">● REFRESHED</span>
+</div>
+<!-- Cohort Matrix Mockup -->
+<div class="p-6 bg-surface-container-lowest space-y-4">
+<div class="flex items-center justify-between">
+<div>
+<span class="font-label-technical text-label-technical text-outline text-[10px] uppercase">COHORT RETENTION HEATMAP (M0 - M5)</span>
+<p class="font-headline-sm text-headline-sm text-primary">N = 84,210 Active Accounts</p>
+</div>
+<div class="px-2 py-1 bg-surface-container-low rounded font-label-technical text-label-technical text-secondary">
+                  CHURN RISK: -8.4%
+                </div>
+</div>
+<!-- Matrix Table Mock -->
+<div class="overflow-x-auto">
+<table class="w-full font-label-technical text-[11px] text-right">
+<thead>
+<tr class="text-outline uppercase">
+<th class="text-left py-1">Cohort</th>
+<th class="py-1">Size</th>
+<th class="py-1">M0</th>
+<th class="py-1">M1</th>
+<th class="py-1">M2</th>
+<th class="py-1">M3</th>
+<th class="py-1">M4</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-low">
+<tr>
+<td class="text-left py-2 font-medium">Jan 2025</td>
+<td class="py-2 text-outline">14,200</td>
+<td class="py-2 bg-secondary/20 text-on-surface">100%</td>
+<td class="py-2 bg-secondary/15 text-on-surface">84.2%</td>
+<td class="py-2 bg-secondary/10 text-on-surface">76.8%</td>
+<td class="py-2 bg-secondary/10 text-on-surface">71.4%</td>
+<td class="py-2 bg-secondary/5 text-on-surface">68.1%</td>
+</tr>
+<tr>
+<td class="text-left py-2 font-medium">Feb 2025</td>
+<td class="py-2 text-outline">16,450</td>
+<td class="py-2 bg-secondary/20 text-on-surface">100%</td>
+<td class="py-2 bg-secondary/15 text-on-surface">86.1%</td>
+<td class="py-2 bg-secondary/10 text-on-surface">78.9%</td>
+<td class="py-2 bg-secondary/10 text-on-surface">74.2%</td>
+<td class="py-2 text-outline">—</td>
+</tr>
+<tr>
+<td class="text-left py-2 font-medium">Mar 2025</td>
+<td class="py-2 text-outline">18,120</td>
+<td class="py-2 bg-secondary/20 text-on-surface">100%</td>
+<td class="py-2 bg-secondary/15 text-on-surface">88.5%</td>
+<td class="py-2 bg-secondary/15 text-on-surface">81.0%</td>
+<td class="py-2 text-outline">—</td>
+<td class="py-2 text-outline">—</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="grid grid-cols-2 gap-3 pt-2">
+<div class="p-3 bg-surface-container-low rounded">
+<span class="font-label-technical text-label-technical text-outline text-[10px] block">LTV / CAC RATIO</span>
+<span class="font-body-md text-body-md font-medium text-primary">4.82x</span>
+</div>
+<div class="p-3 bg-surface-container-low rounded">
+<span class="font-label-technical text-label-technical text-outline text-[10px] block">CRITICAL CHURN INTERCEPT</span>
+<span class="font-body-md text-body-md font-medium text-secondary">DAY 21 POST-ONBOARDING</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- PROJECT 03 -->
+<article class="bg-surface-container-lowest rounded-lg shadow-sm overflow-hidden flex flex-col lg:flex-row">
+<!-- Left details -->
+<div class="lg:w-5/12 p-8 md:p-10 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 mb-3">
+<span class="font-label-technical text-label-technical text-secondary font-medium uppercase">PROJECT 03</span>
+<span class="text-outline-variant font-label-technical">·</span>
+<span class="font-label-technical text-label-technical text-outline">SUPPLY CHAIN &amp; LOGISTICS</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary font-medium tracking-tight mb-4">
+              Supply Chain &amp; Logistics Performance Tracker
+            </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">
+              Multi-hub route velocity and dock-to-stock SLA tracking. Connects warehouse telematics with regional delivery status for live operational triage.
+            </p>
+<div class="space-y-3 mb-6">
+<div class="p-3 bg-surface-container-low rounded">
+<span class="font-label-technical text-label-technical text-outline uppercase block mb-1">KEY MEASURABLE IMPACT</span>
+<span class="font-body-sm text-body-sm text-primary font-medium">Reduced delivery turnaround by 2.3 days across 18 regional distribution hubs.</span>
+</div>
+</div>
+<div class="flex flex-wrap gap-2 mb-8">
+<span class="px-2 py-1 bg-surface-container text-on-surface font-label-technical text-label-technical rounded">Power BI</span>
+<span class="px-2 py-1 bg-surface-container text-on-surface font-label-technical text-label-technical rounded">DAX</span>
+<span class="px-2 py-1 bg-surface-container text-on-surface font-label-technical text-label-technical rounded">Real-time SLAs</span>
+<span class="px-2 py-1 bg-surface-container text-on-surface font-label-technical text-label-technical rounded">Operations</span>
+</div>
+</div>
+<div>
+<button class="font-label-technical text-label-technical uppercase tracking-wider text-secondary hover:text-primary transition-colors flex items-center gap-2 group" onclick="openModal('case-03')">
+<span>VIEW CASE STUDY &amp; DASHBOARD</span>
+<span class="transform group-hover:translate-x-1 transition-transform">→</span>
+</button>
+</div>
+</div>
+<!-- Right: Mac Window Preview -->
+<div class="lg:w-7/12 bg-surface-container p-6 md:p-8 flex flex-col justify-center">
+<div class="w-full bg-surface-container-lowest rounded-md shadow-md overflow-hidden">
+<!-- Mac header -->
+<div class="px-4 py-3 bg-surface-container-high flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-outline-variant inline-block"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-outline-variant inline-block"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-outline-variant inline-block"></span>
+</div>
+<span class="font-label-technical text-label-technical text-outline text-[10px]">sc_logistics_sla_monitor.pbix</span>
+<span class="font-label-technical text-label-technical text-secondary text-[10px]">● SYNCED</span>
+</div>
+<!-- Logistics KPI Mockup -->
+<div class="p-6 bg-surface-container-lowest space-y-4">
+<div class="grid grid-cols-3 gap-3">
+<div class="p-3 bg-surface-container-low rounded">
+<span class="font-label-technical text-label-technical text-outline block text-[10px]">AVG TURNAROUND</span>
+<span class="font-headline-sm text-headline-sm text-primary block mt-1">1.8 Days</span>
+<span class="font-label-technical text-label-technical text-secondary text-[10px]">↓ -2.3d (OPTIMIZED)</span>
+</div>
+<div class="p-3 bg-surface-container-low rounded">
+<span class="font-label-technical text-label-technical text-outline block text-[10px]">ON-TIME SLA RATE</span>
+<span class="font-headline-sm text-headline-sm text-primary block mt-1">98.1%</span>
+<span class="font-label-technical text-label-technical text-secondary text-[10px]">TARGET: 96.0%</span>
+</div>
+<div class="p-3 bg-surface-container-low rounded">
+<span class="font-label-technical text-label-technical text-outline block text-[10px]">HUBS MONITORED</span>
+<span class="font-headline-sm text-headline-sm text-primary block mt-1">18 Nodes</span>
+<span class="font-label-technical text-label-technical text-outline text-[10px]">ALL ACTIVE</span>
+</div>
+</div>
+<!-- Hub Status Visual Bars -->
+<div class="p-4 bg-surface-container-low rounded space-y-3">
+<div class="flex justify-between items-center">
+<span class="font-label-technical text-label-technical text-outline text-[10px] uppercase">Regional Lead-Time Deviation</span>
+<span class="font-label-technical text-label-technical text-outline text-[10px]">TOLERANCE ±0.5D</span>
+</div>
+<div class="space-y-2">
+<div>
+<div class="flex justify-between text-[11px] font-label-technical mb-1">
+<span>HUB-01 (Cengkareng Central)</span>
+<span class="text-secondary font-medium">1.2d (-0.6d SLA)</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full w-[45%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-[11px] font-label-technical mb-1">
+<span>HUB-04 (Surabaya Hub)</span>
+<span class="text-secondary font-medium">1.7d (-0.4d SLA)</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full w-[62%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-[11px] font-label-technical mb-1">
+<span>HUB-09 (Medan Regional)</span>
+<span class="text-on-surface font-medium">2.1d (ON TRACK)</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[78%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- 04 / EXPERIENCE & TIMELINE -->
+<section class="w-full bg-surface-container-low py-24">
+<div class="max-w-7xl mx-auto px-margin md:px-margin-desktop">
+<div class="flex items-center gap-3 mb-6">
+<span class="font-label-technical text-label-technical uppercase tracking-widest text-secondary font-medium">04 / EXPERIENCE &amp; TIMELINE</span>
+<div class="h-px bg-surface-container flex-1"></div>
+</div>
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+<h2 class="font-headline-lg text-headline-lg text-primary font-normal">
+          Career Trajectory &amp; Track Record
+        </h2>
+<span class="font-label-technical text-label-technical text-outline uppercase mt-2 md:mt-0">CHRONOLOGY OF VALUE CREATION</span>
+</div>
+<!-- Ledger / Timeline rows -->
+<div class="space-y-4">
+<!-- Entry 1 -->
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm hover:shadow-md transition-all flex flex-col md:flex-row md:items-start justify-between gap-6">
+<div class="md:w-3/12">
+<span class="font-label-technical text-label-technical text-secondary font-medium tracking-wider uppercase block">2025 – PRESENT</span>
+<span class="font-label-technical text-label-technical text-outline block mt-1">ENTERPRISE BI ARCHITECTURE</span>
+</div>
+<div class="md:w-6/12">
+<h3 class="font-headline-sm text-headline-sm text-primary font-medium">Lead BI &amp; Data Analyst</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">
+              Spearheading organizational business intelligence frameworks, defining dimensional modeling standards across multiple transactional warehouses, and delivering C-suite Power BI dashboards.
+            </p>
+</div>
+<div class="md:w-3/12 md:text-right">
+<span class="inline-block px-3 py-1 bg-surface-container-low text-on-surface font-label-technical text-label-technical rounded">Power BI · DAX · Fabric</span>
+</div>
+</div>
+<!-- Entry 2 -->
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm hover:shadow-md transition-all flex flex-col md:flex-row md:items-start justify-between gap-6">
+<div class="md:w-3/12">
+<span class="font-label-technical text-label-technical text-primary font-medium tracking-wider uppercase block">2024 – 2025</span>
+<span class="font-label-technical text-label-technical text-outline block mt-1">ETL &amp; DATA QUALITY PIPELINES</span>
+</div>
+<div class="md:w-6/12">
+<h3 class="font-headline-sm text-headline-sm text-primary font-medium">Data Analyst &amp; Analytics Engineer</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">
+              Architected clean ETL workflows with PostgreSQL and Power Query. Engineered automated discrepancy audits, eliminating weekly manual spreadsheet compilation across finance teams.
+            </p>
+</div>
+<div class="md:w-3/12 md:text-right">
+<span class="inline-block px-3 py-1 bg-surface-container-low text-on-surface font-label-technical text-label-technical rounded">SQL · Python · ETL</span>
+</div>
+</div>
+<!-- Entry 3 -->
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm hover:shadow-md transition-all flex flex-col md:flex-row md:items-start justify-between gap-6">
+<div class="md:w-3/12">
+<span class="font-label-technical text-label-technical text-primary font-medium tracking-wider uppercase block">2023 – 2024</span>
+<span class="font-label-technical text-label-technical text-outline block mt-1">AUTOMATION &amp; SYSTEM INTEGRATION</span>
+</div>
+<div class="md:w-6/12">
+<h3 class="font-headline-sm text-headline-sm text-primary font-medium">Junior Analyst &amp; Web Systems</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">
+              Developed automated web scraping routines in Python, monitored relational integrity, and deployed parameterized reporting templates for cross-departmental stakeholders.
+            </p>
+</div>
+<div class="md:w-3/12 md:text-right">
+<span class="inline-block px-3 py-1 bg-surface-container-low text-on-surface font-label-technical text-label-technical rounded">Python · Pandas · APIs</span>
+</div>
+</div>
+<!-- Entry 4 -->
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm hover:shadow-md transition-all flex flex-col md:flex-row md:items-start justify-between gap-6">
+<div class="md:w-3/12">
+<span class="font-label-technical text-label-technical text-outline font-medium tracking-wider uppercase block">2022</span>
+<span class="font-label-technical text-label-technical text-outline block mt-1">ACADEMIC FOUNDATION</span>
+</div>
+<div class="md:w-6/12">
+<h3 class="font-headline-sm text-headline-sm text-primary font-medium">Foundation in Information Systems &amp; Statistics</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">
+              Deep training in statistical modeling, database design principles (BCNF), regression analysis, and structured query optimization.
+            </p>
+</div>
+<div class="md:w-3/12 md:text-right">
+<span class="inline-block px-3 py-1 bg-surface-container-low text-on-surface font-label-technical text-label-technical rounded">Statistics · Modeling</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 05 / CASE STUDY MODAL / DRAWER -->
+<div class="fixed inset-0 z-50 bg-primary/60 backdrop-blur-sm hidden flex items-center justify-center p-4 md:p-6 transition-opacity duration-300" id="case-study-modal">
+<div class="bg-surface-container-lowest max-w-4xl w-full max-h-[90vh] rounded-lg shadow-2xl overflow-y-auto flex flex-col">
+<!-- Modal Header -->
+<div class="sticky top-0 bg-surface-container-lowest border-b border-surface-container-high px-6 py-4 flex items-center justify-between z-10">
+<div class="flex items-center gap-2">
+<span class="font-label-technical text-label-technical text-secondary uppercase font-medium">DEEP-DIVE CASE STUDY</span>
+<span class="text-outline font-label-technical">/</span>
+<span class="font-label-technical text-label-technical text-outline" id="modal-project-code">P-01</span>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container-low hover:bg-surface-container-high flex items-center justify-center text-on-surface transition-colors" onclick="closeModal()">
+<span class="material-symbols-outlined text-lg">close</span>
+</button>
+</div>
+<!-- Modal Body -->
+<div class="p-6 md:p-10 space-y-8">
+<!-- Header details -->
+<div>
+<span class="font-label-technical text-label-technical text-outline uppercase tracking-wider block mb-2">END-TO-END METHODOLOGY &amp; EXECUTION</span>
+<h2 class="font-headline-lg text-headline-lg text-primary font-medium" id="modal-project-title">
+            Global Sales &amp; Revenue Executive Cockpit
+          </h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-3">
+            An enterprise implementation modernizing legacy multi-currency Excel files into an automated, single-source-of-truth semantic model.
+          </p>
+</div>
+<!-- 5-Step Process Ledger -->
+<div>
+<h4 class="font-label-technical text-label-technical text-primary uppercase tracking-wider mb-4">CRISP-DM PIPELINE PHASES</h4>
+<div class="grid grid-cols-1 md:grid-cols-5 gap-3">
+<div class="p-3 bg-surface-container-low rounded">
+<span class="font-label-technical text-label-technical text-secondary font-medium block">01. INGESTION</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Raw multi-currency CSVs &amp; SQL tables</p>
+</div>
+<div class="p-3 bg-surface-container-low rounded">
+<span class="font-label-technical text-label-technical text-secondary font-medium block">02. CLEANING</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Power Query M language deduplication</p>
+</div>
+<div class="p-3 bg-surface-container-low rounded">
+<span class="font-label-technical text-label-technical text-secondary font-medium block">03. MODELING</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">1:N Star Schema with bridge tables</p>
+</div>
+<div class="p-3 bg-surface-container-low rounded">
+<span class="font-label-technical text-label-technical text-secondary font-medium block">04. ANALYSIS</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Time intelligence DAX calculations</p>
+</div>
+<div class="p-3 bg-surface-container-low rounded">
+<span class="font-label-technical text-label-technical text-secondary font-medium block">05. DELIVERY</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Power BI Service scheduled updates</p>
+</div>
+</div>
+</div>
+<!-- Two column insights -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="bg-surface-container-low p-6 rounded">
+<h5 class="font-headline-sm text-headline-sm text-primary font-medium mb-3">Key Empirical Insights</h5>
+<ul class="space-y-3 font-body-sm text-body-sm text-on-surface-variant">
+<li class="flex items-start gap-2">
+<span class="text-secondary font-bold">•</span>
+<span>Uncovered $420,000 in unrecognized stock leakage hidden within regional return adjustments.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="text-secondary font-bold">•</span>
+<span>Flagged 3 lagging SKUs contributing to 42% of tied-up working capital in northern warehouses.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="text-secondary font-bold">•</span>
+<span>Standardized currency conversions with real-time rate tables, removing $18K weekly estimation variance.</span>
+</li>
+</ul>
+</div>
+<div class="bg-surface-container-low p-6 rounded">
+<h5 class="font-headline-sm text-headline-sm text-primary font-medium mb-3">Architectural Tooling</h5>
+<div class="space-y-2 font-label-technical text-label-technical">
+<div class="flex justify-between py-1 border-b border-surface-container">
+<span class="text-outline">SEMANTIC ENGINE</span>
+<span class="text-primary">Power BI Desktop &amp; Service</span>
+</div>
+<div class="flex justify-between py-1 border-b border-surface-container">
+<span class="text-outline">DATA WAREHOUSE</span>
+<span class="text-primary">PostgreSQL 15</span>
+</div>
+<div class="flex justify-between py-1 border-b border-surface-container">
+<span class="text-outline">COMPUTED MEASURES</span>
+<span class="text-primary">48 DAX Measures</span>
+</div>
+<div class="flex justify-between py-1">
+<span class="text-outline">GATEWAY REFRESH</span>
+<span class="text-secondary">4x Daily (Automated)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex items-center justify-between pt-4 border-t border-surface-container-high">
+<span class="font-label-technical text-label-technical text-outline">CONFIDENTIAL ENTERPRISE DATA SANITIZED</span>
+<button class="px-6 py-2.5 bg-primary text-on-primary font-label-technical text-label-technical rounded uppercase" onclick="closeModal()">
+            Close Case Study
+          </button>
+</div>
+</div>
+</div>
+</div>
+<!-- 06 / CONTACT SECTION -->
+<section class="w-full max-w-7xl mx-auto px-margin md:px-margin-desktop py-28">
+<div class="flex items-center gap-3 mb-6">
+<span class="font-label-technical text-label-technical uppercase tracking-widest text-secondary font-medium">05 / CONTACT &amp; ENGAGEMENT</span>
+<div class="h-px bg-surface-container-high flex-1"></div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-desktop items-end">
+<div class="lg:col-span-8">
+<h2 class="font-display text-headline-lg lg:text-display text-primary tracking-tight font-semibold leading-none select-none uppercase">
+          Let’s work<br/>with data.
+        </h2>
+<p class="font-headline-sm text-headline-sm text-on-surface-variant max-w-xl mt-8 font-normal">
+          Have a complex dataset, BI implementation, or analytics opportunity? Let’s discuss how structured data architecture can power your decision engine.
+        </p>
+</div>
+<div class="lg:col-span-4 flex flex-col space-y-4">
+<a class="p-4 bg-surface-container-lowest hover:bg-surface-container-low rounded-lg shadow-sm transition-all flex items-center justify-between group" href="https://linkedin.com/in/fajar-sidiq-cahyanto" rel="noopener noreferrer" target="_blank">
+<div class="flex flex-col">
+<span class="font-label-technical text-label-technical text-outline uppercase">PROFESSIONAL NETWORK</span>
+<span class="font-body-lg text-body-lg text-primary font-medium group-hover:text-secondary transition-colors">LinkedIn</span>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-secondary transition-transform group-hover:translate-x-1">north_east</span>
+</a>
+<a class="p-4 bg-surface-container-lowest hover:bg-surface-container-low rounded-lg shadow-sm transition-all flex items-center justify-between group" href="https://github.com/fcahyanto4-cmyk" rel="noopener noreferrer" target="_blank">
+<div class="flex flex-col">
+<span class="font-label-technical text-label-technical text-outline uppercase">CODE &amp; REPOSITORIES</span>
+<span class="font-body-lg text-body-lg text-primary font-medium group-hover:text-secondary transition-colors">GitHub</span>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-secondary transition-transform group-hover:translate-x-1">north_east</span>
+</a>
+<a class="p-4 bg-primary hover:bg-secondary text-on-primary rounded-lg shadow-sm transition-all flex items-center justify-between group" href="mailto:fajar.cahyanto@analytics.id">
+<div class="flex flex-col">
+<span class="font-label-technical text-label-technical text-on-primary-container uppercase">DIRECT DISPATCH</span>
+<span class="font-body-lg text-body-lg text-on-primary font-medium">fajar.cahyanto@analytics.id</span>
+</div>
+<span class="material-symbols-outlined text-on-primary group-hover:translate-x-1 transition-transform">send</span>
+</a>
+</div>
+</div>
+</section>
+<!-- Interactive Modal Script -->
+<script>
+    const modalData = {
+      'case-01': {
+        code: 'P-01 // REVENUE COCKPIT',
+        title: 'Global Sales & Revenue Executive Cockpit'
+      },
+      'case-02': {
+        code: 'P-02 // CHURN MATRIX',
+        title: 'Customer Churn & Retention Intelligence'
+      },
+      'case-03': {
+        code: 'P-03 // SUPPLY CHAIN LOGISTICS',
+        title: 'Supply Chain & Logistics Performance Tracker'
+      }
+    };
+
+    function openModal(caseKey) {
+      const modal = document.getElementById('case-study-modal');
+      const titleElem = document.getElementById('modal-project-title');
+      const codeElem = document.getElementById('modal-project-code');
+      
+      if (modalData[caseKey]) {
+        titleElem.textContent = modalData[caseKey].title;
+        codeElem.textContent = modalData[caseKey].code;
+      }
+
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('case-study-modal');
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    // Close on background click
+    document.getElementById('case-study-modal')?.addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeModal();
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
+</div></main><footer class="w-full bg-surface border-t border-outline-variant/40 py-space-xl"><div class="max-w-7xl mx-auto px-margin md:px-margin-desktop"><div class="grid grid-cols-1 md:grid-cols-12 gap-space-lg pb-space-lg border-b border-outline-variant/30"><div class="md:col-span-5 flex flex-col gap-space-xs"><span class="font-label-technical text-label-technical tracking-wider uppercase text-primary font-medium">FAJAR CAHYANTO</span><span class="font-body-sm text-body-sm text-on-surface-variant">Data Analyst &amp; Statistical Modeler</span><p class="font-body-sm text-body-sm text-on-surface-variant max-w-sm mt-space-sm">Specializing in business intelligence architecture, empirical methodology, and decision science pipelines.</p></div><div class="md:col-span-4 flex flex-col gap-space-xs"><span class="font-label-technical text-label-technical tracking-wider uppercase text-outline">INDEX</span><div class="flex flex-col gap-space-xs mt-space-xs"><a class="font-label-technical text-label-technical uppercase text-on-surface-variant hover:text-primary transition-colors" data-path="work" href="#">01. Selected Works</a><a class="font-label-technical text-label-technical uppercase text-on-surface-variant hover:text-primary transition-colors" data-path="about" href="#">02. Methodology &amp; Background</a><a class="font-label-technical text-label-technical uppercase text-on-surface-variant hover:text-primary transition-colors" data-path="skills" href="#">03. Analytical Tooling &amp; Stack</a><a class="font-label-technical text-label-technical uppercase text-on-surface-variant hover:text-primary transition-colors" data-path="experience" href="#">04. Track Record &amp; Roles</a><a class="font-label-technical text-label-technical uppercase text-on-surface-variant hover:text-primary transition-colors" data-path="contact" href="#">05. Communications Channel</a></div></div><div class="md:col-span-3 flex flex-col gap-space-xs"><span class="font-label-technical text-label-technical tracking-wider uppercase text-outline">DISPATCH</span><div class="flex flex-col gap-space-xs mt-space-xs"><a class="font-label-technical text-label-technical uppercase text-on-surface-variant hover:text-primary transition-colors flex items-center justify-between py-1 border-b border-outline-variant/20" href="#" rel="noopener noreferrer" target="_blank"><span>LinkedIn</span><span>↗</span></a><a class="font-label-technical text-label-technical uppercase text-on-surface-variant hover:text-primary transition-colors flex items-center justify-between py-1 border-b border-outline-variant/20" href="#" rel="noopener noreferrer" target="_blank"><span>GitHub</span><span>↗</span></a><a class="font-label-technical text-label-technical uppercase text-on-surface-variant hover:text-primary transition-colors flex items-center justify-between py-1 border-b border-outline-variant/20" href="mailto:contact@fajarcahyanto.dev"><span>Email</span><span>↗</span></a></div></div></div><div class="pt-space-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-sm font-label-technical text-label-technical text-outline"><div class="flex items-center gap-space-sm"><span>© 2026 FAJAR CAHYANTO</span><span>·</span><span>ALL RIGHTS RESERVED</span></div><div><span>BUILT WITH SWISS DISCIPLINE &amp; PRECISION</span></div></div></div></footer></body></html>

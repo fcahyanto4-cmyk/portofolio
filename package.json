@@ -1,0 +1,17 @@
+{
+  "name": "fajar-portfolio",
+  "version": "1.0.0",
+  "description": "Portofolio Fajar Sidiq Cahyanto — Junior Data Analyst",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^8.3.3"
+  },
+  "dependencies": {
+    "simple-icons": "^16.34.0"
+  }
+}
