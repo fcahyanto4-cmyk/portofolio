@@ -11,6 +11,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   
+  <!-- Auto-redirect to Live Production Vercel App -->
+  <script>
+    window.location.replace("https://aplikasi-booking-system-adfw.vercel.app");
+  </script>
+  
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -78,37 +83,25 @@
 <body class="min-h-screen pitch-grid flex flex-col antialiased selection:bg-primary/20 selection:text-primary">
 
   <!-- ===================================================================
-       PORTFOLIO TOPBAR HEADER (BACK TO PORTFOLIO + TITLE + VERCEL LINK)
+       LIVE PRODUCTION VERCEL BANNER
   =================================================================== -->
-  <header class="sticky top-0 z-[100] w-full bg-[#0a0f1a]/95 backdrop-blur-md border-b border-border px-4 sm:px-6 py-2.5 flex items-center justify-between shadow-xl">
-    <div class="flex items-center gap-3">
-      <a href="index.html#projek" onclick="closeOrGoBack(event)" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface hover:bg-surface-hover text-text font-mono text-xs transition border border-border shadow-sm cursor-pointer" title="Kembali ke Portofolio Utama">
-        <i class="fa-solid fa-arrow-left text-[11px] text-primary"></i>
-        <span class="font-bold">Kembali ke Portofolio</span>
-      </a>
-      <div class="h-4 w-px bg-border hidden sm:block"></div>
-      <div class="hidden sm:flex flex-col">
-        <span class="text-xs font-bold text-text leading-tight">Yuk Main Bola (YMB) — Platform Komunitas &amp; Booking Minisoccer</span>
-        <span class="text-[10px] text-text-muted font-mono">Next.js 16 • React 19 • Supabase • Midtrans Webhook • Tailwind v4</span>
-      </div>
+  <div class="bg-gradient-to-r from-emerald-950 via-[#0b1f16] to-[#0a0f1a] border-b border-emerald-500/30 px-4 py-2 text-xs font-mono flex items-center justify-between text-zinc-300 z-50">
+    <div class="flex items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap">
+      <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/40 text-[10px]">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> LIVE PRODUCTION
+      </span>
+      <span class="text-zinc-400 text-[11px] hidden sm:inline">Aplikasi Next.js 16 live &amp; terhubung Supabase &amp; Midtrans Payment:</span>
     </div>
-
-    <div class="flex items-center gap-2.5">
-      <div class="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 border border-primary/30 text-primary font-mono text-[11px]">
-        <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-        <span>Live Production Ready</span>
-      </div>
-      <a href="https://aplikasi-booking-system-adfw.vercel.app" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-primary hover:bg-primary-hover text-[#0a0f1a] font-bold font-mono text-xs transition shadow-md shadow-primary/20">
-        <span>Buka Web Booking Asli</span>
-        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-      </a>
-    </div>
-  </header>
+    <a href="https://aplikasi-booking-system-adfw.vercel.app" target="_blank" rel="noopener noreferrer" class="shrink-0 flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold transition-colors shadow-sm text-xs">
+      <span>Buka Aplikasi Live</span>
+      <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+    </a>
+  </div>
 
   <!-- ===================================================================
        NAVBAR (MATCHING YUK MAIN BOLA Navbar.tsx - DYNAMIC AUTH)
   =================================================================== -->
-  <nav class="w-full border-b border-border bg-[#0a0f1a]/95 backdrop-blur-md">
+  <nav class="sticky top-0 z-50 w-full border-b border-border bg-[#0a0f1a]/95 backdrop-blur-md">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       
       <!-- Logo & Brand -->

@@ -120,6 +120,10 @@
     const urlParams = new URLSearchParams(window.location.search);
     const projectId = urlParams.get('project');
 
+    if (projectId === 'yukmainbola') {
+      window.location.replace("https://aplikasi-booking-system-adfw.vercel.app");
+    }
+
     const projects = {
       'tax-app': {
         title: 'Sistem Kepatuhan Pajak DJP',
