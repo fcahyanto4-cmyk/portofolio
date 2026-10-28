@@ -32,6 +32,7 @@ function copyStaticAssetsPlugin() {
       // 3. Copy root standalone files (PDFs, JSON, preview images)
       const rootFiles = [
         'CV Fajar sidiq cahyanto.pdf',
+        'CV_Fajar_Sidiq_Cahyanto.pdf',
         'tax_ml_data.json',
         'cv_page_1.png',
         'cv_page_2.png'
