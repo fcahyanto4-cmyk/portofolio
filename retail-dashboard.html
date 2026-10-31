@@ -548,7 +548,7 @@
   <!-- Top Standalone Header -->
   <div class="pbi-topbar">
     <div class="pbi-topbar-left">
-      <a href="index.html#projek" class="pbi-back-btn" title="Kembali ke Portofolio Utama">
+      <a href="index.html#projek" onclick="closeOrGoBack(event)" class="pbi-back-btn" title="Tutup Tab & Kembali ke Portofolio">
         <i class="fa-solid fa-arrow-left"></i>
       </a>
       <div class="pbi-branding">
@@ -561,9 +561,9 @@
       </div>
     </div>
     <div class="pbi-topbar-right">
-      <a href="index.html#projek" class="pbi-exit-btn">
+      <a href="index.html#projek" onclick="closeOrGoBack(event)" class="pbi-exit-btn" title="Tutup Tab & Kembali ke Portofolio">
         <span>Kembali ke Portofolio</span>
-        <i class="fa-solid fa-house"></i>
+        <i class="fa-solid fa-xmark"></i>
       </a>
     </div>
   </div>
@@ -715,6 +715,26 @@
     // Embedded detection
     if (window.self !== window.top) {
       document.body.classList.add('embedded');
+    }
+
+    // Close current tab or navigate back to portfolio
+    function closeOrGoBack(event) {
+      if (event) {
+        event.preventDefault();
+      }
+      // If opened in a new tab, close this tab immediately so user returns to initial tab
+      window.close();
+
+      // If browser security blocks window.close(), navigate back or to index
+      setTimeout(function () {
+        if (!window.closed) {
+          if (window.history.length > 1) {
+            window.history.back();
+          } else {
+            window.location.href = 'index.html#projek';
+          }
+        }
+      }, 150);
     }
 
     function toggleMobileFilters() {
