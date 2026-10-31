@@ -619,8 +619,8 @@
               <div id="indonesiaMap" style="width:100%;height:100%;min-height:560px"></div>
               <!-- Power BI Bing Maps Attribution Badge -->
               <div style="position:absolute;bottom:6px;left:8px;z-index:400;background:rgba(255,255,255,0.92);backdrop-filter:blur(2px);padding:3px 8px;border-radius:4px;font-size:10px;font-weight:700;color:#0b1c32;box-shadow:0 1px 3px rgba(0,0,0,0.12);display:flex;align-items:center;gap:4px;pointer-events:none">
-                <i class="fa-brands fa-microsoft" style="color:#00a4ef;font-size:11px"></i>
-                <span>Bing Maps Engine</span>
+                <i class="fa-solid fa-map-location-dot" style="color:#0b5fa5;font-size:11px"></i>
+                <span>OpenStreetMap Engine</span>
               </div>
             </div>
           </div>
@@ -812,10 +812,10 @@
         scrollWheelZoom: true
       });
 
-      // Clear, light CartoDB Positron tiles for clean Power BI look
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
-        subdomains: 'abcd',
+      // Clear, high-definition OpenStreetMap tiles (No API key required)
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors',
+        subdomains: ['a', 'b', 'c'],
         maxZoom: 19
       }).addTo(mapInstance);
 
@@ -929,36 +929,56 @@
         const sg = grp(FR, r => r[1]);
         const mx = Math.max(1, ...[...sg.values()].map(v => v[0]));
 
+        const validCoords = [];
         [...sg].forEach(([s, v]) => {
           const store = D.S[s];
           const sales = v[0];
           if (sales <= 0) return;
           const lat = store[3];
           const lng = store[4];
-          const radius = Math.max(5, Math.min(25, Math.round(Math.sqrt(sales / mx) * 22)));
+          validCoords.push([lat, lng]);
+          const radius = Math.max(6, Math.min(26, Math.round(Math.sqrt(sales / mx) * 22)));
 
           const marker = L.circleMarker([lat, lng], {
             radius: radius,
             fillColor: '#0b5fa5',
-            fillOpacity: 0.72,
-            color: '#073259',
-            weight: 1.5
+            fillOpacity: 0.75,
+            color: '#ffffff',
+            weight: 2
+          });
+
+          marker.on('mouseover', function () {
+            this.setStyle({ fillOpacity: 0.95, weight: 3, color: '#f59e0b' });
+          });
+          marker.on('mouseout', function () {
+            this.setStyle({ fillOpacity: 0.75, weight: 2, color: '#ffffff' });
           });
 
           marker.bindPopup(`
-            <div style="font-family:'Segoe UI',sans-serif;font-size:12px;min-width:180px">
+            <div style="font-family:'Segoe UI',sans-serif;font-size:12px;min-width:200px">
               <div style="font-weight:700;color:#0b1c32;font-size:13px;margin-bottom:3px">${store[0]}</div>
               <div style="color:#5a6a80;font-size:11px;margin-bottom:6px">${D.R[store[1]]} • Luas: ${store[2].toLocaleString('id-ID')} m²</div>
-              <div style="background:#f1f5f9;padding:4px 8px;border-radius:4px;border:1px solid #e2e8f0;display:flex;justify-content:space-between">
-                <span style="color:#5a6a80">Net Sales:</span>
-                <b style="color:#0b5fa5">${rp(sales)}</b>
+              <div style="background:#f8fafc;padding:5px 8px;border-radius:4px;border:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center">
+                <span style="color:#5a6a80;font-size:11px">Net Sales:</span>
+                <b style="color:#0b5fa5;font-size:13px">${rp(sales)}</b>
               </div>
             </div>
           `);
 
-          marker.bindTooltip(`<b>${store[0]}</b>: ${rp(sales)}`, { direction: 'top', offset: [0, -radius] });
+          marker.bindTooltip(`<b>${store[0]}</b><br><span style="color:#0b5fa5">${rp(sales)}</span>`, {
+            direction: 'top',
+            offset: [0, -radius]
+          });
           marker.addTo(mapMarkersLayer);
         });
+
+        if (validCoords.length > 0) {
+          if (st.r.size > 0 && st.r.size < D.R.length) {
+            mapInstance.fitBounds(L.latLngBounds(validCoords).pad(0.15));
+          } else {
+            mapInstance.setView([-2.2, 118.0], 5);
+          }
+        }
 
         setTimeout(() => mapInstance.invalidateSize(), 60);
       }
