@@ -46,10 +46,13 @@
       flex-direction: column;
     }
 
-    /* Standalone Header for Portfolio Integration */
+    /* Standalone Header for Portfolio Integration (Uniform Topbar) */
     .pbi-topbar {
       background: var(--topbar-bg);
       color: var(--topbar-tx);
+      height: 56px;
+      min-height: 56px;
+      box-sizing: border-box;
       padding: 10px 18px;
       display: flex;
       align-items: center;
@@ -60,6 +63,21 @@
       position: sticky;
       top: 0;
       z-index: 1000;
+    }
+
+    @media (max-width: 640px) {
+      .pbi-topbar {
+        padding: 8px 12px;
+      }
+      .pbi-brand-sub {
+        display: none;
+      }
+      .pbi-exit-btn span {
+        display: none;
+      }
+      .pbi-exit-btn {
+        padding: 6px 10px;
+      }
     }
 
     .pbi-topbar-left {
@@ -156,7 +174,7 @@
       gap: 12px;
       flex-wrap: wrap;
       position: sticky;
-      top: 53px;
+      top: 56px;
       z-index: 900;
     }
 
