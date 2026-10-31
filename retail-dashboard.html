@@ -7,71 +7,27 @@
   
   <!-- Font Awesome CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <!-- Leaflet CSS & JS for Interactive Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <style>
     :root {
       --bg: #f4f6f9;
       --cd: #ffffff;
       --bd: #e2e8f0;
-      --tx: #1e293b;
-      --t2: #64748b;
+      --tx: #0a192f;
+      --t2: #5a6a80;
       --pri: #0b5fa5;
-      --pri-hover: #084980;
+      --pri-hover: #07477c;
       --dk: #0b1c32;
-      --hv: #f1f5f9;
+      --hv: #f8fafc;
       --accent: #f59e0b;
       --topbar-bg: #0b1c32;
       --topbar-tx: #ffffff;
       color-scheme: light;
       box-sizing: border-box;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) {
-        --bg: #0b1320;
-        --cd: #152238;
-        --bd: #243552;
-        --tx: #f1f5f9;
-        --t2: #94a3b8;
-        --pri: #38bdf8;
-        --pri-hover: #0284c7;
-        --dk: #93c5fd;
-        --hv: #1e2e47;
-        --topbar-bg: #070d18;
-        --topbar-tx: #ffffff;
-        color-scheme: dark;
-      }
-    }
-
-    :root[data-theme="dark"] {
-      --bg: #0b1320;
-      --cd: #152238;
-      --bd: #243552;
-      --tx: #f1f5f9;
-      --t2: #94a3b8;
-      --pri: #38bdf8;
-      --pri-hover: #0284c7;
-      --dk: #93c5fd;
-      --hv: #1e2e47;
-      --topbar-bg: #070d18;
-      --topbar-tx: #ffffff;
-      color-scheme: dark;
-    }
-
-    :root[data-theme="light"] {
-      --bg: #f4f6f9;
-      --cd: #ffffff;
-      --bd: #e2e8f0;
-      --tx: #1e293b;
-      --t2: #64748b;
-      --pri: #0b5fa5;
-      --pri-hover: #084980;
-      --dk: #0b1c32;
-      --hv: #f1f5f9;
-      --accent: #f59e0b;
-      --topbar-bg: #0b1c32;
-      --topbar-tx: #ffffff;
-      color-scheme: light;
     }
 
     * {
@@ -103,7 +59,7 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.15);
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 1000;
     }
 
     .pbi-topbar-left {
@@ -117,7 +73,7 @@
       width: 32px;
       height: 32px;
       border-radius: 6px;
-      background: rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.12);
       color: #ffffff;
       display: flex;
       align-items: center;
@@ -127,7 +83,7 @@
       flex-shrink: 0;
     }
     .pbi-back-btn:hover {
-      background: rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.25);
       transform: translateX(-2px);
     }
 
@@ -158,7 +114,7 @@
 
     .pbi-brand-sub {
       font-size: 11px;
-      color: rgba(255,255,255,0.7);
+      color: rgba(255,255,255,0.75);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -171,31 +127,14 @@
       flex-shrink: 0;
     }
 
-    .pbi-action-btn {
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.15);
-      color: #ffffff;
-      padding: 6px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 11px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s;
-    }
-    .pbi-action-btn:hover {
-      background: rgba(255,255,255,0.2);
-    }
-
     .pbi-exit-btn {
       color: #ffffff;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.18);
-      padding: 6px 12px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.22);
+      padding: 6px 14px;
       border-radius: 6px;
       text-decoration: none;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
       display: flex;
       align-items: center;
@@ -203,7 +142,7 @@
       transition: all 0.2s;
     }
     .pbi-exit-btn:hover {
-      background: rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.24);
     }
 
     /* Subheader & Navigation Tabs */
@@ -218,7 +157,7 @@
       flex-wrap: wrap;
       position: sticky;
       top: 53px;
-      z-index: 90;
+      z-index: 900;
     }
 
     .pbi-title-block {
@@ -414,15 +353,12 @@
 
     .g1 {
       display: grid;
-      grid-template-columns: 2fr 1fr;
+      grid-template-columns: 1.55fr 1fr;
       grid-template-areas: "a m" "b m";
       gap: 16px;
     }
     .g1 .m {
       grid-area: m;
-    }
-    .g1 .m .cv {
-      height: 610px;
     }
 
     .g2 {
@@ -516,6 +452,21 @@
       color: var(--pri-hover);
     }
 
+    /* Leaflet Map Customization */
+    .leaflet-container {
+      background: #aad3df !important;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif !important;
+    }
+    .leaflet-popup-content-wrapper {
+      border-radius: 6px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+      border: 1px solid #cbd5e1;
+    }
+    .leaflet-popup-content {
+      margin: 10px 12px;
+      line-height: 1.4;
+    }
+
     /* Mobile toggle button */
     .mobile-slicer-toggle {
       display: none;
@@ -559,8 +510,11 @@
         display: flex;
         flex-direction: column;
       }
-      .g1 .m .cv {
-        height: 380px;
+      .g1 .m #mapContainer {
+        min-height: 420px !important;
+      }
+      .g1 .m #indonesiaMap {
+        min-height: 420px !important;
       }
     }
 
@@ -591,7 +545,7 @@
 </head>
 <body>
 
-  <!-- Top Standalone Header (Shown when opened directly) -->
+  <!-- Top Standalone Header -->
   <div class="pbi-topbar">
     <div class="pbi-topbar-left">
       <a href="index.html#projek" class="pbi-back-btn" title="Kembali ke Portofolio Utama">
@@ -607,10 +561,6 @@
       </div>
     </div>
     <div class="pbi-topbar-right">
-      <button class="pbi-action-btn" onclick="toggleTheme()" title="Beralih Tema Terang / Gelap">
-        <i id="theme-icon" class="fa-solid fa-moon"></i>
-        <span id="theme-label" class="hidden sm:inline">Tema Gelap</span>
-      </button>
       <a href="index.html#projek" class="pbi-exit-btn">
         <span>Kembali ke Portofolio</span>
         <i class="fa-solid fa-house"></i>
@@ -653,9 +603,26 @@
             <h3><span><i class="fa-solid fa-chart-bar text-amber-500 mr-1.5"></i>Net Sales per Region</span></h3>
             <div class="cv"><canvas id="c2"></canvas></div>
           </div>
-          <div class="cd m">
-            <h3><span><i class="fa-solid fa-map-location-dot text-emerald-600 mr-1.5"></i>Sebaran Toko (ukuran = Net Sales)</span></h3>
-            <div class="cv"><canvas id="c3"></canvas></div>
+          
+          <!-- Sebaran Toko: Real Leaflet Map of Indonesia -->
+          <div class="cd m" style="display:flex;flex-direction:column;min-height:640px">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+              <h3 style="margin:0">
+                <span><i class="fa-solid fa-map-location-dot text-emerald-600 mr-1.5"></i>Sebaran Toko (ukuran = Net Sales)</span>
+              </h3>
+              <span style="font-size:10px;color:var(--t2);background:#f1f5f9;padding:3px 8px;border-radius:4px;border:1px solid #e2e8f0;font-weight:600;display:flex;align-items:center;gap:4px">
+                <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#0b5fa5"></span>
+                <span>Radius = Besar Omzet</span>
+              </span>
+            </div>
+            <div id="mapContainer" style="flex:1;min-height:560px;width:100%;border-radius:6px;overflow:hidden;border:1px solid var(--bd);position:relative">
+              <div id="indonesiaMap" style="width:100%;height:100%;min-height:560px"></div>
+              <!-- Power BI Bing Maps Attribution Badge -->
+              <div style="position:absolute;bottom:6px;left:8px;z-index:400;background:rgba(255,255,255,0.92);backdrop-filter:blur(2px);padding:3px 8px;border-radius:4px;font-size:10px;font-weight:700;color:#0b1c32;box-shadow:0 1px 3px rgba(0,0,0,0.12);display:flex;align-items:center;gap:4px;pointer-events:none">
+                <i class="fa-brands fa-microsoft" style="color:#00a4ef;font-size:11px"></i>
+                <span>Bing Maps Engine</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -750,33 +717,6 @@
       document.body.classList.add('embedded');
     }
 
-    // Theme Toggle Functionality
-    function toggleTheme() {
-      const cur = document.documentElement.getAttribute('data-theme');
-      const next = cur === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('pbi_theme', next);
-      updateThemeUI(next);
-      if (typeof render === 'function') render();
-    }
-
-    function updateThemeUI(th) {
-      const icon = document.getElementById('theme-icon');
-      const label = document.getElementById('theme-label');
-      if (icon) {
-        icon.className = th === 'dark' ? 'fa-solid fa-sun text-amber-400' : 'fa-solid fa-moon';
-      }
-      if (label) {
-        label.textContent = th === 'dark' ? 'Tema Terang' : 'Tema Gelap';
-      }
-    }
-
-    const savedTheme = localStorage.getItem('pbi_theme');
-    if (savedTheme) {
-      document.documentElement.setAttribute('data-theme', savedTheme);
-      updateThemeUI(savedTheme);
-    }
-
     function toggleMobileFilters() {
       const fl = document.getElementById('fl');
       const badge = document.getElementById('toggle-filter-badge');
@@ -811,6 +751,8 @@
     const pc = v => nz(v) ? num(v * 100) + '%' : '–';
 
     let FA, FR, OR, nsA, CH = {};
+    let mapInstance = null;
+    let mapMarkersLayer = null;
 
     function prep() {
       FA = D.F.filter(r => ok(st.r, D.S[r[1]][1]) && ok(st.c, r[2]));
@@ -835,8 +777,8 @@
 
     function mk(id, cfg) {
       if (CH[id]) CH[id].destroy();
-      const tc = getComputedStyle(document.documentElement).getPropertyValue('--t2').trim() || '#64748b';
-      const gc = getComputedStyle(document.documentElement).getPropertyValue('--bd').trim() || '#e2e8f0';
+      const tc = '#5a6a80';
+      const gc = '#e2e8f0';
       Chart.defaults.color = tc;
       Chart.defaults.font.family = "'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif";
       Chart.defaults.borderColor = gc;
@@ -855,6 +797,31 @@
       $('#' + id).innerHTML = '<table><tr>' + cols.map(c => `<th data-id="${id}" data-k="${c[0]}">${c[1]}${c[0] === k ? (d > 0 ? ' ▲' : ' ▼') : ''}</th>`).join('') + '</tr>' + rows.map(fn).join('') + '</table>';
     }
 
+    // Initialize Leaflet Map for Indonesia Store Sebaran
+    function initMap() {
+      if (mapInstance) return;
+      const mapEl = document.getElementById('indonesiaMap');
+      if (!mapEl) return;
+
+      mapInstance = L.map('indonesiaMap', {
+        center: [-2.2, 118.0],
+        zoom: 5,
+        minZoom: 4,
+        maxZoom: 14,
+        zoomControl: true,
+        scrollWheelZoom: true
+      });
+
+      // Clear, light CartoDB Positron tiles for clean Power BI look
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+        subdomains: 'abcd',
+        maxZoom: 19
+      }).addTo(mapInstance);
+
+      mapMarkersLayer = L.layerGroup().addTo(mapInstance);
+    }
+
     function render() {
       prep();
       const rawPg = (location.hash.slice(1) || 'overview');
@@ -863,7 +830,7 @@
       $('#nv').innerHTML = PG.map(p => `<a href="#${p[0]}" class="${p[0] === P ? 'on' : ''}">${p[1]}</a>`).join('');
       
       const subDescriptions = {
-        overview: 'Halaman 1 / 4 • Ringkasan kinerja eksekutif: Net Sales, margin kotor, pencapaian target, dan sebaran spasial toko',
+        overview: 'Halaman 1 / 4 • Ringkasan kinerja eksekutif: Net Sales, margin kotor, pencapaian target, dan sebaran spasial toko nasional',
         penjualan: 'Halaman 2 / 4 • Kecepatan penjualan: tren margin kotor bulanan, matriks hari & bulan, dan kontribusi kuartal',
         toko: 'Halaman 3 / 4 • Efisiensi gerai ritel: ranking toko teratas, pencapaian target toko, dan produktivitas sales/m²',
         produk: 'Halaman 4 / 4 • Merchandising & portofolio: klasifikasi ABC, drill-down hierarki produk, dan kurva kumulatif Pareto'
@@ -872,6 +839,10 @@
       if (subEl && subDescriptions[P]) subEl.textContent = subDescriptions[P];
 
       ({ overview: p1, penjualan: p2, toko: p3, produk: p4 })[P]();
+
+      if (P === 'overview' && mapInstance) {
+        setTimeout(() => mapInstance.invalidateSize(), 80);
+      }
     }
 
     function tgt() {
@@ -921,7 +892,7 @@
             label: MET[st.met],
             data: ms.map(f),
             borderColor: PAL[0],
-            backgroundColor: 'rgba(11, 95, 165, 0.1)',
+            backgroundColor: 'rgba(11, 95, 165, 0.08)',
             fill: true,
             pointRadius: 2.5,
             tension: 0.25
@@ -951,38 +922,46 @@
         }
       });
 
-      const sg = grp(FR, r => r[1]);
-      const mx = Math.max(1, ...[...sg.values()].map(v => v[0]));
-      mk('c3', {
-        type: 'bubble',
-        data: {
-          datasets: [{
-            backgroundColor: 'rgba(46, 158, 143, 0.65)',
-            borderColor: '#2E9E8F',
-            data: [...sg].map(([s, v]) => ({
-              x: D.S[s][4],
-              y: D.S[s][3],
-              r: 3 + 22 * Math.sqrt(v[0] / mx),
-              n: D.S[s][0],
-              v: v[0]
-            }))
-          }]
-        },
-        options: {
-          plugins: {
-            legend: { display: false },
-            tooltip: {
-              callbacks: {
-                label: c => `${c.raw.n}: ${rp(c.raw.v)}`
-              }
-            }
-          },
-          scales: {
-            x: { display: false },
-            y: { display: false }
-          }
-        }
-      });
+      // Update Real Leaflet Map of Indonesia
+      initMap();
+      if (mapInstance && mapMarkersLayer) {
+        mapMarkersLayer.clearLayers();
+        const sg = grp(FR, r => r[1]);
+        const mx = Math.max(1, ...[...sg.values()].map(v => v[0]));
+
+        [...sg].forEach(([s, v]) => {
+          const store = D.S[s];
+          const sales = v[0];
+          if (sales <= 0) return;
+          const lat = store[3];
+          const lng = store[4];
+          const radius = Math.max(5, Math.min(25, Math.round(Math.sqrt(sales / mx) * 22)));
+
+          const marker = L.circleMarker([lat, lng], {
+            radius: radius,
+            fillColor: '#0b5fa5',
+            fillOpacity: 0.72,
+            color: '#073259',
+            weight: 1.5
+          });
+
+          marker.bindPopup(`
+            <div style="font-family:'Segoe UI',sans-serif;font-size:12px;min-width:180px">
+              <div style="font-weight:700;color:#0b1c32;font-size:13px;margin-bottom:3px">${store[0]}</div>
+              <div style="color:#5a6a80;font-size:11px;margin-bottom:6px">${D.R[store[1]]} • Luas: ${store[2].toLocaleString('id-ID')} m²</div>
+              <div style="background:#f1f5f9;padding:4px 8px;border-radius:4px;border:1px solid #e2e8f0;display:flex;justify-content:space-between">
+                <span style="color:#5a6a80">Net Sales:</span>
+                <b style="color:#0b5fa5">${rp(sales)}</b>
+              </div>
+            </div>
+          `);
+
+          marker.bindTooltip(`<b>${store[0]}</b>: ${rp(sales)}`, { direction: 'top', offset: [0, -radius] });
+          marker.addTo(mapMarkersLayer);
+        });
+
+        setTimeout(() => mapInstance.invalidateSize(), 60);
+      }
     }
 
     function p2() {
@@ -1355,7 +1334,6 @@
     }
 
     window.addEventListener('hashchange', render);
-    window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change', render);
 
     // Initial setup
     side();
