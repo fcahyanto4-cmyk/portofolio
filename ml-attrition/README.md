@@ -1,13 +1,13 @@
-# Prediksi Karyawan Resign — PT NusaMart Retail (Konteks Indonesia)
+# Kajian Prediktif Risiko Resign Karyawan Ritel Modern (Konteks Indonesia)
 
 Proyek machine learning untuk memprediksi risiko karyawan resign di jaringan ritel modern Indonesia dan menjelaskan faktor kerja yang mendorongnya.
 
-> **Data sintetis.** PT NusaMart Retail adalah perusahaan fiktif. Data dibuat dengan [`generate_data.py`](generate_data.py), yang parameternya dikalibrasi dengan sumber Indonesia: UMK 2026, PP 35/2021 (batas lembur & PKWT), Survei Komuter Jabodetabek BPS 2023, dan studi turnover ritel Indonesia. Daftar sumber lengkap ada di halaman showcase.
+> **Catatan metodologi data.** Data karyawan perusahaan bersifat rahasia, sehingga kajian ini memakai data simulasi dari [`generate_data.py`](generate_data.py) yang dikalibrasi dengan sumber Indonesia: UMK 2026, PP 35/2021 (batas lembur & PKWT), Survei Komuter Jabodetabek BPS 2023, dan studi turnover ritel Indonesia. Daftar sumber lengkap ada di aplikasi (menu *Tentang Data*).
 
-- **Showcase & simulator interaktif:** [`hr-attrition.html`](../hr-attrition.html)
-- **Notebook (Bahasa Indonesia):** [`prediksi_resign_nusamart.ipynb`](prediksi_resign_nusamart.ipynb)
+- **Aplikasi web TalentPulse (7 modul):** [`hr-attrition.html`](../hr-attrition.html)
+- **Notebook (Bahasa Indonesia):** [`prediksi_resign_karyawan_ritel.ipynb`](prediksi_resign_karyawan_ritel.ipynb)
 - **Generator data terkalibrasi:** [`generate_data.py`](generate_data.py)
-- **Data:** [`data/nusamart_karyawan_2026.csv`](data/nusamart_karyawan_2026.csv) — 2.400 karyawan, 11 jabatan, 7 kota
+- **Data:** [`data/karyawan_ritel_2026.csv`](data/karyawan_ritel_2026.csv) — 2.400 karyawan, 11 jabatan, 7 kota
 - **Model untuk web:** [`attrition_model.json`](attrition_model.json) — skor di browser identik dengan scikit-learn
 
 ## Ringkasan hasil
@@ -28,5 +28,5 @@ Proyek machine learning untuk memprediksi risiko karyawan resign di jaringan rit
 pip install pandas scikit-learn matplotlib jupyter
 cd ml-attrition
 python generate_data.py          # opsional: buat ulang data sintetis
-jupyter notebook prediksi_resign_nusamart.ipynb
+jupyter notebook prediksi_resign_karyawan_ritel.ipynb
 ```
