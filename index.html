@@ -689,11 +689,15 @@
           class="flex flex-wrap items-center gap-1.5 p-1 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs font-mono">
           <button onclick="filterProjects('all')" id="filter-btn-all"
             class="filter-tab active px-3 py-1.5 rounded-lg font-medium transition-colors cursor-pointer bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 shadow-xs">
-            Semua (4)
+            Semua (5)
           </button>
           <button onclick="filterProjects('bi')" id="filter-btn-bi"
             class="filter-tab px-3 py-1.5 rounded-lg font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors cursor-pointer">
             Power BI
+          </button>
+          <button onclick="filterProjects('excel')" id="filter-btn-excel"
+            class="filter-tab px-3 py-1.5 rounded-lg font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors cursor-pointer">
+            Excel
           </button>
           <button onclick="filterProjects('ml')" id="filter-btn-ml"
             class="filter-tab px-3 py-1.5 rounded-lg font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors cursor-pointer">
@@ -959,6 +963,70 @@
                 class="font-mono text-[10px] text-emerald-500/80 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
                 Live Vercel
               </span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 5: Dashboard Anggaran Lomba 17 Agustus 2023–2025 (Advanced Excel) -->
+        <article class="project-card editorial-card rounded-2xl overflow-hidden flex flex-col" data-category="excel">
+          <div
+            class="h-48 sm:h-56 bg-zinc-950 relative overflow-hidden border-b border-zinc-200 dark:border-zinc-800 group">
+            <img src="assets/images/excel-anggaran-17an.png" alt="Dashboard Excel Anggaran Lomba 17 Agustus 2023–2025"
+              class="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105" />
+            <div class="absolute top-3 left-3">
+              <span
+                class="px-2.5 py-1 rounded bg-zinc-950/80 backdrop-blur-md border border-white/10 font-mono text-[10px] text-emerald-400 font-semibold uppercase">
+                Advanced Excel
+              </span>
+            </div>
+            <div
+              class="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-zinc-950/85 backdrop-blur-md border border-emerald-500/30 shadow-md">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              <span class="font-mono text-[10px] text-emerald-400 font-semibold uppercase">Slicer Dashboard</span>
+            </div>
+            <!-- Hover Overlay with Blur -->
+            <a href="excel-anggaran-17an.html" target="_blank" rel="noopener noreferrer"
+              class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-2 text-white font-mono text-xs font-semibold backdrop-blur-[2px]">
+              <span class="w-10 h-10 rounded-full bg-emerald-600/95 flex items-center justify-center shadow-lg"><i
+                  class="fa-solid fa-play text-sm ml-0.5"></i></span>
+              <span>Buka Dashboard</span>
+            </a>
+          </div>
+          <div class="p-5 sm:p-6 flex flex-col flex-1 space-y-3">
+            <div class="flex items-baseline justify-between">
+              <h3 class="text-base sm:text-lg font-bold text-zinc-900 dark:text-zinc-100">Dashboard Anggaran Lomba
+                17 Agustus 2023–2025</h3>
+            </div>
+            <p class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed flex-1">
+              Workbook Excel untuk Karang Taruna yang membandingkan anggaran hadiah lomba &amp; perlengkapan tiga tahun
+              (total Rp 13,9 juta). Rekap per tahun ditarik otomatis ke satu Excel Table, lalu menggerakkan dashboard
+              dengan slicer tahun, Top 10 dinamis, 17 grafik native, dan rekonsiliasi selisih dengan proposal.
+            </p>
+            <div class="flex flex-wrap gap-1.5 pt-1 sm:pt-2">
+              <span
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[10px] sm:text-[11px]">Excel
+                Table</span>
+              <span
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[10px] sm:text-[11px]">Slicer</span>
+              <span
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[10px] sm:text-[11px]">LET
+                / FILTER / SORT</span>
+              <span
+                class="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-[10px] sm:text-[11px]">SUMIFS
+                &amp; SUBTOTAL</span>
+            </div>
+            <div
+              class="flex items-center justify-between pt-3 border-t border-zinc-100 dark:border-zinc-800/80 text-xs">
+              <a href="excel-anggaran-17an.html" target="_blank"
+                class="font-mono text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1.5 font-semibold">
+                <span>Buka Studi Kasus Excel</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+              <a href="assets/documents/Dashboard_Anggaran_17_Agustus_2023-2025.xlsx" download
+                class="font-mono text-zinc-500 dark:text-zinc-400 hover:text-emerald-400 flex items-center gap-1 transition-colors text-[11px]">
+                <i class="fa-solid fa-download text-[10px]"></i>
+                <span>Unduh .xlsx</span>
+              </a>
             </div>
           </div>
         </article>

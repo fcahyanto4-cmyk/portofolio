@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Anggaran Lomba 17 Agustus 2023–2025 (Excel) — Fajar Sidiq Cahyanto</title>
+  <meta name="description"
+    content="Studi kasus Advanced Excel: dashboard anggaran lomba & pentas seni 17 Agustus tiga tahun dengan Excel Table, Slicer, dynamic array, dan 17 grafik native.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    :root {
+      --bg: #09090b;
+      --card-bg: #111114;
+      --card-subtle: #18181c;
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-hover-border: rgba(255, 255, 255, 0.2);
+      --text-main: #fafafa;
+      --text-muted: #a1a1aa;
+      --text-dim: #71717a;
+      --excel: #10b981;
+      --excel-soft: rgba(16, 185, 129, 0.12);
+      --excel-line: rgba(16, 185, 129, 0.3);
+      --hadiah: #38bdf8;
+      --perl: #fb923c;
+      --amber: #f59e0b;
+      --rose: #f43f5e;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+
+    /* UNIFORM PORTFOLIO TOPBAR (sama dengan halaman showcase lain) */
+    .pbi-topbar {
+      position: sticky; top: 0; z-index: 1050;
+      background: #0b1c32; color: #fff;
+      height: 56px; padding: 10px 18px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+    body.in-iframe .pbi-topbar { display: none !important; }
+    .pbi-topbar-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .pbi-back-btn {
+      width: 32px; height: 32px; border-radius: 6px; background: rgba(255, 255, 255, 0.12);
+      color: #fff; display: flex; align-items: center; justify-content: center;
+      text-decoration: none; transition: all 0.2s; flex-shrink: 0;
+    }
+    .pbi-back-btn:hover { background: rgba(255, 255, 255, 0.25); transform: translateX(-2px); }
+    .pbi-branding { min-width: 0; }
+    .pbi-brand-title {
+      font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 8px;
+      letter-spacing: -0.2px; line-height: 1.2;
+    }
+    .pbi-badge {
+      font-size: 10px; font-family: 'JetBrains Mono', monospace; padding: 2px 6px; border-radius: 4px;
+      font-weight: 600; text-transform: uppercase; white-space: nowrap;
+    }
+    .pbi-badge-green { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.4); }
+    .pbi-brand-sub {
+      font-size: 11px; color: rgba(255, 255, 255, 0.7); margin-top: 2px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2;
+    }
+    .pbi-topbar-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .topbar-actions { display: flex; align-items: center; gap: 6px; }
+    .topbar-pill {
+      display: inline-flex; align-items: center; gap: 5px; padding: 5px 10px; border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
+      color: rgba(255, 255, 255, 0.8); background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14); text-decoration: none; transition: all 0.2s ease; white-space: nowrap;
+    }
+    .topbar-pill:hover { color: #fff; background: rgba(255, 255, 255, 0.18); border-color: rgba(255, 255, 255, 0.3); }
+    .topbar-pill-excel { background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.35); color: #34d399; }
+    .topbar-pill-excel:hover { background: rgba(16, 185, 129, 0.25); color: #6ee7b7; }
+    .pbi-exit-btn {
+      display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px;
+      background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.22); border-radius: 6px;
+      color: #fff; text-decoration: none; font-size: 12px; font-weight: 600; transition: all 0.2s; white-space: nowrap;
+    }
+    .pbi-exit-btn:hover { background: rgba(255, 255, 255, 0.24); }
+    @media (max-width: 960px) { .topbar-actions { display: none; } }
+    @media (max-width: 640px) {
+      .pbi-topbar { padding: 8px 12px; }
+      .pbi-brand-sub { display: none; }
+      .pbi-exit-btn span { display: none; }
+      .pbi-exit-btn { padding: 6px 10px; }
+    }
+
+    /* LAYOUT */
+    .container { max-width: 1100px; margin: 0 auto; padding: 36px 24px 80px; }
+    section { margin-top: 56px; scroll-margin-top: 80px; }
+    .eyebrow {
+      font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+      letter-spacing: 0.12em; color: var(--excel); font-weight: 600; margin-bottom: 6px; display: block;
+    }
+    h1 { font-size: clamp(1.7rem, 3.6vw, 2.5rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; }
+    h2 { font-size: clamp(1.25rem, 2.4vw, 1.6rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.25; }
+    h3 { font-size: 0.98rem; font-weight: 700; letter-spacing: -0.01em; }
+    .lead { color: var(--text-muted); font-size: 0.98rem; max-width: 760px; margin-top: 14px; }
+    .muted { color: var(--text-muted); }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 9999px;
+      font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .badge-excel { background: var(--excel-soft); color: #34d399; border: 1px solid var(--excel-line); }
+    .badge-tech { background: rgba(59, 130, 246, 0.12); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.25); }
+    .badge-amber { background: rgba(245, 158, 11, 0.12); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.28); }
+
+    .cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 10px;
+      font-weight: 700; font-size: 0.86rem; text-decoration: none; transition: all 0.2s; cursor: pointer; border: 1px solid transparent;
+    }
+    .btn-primary { background: var(--excel); color: #052e1f; }
+    .btn-primary:hover { background: #34d399; transform: translateY(-1px); }
+    .btn-ghost { background: rgba(255, 255, 255, 0.05); border-color: var(--card-border); color: var(--text-main); }
+    .btn-ghost:hover { border-color: var(--card-hover-border); }
+
+    .card {
+      background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 20px;
+    }
+
+    /* FACT STRIP */
+    .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 32px; }
+    .fact { padding: 16px 18px; }
+    .fact b { display: block; font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; }
+    .fact span { font-size: 0.78rem; color: var(--text-muted); }
+    @media (max-width: 760px) { .facts { grid-template-columns: repeat(2, 1fr); } }
+
+    /* DASHBOARD */
+    .dash-shell { margin-top: 20px; padding: 0; overflow: hidden; }
+    .dash-head {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 16px 20px; border-bottom: 1px solid var(--card-border); background: var(--card-subtle);
+    }
+    .dash-head .ttl { font-weight: 700; font-size: 0.92rem; }
+    .dash-head .sub { font-size: 0.74rem; color: var(--text-dim); }
+    .slicer { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .slicer-label { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--text-dim); text-transform: uppercase; margin-right: 4px; }
+    .chip {
+      font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 8px;
+      border: 1px solid var(--card-border); background: var(--bg); color: var(--text-muted); cursor: pointer; transition: all 0.15s;
+    }
+    .chip:hover { border-color: var(--card-hover-border); color: var(--text-main); }
+    .chip[aria-pressed="true"] { background: var(--excel-soft); border-color: var(--excel-line); color: #34d399; }
+    .dash-body { padding: 20px; }
+
+    .kpis { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    .kpi { background: var(--card-subtle); border: 1px solid var(--card-border); border-radius: 12px; padding: 14px 16px; }
+    .kpi .lbl { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-dim); }
+    .kpi .val { font-size: 1.22rem; font-weight: 800; letter-spacing: -0.02em; margin-top: 4px; font-variant-numeric: tabular-nums; }
+    .kpi .hint { font-size: 0.72rem; color: var(--text-muted); margin-top: 2px; }
+    @media (max-width: 900px) { .kpis { grid-template-columns: repeat(2, 1fr); } .kpi:last-child { grid-column: span 2; } }
+
+    .charts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 12px; }
+    .chart-card { background: var(--card-subtle); border: 1px solid var(--card-border); border-radius: 12px; padding: 14px 16px; }
+    .chart-card h3 { font-size: 0.84rem; margin-bottom: 2px; }
+    .chart-card .cap { font-size: 0.72rem; color: var(--text-dim); margin-bottom: 10px; }
+    .chart-box { position: relative; height: 240px; }
+    .chart-box.tall { height: 320px; }
+    .legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 0.74rem; color: var(--text-muted); margin-bottom: 8px; }
+    .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+    @media (max-width: 820px) { .charts { grid-template-columns: 1fr; } }
+
+    /* TABLES */
+    .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--card-border); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+    th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--card-border); white-space: nowrap; }
+    th { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-dim); background: var(--card-subtle); font-weight: 600; }
+    td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+    tbody tr:hover { background: rgba(255, 255, 255, 0.02); }
+    tfoot td { font-weight: 700; background: var(--card-subtle); border-bottom: none; }
+    .pos { color: #34d399; }
+    .neg { color: #fb7185; }
+    .tag { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; padding: 2px 7px; border-radius: 5px; font-weight: 600; }
+    .tag-h { background: rgba(56, 189, 248, 0.12); color: var(--hadiah); }
+    .tag-p { background: rgba(251, 146, 60, 0.12); color: var(--perl); }
+    .tag-real { background: var(--excel-soft); color: #34d399; }
+    .tag-sim { background: rgba(255, 255, 255, 0.06); color: var(--text-muted); }
+
+    .detail-tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; margin: 18px 0 10px; }
+    .search {
+      background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 8px 12px;
+      color: var(--text-main); font: inherit; font-size: 0.84rem; min-width: 220px;
+    }
+    .search:focus { outline: none; border-color: var(--excel-line); }
+    .detail-scroll { max-height: 420px; overflow-y: auto; }
+    .detail-scroll thead th { position: sticky; top: 0; z-index: 1; }
+
+    /* TECHNIQUES */
+    .tech-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 20px; }
+    .tech { display: flex; flex-direction: column; gap: 8px; }
+    .tech .ico {
+      width: 34px; height: 34px; border-radius: 9px; display: flex; align-items: center; justify-content: center;
+      background: var(--excel-soft); color: #34d399; border: 1px solid var(--excel-line); font-size: 14px;
+    }
+    .tech p { font-size: 0.84rem; color: var(--text-muted); }
+    pre.formula {
+      font-family: 'JetBrains Mono', monospace; font-size: 11.5px; line-height: 1.55; color: #d4d4d8;
+      background: #0b0b0e; border: 1px solid var(--card-border); border-radius: 8px; padding: 10px 12px;
+      white-space: pre-wrap; word-break: break-word; margin-top: auto;
+    }
+    pre.formula .fn { color: #34d399; }
+    pre.formula .ref { color: #7dd3fc; }
+    pre.formula .str { color: #fbbf24; }
+    @media (max-width: 820px) { .tech-grid { grid-template-columns: 1fr; } }
+
+    /* WORKBOOK MAP */
+    .sheets { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 20px; }
+    .sheet { padding: 14px; border-radius: 12px; background: var(--card-bg); border: 1px solid var(--card-border); position: relative; }
+    .sheet .tab {
+      font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: #34d399;
+      display: inline-flex; align-items: center; gap: 6px; margin-bottom: 6px;
+    }
+    .sheet p { font-size: 0.78rem; color: var(--text-muted); }
+    .flow-note { font-size: 0.8rem; color: var(--text-dim); margin-top: 12px; }
+    @media (max-width: 900px) { .sheets { grid-template-columns: repeat(2, 1fr); } }
+
+    /* INSIGHTS */
+    .insights { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px; }
+    .insight b { display: block; font-size: 1.35rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 4px; }
+    .insight p { font-size: 0.84rem; color: var(--text-muted); }
+    @media (max-width: 820px) { .insights { grid-template-columns: 1fr; } }
+
+    .download-band {
+      margin-top: 56px; padding: 26px; border-radius: 18px; display: flex; flex-wrap: wrap; gap: 18px;
+      align-items: center; justify-content: space-between;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.14), rgba(16, 185, 129, 0.03));
+      border: 1px solid var(--excel-line);
+    }
+    .download-band h2 { font-size: 1.2rem; }
+    .download-band p { font-size: 0.86rem; color: var(--text-muted); margin-top: 4px; }
+
+    footer { margin-top: 48px; font-size: 0.78rem; color: var(--text-dim); text-align: center; }
+  </style>
+</head>
+
+<body>
+
+  <header class="pbi-topbar">
+    <div class="pbi-topbar-left">
+      <a href="index.html#projek" onclick="closeOrGoBack(event)" class="pbi-back-btn" title="Tutup Tab & Kembali ke Portofolio">
+        <i class="fa-solid fa-arrow-left"></i>
+      </a>
+      <div class="pbi-branding">
+        <div class="pbi-brand-title">
+          <i class="fa-solid fa-file-excel" style="color:#34d399;"></i>
+          <span>Dashboard Anggaran Lomba 17 Agustus</span>
+          <span class="pbi-badge pbi-badge-green">Advanced Excel</span>
+        </div>
+        <div class="pbi-brand-sub">Excel Table • Slicer • Dynamic Array (LET / FILTER / SORT / TAKE) • 17 Grafik Native</div>
+      </div>
+    </div>
+    <div class="pbi-topbar-right">
+      <div class="topbar-actions">
+        <a href="#dashboard" class="topbar-pill"><i class="fa-solid fa-chart-pie"></i> <span>Dashboard</span></a>
+        <a href="#teknik" class="topbar-pill"><i class="fa-solid fa-square-root-variable"></i> <span>Teknik Excel</span></a>
+        <a href="#data" class="topbar-pill"><i class="fa-solid fa-table"></i> <span>Data</span></a>
+        <a href="assets/documents/Dashboard_Anggaran_17_Agustus_2023-2025.xlsx" download class="topbar-pill topbar-pill-excel"><i class="fa-solid fa-download"></i> <span>Unduh .xlsx</span></a>
+      </div>
+      <a href="index.html#projek" onclick="closeOrGoBack(event)" class="pbi-exit-btn" title="Tutup Tab & Kembali ke Portofolio">
+        <span>Kembali ke Portofolio</span>
+        <i class="fa-solid fa-xmark"></i>
+      </a>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- HERO -->
+    <div>
+      <div class="badges">
+        <span class="badge badge-excel"><i class="fa-solid fa-file-excel"></i> Microsoft Excel 365</span>
+        <span class="badge badge-tech">Budgeting &amp; Reporting</span>
+        <span class="badge badge-amber">Proyek Komunitas</span>
+      </div>
+      <h1>Dashboard Anggaran Lomba &amp; Pentas Seni<br>17 Agustus · 2023 – 2025</h1>
+      <p class="lead">
+        Workbook Excel untuk Karang Taruna RT 02/02 (Lapangan Palaga) yang merekap anggaran hadiah lomba dan
+        perlengkapan tiga tahun berturut-turut. Tiap tahun punya sheet rekap sendiri, lalu semuanya ditarik otomatis
+        ke satu tabel gabungan yang menggerakkan dashboard perbandingan dengan slicer tahun.
+      </p>
+      <div class="cta-row">
+        <a href="assets/documents/Dashboard_Anggaran_17_Agustus_2023-2025.xlsx" download class="btn btn-primary"><i class="fa-solid fa-download"></i> Unduh Workbook (.xlsx)</a>
+        <a href="#dashboard" class="btn btn-ghost"><i class="fa-solid fa-chart-column"></i> Coba Dashboard Interaktif</a>
+      </div>
+
+      <div class="facts">
+        <div class="card fact"><b>5</b><span>sheet saling terhubung</span></div>
+        <div class="card fact"><b>17</b><span>grafik native Excel</span></div>
+        <div class="card fact"><b id="fact-rows">–</b><span>baris di tabel DataGabungan</span></div>
+        <div class="card fact"><b id="fact-total">–</b><span>total anggaran 3 tahun</span></div>
+      </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <section id="dashboard">
+      <span class="eyebrow">01 / Replika Dashboard</span>
+      <h2>Dashboard interaktif (versi web)</h2>
+      <p class="lead">
+        Replika sheet <span class="mono">Dashboard</span> di workbook. Tombol tahun meniru slicer
+        <span class="mono">Tahun</span> di Excel: semua KPI, grafik, dan Top 10 dihitung ulang dari data yang sama.
+      </p>
+
+      <div class="card dash-shell">
+        <div class="dash-head">
+          <div>
+            <div class="ttl">Anggaran Lomba &amp; Pentas Seni 17 Agustus</div>
+            <div class="sub">Karang Taruna RT 02/02 · Lapangan Palaga</div>
+          </div>
+          <div class="slicer" role="group" aria-label="Filter tahun">
+            <span class="slicer-label"><i class="fa-solid fa-filter"></i> Slicer Tahun</span>
+            <button class="chip" data-year="all" aria-pressed="true">Semua</button>
+            <button class="chip" data-year="2023" aria-pressed="false">2023</button>
+            <button class="chip" data-year="2024" aria-pressed="false">2024</button>
+            <button class="chip" data-year="2025" aria-pressed="false">2025</button>
+          </div>
+        </div>
+        <div class="dash-body">
+          <div class="kpis">
+            <div class="kpi"><div class="lbl">Total Estimasi Biaya</div><div class="val" id="k-total">–</div><div class="hint" id="k-total-h"></div></div>
+            <div class="kpi"><div class="lbl">Total Hadiah Lomba</div><div class="val" id="k-hadiah" style="color:var(--hadiah)">–</div><div class="hint" id="k-hadiah-h"></div></div>
+            <div class="kpi"><div class="lbl">Total Perlengkapan</div><div class="val" id="k-perl" style="color:var(--perl)">–</div><div class="hint" id="k-perl-h"></div></div>
+            <div class="kpi"><div class="lbl">Jumlah Lomba</div><div class="val" id="k-lomba">–</div><div class="hint" id="k-lomba-h"></div></div>
+            <div class="kpi"><div class="lbl">Rata-rata Biaya / Tahun</div><div class="val" id="k-avg">–</div><div class="hint" id="k-avg-h"></div></div>
+          </div>
+
+          <div class="charts">
+            <div class="chart-card">
+              <h3>Komposisi Anggaran</h3>
+              <div class="cap">Hadiah lomba vs perlengkapan</div>
+              <div class="chart-box"><canvas id="c-komposisi" aria-label="Grafik komposisi anggaran"></canvas></div>
+            </div>
+            <div class="chart-card">
+              <h3>Perbandingan per Tahun</h3>
+              <div class="cap">Ribu Rupiah · hadiah dan perlengkapan</div>
+              <div class="legend"><span><i style="background:var(--hadiah)"></i>Hadiah</span><span><i style="background:var(--perl)"></i>Perlengkapan</span></div>
+              <div class="chart-box" style="height:212px"><canvas id="c-tahun" aria-label="Grafik perbandingan per tahun"></canvas></div>
+            </div>
+            <div class="chart-card">
+              <h3>Total Hadiah per Peringkat</h3>
+              <div class="cap">Ribu Rupiah · Juara 1, 2, 3</div>
+              <div class="chart-box"><canvas id="c-juara" aria-label="Grafik total hadiah per peringkat"></canvas></div>
+            </div>
+            <div class="chart-card">
+              <h3>Anggaran vs Realisasi Estimasi</h3>
+              <div class="cap">Ribu Rupiah · budget tersedia dan total biaya</div>
+              <div class="legend"><span><i style="background:#52525b"></i>Budget</span><span><i style="background:var(--excel)"></i>Total biaya</span></div>
+              <div class="chart-box" style="height:212px"><canvas id="c-budget" aria-label="Grafik budget vs total biaya"></canvas></div>
+            </div>
+            <div class="chart-card">
+              <h3>Top 10 Hadiah Lomba</h3>
+              <div class="cap">Ribu Rupiah · total Juara 1–3 per lomba-tahun</div>
+              <div class="chart-box tall"><canvas id="c-top-h" aria-label="Top 10 hadiah lomba"></canvas></div>
+            </div>
+            <div class="chart-card">
+              <h3>Top 10 Perlengkapan</h3>
+              <div class="cap">Ribu Rupiah · biaya per item-tahun</div>
+              <div class="chart-box tall"><canvas id="c-top-p" aria-label="Top 10 perlengkapan"></canvas></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RINGKASAN 3 TAHUN -->
+    <section id="ringkasan">
+      <span class="eyebrow">02 / Ringkasan</span>
+      <h2>Perbandingan tiga tahun</h2>
+      <p class="lead">Ringkasan dari bagian "C. Ringkasan Anggaran" di masing-masing sheet rekap.</p>
+      <div class="table-wrap" style="margin-top:18px">
+        <table id="tbl-ringkasan">
+          <thead>
+            <tr><th>Tahun</th><th>Sumber</th><th class="num">Jml Lomba</th><th class="num">Hadiah</th><th class="num">Perlengkapan</th><th class="num">Total Biaya</th><th class="num">Budget</th><th class="num">Sisa</th><th class="num">Porsi Hadiah</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="insights">
+        <div class="card insight"><b id="ins-peak">–</b><p id="ins-peak-p"></p></div>
+        <div class="card insight"><b id="ins-share">–</b><p id="ins-share-p"></p></div>
+        <div class="card insight"><b class="neg">− Rp 80.000</b><p>Selisih yang ketemu di 2025: total hadiah hasil hitungan Excel Rp 3.210.000, sedangkan di proposal tertulis Rp 3.290.000. Sheet rekap 2025 punya kolom rekonsiliasi khusus untuk menandai selisih ini.</p></div>
+      </div>
+    </section>
+
+    <!-- TEKNIK -->
+    <section id="teknik">
+      <span class="eyebrow">03 / Teknik Excel</span>
+      <h2>Teknik yang dipakai di workbook</h2>
+      <p class="lead">Rumus di bawah diambil langsung dari workbook, bukan contoh rekaan.</p>
+
+      <div class="tech-grid">
+        <div class="card tech">
+          <div class="ico"><i class="fa-solid fa-table-list"></i></div>
+          <h3>Excel Table + Structured Reference</h3>
+          <p>Data tiga tahun digabung ke tabel bernama <span class="mono">DataGabungan</span>. Rumus memanggil kolom berdasarkan nama, jadi tetap benar saat baris bertambah.</p>
+          <pre class="formula"><span class="fn">SUMIFS</span>(<span class="ref">DataGabungan[Total]</span>, <span class="ref">DataGabungan[Jenis]</span>, <span class="str">"Hadiah"</span>, <span class="ref">DataGabungan[Tampil]</span>, 1)</pre>
+        </div>
+        <div class="card tech">
+          <div class="ico"><i class="fa-solid fa-filter"></i></div>
+          <h3>Slicer yang menggerakkan rumus</h3>
+          <p>Slicer biasanya hanya menyaring tabel. Kolom bantu <span class="mono">Tampil</span> berisi <span class="mono">SUBTOTAL(103)</span> yang bernilai 1 hanya untuk baris yang terlihat, sehingga KPI dan grafik ikut berubah saat slicer diklik.</p>
+          <pre class="formula"><span class="ref">Tampil</span> = <span class="fn">SUBTOTAL</span>(103, <span class="ref">A5</span>)
+<span class="ref">Jumlah Lomba</span> = <span class="fn">COUNTIFS</span>(<span class="ref">DataGabungan[Jenis]</span>, <span class="str">"Hadiah"</span>, <span class="ref">DataGabungan[Tampil]</span>, 1)</pre>
+        </div>
+        <div class="card tech">
+          <div class="ico"><i class="fa-solid fa-ranking-star"></i></div>
+          <h3>Top 10 otomatis dengan dynamic array</h3>
+          <p>Satu rumus menghasilkan daftar Top 10 lengkap (nama + nilai ribuan) yang langsung jadi sumber grafik batang, tanpa sort manual.</p>
+          <pre class="formula"><span class="fn">LET</span>(x, <span class="fn">TAKE</span>(<span class="fn">SORT</span>(<span class="fn">FILTER</span>(<span class="fn">CHOOSECOLS</span>(<span class="ref">DataGabungan[]</span>, 9, 8),
+      (<span class="ref">DataGabungan[Tampil]</span>=1) * (<span class="ref">DataGabungan[Jenis]</span>=<span class="str">"Hadiah"</span>)), 2, -1), 10),
+  <span class="fn">HSTACK</span>(<span class="fn">CHOOSECOLS</span>(x, 1), <span class="fn">CHOOSECOLS</span>(x, 2) / 1000))</pre>
+        </div>
+        <div class="card tech">
+          <div class="ico"><i class="fa-solid fa-divide"></i></div>
+          <h3>Rata-rata yang sadar filter</h3>
+          <p>Rata-rata per tahun hanya membagi dengan jumlah tahun yang sedang tampil di slicer, bukan selalu 3.</p>
+          <pre class="formula"><span class="fn">IFERROR</span>(<span class="ref">B11</span> / <span class="fn">SUMPRODUCT</span>(--((<span class="ref">I66:I68</span> + <span class="ref">J66:J68</span>) &gt; 0)), 0)</pre>
+        </div>
+        <div class="card tech">
+          <div class="ico"><i class="fa-solid fa-link"></i></div>
+          <h3>Tabel gabungan yang ditarik otomatis</h3>
+          <p>Tiap baris <span class="mono">DataGabungan</span> merujuk ke sel di sheet rekap. Ubah angka di <span class="mono">Rekap 2025</span>, dashboard ikut berubah. Kolom label dibentuk dengan penggabungan teks.</p>
+          <pre class="formula"><span class="ref">Nama</span>  = <span class="ref">'Rekap 2025'!B6</span>
+<span class="ref">Total</span> = <span class="fn">SUM</span>(<span class="ref">E5:G5</span>)
+<span class="ref">Label</span> = <span class="ref">C5</span> &amp; <span class="str">" ("</span> &amp; <span class="ref">A5</span> &amp; <span class="str">")"</span></pre>
+        </div>
+        <div class="card tech">
+          <div class="ico"><i class="fa-solid fa-scale-balanced"></i></div>
+          <h3>Kontrol budget &amp; rekonsiliasi</h3>
+          <p>Setiap rekap menghitung sisa budget. Untuk 2025, hasil hitungan Excel dibandingkan dengan angka yang tertulis di proposal agar salah ketik langsung kelihatan.</p>
+          <pre class="formula"><span class="ref">Sisa Budget</span> = <span class="ref">C3</span> - <span class="ref">C55</span>
+<span class="ref">Selisih</span>     = <span class="ref">Hitungan Excel</span> - <span class="ref">Tertulis di Proposal</span></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- STRUKTUR WORKBOOK -->
+    <section id="struktur">
+      <span class="eyebrow">04 / Struktur Workbook</span>
+      <h2>Lima sheet, satu alur data</h2>
+      <div class="sheets">
+        <div class="sheet"><div class="tab"><i class="fa-solid fa-chart-pie"></i> Dashboard</div><p>5 KPI, slicer tahun, 5 grafik, dan Top 10 hadiah &amp; perlengkapan.</p></div>
+        <div class="sheet"><div class="tab"><i class="fa-solid fa-file-lines"></i> Rekap 2025</div><p>Data asli dari proposal HUT RI ke-80, plus rekonsiliasi.</p></div>
+        <div class="sheet"><div class="tab"><i class="fa-solid fa-file-lines"></i> Rekap 2024</div><p>Simulasi HUT RI ke-79, budget Rp 5,5 juta.</p></div>
+        <div class="sheet"><div class="tab"><i class="fa-solid fa-file-lines"></i> Rekap 2023</div><p>Simulasi HUT RI ke-78, budget Rp 4 juta.</p></div>
+        <div class="sheet"><div class="tab"><i class="fa-solid fa-database"></i> Data Gabungan</div><p>Tabel <span class="mono">DataGabungan</span>, sumber slicer dan semua grafik dashboard.</p></div>
+      </div>
+      <p class="flow-note"><i class="fa-solid fa-arrow-right-long"></i> Alur: Rekap per tahun (input) → Data Gabungan (tabel terstruktur) → Dashboard (KPI, slicer, grafik). Tiap sheet rekap juga punya mini-dashboard sendiri dengan 4 grafik.</p>
+    </section>
+
+    <!-- DATA DETAIL -->
+    <section id="data">
+      <span class="eyebrow">05 / Data</span>
+      <h2>Rincian data</h2>
+      <p class="lead">Isi tabel <span class="mono">DataGabungan</span>. Ikut slicer di atas, dan bisa dicari per nama.</p>
+      <div class="detail-tools">
+        <div class="slicer" id="jenis-filter" role="group" aria-label="Filter jenis">
+          <button class="chip" data-jenis="all" aria-pressed="true">Semua</button>
+          <button class="chip" data-jenis="Hadiah" aria-pressed="false">Hadiah</button>
+          <button class="chip" data-jenis="Perlengkapan" aria-pressed="false">Perlengkapan</button>
+        </div>
+        <input class="search" id="q" type="search" placeholder="Cari lomba atau barang…" aria-label="Cari data">
+      </div>
+      <div class="table-wrap detail-scroll">
+        <table id="tbl-detail">
+          <thead><tr><th>Tahun</th><th>Jenis</th><th>Nama</th><th>Kategori</th><th class="num">Juara 1</th><th class="num">Juara 2</th><th class="num">Juara 3</th><th class="num">Total</th></tr></thead>
+          <tbody></tbody>
+          <tfoot><tr><td colspan="7" id="detail-count"></td><td class="num" id="detail-sum"></td></tr></tfoot>
+        </table>
+      </div>
+    </section>
+
+    <div class="download-band">
+      <div>
+        <h2>Lihat langsung di Excel</h2>
+        <p>Buka di Microsoft Excel 365 agar slicer dan rumus dynamic array berjalan penuh.</p>
+      </div>
+      <a href="assets/documents/Dashboard_Anggaran_17_Agustus_2023-2025.xlsx" download class="btn btn-primary"><i class="fa-solid fa-file-excel"></i> Unduh Dashboard_Anggaran_17_Agustus.xlsx</a>
+    </div>
+
+    <footer>© Fajar Sidiq Cahyanto · Studi kasus Advanced Excel</footer>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
+  <script>
+    const DATA = {"2023":{"budget":4000000,"hadiah":[{"nama":"Fashion Show","kat":"Semua Usia","j1":90000,"j2":70000,"j3":50000},{"nama":"Mewarnai (TK)","kat":"TK","j1":60000,"j2":50000,"j3":0},{"nama":"Mewarnai (SD)","kat":"SD (s.d. kelas 3)","j1":60000,"j2":50000,"j3":0},{"nama":"Cerdas Cermat","kat":"5 SD-2 SMP","j1":70000,"j2":60000,"j3":50000},{"nama":"Karnaval","kat":"Semua Usia","j1":60000,"j2":40000,"j3":0},{"nama":"Makan Biskuit","kat":"Batita","j1":50000,"j2":40000,"j3":30000},{"nama":"Balap Karung","kat":"1-4 SD","j1":60000,"j2":50000,"j3":40000},{"nama":"Sendok Kelereng","kat":"1-4 SD","j1":60000,"j2":50000,"j3":40000},{"nama":"Pensil Botol","kat":"5 SD-2 SMP","j1":60000,"j2":50000,"j3":40000},{"nama":"Balap Bakiak","kat":"5 SD-2 SMP","j1":60000,"j2":50000,"j3":40000},{"nama":"Joget Balon Berpasangan","kat":"SD-SMP","j1":60000,"j2":50000,"j3":40000},{"nama":"Kursi Musik","kat":"Semua Usia","j1":60000,"j2":50000,"j3":40000},{"nama":"Tarik Tambang","kat":"Dewasa","j1":120000,"j2":100000,"j3":80000},{"nama":"Estafet Air","kat":"5 SD-2 SMP","j1":60000,"j2":50000,"j3":40000},{"nama":"Paku Botol","kat":"Dewasa","j1":70000,"j2":60000,"j3":50000},{"nama":"Makan Kerupuk","kat":"1-4 SD","j1":60000,"j2":50000,"j3":40000},{"nama":"Estafet Bola Ibu-Ibu","kat":"Ibu-Ibu","j1":70000,"j2":60000,"j3":50000}],"perlengkapan":[{"nama":"Bendera Plastik","biaya":100000},{"nama":"Tali Rafia","biaya":30000},{"nama":"100 pcs Balon","biaya":90000},{"nama":"Sedotan","biaya":15000},{"nama":"1 Slot Gelas Karton","biaya":25000},{"nama":"2 Pack Biskuit","biaya":30000},{"nama":"3 Karton","biaya":20000},{"nama":"Kelereng + Sendok Plastik","biaya":40000},{"nama":"3 pcs Lakban Hitam","biaya":66000},{"nama":"1 Tulisan Dirgahayu RI","biaya":30000},{"nama":"Tali Tambang","biaya":130000},{"nama":"1 kg Kerupuk","biaya":25000},{"nama":"Piring Plastik","biaya":20000},{"nama":"Isi Streples","biaya":25000},{"nama":"3 Pack Solasi","biaya":24000},{"nama":"30 Gulung Sampul Coklat","biaya":150000},{"nama":"Print Gambar 20 Lembar","biaya":20000},{"nama":"Sewa Sound System","biaya":100000},{"nama":"Paku dan Botol Bekas","biaya":20000},{"nama":"Bakiak Kayu 6 Pasang","biaya":120000},{"nama":"Biaya Tak Terduga (sisa budget)","biaya":230000}]},"2024":{"budget":5500000,"hadiah":[{"nama":"Fashion Show","kat":"Semua Usia","j1":100000,"j2":75000,"j3":50000},{"nama":"Mewarnai (TK)","kat":"TK","j1":70000,"j2":60000,"j3":50000},{"nama":"Mewarnai (SD)","kat":"SD (s.d. kelas 3)","j1":70000,"j2":60000,"j3":50000},{"nama":"Cerdas Cermat","kat":"5 SD-2 SMP","j1":80000,"j2":70000,"j3":60000},{"nama":"Karnaval","kat":"Semua Usia","j1":100000,"j2":75000,"j3":50000},{"nama":"Makan Biskuit","kat":"Batita","j1":60000,"j2":45000,"j3":35000},{"nama":"Bola Gelas","kat":"Batita","j1":60000,"j2":45000,"j3":35000},{"nama":"Sutol","kat":"1-4 SD","j1":65000,"j2":60000,"j3":50000},{"nama":"Balap Karung","kat":"1-4 SD","j1":65000,"j2":60000,"j3":50000},{"nama":"Estafet Kardus","kat":"1-4 SD","j1":70000,"j2":60000,"j3":50000},{"nama":"Corong Ayam","kat":"1-4 SD","j1":65000,"j2":60000,"j3":50000},{"nama":"Kardus Racing","kat":"5 SD-2 SMP","j1":70000,"j2":60000,"j3":50000},{"nama":"Balon Gundul","kat":"SD-SMP","j1":70000,"j2":60000,"j3":50000},{"nama":"Balon Kancing","kat":"5 SD-2 SMP","j1":70000,"j2":60000,"j3":50000},{"nama":"Estafet Kain Lilit","kat":"5 SD-2 SMP","j1":150000,"j2":130000,"j3":100000},{"nama":"Kursi Joget","kat":"5 SD-2 SMP","j1":70000,"j2":60000,"j3":50000},{"nama":"Estafet Tepung","kat":"5 SD-2 SMP","j1":150000,"j2":130000,"j3":100000},{"nama":"Estafet Air","kat":"5 SD-2 SMP","j1":70000,"j2":60000,"j3":50000},{"nama":"Tarik Tambang","kat":"Dewasa / Semua Usia","j1":150000,"j2":130000,"j3":100000}],"perlengkapan":[{"nama":"Bendera Plastik","biaya":130000},{"nama":"6 Benang","biaya":75000},{"nama":"100 pcs Balon","biaya":110000},{"nama":"Sedotan","biaya":20000},{"nama":"1 Slot Gelas Karton","biaya":28000},{"nama":"2 Pack Biskuit","biaya":30000},{"nama":"5 Karton","biaya":25000},{"nama":"Bola Warna Warni","biaya":60000},{"nama":"4 pcs Lakban Hitam","biaya":92000},{"nama":"2 Tirai","biaya":80000},{"nama":"1 Tulisan Dirgahayu RI","biaya":35000},{"nama":"2 kg Tepung","biaya":32000},{"nama":"Tali Rafia","biaya":30000},{"nama":"Isi Streples","biaya":30000},{"nama":"3 Pack Solasi","biaya":24000},{"nama":"35 Gulung Sampul Coklat","biaya":180000},{"nama":"Print Gambar 30 Gambar","biaya":30000},{"nama":"1 Gelas Plastik","biaya":12000},{"nama":"Tali Tambang","biaya":150000},{"nama":"Biaya Tak Terduga (sisa budget)","biaya":282000}]},"2025":{"budget":4480000,"hadiah":[{"nama":"Fashion Show","kat":"Semua Usia","j1":100000,"j2":75000,"j3":50000},{"nama":"Mewarnai (TK)","kat":"TK","j1":70000,"j2":60000,"j3":0},{"nama":"Mewarnai (SD)","kat":"SD (s.d. kelas 3)","j1":70000,"j2":60000,"j3":0},{"nama":"Cerdas Cermat","kat":"5 SD-2 SMP","j1":70000,"j2":60000,"j3":50000},{"nama":"Karnaval","kat":"Semua Usia","j1":60000,"j2":40000,"j3":0},{"nama":"Makan Biskuit","kat":"Batita","j1":60000,"j2":45000,"j3":35000},{"nama":"Bola Gelas","kat":"Batita","j1":60000,"j2":45000,"j3":35000},{"nama":"Sutol","kat":"1-4 SD","j1":65000,"j2":60000,"j3":50000},{"nama":"Balap Karung","kat":"1-4 SD","j1":65000,"j2":60000,"j3":50000},{"nama":"Estafet Kardus","kat":"1-4 SD","j1":70000,"j2":60000,"j3":50000},{"nama":"Corong Ayam","kat":"1-4 SD","j1":65000,"j2":60000,"j3":50000},{"nama":"Kardus Racing","kat":"5 SD-2 SMP","j1":70000,"j2":60000,"j3":50000},{"nama":"Balon Gundul","kat":"SD-SMP","j1":70000,"j2":60000,"j3":50000},{"nama":"Balon Kancing","kat":"5 SD-2 SMP","j1":70000,"j2":60000,"j3":50000},{"nama":"Estafet Kain Lilit","kat":"5 SD-2 SMP","j1":150000,"j2":130000,"j3":0},{"nama":"Kursi Joget","kat":"5 SD-2 SMP","j1":70000,"j2":60000,"j3":50000},{"nama":"Estafet Tepung","kat":"5 SD-2 SMP","j1":150000,"j2":130000,"j3":0},{"nama":"Estafet Air","kat":"5 SD-2 SMP","j1":70000,"j2":60000,"j3":50000}],"perlengkapan":[{"nama":"Bendera Plastik","biaya":120000},{"nama":"6 Benang","biaya":72000},{"nama":"100 pcs Balon","biaya":100000},{"nama":"Sedotan","biaya":20000},{"nama":"1 Slot Gelas Karton","biaya":25000},{"nama":"1 Pack Biskuit","biaya":15000},{"nama":"5 Karton","biaya":25000},{"nama":"Bola Warna Warni","biaya":60000},{"nama":"4 pcs Lakban Hitam","biaya":88000},{"nama":"2 Tirai","biaya":80000},{"nama":"1 Tulisan Dirgahayu RI","biaya":30000},{"nama":"1 kg Tepung","biaya":16000},{"nama":"Tali Rafia","biaya":30000},{"nama":"Isi Streples","biaya":30000},{"nama":"3 Pack Solasi","biaya":24000},{"nama":"35 Gulung Sampul Coklat","biaya":175000},{"nama":"Print Gambar 25 Gambar","biaya":25000},{"nama":"1 Gelas Plastik","biaya":10000},{"nama":"5 Karton Asturo","biaya":20000},{"nama":"Biaya Tak Terduga","biaya":225000}]}};
+    const YEARS = Object.keys(DATA).sort();
+    const META = {
+      '2023': { sumber: 'Simulasi', hut: 'HUT RI ke-78' },
+      '2024': { sumber: 'Simulasi', hut: 'HUT RI ke-79' },
+      '2025': { sumber: 'Proposal asli', hut: 'HUT RI ke-80' }
+    };
+
+    // Bangun ulang tabel DataGabungan dari data rekap
+    const ROWS = [];
+    YEARS.forEach(y => {
+      DATA[y].hadiah.forEach(h => ROWS.push({ tahun: y, jenis: 'Hadiah', nama: h.nama, kat: h.kat, j1: h.j1, j2: h.j2, j3: h.j3, total: h.j1 + h.j2 + h.j3 }));
+      DATA[y].perlengkapan.forEach(p => ROWS.push({ tahun: y, jenis: 'Perlengkapan', nama: p.nama, kat: '-', j1: 0, j2: 0, j3: 0, total: p.biaya }));
+    });
+
+    const rp = n => 'Rp ' + Math.round(n).toLocaleString('id-ID');
+    const rpShort = n => n >= 1e6 ? 'Rp ' + (n / 1e6).toLocaleString('id-ID', { maximumFractionDigits: 2 }) + ' jt' : rp(n);
+    const pct = n => (n * 100).toLocaleString('id-ID', { maximumFractionDigits: 1 }) + '%';
+    const sum = (arr, f) => arr.reduce((a, r) => a + f(r), 0);
+    const yearStats = y => {
+      const rs = ROWS.filter(r => r.tahun === y);
+      const hadiah = sum(rs.filter(r => r.jenis === 'Hadiah'), r => r.total);
+      const perl = sum(rs.filter(r => r.jenis === 'Perlengkapan'), r => r.total);
+      return { y, hadiah, perl, total: hadiah + perl, lomba: rs.filter(r => r.jenis === 'Hadiah').length, budget: DATA[y].budget };
+    };
+    const ALL = YEARS.map(yearStats);
+
+    document.getElementById('fact-rows').textContent = ROWS.length;
+    document.getElementById('fact-total').textContent = rpShort(sum(ALL, s => s.total));
+
+    // Ringkasan tabel
+    document.querySelector('#tbl-ringkasan tbody').innerHTML = ALL.map(s => {
+      const sisa = s.budget - s.total;
+      return `<tr>
+        <td><b>${s.y}</b> <span class="muted" style="font-size:.76rem">${META[s.y].hut}</span></td>
+        <td><span class="tag ${META[s.y].sumber === 'Simulasi' ? 'tag-sim' : 'tag-real'}">${META[s.y].sumber}</span></td>
+        <td class="num">${s.lomba}</td><td class="num">${rp(s.hadiah)}</td><td class="num">${rp(s.perl)}</td>
+        <td class="num"><b>${rp(s.total)}</b></td><td class="num">${rp(s.budget)}</td>
+        <td class="num ${sisa > 0 ? 'pos' : ''}">${rp(sisa)}</td><td class="num">${pct(s.hadiah / s.total)}</td></tr>`;
+    }).join('');
+
+    const peak = ALL.reduce((a, b) => b.total > a.total ? b : a);
+    const low = ALL.reduce((a, b) => b.total < a.total ? b : a);
+    document.getElementById('ins-peak').textContent = rpShort(peak.total) + ' · ' + peak.y;
+    document.getElementById('ins-peak-p').textContent = `Tahun dengan anggaran terbesar, ${pct(peak.total / low.total - 1)} di atas ${low.y}. Selisihnya terutama dari ${peak.lomba} lomba dan hadiah estafet/tarik tambang yang lebih tinggi.`;
+    const shares = ALL.map(s => s.hadiah / s.total);
+    document.getElementById('ins-share').textContent = pct(Math.min(...shares)) + ' – ' + pct(Math.max(...shares));
+    document.getElementById('ins-share-p').textContent = 'Porsi hadiah lomba dari total biaya. Hadiah selalu jadi pos terbesar; perlengkapan hanya sekitar seperempat sampai sepertiga anggaran.';
+
+    // Chart setup
+    Chart.defaults.color = '#a1a1aa';
+    Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+    Chart.defaults.font.size = 11;
+    Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
+    const C_H = '#38bdf8', C_P = '#fb923c', C_X = '#10b981';
+    const ribu = v => (v / 1000).toLocaleString('id-ID');
+    const tip = { callbacks: { label: c => {
+      const v = c.chart.options.indexAxis === 'y' ? c.parsed.x : c.parsed.y;
+      return ' ' + (c.dataset.label ? c.dataset.label + ': ' : '') + rp(v * 1000);
+    } } };
+    const scaleR = { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { callback: v => v.toLocaleString('id-ID') } };
+    const noGrid = { grid: { display: false } };
+
+    const charts = {};
+    charts.komposisi = new Chart(document.getElementById('c-komposisi'), {
+      type: 'doughnut',
+      data: { labels: ['Hadiah Lomba', 'Perlengkapan'], datasets: [{ data: [0, 0], backgroundColor: [C_H, C_P], borderColor: '#18181c', borderWidth: 3 }] },
+      options: {
+        maintainAspectRatio: false, cutout: '62%',
+        plugins: { legend: { position: 'right', labels: { boxWidth: 10, boxHeight: 10, padding: 14 } },
+          tooltip: { callbacks: { label: c => ' ' + c.label + ': ' + rp(c.parsed) + ' (' + pct(c.parsed / c.dataset.data.reduce((a, b) => a + b, 0)) + ')' } } }
+      }
+    });
+    charts.tahun = new Chart(document.getElementById('c-tahun'), {
+      type: 'bar',
+      data: { labels: YEARS, datasets: [
+        { label: 'Hadiah', data: [], backgroundColor: C_H, borderRadius: 4, maxBarThickness: 34 },
+        { label: 'Perlengkapan', data: [], backgroundColor: C_P, borderRadius: 4, maxBarThickness: 34 }] },
+      options: { maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: tip }, scales: { x: noGrid, y: scaleR } }
+    });
+    charts.juara = new Chart(document.getElementById('c-juara'), {
+      type: 'bar',
+      data: { labels: ['Juara 1', 'Juara 2', 'Juara 3'], datasets: [{ data: [], backgroundColor: ['#fbbf24', '#a1a1aa', '#c2773b'], borderRadius: 4, maxBarThickness: 48 }] },
+      options: { maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: tip }, scales: { x: noGrid, y: scaleR } }
+    });
+    charts.budget = new Chart(document.getElementById('c-budget'), {
+      type: 'bar',
+      data: { labels: YEARS, datasets: [
+        { label: 'Budget', data: [], backgroundColor: '#52525b', borderRadius: 4, maxBarThickness: 34 },
+        { label: 'Total biaya', data: [], backgroundColor: C_X, borderRadius: 4, maxBarThickness: 34 }] },
+      options: { maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: tip }, scales: { x: noGrid, y: scaleR } }
+    });
+    const hbar = (id, color) => new Chart(document.getElementById(id), {
+      type: 'bar',
+      data: { labels: [], datasets: [{ data: [], backgroundColor: color, borderRadius: 3, maxBarThickness: 18 }] },
+      options: { indexAxis: 'y', maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: tip },
+        scales: { x: scaleR, y: { grid: { display: false }, ticks: { autoSkip: false, font: { size: 10.5 } } } } }
+    });
+    charts.topH = hbar('c-top-h', C_H);
+    charts.topP = hbar('c-top-p', C_P);
+
+    let YEAR = 'all', JENIS = 'all';
+
+    function render() {
+      const vis = ROWS.filter(r => YEAR === 'all' || r.tahun === YEAR);
+      const visYears = YEAR === 'all' ? YEARS : [YEAR];
+      const st = ALL.filter(s => visYears.includes(s.y));
+      const H = vis.filter(r => r.jenis === 'Hadiah'), P = vis.filter(r => r.jenis === 'Perlengkapan');
+      const tH = sum(H, r => r.total), tP = sum(P, r => r.total), tot = tH + tP;
+      const budget = sum(st, s => s.budget);
+
+      document.getElementById('k-total').textContent = rpShort(tot);
+      document.getElementById('k-total-h').textContent = 'Budget ' + rpShort(budget) + ' · sisa ' + rp(budget - tot);
+      document.getElementById('k-hadiah').textContent = rpShort(tH);
+      document.getElementById('k-hadiah-h').textContent = pct(tH / tot) + ' dari total';
+      document.getElementById('k-perl').textContent = rpShort(tP);
+      document.getElementById('k-perl-h').textContent = pct(tP / tot) + ' dari total · ' + P.length + ' item';
+      document.getElementById('k-lomba').textContent = H.length;
+      document.getElementById('k-lomba-h').textContent = YEAR === 'all' ? 'lomba-tahun, 3 tahun' : 'lomba di ' + YEAR;
+      document.getElementById('k-avg').textContent = rpShort(tot / visYears.length);
+      document.getElementById('k-avg-h').textContent = 'dibagi ' + visYears.length + ' tahun tampil';
+
+      charts.komposisi.data.datasets[0].data = [tH, tP]; charts.komposisi.update();
+      charts.tahun.data.datasets[0].data = YEARS.map(y => visYears.includes(y) ? ALL.find(s => s.y === y).hadiah / 1000 : 0);
+      charts.tahun.data.datasets[1].data = YEARS.map(y => visYears.includes(y) ? ALL.find(s => s.y === y).perl / 1000 : 0);
+      charts.tahun.update();
+      charts.juara.data.datasets[0].data = [sum(H, r => r.j1), sum(H, r => r.j2), sum(H, r => r.j3)].map(v => v / 1000); charts.juara.update();
+      charts.budget.data.datasets[0].data = YEARS.map(y => visYears.includes(y) ? DATA[y].budget / 1000 : 0);
+      charts.budget.data.datasets[1].data = YEARS.map(y => visYears.includes(y) ? ALL.find(s => s.y === y).total / 1000 : 0);
+      charts.budget.update();
+      const top = (arr) => [...arr].sort((a, b) => b.total - a.total).slice(0, 10);
+      const lbl = r => YEAR === 'all' ? `${r.nama} (${r.tahun})` : r.nama;
+      const tH10 = top(H), tP10 = top(P);
+      charts.topH.data.labels = tH10.map(lbl); charts.topH.data.datasets[0].data = tH10.map(r => r.total / 1000); charts.topH.update();
+      charts.topP.data.labels = tP10.map(lbl); charts.topP.data.datasets[0].data = tP10.map(r => r.total / 1000); charts.topP.update();
+
+      renderDetail();
+    }
+
+    function renderDetail() {
+      const q = document.getElementById('q').value.trim().toLowerCase();
+      const rs = ROWS.filter(r => (YEAR === 'all' || r.tahun === YEAR) && (JENIS === 'all' || r.jenis === JENIS) && (!q || r.nama.toLowerCase().includes(q)));
+      const cell = v => v ? rp(v) : '<span class="muted">–</span>';
+      document.querySelector('#tbl-detail tbody').innerHTML = rs.map(r => `<tr>
+        <td class="mono">${r.tahun}</td>
+        <td><span class="tag ${r.jenis === 'Hadiah' ? 'tag-h' : 'tag-p'}">${r.jenis}</span></td>
+        <td>${r.nama}</td><td class="muted">${r.kat}</td>
+        <td class="num">${cell(r.j1)}</td><td class="num">${cell(r.j2)}</td><td class="num">${cell(r.j3)}</td>
+        <td class="num"><b>${rp(r.total)}</b></td></tr>`).join('') || '<tr><td colspan="8" class="muted">Tidak ada data yang cocok.</td></tr>';
+      document.getElementById('detail-count').textContent = rs.length + ' baris';
+      document.getElementById('detail-sum').textContent = rp(sum(rs, r => r.total));
+    }
+
+    document.querySelectorAll('[data-year]').forEach(b => b.addEventListener('click', () => {
+      YEAR = b.dataset.year;
+      document.querySelectorAll('[data-year]').forEach(x => x.setAttribute('aria-pressed', x === b));
+      render();
+    }));
+    document.querySelectorAll('[data-jenis]').forEach(b => b.addEventListener('click', () => {
+      JENIS = b.dataset.jenis;
+      document.querySelectorAll('[data-jenis]').forEach(x => x.setAttribute('aria-pressed', x === b));
+      renderDetail();
+    }));
+    document.getElementById('q').addEventListener('input', renderDetail);
+
+    render();
+
+    if (window.self !== window.top) document.body.classList.add('in-iframe');
+
+    function closeOrGoBack(event) {
+      if (event) event.preventDefault();
+      window.close();
+      setTimeout(function () {
+        if (window.history.length > 1) window.history.back();
+        else window.location.href = 'index.html#projek';
+      }, 200);
+    }
+  </script>
+</body>
+
+</html>
