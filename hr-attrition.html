@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prediksi Karyawan Resign (Machine Learning) — Fajar Sidiq Cahyanto</title>
+  <meta name="description"
+    content="Studi kasus machine learning: memprediksi risiko karyawan resign dengan Logistic Regression yang dapat dijelaskan, lengkap dengan simulator risiko interaktif.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    :root {
+      --bg: #09090b;
+      --card-bg: #111114;
+      --card-subtle: #18181c;
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-hover-border: rgba(255, 255, 255, 0.2);
+      --text-main: #fafafa;
+      --text-muted: #a1a1aa;
+      --text-dim: #71717a;
+      --ml: #60a5fa;
+      --ml-strong: #3b82f6;
+      --ml-soft: rgba(59, 130, 246, 0.12);
+      --ml-line: rgba(59, 130, 246, 0.32);
+      --up: #fb7185;
+      --down: #34d399;
+      --warn: #fbbf24;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text-main);
+      line-height: 1.6; -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+
+    /* UNIFORM PORTFOLIO TOPBAR */
+    .pbi-topbar {
+      position: sticky; top: 0; z-index: 1050; background: #0b1c32; color: #fff;
+      height: 56px; padding: 10px 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+    body.in-iframe .pbi-topbar { display: none !important; }
+    .pbi-topbar-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .pbi-back-btn {
+      width: 32px; height: 32px; border-radius: 6px; background: rgba(255, 255, 255, 0.12); color: #fff;
+      display: flex; align-items: center; justify-content: center; text-decoration: none; transition: all .2s; flex-shrink: 0;
+    }
+    .pbi-back-btn:hover { background: rgba(255, 255, 255, 0.25); transform: translateX(-2px); }
+    .pbi-branding { min-width: 0; }
+    .pbi-brand-title { font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 8px; letter-spacing: -.2px; line-height: 1.2; }
+    .pbi-badge { font-size: 10px; font-family: 'JetBrains Mono', monospace; padding: 2px 6px; border-radius: 4px; font-weight: 600; text-transform: uppercase; white-space: nowrap; }
+    .pbi-badge-blue { background: rgba(59, 130, 246, 0.2); color: #93c5fd; border: 1px solid rgba(59, 130, 246, 0.4); }
+    .pbi-brand-sub { font-size: 11px; color: rgba(255, 255, 255, 0.7); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2; }
+    .pbi-topbar-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .topbar-actions { display: flex; align-items: center; gap: 6px; }
+    .topbar-pill {
+      display: inline-flex; align-items: center; gap: 5px; padding: 5px 10px; border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.14); text-decoration: none; transition: all .2s; white-space: nowrap;
+    }
+    .topbar-pill:hover { color: #fff; background: rgba(255, 255, 255, 0.18); border-color: rgba(255, 255, 255, 0.3); }
+    .topbar-pill-ml { background: rgba(59, 130, 246, 0.16); border-color: rgba(59, 130, 246, 0.38); color: #93c5fd; }
+    .pbi-exit-btn {
+      display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.22); border-radius: 6px; color: #fff; text-decoration: none; font-size: 12px; font-weight: 600; white-space: nowrap;
+    }
+    .pbi-exit-btn:hover { background: rgba(255, 255, 255, 0.24); }
+    @media (max-width: 960px) { .topbar-actions { display: none; } }
+    @media (max-width: 640px) {
+      .pbi-topbar { padding: 8px 12px; } .pbi-brand-sub { display: none; }
+      .pbi-exit-btn span { display: none; } .pbi-exit-btn { padding: 6px 10px; }
+    }
+
+    /* LAYOUT */
+    .container { max-width: 1100px; margin: 0 auto; padding: 36px 24px 80px; }
+    section { margin-top: 60px; scroll-margin-top: 80px; }
+    .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: var(--ml); font-weight: 600; margin-bottom: 6px; display: block; }
+    h1 { font-size: clamp(1.7rem, 3.6vw, 2.5rem); font-weight: 800; letter-spacing: -.03em; line-height: 1.15; }
+    h2 { font-size: clamp(1.25rem, 2.4vw, 1.6rem); font-weight: 800; letter-spacing: -.02em; line-height: 1.25; }
+    h3 { font-size: .95rem; font-weight: 700; letter-spacing: -.01em; }
+    .lead { color: var(--text-muted); font-size: .98rem; max-width: 780px; margin-top: 12px; }
+    .muted { color: var(--text-muted); }
+    .dim { color: var(--text-dim); }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 9999px; font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; font-family: 'JetBrains Mono', monospace; }
+    .badge-ml { background: var(--ml-soft); color: #93c5fd; border: 1px solid var(--ml-line); }
+    .badge-green { background: rgba(16, 185, 129, .12); color: #34d399; border: 1px solid rgba(16, 185, 129, .3); }
+    .badge-amber { background: rgba(245, 158, 11, .12); color: #fbbf24; border: 1px solid rgba(245, 158, 11, .28); }
+
+    .cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 10px; font-weight: 700; font-size: .86rem; text-decoration: none; transition: all .2s; cursor: pointer; border: 1px solid transparent; }
+    .btn-primary { background: var(--ml-strong); color: #fff; }
+    .btn-primary:hover { background: #2563eb; transform: translateY(-1px); }
+    .btn-ghost { background: rgba(255, 255, 255, .05); border-color: var(--card-border); color: var(--text-main); }
+    .btn-ghost:hover { border-color: var(--card-hover-border); }
+
+    .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 20px; }
+    .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 32px; }
+    .fact { padding: 16px 18px; }
+    .fact b { display: block; font-size: 1.5rem; font-weight: 800; letter-spacing: -.02em; }
+    .fact span { font-size: .78rem; color: var(--text-muted); }
+    @media (max-width: 760px) { .facts { grid-template-columns: repeat(2, 1fr); } }
+
+    /* SIMULATOR */
+    .sim { display: grid; grid-template-columns: 1.25fr 1fr; gap: 14px; margin-top: 20px; align-items: start; }
+    @media (max-width: 900px) { .sim { grid-template-columns: 1fr; } }
+    .presets { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+    .chip { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; font-weight: 600; padding: 6px 11px; border-radius: 8px; border: 1px solid var(--card-border); background: var(--bg); color: var(--text-muted); cursor: pointer; transition: all .15s; }
+    .chip:hover { border-color: var(--card-hover-border); color: var(--text-main); }
+    .chip.on { background: var(--ml-soft); border-color: var(--ml-line); color: #93c5fd; }
+    fieldset { border: none; margin-top: 14px; }
+    legend { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--text-dim); margin-bottom: 8px; font-weight: 600; }
+    .fields { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 14px; }
+    @media (max-width: 520px) { .fields { grid-template-columns: 1fr; } }
+    .field label { display: flex; justify-content: space-between; gap: 8px; font-size: .8rem; color: var(--text-muted); margin-bottom: 4px; }
+    .field label output { font-family: 'JetBrains Mono', monospace; color: var(--text-main); font-weight: 600; font-size: .78rem; }
+    select, input[type=number] {
+      width: 100%; background: var(--bg); border: 1px solid var(--card-border); border-radius: 8px; color: var(--text-main);
+      font: inherit; font-size: .84rem; padding: 7px 10px;
+    }
+    select:focus, input:focus { outline: none; border-color: var(--ml-line); }
+    input[type=range] { width: 100%; accent-color: var(--ml-strong); }
+    .seg { display: flex; gap: 4px; }
+    .seg button { flex: 1; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; padding: 6px 0; border-radius: 7px; border: 1px solid var(--card-border); background: var(--bg); color: var(--text-muted); cursor: pointer; }
+    .seg button.on { background: var(--ml-soft); border-color: var(--ml-line); color: #93c5fd; font-weight: 700; }
+
+    .result { position: sticky; top: 76px; }
+    .gauge-wrap { display: flex; align-items: center; gap: 18px; }
+    .gauge { width: 132px; height: 132px; flex-shrink: 0; }
+    .score { font-size: 2.4rem; font-weight: 800; letter-spacing: -.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+    .tier { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; padding: 3px 10px; border-radius: 999px; font-size: .74rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; }
+    .tier.low { background: rgba(52, 211, 153, .12); color: var(--down); }
+    .tier.mid { background: rgba(251, 191, 36, .12); color: var(--warn); }
+    .tier.high { background: rgba(251, 113, 133, .14); color: var(--up); }
+    .cmp { font-size: .8rem; color: var(--text-muted); margin-top: 8px; }
+    .contrib { margin-top: 18px; }
+    .contrib h3 { font-size: .8rem; margin-bottom: 8px; }
+    .crow { display: grid; grid-template-columns: 1fr 120px; gap: 10px; align-items: center; font-size: .78rem; padding: 4px 0; }
+    .cbar { height: 8px; border-radius: 4px; background: rgba(255, 255, 255, .05); position: relative; overflow: hidden; }
+    .cbar i { position: absolute; top: 0; bottom: 0; border-radius: 4px; }
+    .actions { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--card-border); }
+    .actions h3 { font-size: .8rem; margin-bottom: 6px; }
+    .actions ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .actions li { font-size: .8rem; color: var(--text-muted); display: flex; gap: 8px; }
+    .actions li i { color: var(--ml); margin-top: 4px; font-size: 10px; }
+    .disclaimer { font-size: .72rem; color: var(--text-dim); margin-top: 12px; }
+
+    /* CHARTS / GRIDS */
+    .grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 20px; }
+    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px; }
+    @media (max-width: 820px) { .grid2, .grid3 { grid-template-columns: 1fr; } }
+    .chart-card h3 { font-size: .86rem; }
+    .chart-card .cap { font-size: .74rem; color: var(--text-dim); margin-bottom: 10px; }
+    .chart-box { position: relative; height: 240px; }
+    .chart-box.tall { height: 380px; }
+    .insight b { display: block; font-size: 1.4rem; font-weight: 800; letter-spacing: -.02em; margin-bottom: 4px; }
+    .insight p { font-size: .84rem; color: var(--text-muted); }
+
+    .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--card-border); }
+    table { width: 100%; border-collapse: collapse; font-size: .84rem; }
+    th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--card-border); white-space: nowrap; }
+    th { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--text-dim); background: var(--card-subtle); font-weight: 600; }
+    td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+    tr.best td { background: rgba(59, 130, 246, .06); }
+    .cm { display: grid; grid-template-columns: auto 1fr 1fr; gap: 6px; font-size: .8rem; margin-top: 6px; }
+    .cm div { padding: 12px; border-radius: 10px; text-align: center; background: var(--card-subtle); border: 1px solid var(--card-border); }
+    .cm .h { background: none; border: none; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; font-size: 10.5px; text-transform: uppercase; padding: 6px; display: flex; align-items: center; justify-content: center; }
+    .cm b { display: block; font-size: 1.4rem; font-weight: 800; }
+    .cm .good { border-color: rgba(52, 211, 153, .3); background: rgba(52, 211, 153, .06); }
+    .cm .bad { border-color: rgba(251, 113, 133, .3); background: rgba(251, 113, 133, .06); }
+
+    .steps { counter-reset: s; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px; }
+    @media (max-width: 820px) { .steps { grid-template-columns: 1fr; } }
+    .step { position: relative; padding-top: 44px; }
+    .step::before { counter-increment: s; content: '0' counter(s); position: absolute; top: 16px; left: 20px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: var(--ml); }
+    .step p { font-size: .82rem; color: var(--text-muted); margin-top: 4px; }
+
+    .ethic { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+    @media (max-width: 820px) { .ethic { grid-template-columns: 1fr; } }
+    .ethic ul { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+    .ethic li { font-size: .84rem; color: var(--text-muted); display: flex; gap: 10px; }
+    .ethic li i { margin-top: 5px; font-size: 11px; }
+
+    .band { margin-top: 60px; padding: 26px; border-radius: 18px; display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between; background: linear-gradient(135deg, rgba(59, 130, 246, .16), rgba(59, 130, 246, .03)); border: 1px solid var(--ml-line); }
+    .band h2 { font-size: 1.2rem; }
+    .band p { font-size: .86rem; color: var(--text-muted); margin-top: 4px; }
+    footer { margin-top: 48px; font-size: .78rem; color: var(--text-dim); text-align: center; }
+  </style>
+</head>
+
+<body>
+
+  <header class="pbi-topbar">
+    <div class="pbi-topbar-left">
+      <a href="index.html#projek" onclick="closeOrGoBack(event)" class="pbi-back-btn" title="Tutup Tab & Kembali ke Portofolio"><i class="fa-solid fa-arrow-left"></i></a>
+      <div class="pbi-branding">
+        <div class="pbi-brand-title">
+          <i class="fa-solid fa-user-clock" style="color:#93c5fd;"></i>
+          <span>Prediksi Karyawan Resign</span>
+          <span class="pbi-badge pbi-badge-blue">Machine Learning</span>
+        </div>
+        <div class="pbi-brand-sub">Python • scikit-learn • Logistic Regression • Explainable AI • Simulator Risiko</div>
+      </div>
+    </div>
+    <div class="pbi-topbar-right">
+      <div class="topbar-actions">
+        <a href="#simulator" class="topbar-pill topbar-pill-ml"><i class="fa-solid fa-sliders"></i> <span>Simulator</span></a>
+        <a href="#temuan" class="topbar-pill"><i class="fa-solid fa-magnifying-glass-chart"></i> <span>Temuan</span></a>
+        <a href="#model" class="topbar-pill"><i class="fa-solid fa-chart-line"></i> <span>Evaluasi</span></a>
+        <a href="https://github.com/fcahyanto4-cmyk/portofolio/blob/main/ml-attrition/hr_attrition_prediction.ipynb" target="_blank" rel="noopener noreferrer" class="topbar-pill"><i class="fa-brands fa-python"></i> <span>Notebook</span></a>
+      </div>
+      <a href="index.html#projek" onclick="closeOrGoBack(event)" class="pbi-exit-btn" title="Tutup Tab & Kembali ke Portofolio"><span>Kembali ke Portofolio</span><i class="fa-solid fa-xmark"></i></a>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- HERO -->
+    <div>
+      <div class="badges">
+        <span class="badge badge-ml"><i class="fa-brands fa-python"></i> Python · scikit-learn</span>
+        <span class="badge badge-green">People Analytics</span>
+        <span class="badge badge-amber">Explainable &amp; Fair</span>
+      </div>
+      <h1>Prediksi Karyawan Resign<br>dengan Machine Learning</h1>
+      <p class="lead">
+        Model klasifikasi yang memberi skor risiko resign untuk tiap karyawan dan menjelaskan <b>faktor kerja</b> yang
+        mendorongnya. Tujuannya membantu HR memprioritaskan percakapan retensi sebelum karyawan mengajukan pengunduran diri.
+        Model ini sengaja tidak memakai gender, status pernikahan, dan usia.
+      </p>
+      <div class="cta-row">
+        <a href="#simulator" class="btn btn-primary"><i class="fa-solid fa-sliders"></i> Coba Simulator Risiko</a>
+        <a href="https://github.com/fcahyanto4-cmyk/portofolio/blob/main/ml-attrition/hr_attrition_prediction.ipynb" target="_blank" rel="noopener noreferrer" class="btn btn-ghost"><i class="fa-brands fa-python"></i> Lihat Notebook Python</a>
+      </div>
+      <div class="facts">
+        <div class="card fact"><b id="f-n">–</b><span>karyawan dalam dataset</span></div>
+        <div class="card fact"><b id="f-auc">–</b><span>ROC-AUC di data uji</span></div>
+        <div class="card fact"><b id="f-recall">–</b><span>karyawan resign yang terdeteksi</span></div>
+        <div class="card fact"><b id="f-gain">–</b><span>resign tertangkap hanya dengan fokus ke 20% karyawan</span></div>
+      </div>
+    </div>
+
+    <!-- SIMULATOR -->
+    <section id="simulator">
+      <span class="eyebrow">01 / Simulator Risiko</span>
+      <h2>Coba sendiri: berapa risiko resign karyawan ini?</h2>
+      <p class="lead">Ubah profil di bawah. Skor dihitung langsung di browser memakai koefisien model yang sama dengan notebook. Coba matikan "Lembur" dan lihat skornya turun.</p>
+
+      <div class="sim">
+        <div class="card">
+          <div class="presets" id="presets"></div>
+          <form id="form" onsubmit="return false">
+            <fieldset>
+              <legend>Pekerjaan</legend>
+              <div class="fields">
+                <div class="field"><label for="JobRole">Peran</label><select id="JobRole"></select></div>
+                <div class="field"><label for="JobLevel">Job level <output id="o-JobLevel"></output></label><input type="range" id="JobLevel" min="1" max="5" step="1"></div>
+                <div class="field"><label>Lembur</label><div class="seg" data-for="OverTime"><button type="button" data-v="No">Tidak</button><button type="button" data-v="Yes">Ya</button></div></div>
+                <div class="field"><label for="BusinessTravel">Dinas luar kota</label>
+                  <select id="BusinessTravel"><option value="Non-Travel">Tidak pernah</option><option value="Travel_Rarely">Kadang-kadang</option><option value="Travel_Frequently">Sering</option></select></div>
+                <div class="field"><label for="MonthlyIncome">Gaji bulanan <output id="o-MonthlyIncome"></output></label><input type="range" id="MonthlyIncome" min="1000" max="20000" step="250"></div>
+                <div class="field"><label for="StockOptionLevel">Opsi saham / insentif jangka panjang</label>
+                  <select id="StockOptionLevel"><option value="0">0 · tidak ada</option><option value="1">1 · rendah</option><option value="2">2 · sedang</option><option value="3">3 · tinggi</option></select></div>
+                <div class="field"><label for="DistanceFromHome">Jarak rumah (km) <output id="o-DistanceFromHome"></output></label><input type="range" id="DistanceFromHome" min="1" max="29" step="1"></div>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Riwayat karier</legend>
+              <div class="fields">
+                <div class="field"><label for="TotalWorkingYears">Total pengalaman kerja (th) <output id="o-TotalWorkingYears"></output></label><input type="range" id="TotalWorkingYears" min="0" max="40" step="1"></div>
+                <div class="field"><label for="YearsAtCompany">Masa kerja di perusahaan (th) <output id="o-YearsAtCompany"></output></label><input type="range" id="YearsAtCompany" min="0" max="40" step="1"></div>
+                <div class="field"><label for="YearsSinceLastPromotion">Sejak promosi terakhir (th) <output id="o-YearsSinceLastPromotion"></output></label><input type="range" id="YearsSinceLastPromotion" min="0" max="15" step="1"></div>
+                <div class="field"><label for="YearsWithCurrManager">Bersama atasan sekarang (th) <output id="o-YearsWithCurrManager"></output></label><input type="range" id="YearsWithCurrManager" min="0" max="17" step="1"></div>
+                <div class="field"><label for="NumCompaniesWorked">Perusahaan sebelumnya <output id="o-NumCompaniesWorked"></output></label><input type="range" id="NumCompaniesWorked" min="0" max="9" step="1"></div>
+                <div class="field"><label for="TrainingTimesLastYear">Pelatihan tahun lalu <output id="o-TrainingTimesLastYear"></output></label><input type="range" id="TrainingTimesLastYear" min="0" max="6" step="1"></div>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Survei kepuasan (1 = rendah, 4 = sangat tinggi)</legend>
+              <div class="fields" id="sat-fields"></div>
+            </fieldset>
+          </form>
+        </div>
+
+        <div class="card result" aria-live="polite">
+          <div class="gauge-wrap">
+            <svg class="gauge" viewBox="0 0 120 120" aria-hidden="true">
+              <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="12" />
+              <circle id="g-arc" cx="60" cy="60" r="50" fill="none" stroke="#60a5fa" stroke-width="12" stroke-linecap="round"
+                stroke-dasharray="314.16" stroke-dashoffset="314.16" transform="rotate(-90 60 60)" style="transition: stroke-dashoffset .35s, stroke .35s" />
+              <line id="g-avg" x1="60" y1="4" x2="60" y2="16" stroke="#a1a1aa" stroke-width="2" transform="rotate(0 60 60)" />
+            </svg>
+            <div>
+              <div class="dim mono" style="font-size:10.5px;text-transform:uppercase;letter-spacing:.06em">Peluang resign</div>
+              <div class="score" id="score">–</div>
+              <div class="tier" id="tier">–</div>
+              <div class="cmp" id="cmp"></div>
+            </div>
+          </div>
+          <div class="contrib">
+            <h3>Faktor yang paling memengaruhi skor ini</h3>
+            <div id="contrib"></div>
+            <div class="dim" style="font-size:.7rem;margin-top:6px"><span style="color:var(--up)">■</span> menaikkan risiko &nbsp; <span style="color:var(--down)">■</span> menurunkan risiko, dibanding karyawan rata-rata</div>
+          </div>
+          <div class="actions">
+            <h3>Saran tindakan untuk HR</h3>
+            <ul id="actions"></ul>
+          </div>
+          <p class="disclaimer"><i class="fa-solid fa-circle-info"></i> Alat bantu prioritas percakapan retensi, bukan dasar keputusan disiplin atau PHK. Gaji memakai satuan dataset (USD/bulan).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEMUAN -->
+    <section id="temuan">
+      <span class="eyebrow">02 / Temuan EDA</span>
+      <h2>Siapa yang paling sering resign?</h2>
+      <p class="lead">Rata-rata attrition di dataset adalah <b id="t-base">–</b>. Garis putus-putus di grafik menandai rata-rata ini.</p>
+      <div class="grid2">
+        <div class="card chart-card"><h3>Lembur</h3><div class="cap">Attrition rate (%)</div><div class="chart-box"><canvas id="c-ot"></canvas></div></div>
+        <div class="card chart-card"><h3>Peran / job role</h3><div class="cap">Attrition rate (%)</div><div class="chart-box"><canvas id="c-role"></canvas></div></div>
+        <div class="card chart-card"><h3>Opsi saham</h3><div class="cap">Attrition rate (%) per level</div><div class="chart-box"><canvas id="c-stock"></canvas></div></div>
+        <div class="card chart-card"><h3>Job level</h3><div class="cap">Attrition rate (%) per level</div><div class="chart-box"><canvas id="c-level"></canvas></div></div>
+      </div>
+      <div class="grid3">
+        <div class="card insight"><b id="i-ot">–</b><p>Karyawan yang lembur resign jauh lebih sering dibanding yang tidak lembur. Ini pendorong terbesar yang bisa langsung dikendalikan perusahaan.</p></div>
+        <div class="card insight"><b id="i-role">–</b><p>Attrition Sales Representative, peran paling rawan. Laboratory Technician dan HR juga di atas rata-rata.</p></div>
+        <div class="card insight"><b id="i-stock">–</b><p>Attrition karyawan tanpa opsi saham. Insentif jangka panjang terlihat menahan karyawan, terutama di level junior.</p></div>
+      </div>
+    </section>
+
+    <!-- MODEL -->
+    <section id="model">
+      <span class="eyebrow">03 / Model &amp; Evaluasi</span>
+      <h2>Memilih model yang akurat dan bisa dijelaskan</h2>
+      <p class="lead">Tiga model dibandingkan dengan 5-fold cross-validation pada data latih. Data uji (20%, <span id="m-ntest"></span> karyawan) baru dipakai sekali di akhir. Kelasnya tidak seimbang (16% resign), jadi akurasi tidak dipakai sebagai patokan.</p>
+
+      <div class="table-wrap" style="margin-top:18px">
+        <table>
+          <thead><tr><th>Model</th><th class="num">CV ROC-AUC</th><th class="num">CV PR-AUC</th><th>Catatan</th></tr></thead>
+          <tbody id="cv-body"></tbody>
+        </table>
+      </div>
+
+      <div class="grid3">
+        <div class="card chart-card"><h3>Kurva ROC (data uji)</h3><div class="cap" id="roc-cap"></div><div class="chart-box"><canvas id="c-roc"></canvas></div></div>
+        <div class="card chart-card"><h3>Kurva gain</h3><div class="cap">% resign tertangkap vs % karyawan diprioritaskan</div><div class="chart-box"><canvas id="c-gain"></canvas></div></div>
+        <div class="card chart-card">
+          <h3>Confusion matrix</h3>
+          <div class="cap" id="cm-cap"></div>
+          <div class="cm">
+            <div class="h"></div><div class="h">Prediksi aman</div><div class="h">Prediksi berisiko</div>
+            <div class="h">Bertahan</div><div><b id="cm-tn"></b><span class="dim">benar aman</span></div><div><b id="cm-fp"></b><span class="dim">diajak bicara</span></div>
+            <div class="h">Resign</div><div class="bad"><b id="cm-fn"></b><span class="dim">terlewat</span></div><div class="good"><b id="cm-tp"></b><span class="dim">terdeteksi</span></div>
+          </div>
+          <p class="dim" style="font-size:.74rem;margin-top:10px">Ambang dipilih lewat F2-score karena melewatkan karyawan yang akan resign lebih mahal daripada satu percakapan retensi tambahan.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DRIVERS -->
+    <section id="faktor">
+      <span class="eyebrow">04 / Explainable AI</span>
+      <h2>Faktor pendorong resign</h2>
+      <p class="lead">Koefisien Logistic Regression ditampilkan sebagai <b>odds ratio</b>. Angka 4,7× berarti peluang resign (dalam odds) naik 4,7 kali. Faktor numerik diukur per kenaikan 1 standar deviasi; kategori dibandingkan dengan kategori acuan.</p>
+      <div class="card chart-card" style="margin-top:18px">
+        <div class="chart-box tall"><canvas id="c-drivers"></canvas></div>
+      </div>
+    </section>
+
+    <!-- ETIKA -->
+    <section id="etika">
+      <span class="eyebrow">05 / Fair &amp; Bertanggung Jawab</span>
+      <h2>Desain model yang adil</h2>
+      <div class="ethic">
+        <div class="card">
+          <h3><i class="fa-solid fa-scale-balanced" style="color:var(--ml)"></i> Yang sengaja tidak dipakai</h3>
+          <ul>
+            <li><i class="fa-solid fa-xmark" style="color:var(--up)"></i><span><b>Gender, status pernikahan, dan usia.</b> Statistiknya memang berkorelasi, tetapi memakainya untuk keputusan SDM bersifat diskriminatif. Tanpa ketiganya, AUC tidak turun (0,85 di CV).</span></li>
+            <li><i class="fa-solid fa-xmark" style="color:var(--up)"></i><span><b>DailyRate, HourlyRate, MonthlyRate.</b> Tidak konsisten dengan gaji bulanan, jadi diperlakukan sebagai noise.</span></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3><i class="fa-solid fa-triangle-exclamation" style="color:var(--warn)"></i> Batasan yang perlu diketahui</h3>
+          <ul>
+            <li><i class="fa-solid fa-circle" style="color:var(--text-dim);font-size:6px;margin-top:8px"></i><span>Dataset IBM ini <b>fiktif</b> dan kecil (1.470 baris, 237 resign). Model perlu dilatih ulang dengan data perusahaan sungguhan.</span></li>
+            <li><i class="fa-solid fa-circle" style="color:var(--text-dim);font-size:6px;margin-top:8px"></i><span>Koefisien menunjukkan <b>asosiasi, bukan sebab-akibat</b>. Faktor yang muncul adalah titik awal investigasi.</span></li>
+            <li><i class="fa-solid fa-circle" style="color:var(--text-dim);font-size:6px;margin-top:8px"></i><span>Skor dipakai untuk memprioritaskan percakapan, dan harus dipantau berkala (data drift).</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- METODOLOGI -->
+    <section id="metodologi">
+      <span class="eyebrow">06 / Metodologi</span>
+      <h2>Alur kerja</h2>
+      <div class="steps">
+        <div class="card step"><h3>Pahami &amp; bersihkan data</h3><p>Cek missing value, duplikat, kolom konstan. Buang ID dan kolom yang tidak informatif.</p></div>
+        <div class="card step"><h3>EDA &amp; rekayasa fitur</h3><p>Attrition rate per segmen. Log-transform gaji; job level dan opsi saham sebagai kategori karena polanya tidak linear.</p></div>
+        <div class="card step"><h3>Pilih fitur yang adil</h3><p>18 faktor kerja yang bisa ditindaklanjuti HR, tanpa atribut demografis sensitif.</p></div>
+        <div class="card step"><h3>Bandingkan model</h3><p>Logistic Regression, Random Forest, Gradient Boosting di pipeline scikit-learn dengan 5-fold stratified CV.</p></div>
+        <div class="card step"><h3>Tentukan ambang</h3><p>Optimasi F2-score pada prediksi out-of-fold, lalu evaluasi sekali di data uji.</p></div>
+        <div class="card step"><h3>Jelaskan &amp; deploy</h3><p>Odds ratio dan kontribusi per karyawan. Model diekspor ke JSON dan dijalankan di browser; skornya identik dengan scikit-learn.</p></div>
+      </div>
+    </section>
+
+    <div class="band">
+      <div>
+        <h2>Kode lengkap di GitHub</h2>
+        <p>Notebook Python (Bahasa Indonesia) berisi EDA, perbandingan model, evaluasi, dan ekspor model.</p>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a href="https://github.com/fcahyanto4-cmyk/portofolio/blob/main/ml-attrition/hr_attrition_prediction.ipynb" target="_blank" rel="noopener noreferrer" class="btn btn-primary"><i class="fa-brands fa-github"></i> Buka Notebook</a>
+        <a href="assets/documents/ibm_hr_attrition.csv" download class="btn btn-ghost"><i class="fa-solid fa-download"></i> Dataset (.csv)</a>
+      </div>
+    </div>
+
+    <footer>© Fajar Sidiq Cahyanto · Studi kasus Machine Learning · Data: IBM HR Analytics Employee Attrition (fiktif)</footer>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
+  <script>
+    const PAYLOAD = {"model":{"intercept":-2.591650507167583,"threshold":0.18,"base_rate":0.16122448979591836,"num":[{"name":"DistanceFromHome","mean":9.357993197278912,"scale":8.176324543923926,"coef":0.33851875314607766},{"name":"EnvironmentSatisfaction","mean":2.7168367346938775,"scale":1.0882436985777129,"coef":-0.42293392086692516},{"name":"JobInvolvement","mean":2.7372448979591835,"scale":0.7033742009454156,"coef":-0.3631730647020405},{"name":"JobSatisfaction","mean":2.7193877551020407,"scale":1.1101717244684475,"coef":-0.3345587059459876},{"name":"NumCompaniesWorked","mean":2.693027210884354,"scale":2.4850202272560704,"coef":0.3982150915077696},{"name":"TotalWorkingYears","mean":11.364795918367347,"scale":7.798073553694327,"coef":-0.5662477964096382},{"name":"WorkLifeBalance","mean":2.75765306122449,"scale":0.717807462417934,"coef":-0.25223802714255006},{"name":"YearsAtCompany","mean":7.050170068027211,"scale":6.0840233486674995,"coef":0.02434012876880747},{"name":"YearsSinceLastPromotion","mean":2.182823129251701,"scale":3.2139805446682237,"coef":0.38134139412016427},{"name":"YearsWithCurrManager","mean":4.196428571428571,"scale":3.5632793932013813,"coef":-0.35588270208310135},{"name":"RelationshipSatisfaction","mean":2.7389455782312924,"scale":1.0867383533946666,"coef":-0.29338284746254456},{"name":"TrainingTimesLastYear","mean":2.760204081632653,"scale":1.255727541718728,"coef":-0.14718089491278352}],"log":[{"name":"MonthlyIncome","mean":8.564004001406548,"scale":0.6591744065929588,"coef":-0.540052075969905}],"cat":[{"name":"OverTime","base":"No","coef":{"Yes":1.538249153112606},"mean":{"Yes":0.2891156462585034}},{"name":"BusinessTravel","base":"Non-Travel","coef":{"Travel_Frequently":1.1058206701973456,"Travel_Rarely":0.3003537601511989},"mean":{"Travel_Frequently":0.1913265306122449,"Travel_Rarely":0.7040816326530612}},{"name":"JobRole","base":"Healthcare Representative","coef":{"Human Resources":0.11288207700729,"Laboratory Technician":0.2869282468451019,"Manager":0.21143940226620195,"Manufacturing Director":-0.08421150383729831,"Research Director":-0.5342303160538128,"Research Scientist":-0.7742969260246733,"Sales Executive":0.8703825215120263,"Sales Representative":0.6837862754443924},"mean":{"Human Resources":0.03486394557823129,"Laboratory Technician":0.1828231292517007,"Manager":0.070578231292517,"Manufacturing Director":0.09608843537414966,"Research Director":0.05357142857142857,"Research Scientist":0.1870748299319728,"Sales Executive":0.23214285714285715,"Sales Representative":0.05102040816326531}},{"name":"StockOptionLevel","base":"0","coef":{"1":-1.021222584658539,"2":-0.8274194291486396,"3":-0.5201185171173802},"mean":{"1":0.4098639455782313,"2":0.10629251700680271,"3":0.05612244897959184}},{"name":"JobLevel","base":"1","coef":{"2":-0.9124788377942086,"3":0.25072953445912094,"4":-0.036908093087273414,"5":0.5525327474530647},"mean":{"2":0.3707482993197279,"3":0.1522108843537415,"4":0.0782312925170068,"5":0.041666666666666664}}]},"report":{"n":1470,"n_resign":237,"n_train":1176,"n_test":294,"cv":[{"Model":"Logistic Regression","ROC-AUC":0.855,"PR-AUC":0.672},{"Model":"Gradient Boosting","ROC-AUC":0.807,"PR-AUC":0.582},{"Model":"Random Forest","ROC-AUC":0.797,"PR-AUC":0.529}],"test":{"roc_auc":0.836161598759583,"pr_auc":0.6648968574005903,"recall":0.7446808510638298,"precision":0.38461538461538464,"tp":35,"fp":56,"fn":12,"tn":191,"base_rate":0.1598639455782313},"gain":{"10":0.5106382978723404,"20":0.6808510638297872,"30":0.7446808510638298,"40":0.7872340425531915,"50":0.851063829787234},"gain_curve":[[0.3,2.1],[1.4,8.5],[2.4,14.9],[3.4,21.3],[4.4,25.5],[5.4,27.7],[6.5,31.9],[7.5,38.3],[8.5,42.6],[9.5,46.8],[10.5,51.1],[11.6,53.2],[12.6,53.2],[13.6,55.3],[14.6,59.6],[15.6,59.6],[16.7,59.6],[17.7,63.8],[18.7,66.0],[19.7,68.1],[20.7,70.2],[21.8,70.2],[22.8,70.2],[23.8,70.2],[24.8,70.2],[25.9,70.2],[26.9,72.3],[27.9,72.3],[28.9,74.5],[29.9,74.5],[31.0,74.5],[32.0,74.5],[33.0,74.5],[34.0,74.5],[35.0,74.5],[36.1,74.5],[37.1,74.5],[38.1,78.7],[39.1,78.7],[40.1,78.7],[41.2,78.7],[42.2,83.0],[43.2,83.0],[44.2,83.0],[45.2,83.0],[46.3,85.1],[47.3,85.1],[48.3,85.1],[49.3,85.1],[50.3,85.1],[51.4,85.1],[52.4,87.2],[53.4,87.2],[54.4,87.2],[55.4,87.2],[56.5,87.2],[57.5,87.2],[58.5,89.4],[59.5,89.4],[60.5,89.4],[61.6,89.4],[62.6,89.4],[63.6,89.4],[64.6,91.5],[65.6,91.5],[66.7,91.5],[67.7,91.5],[68.7,95.7],[69.7,95.7],[70.7,95.7],[71.8,95.7],[72.8,95.7],[73.8,95.7],[74.8,95.7],[75.9,95.7],[76.9,95.7],[77.9,95.7],[78.9,95.7],[79.9,95.7],[81.0,95.7],[82.0,95.7],[83.0,95.7],[84.0,95.7],[85.0,95.7],[86.1,95.7],[87.1,95.7],[88.1,95.7],[89.1,95.7],[90.1,95.7],[91.2,97.9],[92.2,97.9],[93.2,97.9],[94.2,97.9],[95.2,97.9],[96.3,97.9],[97.3,97.9],[98.3,97.9],[99.3,97.9]],"roc":[[0.0,0.0],[0.0,0.021],[0.0,0.255],[0.012,0.255],[0.012,0.319],[0.016,0.319],[0.016,0.426],[0.02,0.426],[0.02,0.468],[0.024,0.468],[0.024,0.511],[0.032,0.511],[0.032,0.532],[0.057,0.532],[0.057,0.553],[0.061,0.553],[0.061,0.596],[0.085,0.596],[0.085,0.638],[0.089,0.638],[0.089,0.66],[0.105,0.66],[0.105,0.681],[0.113,0.681],[0.113,0.702],[0.182,0.702],[0.182,0.723],[0.202,0.723],[0.202,0.745],[0.304,0.745],[0.304,0.787],[0.34,0.787],[0.34,0.83],[0.389,0.83],[0.389,0.851],[0.457,0.851],[0.457,0.872],[0.526,0.872],[0.526,0.894],[0.591,0.894],[0.591,0.915],[0.636,0.915],[0.636,0.957],[0.899,0.957],[0.899,0.979],[1.0,0.979],[1.0,1.0]],"drivers":[{"faktor":"Lembur","koef":1.538,"odds_ratio":4.656},{"faktor":"Sering dinas luar","koef":1.106,"odds_ratio":3.022},{"faktor":"Opsi saham level 1","koef":-1.021,"odds_ratio":0.36},{"faktor":"Job level 2","koef":-0.912,"odds_ratio":0.402},{"faktor":"Peran: Sales Executive","koef":0.87,"odds_ratio":2.388},{"faktor":"Opsi saham level 2","koef":-0.827,"odds_ratio":0.437},{"faktor":"Peran: Research Scientist","koef":-0.774,"odds_ratio":0.461},{"faktor":"Peran: Sales Representative","koef":0.684,"odds_ratio":1.981},{"faktor":"Total pengalaman kerja","koef":-0.566,"odds_ratio":0.568},{"faktor":"Job level 5","koef":0.553,"odds_ratio":1.738},{"faktor":"Gaji bulanan (log)","koef":-0.54,"odds_ratio":0.583},{"faktor":"Peran: Research Director","koef":-0.534,"odds_ratio":0.586},{"faktor":"Opsi saham level 3","koef":-0.52,"odds_ratio":0.594},{"faktor":"Kepuasan lingkungan kerja","koef":-0.423,"odds_ratio":0.655}],"eda":{"OverTime":[{"k":"No","n":1054,"r":0.10436432637571158},{"k":"Yes","n":416,"r":0.30528846153846156}],"BusinessTravel":[{"k":"Non-Travel","n":150,"r":0.08},{"k":"Travel_Frequently","n":277,"r":0.2490974729241877},{"k":"Travel_Rarely","n":1043,"r":0.14956855225311602}],"JobRole":[{"k":"Healthcare Representative","n":131,"r":0.06870229007633588},{"k":"Human Resources","n":52,"r":0.23076923076923078},{"k":"Laboratory Technician","n":259,"r":0.23938223938223938},{"k":"Manager","n":102,"r":0.049019607843137254},{"k":"Manufacturing Director","n":145,"r":0.06896551724137931},{"k":"Research Director","n":80,"r":0.025},{"k":"Research Scientist","n":292,"r":0.16095890410958905},{"k":"Sales Executive","n":326,"r":0.17484662576687116},{"k":"Sales Representative","n":83,"r":0.39759036144578314}],"StockOptionLevel":[{"k":"0","n":631,"r":0.24405705229793978},{"k":"1","n":596,"r":0.09395973154362416},{"k":"2","n":158,"r":0.0759493670886076},{"k":"3","n":85,"r":0.17647058823529413}],"JobLevel":[{"k":"1","n":543,"r":0.26335174953959484},{"k":"2","n":534,"r":0.09737827715355805},{"k":"3","n":218,"r":0.14678899082568808},{"k":"4","n":106,"r":0.04716981132075472},{"k":"5","n":69,"r":0.07246376811594203}],"WorkLifeBalance":[{"k":"1","n":80,"r":0.3125},{"k":"2","n":344,"r":0.1686046511627907},{"k":"3","n":893,"r":0.1422172452407615},{"k":"4","n":153,"r":0.17647058823529413}],"EnvironmentSatisfaction":[{"k":"1","n":284,"r":0.2535211267605634},{"k":"2","n":287,"r":0.14982578397212543},{"k":"3","n":453,"r":0.1368653421633554},{"k":"4","n":446,"r":0.13452914798206278}]}}};
+    const M = PAYLOAD.model, R = PAYLOAD.report;
+    const pct = (v, d = 1) => (v * 100).toLocaleString('id-ID', { maximumFractionDigits: d }) + '%';
+    const num = (v, d = 3) => v.toLocaleString('id-ID', { minimumFractionDigits: d, maximumFractionDigits: d });
+    const $ = id => document.getElementById(id);
+
+    // ---------- Model di browser ----------
+    const LABEL = {
+      DistanceFromHome: 'Jarak rumah', EnvironmentSatisfaction: 'Kepuasan lingkungan kerja', JobInvolvement: 'Keterlibatan kerja',
+      JobSatisfaction: 'Kepuasan kerja', NumCompaniesWorked: 'Jumlah perusahaan sebelumnya', TotalWorkingYears: 'Total pengalaman kerja',
+      WorkLifeBalance: 'Work-life balance', YearsAtCompany: 'Masa kerja', YearsSinceLastPromotion: 'Lama sejak promosi',
+      YearsWithCurrManager: 'Lama dengan atasan sekarang', RelationshipSatisfaction: 'Kepuasan relasi kerja',
+      TrainingTimesLastYear: 'Pelatihan tahun lalu', MonthlyIncome: 'Gaji bulanan', OverTime: 'Lembur',
+      BusinessTravel: 'Dinas luar kota', JobRole: 'Peran', StockOptionLevel: 'Opsi saham', JobLevel: 'Job level'
+    };
+    function predict(p) {
+      let z = M.intercept; const parts = [];
+      M.num.forEach(f => { const c = f.coef * (p[f.name] - f.mean) / f.scale; z += c; parts.push([f.name, c]); });
+      M.log.forEach(f => { const c = f.coef * (Math.log1p(p[f.name]) - f.mean) / f.scale; z += c; parts.push([f.name, c]); });
+      M.cat.forEach(f => {
+        const v = f.coef[String(p[f.name])] || 0;
+        const expected = Object.keys(f.coef).reduce((a, k) => a + f.coef[k] * f.mean[k], 0);
+        z += v; parts.push([f.name, v - expected]);
+      });
+      return { prob: 1 / (1 + Math.exp(-z)), parts };
+    }
+
+    // ---------- Form ----------
+    const SAT = [['EnvironmentSatisfaction', 'Lingkungan kerja'], ['JobSatisfaction', 'Pekerjaan'], ['RelationshipSatisfaction', 'Relasi kerja'], ['WorkLifeBalance', 'Work-life balance'], ['JobInvolvement', 'Keterlibatan kerja']];
+    $('sat-fields').innerHTML = SAT.map(([k, l]) => `<div class="field"><label>${l}</label><div class="seg" data-for="${k}">${[1, 2, 3, 4].map(v => `<button type="button" data-v="${v}">${v}</button>`).join('')}</div></div>`).join('');
+    const roles = M.cat.find(c => c.name === 'JobRole'); const roleList = [roles.base, ...Object.keys(roles.coef)].sort();
+    $('JobRole').innerHTML = roleList.map(r => `<option>${r}</option>`).join('');
+
+    const PRESETS = {
+      'Sales junior, sering lembur': { JobRole: 'Sales Representative', JobLevel: 1, OverTime: 'Yes', BusinessTravel: 'Travel_Rarely', MonthlyIncome: 2300, StockOptionLevel: 0, DistanceFromHome: 9, TotalWorkingYears: 3, YearsAtCompany: 2, YearsSinceLastPromotion: 0, YearsWithCurrManager: 1, NumCompaniesWorked: 1, TrainingTimesLastYear: 3, EnvironmentSatisfaction: 3, JobSatisfaction: 3, RelationshipSatisfaction: 3, WorkLifeBalance: 3, JobInvolvement: 3 },
+      'Lab technician, lama tak promosi': { JobRole: 'Laboratory Technician', JobLevel: 2, OverTime: 'Yes', BusinessTravel: 'Travel_Rarely', MonthlyIncome: 4200, StockOptionLevel: 0, DistanceFromHome: 10, TotalWorkingYears: 9, YearsAtCompany: 8, YearsSinceLastPromotion: 7, YearsWithCurrManager: 7, NumCompaniesWorked: 1, TrainingTimesLastYear: 2, EnvironmentSatisfaction: 2, JobSatisfaction: 3, RelationshipSatisfaction: 2, WorkLifeBalance: 3, JobInvolvement: 3 },
+      'Peneliti junior, tanpa lembur': { JobRole: 'Research Scientist', JobLevel: 1, OverTime: 'No', BusinessTravel: 'Travel_Rarely', MonthlyIncome: 3000, StockOptionLevel: 0, DistanceFromHome: 7, TotalWorkingYears: 4, YearsAtCompany: 3, YearsSinceLastPromotion: 1, YearsWithCurrManager: 2, NumCompaniesWorked: 1, TrainingTimesLastYear: 3, EnvironmentSatisfaction: 3, JobSatisfaction: 3, RelationshipSatisfaction: 3, WorkLifeBalance: 3, JobInvolvement: 3 },
+      'Manajer senior stabil': { JobRole: 'Manager', JobLevel: 4, OverTime: 'No', BusinessTravel: 'Travel_Rarely', MonthlyIncome: 15000, StockOptionLevel: 1, DistanceFromHome: 5, TotalWorkingYears: 18, YearsAtCompany: 10, YearsSinceLastPromotion: 2, YearsWithCurrManager: 6, NumCompaniesWorked: 2, TrainingTimesLastYear: 3, EnvironmentSatisfaction: 3, JobSatisfaction: 3, RelationshipSatisfaction: 3, WorkLifeBalance: 3, JobInvolvement: 3 }
+    };
+    $('presets').innerHTML = '<span class="dim mono" style="font-size:10.5px;text-transform:uppercase;align-self:center;margin-right:4px">Contoh profil</span>' +
+      Object.keys(PRESETS).map(k => `<button type="button" class="chip" data-preset="${k}">${k}</button>`).join('');
+
+    let state = {};
+    const RANGES = ['JobLevel', 'MonthlyIncome', 'DistanceFromHome', 'TotalWorkingYears', 'YearsAtCompany', 'YearsSinceLastPromotion', 'YearsWithCurrManager', 'NumCompaniesWorked', 'TrainingTimesLastYear'];
+    const SELECTS = ['JobRole', 'BusinessTravel', 'StockOptionLevel'];
+    function fmtOut(k, v) { return k === 'MonthlyIncome' ? '$' + Number(v).toLocaleString('id-ID') : v; }
+    function applyState(s, presetName) {
+      state = { ...s };
+      RANGES.forEach(k => { $(k).value = state[k]; $('o-' + k).textContent = fmtOut(k, state[k]); });
+      SELECTS.forEach(k => { $(k).value = state[k]; });
+      document.querySelectorAll('.seg').forEach(seg => seg.querySelectorAll('button').forEach(b => b.classList.toggle('on', String(state[seg.dataset.for]) === b.dataset.v)));
+      document.querySelectorAll('[data-preset]').forEach(b => b.classList.toggle('on', b.dataset.preset === presetName));
+      update();
+    }
+    function readAndUpdate() { document.querySelectorAll('[data-preset]').forEach(b => b.classList.remove('on')); update(); }
+    RANGES.forEach(k => $(k).addEventListener('input', e => { state[k] = Number(e.target.value); $('o-' + k).textContent = fmtOut(k, state[k]); readAndUpdate(); }));
+    SELECTS.forEach(k => $(k).addEventListener('change', e => { state[k] = k === 'StockOptionLevel' ? Number(e.target.value) : e.target.value; readAndUpdate(); }));
+    document.querySelectorAll('.seg').forEach(seg => seg.addEventListener('click', e => {
+      const b = e.target.closest('button'); if (!b) return;
+      const k = seg.dataset.for; state[k] = k === 'OverTime' ? b.dataset.v : Number(b.dataset.v);
+      seg.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); readAndUpdate();
+    }));
+    document.querySelectorAll('[data-preset]').forEach(b => b.addEventListener('click', () => applyState(PRESETS[b.dataset.preset], b.dataset.preset)));
+
+    const ACTION = {
+      OverTime: 'Evaluasi beban kerja dan pola lembur; pertimbangkan redistribusi tugas atau tambahan tenaga.',
+      BusinessTravel: 'Tinjau frekuensi dinas luar; rotasi penugasan atau ganti sebagian dengan rapat online.',
+      StockOptionLevel: 'Pertimbangkan insentif jangka panjang (opsi saham, retention bonus).',
+      MonthlyIncome: 'Bandingkan gaji dengan benchmark peran; siapkan review kompensasi.',
+      JobLevel: 'Diskusikan jalur karier dan target naik level yang jelas.',
+      YearsSinceLastPromotion: 'Jadwalkan diskusi karier: kapan dan bagaimana bisa promosi.',
+      JobSatisfaction: 'Lakukan 1-on-1 untuk menggali sumber ketidakpuasan kerja.',
+      EnvironmentSatisfaction: 'Perbaiki lingkungan kerja: fasilitas, tim, dan budaya.',
+      RelationshipSatisfaction: 'Fasilitasi hubungan kerja yang sehat: mentoring, team building.',
+      WorkLifeBalance: 'Tawarkan fleksibilitas jam kerja atau hybrid.',
+      JobInvolvement: 'Libatkan dalam proyek bermakna dan pengambilan keputusan.',
+      DistanceFromHome: 'Pertimbangkan opsi WFH/hybrid atau bantuan transportasi.',
+      NumCompaniesWorked: 'Perkuat onboarding dan program engagement sejak awal.',
+      YearsWithCurrManager: 'Pastikan hubungan dengan atasan baru berjalan baik (check-in rutin).',
+      TotalWorkingYears: 'Sediakan mentor dan rencana pengembangan untuk karyawan dengan pengalaman masih sedikit.',
+      TrainingTimesLastYear: 'Tambah kesempatan pelatihan dan pengembangan skill.',
+      JobRole: 'Peran ini secara historis rawan; perkuat program retensi khusus untuk peran tersebut.',
+      YearsAtCompany: 'Perkuat program engagement karyawan.'
+    };
+
+    function update() {
+      const { prob, parts } = predict(state);
+      $('score').textContent = pct(prob);
+      const arc = $('g-arc'); const C = 314.16;
+      arc.style.strokeDashoffset = C * (1 - prob);
+      let tier, cls, color;
+      if (prob >= 0.4) { tier = 'Risiko tinggi'; cls = 'high'; color = '#fb7185'; }
+      else if (prob >= M.threshold) { tier = 'Perlu perhatian'; cls = 'mid'; color = '#fbbf24'; }
+      else { tier = 'Risiko rendah'; cls = 'low'; color = '#34d399'; }
+      arc.style.stroke = color;
+      const t = $('tier'); t.textContent = tier; t.className = 'tier ' + cls;
+      const ratio = prob / M.base_rate;
+      $('cmp').textContent = (ratio >= 1 ? ratio.toLocaleString('id-ID', { maximumFractionDigits: 1 }) + '× ' + 'di atas' : (1 / ratio).toLocaleString('id-ID', { maximumFractionDigits: 1 }) + '× di bawah') + ` rata-rata perusahaan (${pct(M.base_rate)}). Ambang "perlu perhatian": ${pct(M.threshold, 0)}.`;
+      const top = [...parts].sort((a, b) => Math.abs(b[1]) - Math.abs(a[1])).slice(0, 6);
+      const mx = Math.max(...top.map(p => Math.abs(p[1])), 0.5);
+      $('contrib').innerHTML = top.map(([k, v]) => {
+        const w = Math.abs(v) / mx * 50;
+        const style = v >= 0 ? `left:50%;width:${w}%;background:var(--up)` : `right:50%;width:${w}%;background:var(--down)`;
+        return `<div class="crow"><span>${LABEL[k]}</span><div class="cbar"><i style="${style}"></i><i style="left:50%;width:1px;background:rgba(255,255,255,.2)"></i></div></div>`;
+      }).join('');
+      const ups = parts.filter(p => p[1] > 0.15).sort((a, b) => b[1] - a[1]).slice(0, 3);
+      $('actions').innerHTML = ups.length
+        ? ups.map(([k]) => `<li><i class="fa-solid fa-arrow-right"></i><span><b>${LABEL[k]}:</b> ${ACTION[k]}</span></li>`).join('')
+        : '<li><i class="fa-solid fa-check"></i><span>Tidak ada faktor risiko menonjol. Pertahankan dengan check-in rutin.</span></li>';
+    }
+    applyState(PRESETS['Sales junior, sering lembur'], 'Sales junior, sering lembur');
+    $('g-avg').setAttribute('transform', `rotate(${M.base_rate * 360} 60 60)`);
+
+    // ---------- Angka ringkas ----------
+    $('f-n').textContent = R.n.toLocaleString('id-ID');
+    $('f-auc').textContent = num(R.test.roc_auc, 2);
+    $('f-recall').textContent = pct(R.test.recall);
+    $('f-gain').textContent = pct(R.gain['20'], 0);
+    $('t-base').textContent = pct(R.n_resign / R.n);
+    $('m-ntest').textContent = R.n_test;
+    const rr = (c, k) => R.eda[c].find(x => x.k === k).r;
+    $('i-ot').textContent = pct(rr('OverTime', 'Yes')) + ' vs ' + pct(rr('OverTime', 'No'));
+    $('i-role').textContent = pct(rr('JobRole', 'Sales Representative'));
+    $('i-stock').textContent = pct(rr('StockOptionLevel', '0'));
+
+    const NOTE = { 'Logistic Regression': 'Dipilih: paling akurat & mudah dijelaskan', 'Gradient Boosting': 'Non-linear, cenderung overfit di data kecil', 'Random Forest': 'Non-linear, kalah di PR-AUC' };
+    $('cv-body').innerHTML = R.cv.map((r, i) => `<tr class="${i === 0 ? 'best' : ''}"><td><b>${r.Model}</b></td><td class="num">${num(r['ROC-AUC'])}</td><td class="num">${num(r['PR-AUC'])}</td><td class="muted">${NOTE[r.Model] || ''}</td></tr>`).join('');
+    $('roc-cap').textContent = `AUC ${num(R.test.roc_auc)} · PR-AUC ${num(R.test.pr_auc)} (acak = ${num(R.test.base_rate)})`;
+    ['tn', 'fp', 'fn', 'tp'].forEach(k => $('cm-' + k).textContent = R.test[k]);
+    $('cm-cap').textContent = `Ambang ${pct(M.threshold, 0)} · recall ${pct(R.test.recall)} · precision ${pct(R.test.precision)}`;
+
+    // ---------- Grafik ----------
+    Chart.defaults.color = '#a1a1aa';
+    Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+    Chart.defaults.font.size = 11;
+    Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
+    const base = R.n_resign / R.n * 100;
+    const avgLine = {
+      id: 'avgLine', afterDatasetsDraw(ch) {
+        const o = ch.options.plugins.avgLine; if (!o) return;
+        const horiz = ch.options.indexAxis === 'y';
+        const sc = horiz ? ch.scales.x : ch.scales.y; const p = sc.getPixelForValue(o.v); const { ctx, chartArea: a } = ch;
+        ctx.save(); ctx.setLineDash([4, 4]); ctx.strokeStyle = 'rgba(255,255,255,.35)'; ctx.beginPath();
+        if (horiz) { ctx.moveTo(p, a.top); ctx.lineTo(p, a.bottom); } else { ctx.moveTo(a.left, p); ctx.lineTo(a.right, p); }
+        ctx.stroke(); ctx.restore();
+      }
+    };
+    Chart.register(avgLine);
+    const tipPct = { callbacks: { label: c => ' ' + (c.parsed.y ?? c.parsed.x).toLocaleString('id-ID', { maximumFractionDigits: 1 }) + '%' } };
+    const colorFor = v => v > base * 1.4 ? '#fb7185' : v < base * 0.7 ? '#34d399' : '#60a5fa';
+    function rateBar(id, col, labels, order, horiz) {
+      let rows = R.eda[col];
+      if (order) rows = order.map(k => rows.find(r => r.k === k));
+      if (horiz) rows = [...rows].sort((a, b) => b.r - a.r);
+      const vals = rows.map(r => r.r * 100);
+      new Chart($(id), {
+        type: 'bar',
+        data: { labels: rows.map(r => labels ? labels[r.k] : r.k), datasets: [{ data: vals, backgroundColor: vals.map(colorFor), borderRadius: 4, maxBarThickness: horiz ? 16 : 54 }] },
+        options: {
+          indexAxis: horiz ? 'y' : 'x', maintainAspectRatio: false,
+          plugins: { legend: { display: false }, tooltip: tipPct, avgLine: { v: base } },
+          scales: horiz ? { x: { grid: { color: 'rgba(255,255,255,.05)' }, ticks: { callback: v => v + '%' } }, y: { grid: { display: false }, ticks: { autoSkip: false, font: { size: 10.5 } } } }
+            : { x: { grid: { display: false } }, y: { grid: { color: 'rgba(255,255,255,.05)' }, ticks: { callback: v => v + '%' } } }
+        }
+      });
+    }
+    rateBar('c-ot', 'OverTime', { No: 'Tidak lembur', Yes: 'Lembur' }, ['No', 'Yes']);
+    rateBar('c-role', 'JobRole', null, null, true);
+    rateBar('c-stock', 'StockOptionLevel', { 0: 'Level 0 (tidak ada)', 1: 'Level 1', 2: 'Level 2', 3: 'Level 3' }, ['0', '1', '2', '3']);
+    rateBar('c-level', 'JobLevel', { 1: 'Level 1', 2: 'Level 2', 3: 'Level 3', 4: 'Level 4', 5: 'Level 5' }, ['1', '2', '3', '4', '5']);
+
+    const lineOpts = (xt, yt) => ({
+      maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { enabled: false } },
+      elements: { point: { radius: 0 } },
+      scales: { x: { type: 'linear', min: 0, max: xt === '%' ? 100 : 1, grid: { color: 'rgba(255,255,255,.05)' }, title: { display: true, text: xt === '%' ? '% karyawan diprioritaskan' : 'False positive rate' } },
+        y: { min: 0, max: xt === '%' ? 100 : 1, grid: { color: 'rgba(255,255,255,.05)' }, title: { display: true, text: yt } } }
+    });
+    new Chart($('c-roc'), {
+      type: 'line', data: { datasets: [
+        { data: R.roc.map(([x, y]) => ({ x, y })), borderColor: '#60a5fa', backgroundColor: 'rgba(96,165,250,.12)', fill: true, borderWidth: 2, tension: 0 },
+        { data: [{ x: 0, y: 0 }, { x: 1, y: 1 }], borderColor: 'rgba(255,255,255,.25)', borderDash: [4, 4], borderWidth: 1 }] },
+      options: lineOpts('fpr', 'True positive rate')
+    });
+    new Chart($('c-gain'), {
+      type: 'line', data: { datasets: [
+        { data: [{ x: 0, y: 0 }, ...R.gain_curve.map(([x, y]) => ({ x, y })), { x: 100, y: 100 }], borderColor: '#34d399', backgroundColor: 'rgba(52,211,153,.10)', fill: true, borderWidth: 2 },
+        { data: [{ x: 0, y: 0 }, { x: 100, y: 100 }], borderColor: 'rgba(255,255,255,.25)', borderDash: [4, 4], borderWidth: 1 },
+        { data: [{ x: 20, y: R.gain['20'] * 100 }], pointRadius: 5, pointBackgroundColor: '#fbbf24', showLine: false }] },
+      options: lineOpts('%', '% resign tertangkap')
+    });
+
+    const dr = [...R.drivers].sort((a, b) => b.koef - a.koef);
+    new Chart($('c-drivers'), {
+      type: 'bar',
+      data: { labels: dr.map(d => d.faktor), datasets: [{ data: dr.map(d => d.koef), backgroundColor: dr.map(d => d.koef > 0 ? '#fb7185' : '#34d399'), borderRadius: 3, maxBarThickness: 18 }] },
+      options: {
+        indexAxis: 'y', maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => { const d = dr[c.dataIndex]; return ` odds ratio ${d.odds_ratio.toLocaleString('id-ID', { maximumFractionDigits: 2 })}× (koef ${d.koef.toLocaleString('id-ID')})`; } } } },
+        scales: { x: { grid: { color: 'rgba(255,255,255,.05)' }, title: { display: true, text: '← menurunkan risiko   ·   koefisien   ·   menaikkan risiko →' } }, y: { grid: { display: false }, ticks: { autoSkip: false } } }
+      }
+    });
+
+    if (window.self !== window.top) document.body.classList.add('in-iframe');
+    function closeOrGoBack(event) {
+      if (event) event.preventDefault();
+      window.close();
+      setTimeout(function () {
+        if (window.history.length > 1) window.history.back();
+        else window.location.href = 'index.html#projek';
+      }, 200);
+    }
+  </script>
+</body>
+
+</html>
