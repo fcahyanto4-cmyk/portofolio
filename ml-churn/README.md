@@ -1,13 +1,13 @@
-# Prediksi Pelanggan Churn — PT NusaNet Digital (Internet Rumah, Konteks Indonesia)
+# Kajian Churn Pelanggan Internet Rumah di Tengah Perang Harga 2026 (Konteks Indonesia)
 
 Proyek machine learning untuk memprediksi pelanggan internet rumah yang akan berhenti berlangganan dalam 6 bulan, menghitung pendapatan berisiko dalam Rupiah, dan mensimulasikan ROI kampanye retensi.
 
-> **Data sintetis.** PT NusaNet Digital adalah ISP fiktif. Data dibuat dengan [`generate_data.py`](generate_data.py), yang parameternya dikalibrasi dengan kondisi pasar fixed broadband Indonesia 2025–2026: ARPU IndiHome, harga paket 2026, munculnya paket 100 Mbps Rp100 ribu, data kecepatan internet, penetrasi bundling seluler, dan survei loyalitas APJII. Daftar sumber lengkap ada di halaman aplikasi (menu *Tentang Data*).
+> **Catatan metodologi data.** Data pelanggan ISP bersifat rahasia, sehingga kajian ini memakai data simulasi dari [`generate_data.py`](generate_data.py), yang parameternya dikalibrasi dengan kondisi pasar fixed broadband Indonesia 2025–2026: ARPU IndiHome, harga paket 2026, munculnya paket 100 Mbps Rp100 ribu, data kecepatan internet, penetrasi bundling seluler, dan survei loyalitas APJII. Daftar sumber lengkap ada di halaman aplikasi (menu *Tentang Data*).
 
-- **Aplikasi web (7 modul):** [`churn-isp.html`](../churn-isp.html)
-- **Notebook (Bahasa Indonesia):** [`prediksi_churn_nusanet.ipynb`](prediksi_churn_nusanet.ipynb)
+- **Aplikasi web ChurnScope (7 modul):** [`churn-isp.html`](../churn-isp.html)
+- **Notebook (Bahasa Indonesia):** [`prediksi_churn_internet_rumah.ipynb`](prediksi_churn_internet_rumah.ipynb)
 - **Generator data terkalibrasi:** [`generate_data.py`](generate_data.py)
-- **Data:** [`data/nusanet_pelanggan_2026.csv`](data/nusanet_pelanggan_2026.csv) — 3.000 pelanggan, 7 kota, 5 paket
+- **Data:** [`data/pelanggan_internet_rumah_2026.csv`](data/pelanggan_internet_rumah_2026.csv) — 3.000 pelanggan, 7 kota, 5 paket
 - **Model untuk web:** [`churn_model.json`](churn_model.json) — skor di browser identik dengan scikit-learn
 
 ## Ringkasan hasil
@@ -27,5 +27,5 @@ Proyek machine learning untuk memprediksi pelanggan internet rumah yang akan ber
 pip install pandas scikit-learn matplotlib jupyter
 cd ml-churn
 python generate_data.py          # opsional: buat ulang data sintetis
-jupyter notebook prediksi_churn_nusanet.ipynb
+jupyter notebook prediksi_churn_internet_rumah.ipynb
 ```

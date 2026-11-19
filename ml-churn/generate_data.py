@@ -1,5 +1,6 @@
 """
-Generator data SINTETIS pelanggan PT NusaNet Digital (ISP internet rumah fiktif).
+Generator data SIMULASI untuk kajian churn pelanggan internet rumah
+di tengah perang harga 2026.
 
 Tidak ada data pelanggan sungguhan di sini. Parameter dikalibrasi dengan kondisi
 pasar internet rumah (fixed broadband) Indonesia 2025-2026 supaya pola dan
@@ -101,11 +102,11 @@ def generate(n=N):
         ))
     df = pd.DataFrame(rows)
     df.loc[RNG.random(len(df)) < 0.12, 'skor_kepuasan'] = np.nan          # tidak semua pelanggan mengisi survei
-    df.insert(0, 'id_pelanggan', [f'NN{200001 + i}' for i in range(len(df))])
+    df.insert(0, 'id_pelanggan', [f'PL{200001 + i}' for i in range(len(df))])
     return df
 
 
 if __name__ == '__main__':
     df = generate()
-    df.to_csv('data/nusanet_pelanggan_2026.csv', index=False)
+    df.to_csv('data/pelanggan_internet_rumah_2026.csv', index=False)
     print(df.shape, f"churn 6 bulan {df.churn.mean():.1%} | tagihan rata-rata Rp{df.tagihan_bulanan.mean():,.0f}")

@@ -1,5 +1,6 @@
 """
-Generator data SINTETIS karyawan PT NusaMart Retail (perusahaan fiktif).
+Generator data SIMULASI untuk kajian risiko resign karyawan ritel modern
+(Jabodetabek, Bandung, Surabaya).
 
 Tidak ada data karyawan sungguhan di sini. Setiap parameter dikalibrasi dengan
 statistik & regulasi Indonesia (lihat KALIBRASI di bawah) supaya pola dan
@@ -133,13 +134,13 @@ def generate(n=N):
     # survei engagement tidak diisi semua karyawan (~6% kosong) -> realistis, perlu imputasi
     for c in ['kepuasan_kerja', 'hubungan_atasan', 'work_life_balance']:
         df.loc[RNG.random(len(df)) < 0.06, c] = np.nan
-    df.insert(0, 'id_karyawan', [f'NM{10001 + i}' for i in range(len(df))])
+    df.insert(0, 'id_karyawan', [f'KR{10001 + i}' for i in range(len(df))])
     return df
 
 
 if __name__ == '__main__':
     df = generate()
-    df.to_csv('data/nusamart_karyawan_2026.csv', index=False)
+    df.to_csv('data/karyawan_ritel_2026.csv', index=False)
     print(df.shape, f"resign rate {df.resign.mean():.1%}")
     print(df.groupby('unit').resign.mean().round(3).to_dict())
     print(df.groupby('status_kerja').resign.mean().round(3).to_dict())
