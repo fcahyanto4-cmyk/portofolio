@@ -1267,14 +1267,20 @@
             style="display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 8px; background: #ea580c; color: #fff; font-size: 0.8rem;">
             <i class="fa-solid fa-play"></i>
           </span>
-          Video Demo Eksekusi Nyata
+          Video Penjelasan: Dari Foto Nota ke Invoice
         </h3>
         <span
           style="font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: #34d399; display: flex; align-items: center; gap: 6px;">
           <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #10b981;"></span>
-          Rekaman Asli End-to-End
+          1 menit · 5 langkah
         </span>
       </div>
+
+      <p style="margin: 0 0 18px; color: var(--text-muted); font-size: 0.92rem; line-height: 1.6;">
+        Video ini menjelaskan alur kerja lengkap memakai tangkapan layar asli dari sistem yang berjalan:
+        workflow n8n, percakapan bot Telegram, file Excel, dan invoice PDF. Klik salah satu langkah di bawah video untuk langsung
+        melompat ke bagian itu.
+      </p>
 
       <div
         style="background: #030712; border: 1px solid var(--card-border); border-radius: 14px; overflow: hidden; box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.8);">
@@ -1291,32 +1297,69 @@
             <span style="margin-left: 8px; color: #94a3b8;">Telegram Bot → n8n Pipeline → Claude AI → PDF
               Generator</span>
           </div>
-          <span style="color: #64748b;">N8nFinancialAssistant.mp4</span>
+          <span style="color: #64748b;">n8n-demo.mp4</span>
         </div>
 
         <!-- Video element -->
         <div
           style="position: relative; width: 100%; aspect-ratio: 16/9; background: #000; display: flex; align-items: center; justify-content: center;">
-          <video controls playsinline preload="metadata"
+          <video id="n8n-demo-video" controls playsinline preload="metadata"
+            poster="assets/images/n8n-demo-poster.jpg"
             style="width: 100%; height: 100%; object-fit: contain; background: #000;"
-            src="assets/images/automation-demo.mp4?v=2">
+            src="assets/images/n8n-demo.mp4">
             Browser Anda tidak mendukung tag video HTML5.
           </video>
+        </div>
+
+        <!-- Chapters -->
+        <div class="video-chapters" role="list" aria-label="Bab video">
+          <button type="button" role="listitem" data-t="5.5"><span class="vc-time">0:05</span><span class="vc-label">Gambaran workflow n8n</span></button>
+          <button type="button" role="listitem" data-t="15.5"><span class="vc-time">0:15</span><span class="vc-label">1. Kirim foto nota</span></button>
+          <button type="button" role="listitem" data-t="22.5"><span class="vc-time">0:22</span><span class="vc-label">2. AI ekstraksi data</span></button>
+          <button type="button" role="listitem" data-t="34"><span class="vc-time">0:34</span><span class="vc-label">3. Tercatat di Excel</span></button>
+          <button type="button" role="listitem" data-t="42"><span class="vc-time">0:42</span><span class="vc-label">4. Minta invoice</span></button>
+          <button type="button" role="listitem" data-t="51.5"><span class="vc-time">0:51</span><span class="vc-label">5. Invoice PDF</span></button>
         </div>
 
         <div
           style="padding: 12px 18px; background: rgba(255, 255, 255, 0.02); border-top: 1px solid var(--card-border); font-size: 0.82rem; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
           <div style="display: flex; align-items: center; gap: 8px;">
             <i class="fa-solid fa-circle-info" style="color: var(--primary);"></i>
-            <span>Putar video di atas untuk melihat proses kirim foto struk, n8n trigger, ekstraksi AI, hingga invoice
-              PDF terkirim.</span>
+            <span>Tanpa suara, semua penjelasan ditampilkan sebagai teks di layar.</span>
           </div>
-          <a href="assets/images/automation-demo.mp4" target="_blank" download="N8nFinancialAssistant.mp4"
+          <a href="assets/images/n8n-demo.mp4" target="_blank" download="N8nFinancialAssistant.mp4"
             style="color: #60a5fa; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; display: flex; align-items: center; gap: 6px;">
             <i class="fa-solid fa-download"></i> Unduh Video (MP4)
           </a>
         </div>
       </div>
+      <style>
+        .video-chapters { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--card-border); border-top: 1px solid var(--card-border); }
+        .video-chapters button { all: unset; box-sizing: border-box; cursor: pointer; display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: #050a14; color: #cbd5e1; font-size: 0.84rem; font-weight: 600; transition: background .2s, color .2s; }
+        .video-chapters button:hover { background: #0b1324; color: #fff; }
+        .video-chapters button:focus-visible { outline: 2px solid #60a5fa; outline-offset: -2px; }
+        .video-chapters button.active { background: rgba(234, 88, 12, 0.14); color: #fff; box-shadow: inset 3px 0 0 #ea580c; }
+        .video-chapters .vc-time { font-family: 'JetBrains Mono', monospace; font-size: 0.74rem; color: #fb923c; }
+        @media (max-width: 640px) { .video-chapters { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+      </style>
+      <script>
+        (function () {
+          var v = document.getElementById('n8n-demo-video');
+          var btns = Array.prototype.slice.call(document.querySelectorAll('.video-chapters button'));
+          if (!v || !btns.length) return;
+          btns.forEach(function (b) {
+            b.addEventListener('click', function () {
+              v.currentTime = parseFloat(b.dataset.t);
+              var p = v.play(); if (p && p.catch) p.catch(function () {});
+            });
+          });
+          v.addEventListener('timeupdate', function () {
+            var cur = null;
+            btns.forEach(function (b) { if (v.currentTime >= parseFloat(b.dataset.t) - 0.05) cur = b; });
+            btns.forEach(function (b) { b.classList.toggle('active', b === cur); });
+          });
+        })();
+      </script>
     </div>
 
     <!-- KONTENER 2: Bukti Transaksi Nyata di Telegram -->
