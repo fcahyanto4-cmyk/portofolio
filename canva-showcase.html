@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proyek Canva Yuk Main Bola: Dashboard &amp; Rekap Bulanan — Fajar Sidiq Cahyanto</title>
+  <meta name="description"
+    content="Proyek Canva untuk komunitas minisoccer Yuk Main Bola: dashboard operasional interaktif (Canva Websites) dan presentasi rekap bulanan Oktober 2026.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    :root {
+      --bg: #09090b;
+      --card-bg: #111114;
+      --card-subtle: #18181c;
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-hover-border: rgba(255, 255, 255, 0.2);
+      --text-main: #fafafa;
+      --text-muted: #a1a1aa;
+      --text-dim: #71717a;
+      --canva: #a78bfa;
+      --canva-soft: rgba(139, 92, 246, 0.14);
+      --canva-line: rgba(139, 92, 246, 0.35);
+      --teal: #2dd4bf;
+      --orange: #fb923c;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+
+    /* UNIFORM PORTFOLIO TOPBAR (sama dengan halaman showcase lain) */
+    .pbi-topbar {
+      position: sticky; top: 0; z-index: 1050;
+      background: #0b1c32; color: #fff;
+      height: 56px; padding: 10px 18px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+    body.in-iframe .pbi-topbar { display: none !important; }
+    .pbi-topbar-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .pbi-back-btn {
+      width: 32px; height: 32px; border-radius: 6px; background: rgba(255, 255, 255, 0.12);
+      color: #fff; display: flex; align-items: center; justify-content: center;
+      text-decoration: none; transition: all 0.2s; flex-shrink: 0;
+    }
+    .pbi-back-btn:hover { background: rgba(255, 255, 255, 0.25); transform: translateX(-2px); }
+    .pbi-branding { min-width: 0; }
+    .pbi-brand-title {
+      font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 8px;
+      letter-spacing: -0.2px; line-height: 1.2;
+    }
+    .pbi-badge {
+      font-size: 10px; font-family: 'JetBrains Mono', monospace; padding: 2px 6px; border-radius: 4px;
+      font-weight: 600; text-transform: uppercase; white-space: nowrap;
+    }
+    .pbi-badge-canva { background: rgba(139, 92, 246, 0.22); color: #c4b5fd; border: 1px solid rgba(139, 92, 246, 0.45); }
+    .pbi-brand-sub {
+      font-size: 11px; color: rgba(255, 255, 255, 0.7); margin-top: 2px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2;
+    }
+    .pbi-topbar-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .topbar-actions { display: flex; align-items: center; gap: 6px; }
+    .topbar-pill {
+      display: inline-flex; align-items: center; gap: 5px; padding: 5px 10px; border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
+      color: rgba(255, 255, 255, 0.8); background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14); text-decoration: none; transition: all 0.2s ease; white-space: nowrap;
+    }
+    .topbar-pill:hover { color: #fff; background: rgba(255, 255, 255, 0.18); border-color: rgba(255, 255, 255, 0.3); }
+    .pbi-exit-btn {
+      display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px;
+      background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.22); border-radius: 6px;
+      color: #fff; text-decoration: none; font-size: 12px; font-weight: 600; transition: all 0.2s; white-space: nowrap;
+    }
+    .pbi-exit-btn:hover { background: rgba(255, 255, 255, 0.24); }
+    @media (max-width: 960px) { .topbar-actions { display: none; } }
+    @media (max-width: 640px) {
+      .pbi-topbar { padding: 8px 12px; }
+      .pbi-brand-sub { display: none; }
+      .pbi-exit-btn span { display: none; }
+      .pbi-exit-btn { padding: 6px 10px; }
+    }
+
+    /* LAYOUT */
+    .container { max-width: 1100px; margin: 0 auto; padding: 36px 24px 80px; }
+    section { margin-top: 64px; scroll-margin-top: 80px; }
+    .eyebrow {
+      font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase;
+      letter-spacing: 0.12em; color: var(--canva); font-weight: 600; margin-bottom: 6px; display: block;
+    }
+    h1 { font-size: clamp(1.7rem, 3.6vw, 2.5rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; }
+    h2 { font-size: clamp(1.25rem, 2.4vw, 1.6rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.25; }
+    h3 { font-size: 0.98rem; font-weight: 700; letter-spacing: -0.01em; }
+    .lead { color: var(--text-muted); font-size: 0.98rem; max-width: 760px; margin-top: 14px; }
+
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 9999px;
+      font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .badge-canva { background: var(--canva-soft); color: #c4b5fd; border: 1px solid var(--canva-line); }
+    .badge-teal { background: rgba(45, 212, 191, 0.12); color: #5eead4; border: 1px solid rgba(45, 212, 191, 0.28); }
+    .badge-amber { background: rgba(245, 158, 11, 0.12); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.28); }
+
+    .cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 10px;
+      font-weight: 700; font-size: 0.9rem; text-decoration: none; transition: all 0.2s; border: 1px solid transparent;
+    }
+    .btn-primary { background: #7c3aed; color: #fff; }
+    .btn-primary:hover { background: #6d28d9; }
+    .btn-ghost { background: rgba(255, 255, 255, 0.06); border-color: var(--card-border); color: var(--text-main); }
+    .btn-ghost:hover { border-color: var(--card-hover-border); background: rgba(255, 255, 255, 0.1); }
+    .btn:focus-visible, .nav-btn:focus-visible, .thumb:focus-visible { outline: 2px solid #c4b5fd; outline-offset: 2px; }
+
+    .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; }
+
+    /* Overview: two work cards */
+    .works { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 28px; }
+    .work { display: flex; gap: 14px; padding: 18px; text-decoration: none; transition: border-color 0.2s; }
+    .work:hover { border-color: var(--card-hover-border); }
+    .work-icon {
+      width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 1rem;
+    }
+    .work p { color: var(--text-muted); font-size: 0.86rem; margin-top: 4px; }
+    @media (max-width: 720px) { .works { grid-template-columns: 1fr; } }
+
+    /* Dashboard preview */
+    .frame { margin-top: 22px; overflow: hidden; }
+    .frame-bar {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      padding: 10px 16px; border-bottom: 1px solid var(--card-border);
+      font-family: 'JetBrains Mono', monospace; font-size: 0.74rem; color: var(--text-dim);
+    }
+    .dots { display: flex; gap: 6px; }
+    .dots span { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .frame img { display: block; width: 100%; height: auto; }
+
+    .points { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+    .point { padding: 14px 16px; }
+    .point b { display: block; font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; }
+    .point span { color: var(--text-muted); font-size: 0.8rem; }
+    @media (max-width: 820px) { .points { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+    /* Slide viewer */
+    .viewer { margin-top: 22px; overflow: hidden; }
+    .stage { position: relative; aspect-ratio: 16 / 9; background: #f3ede2; }
+    .stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; transition: opacity 0.25s ease; }
+    .nav-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px; border-radius: 50%; border: 0; cursor: pointer;
+      background: rgba(9, 9, 11, 0.72); color: #fff; font-size: 1rem;
+      display: flex; align-items: center; justify-content: center; transition: background 0.2s;
+    }
+    .nav-btn:hover { background: rgba(9, 9, 11, 0.92); }
+    .nav-btn:disabled { opacity: 0.3; cursor: default; }
+    .nav-prev { left: 12px; }
+    .nav-next { right: 12px; }
+    .viewer-meta {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+      padding: 14px 18px; border-top: 1px solid var(--card-border);
+    }
+    .viewer-meta .cap { font-weight: 700; font-size: 0.95rem; }
+    .viewer-meta .count { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--text-dim); }
+    .thumbs {
+      display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px;
+      padding: 0 18px 18px;
+    }
+    .thumb {
+      all: unset; cursor: pointer; border-radius: 8px; overflow: hidden; aspect-ratio: 16 / 9;
+      border: 2px solid transparent; opacity: 0.55; transition: opacity 0.2s, border-color 0.2s;
+    }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .thumb:hover { opacity: 0.9; }
+    .thumb.active { opacity: 1; border-color: var(--canva); }
+    @media (max-width: 640px) { .thumbs { grid-template-columns: repeat(4, minmax(0, 1fr)); } .nav-btn { width: 36px; height: 36px; } }
+
+    .note { margin-top: 14px; color: var(--text-dim); font-size: 0.82rem; }
+
+    footer { margin-top: 72px; padding-top: 24px; border-top: 1px solid var(--card-border); color: var(--text-dim); font-size: 0.84rem; }
+  </style>
+</head>
+
+<body>
+
+  <header class="pbi-topbar">
+    <div class="pbi-topbar-left">
+      <a href="index.html#projek" onclick="closeOrGoBack(event)" class="pbi-back-btn" title="Tutup Tab & Kembali ke Portofolio">
+        <i class="fa-solid fa-arrow-left"></i>
+      </a>
+      <div class="pbi-branding">
+        <div class="pbi-brand-title">
+          <i class="fa-solid fa-palette" style="color:#c4b5fd;"></i>
+          <span>Proyek Canva · Yuk Main Bola</span>
+          <span class="pbi-badge pbi-badge-canva">Canva</span>
+        </div>
+        <div class="pbi-brand-sub">Dashboard operasional (Canva Websites) • Presentasi rekap bulanan (Canva Presentations)</div>
+      </div>
+    </div>
+    <div class="pbi-topbar-right">
+      <div class="topbar-actions">
+        <a href="#dashboard" class="topbar-pill"><i class="fa-solid fa-chart-pie"></i> <span>Dashboard</span></a>
+        <a href="#presentasi" class="topbar-pill"><i class="fa-solid fa-person-chalkboard"></i> <span>Presentasi</span></a>
+      </div>
+      <a href="index.html#projek" onclick="closeOrGoBack(event)" class="pbi-exit-btn" title="Tutup Tab & Kembali ke Portofolio">
+        <span>Kembali ke Portofolio</span>
+        <i class="fa-solid fa-xmark"></i>
+      </a>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- HERO -->
+    <div>
+      <div class="badges">
+        <span class="badge badge-canva"><i class="fa-solid fa-palette"></i> Canva</span>
+        <span class="badge badge-teal">Visualisasi KPI</span>
+        <span class="badge badge-amber">Data simulasi</span>
+      </div>
+      <h1>Laporan operasional Yuk Main Bola<br>Oktober 2026, dibuat di Canva</h1>
+      <p class="lead">
+        Dua karya Canva untuk komunitas minisoccer Yuk Main Bola di Jakarta, dari data yang sama: dashboard interaktif untuk
+        dipantau sehari-hari, dan presentasi rekap bulanan untuk dibahas di rapat tim. Keduanya menjawab satu pertanyaan:
+        jadwal mana yang perlu ditambah?
+      </p>
+
+      <div class="works">
+        <a href="#dashboard" class="card work">
+          <div class="work-icon" style="background:rgba(45,212,191,0.14);color:#5eead4;"><i class="fa-solid fa-chart-pie"></i></div>
+          <div>
+            <h3>01 · Dashboard operasional</h3>
+            <p>Situs Canva interaktif dengan empat tab dan filter indikator serta bulan.</p>
+          </div>
+        </a>
+        <a href="#presentasi" class="card work">
+          <div class="work-icon" style="background:rgba(251,146,60,0.14);color:#fdba74;"><i class="fa-solid fa-person-chalkboard"></i></div>
+          <div>
+            <h3>02 · Presentasi rekap bulanan</h3>
+            <p>7 slide untuk rapat tim: tren, keterisian slot, dan dua rekomendasi.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <section id="dashboard">
+      <span class="eyebrow">01 / Canva Websites</span>
+      <h2>Dashboard operasional interaktif</h2>
+      <p class="lead">
+        Merangkum kehadiran, tren kunjungan profil Instagram, topik pertanyaan pemain yang paling sering masuk, serta stok
+        peralatan dan P3K yang perlu dilengkapi. Dibagi ke empat tab dengan filter indikator dan bulan.
+      </p>
+
+      <div class="card frame">
+        <div class="frame-bar">
+          <div class="dots"><span style="background:#ef4444"></span><span style="background:#f59e0b"></span><span style="background:#10b981"></span></div>
+          <span>antelope-ws017b.my.canva.site</span>
+        </div>
+        <a href="https://antelope-ws017b.my.canva.site/" target="_blank" rel="noopener noreferrer" aria-label="Buka dashboard Canva">
+          <img src="assets/images/canva-ymb-dashboard.png" alt="Dashboard operasional Yuk Main Bola Oktober 2026 yang dibuat di Canva" loading="lazy">
+        </a>
+      </div>
+
+      <div class="points">
+        <div class="card point"><b>144</b><span>slot terpakai bulan Oktober</span></div>
+        <div class="card point"><b>95%</b><span>keterisian Sabtu pagi</span></div>
+        <div class="card point"><b>4</b><span>tab dengan filter</span></div>
+        <div class="card point"><b>+20%</b><span>kunjungan profil vs September</span></div>
+      </div>
+
+      <div class="cta-row">
+        <a href="https://antelope-ws017b.my.canva.site/" target="_blank" rel="noopener noreferrer" class="btn btn-primary"><i class="fa-solid fa-arrow-up-right-from-square"></i> Buka dashboard interaktif</a>
+      </div>
+    </section>
+
+    <!-- PRESENTASI -->
+    <section id="presentasi">
+      <span class="eyebrow">02 / Canva Presentations</span>
+      <h2>Presentasi rekap bulanan: "Rekap main bareng Jakarta"</h2>
+      <p class="lead">
+        Versi ringkas untuk rapat tim. Setiap slide membawa satu pesan, mulai dari tren kunjungan dan klik jadwal, keterisian
+        slot per sesi, sampai dua langkah yang bisa dicoba bulan depan. Geser dengan tombol panah atau klik gambar kecil di bawah.
+      </p>
+
+      <div class="card viewer" id="viewer">
+        <div class="stage">
+          <img id="slide-img" src="assets/images/canva-rekap/slide-1.jpg" alt="">
+          <button type="button" class="nav-btn nav-prev" id="prev" aria-label="Slide sebelumnya"><i class="fa-solid fa-chevron-left"></i></button>
+          <button type="button" class="nav-btn nav-next" id="next" aria-label="Slide berikutnya"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+        <div class="viewer-meta">
+          <span class="cap" id="slide-cap"></span>
+          <span class="count" id="slide-count"></span>
+        </div>
+        <div class="thumbs" id="thumbs" role="tablist" aria-label="Daftar slide"></div>
+      </div>
+
+      <div class="cta-row">
+        <a href="https://www.canva.com/d/0liSbqerDhWt-TI" target="_blank" rel="noopener noreferrer" class="btn btn-primary"><i class="fa-solid fa-arrow-up-right-from-square"></i> Lihat presentasi di Canva</a>
+      </div>
+      <p class="note">Semua angka adalah data simulasi untuk keperluan portofolio.</p>
+    </section>
+
+    <footer>
+      Fajar Sidiq Cahyanto · Proyek Canva untuk komunitas Yuk Main Bola
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      var slides = [
+        'Sampul: Rekap main bareng Jakarta, Oktober 2026',
+        'Kunjungan ke profil naik 20% pada Oktober',
+        'Lebih banyak yang mengecek jadwal',
+        'Dari 160 slot yang dipesan, 144 terpakai',
+        'Sabtu pagi paling dekat ke kapasitas',
+        'Yang paling sering ditanyakan adalah sisa slot',
+        'Dua hal untuk dicoba bulan depan'
+      ];
+      var i = 0;
+      var img = document.getElementById('slide-img');
+      var cap = document.getElementById('slide-cap');
+      var count = document.getElementById('slide-count');
+      var prev = document.getElementById('prev');
+      var next = document.getElementById('next');
+      var thumbs = document.getElementById('thumbs');
+
+      slides.forEach(function (title, n) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'thumb';
+        b.setAttribute('role', 'tab');
+        b.setAttribute('aria-label', 'Slide ' + (n + 1) + ': ' + title);
+        b.innerHTML = '<img src="assets/images/canva-rekap/slide-' + (n + 1) + '.jpg" alt="" loading="lazy">';
+        b.addEventListener('click', function () { show(n); });
+        thumbs.appendChild(b);
+      });
+
+      function show(n) {
+        i = Math.max(0, Math.min(slides.length - 1, n));
+        img.src = 'assets/images/canva-rekap/slide-' + (i + 1) + '.jpg';
+        img.alt = 'Slide ' + (i + 1) + ': ' + slides[i];
+        cap.textContent = slides[i];
+        count.textContent = (i + 1) + ' / ' + slides.length;
+        prev.disabled = i === 0;
+        next.disabled = i === slides.length - 1;
+        Array.prototype.forEach.call(thumbs.children, function (t, k) {
+          t.classList.toggle('active', k === i);
+          t.setAttribute('aria-selected', k === i ? 'true' : 'false');
+        });
+      }
+
+      prev.addEventListener('click', function () { show(i - 1); });
+      next.addEventListener('click', function () { show(i + 1); });
+      document.getElementById('viewer').addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft') { show(i - 1); e.preventDefault(); }
+        if (e.key === 'ArrowRight') { show(i + 1); e.preventDefault(); }
+      });
+
+      // preload remaining slides
+      for (var k = 2; k <= slides.length; k++) { var p = new Image(); p.src = 'assets/images/canva-rekap/slide-' + k + '.jpg'; }
+
+      show(0);
+    })();
+
+    if (window.self !== window.top) document.body.classList.add('in-iframe');
+
+    function closeOrGoBack(event) {
+      if (event) event.preventDefault();
+      window.close();
+      setTimeout(function () {
+        if (window.history.length > 1) window.history.back();
+        else window.location.href = 'index.html#projek';
+      }, 200);
+    }
+  </script>
+</body>
+
+</html>
