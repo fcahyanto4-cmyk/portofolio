@@ -315,6 +315,8 @@
         <div class="reveal flex flex-wrap items-center gap-1 p-1 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-sm" style="--d:100ms">
           <button onclick="filterProjects('all')" id="filter-btn-all" type="button" class="filter-tab px-3 py-1.5 rounded-lg font-medium transition-colors">Semua</button>
           <button onclick="filterProjects('bi')" id="filter-btn-bi" type="button" class="filter-tab px-3 py-1.5 rounded-lg font-medium transition-colors">Power BI</button>
+          <button onclick="filterProjects('excel')" id="filter-btn-excel" type="button" class="filter-tab px-3 py-1.5 rounded-lg font-medium transition-colors">Excel</button>
+          <button onclick="filterProjects('canva')" id="filter-btn-canva" type="button" class="filter-tab px-3 py-1.5 rounded-lg font-medium transition-colors">Canva</button>
           <button onclick="filterProjects('ml')" id="filter-btn-ml" type="button" class="filter-tab px-3 py-1.5 rounded-lg font-medium transition-colors">Machine learning</button>
           <button onclick="filterProjects('web')" id="filter-btn-web" type="button" class="filter-tab px-3 py-1.5 rounded-lg font-medium transition-colors">Web dan otomasi</button>
         </div>
@@ -360,6 +362,44 @@
           </div>
         </article>
 
+        <!-- TalentPulse -->
+        <article class="project-card card reveal rounded-2xl overflow-hidden flex flex-col border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/60" data-category="ml">
+          <a href="hr-attrition.html" target="_blank" rel="noopener noreferrer" class="reveal-img block h-48 sm:h-56 bg-zinc-200 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800">
+            <img src="assets/images/hr-attrition.png" alt="TalentPulse, kajian risiko resign karyawan ritel modern" loading="lazy" class="w-full h-full object-cover object-top" />
+          </a>
+          <div class="p-5 sm:p-6 flex flex-col flex-1 gap-3">
+            <p class="text-xs font-medium text-zinc-500">Machine learning</p>
+            <h3 data-words class="text-lg font-bold text-zinc-900 dark:text-zinc-100 leading-snug" style="--d:250ms">TalentPulse: kajian risiko resign karyawan ritel modern</h3>
+            <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed flex-1">
+              Kajian prediktif risiko resign 2.400 karyawan ritel modern di Jabodetabek, Bandung, dan Surabaya. Mengukur pengaruh gaji dibanding UMK 2026, status PKWT/outsourcing, lembur (PP 35/2021), shift malam, dan waktu tempuh. Web app 7 modul: daftar prioritas retensi, simulator risiko, dan evaluasi model.
+            </p>
+            <p class="text-xs text-zinc-500 dark:text-zinc-500">Python, scikit-learn, logistic regression, data terkalibrasi BPS/UMK</p>
+            <div class="pt-3 border-t border-zinc-100 dark:border-zinc-800 text-sm flex items-center justify-between gap-3">
+              <a href="hr-attrition.html" target="_blank" rel="noopener noreferrer" class="font-semibold text-brand-600 dark:text-brand-400 hover:underline underline-offset-4">Buka TalentPulse</a>
+              <a href="https://github.com/fcahyanto4-cmyk/portofolio/blob/main/ml-attrition/prediksi_resign_karyawan_ritel.ipynb" target="_blank" rel="noopener noreferrer" class="text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Lihat notebook</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- ChurnScope -->
+        <article class="project-card card reveal rounded-2xl overflow-hidden flex flex-col border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/60" data-category="ml" style="--d:120ms">
+          <a href="churn-isp.html" target="_blank" rel="noopener noreferrer" class="reveal-img block h-48 sm:h-56 bg-zinc-200 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800">
+            <img src="assets/images/churn-isp.png" alt="ChurnScope, kajian churn pelanggan internet rumah 2026" loading="lazy" class="w-full h-full object-cover object-top" />
+          </a>
+          <div class="p-5 sm:p-6 flex flex-col flex-1 gap-3">
+            <p class="text-xs font-medium text-zinc-500">Machine learning</p>
+            <h3 data-words class="text-lg font-bold text-zinc-900 dark:text-zinc-100 leading-snug" style="--d:250ms">ChurnScope: kajian churn pelanggan internet rumah</h3>
+            <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed flex-1">
+              Kajian churn 3.000 pelanggan internet rumah di tengah perang harga 2026 (paket 100 Mbps Rp100 ribu). Skor risiko per pelanggan, pendapatan berisiko dalam Rupiah (±Rp1,38 M/tahun), dan simulasi ROI kampanye retensi. Dikalibrasi ke ARPU fixed broadband, harga paket 2026, dan survei APJII.
+            </p>
+            <p class="text-xs text-zinc-500 dark:text-zinc-500">Python, scikit-learn, churn modeling, ROI kampanye</p>
+            <div class="pt-3 border-t border-zinc-100 dark:border-zinc-800 text-sm flex items-center justify-between gap-3">
+              <a href="churn-isp.html" target="_blank" rel="noopener noreferrer" class="font-semibold text-brand-600 dark:text-brand-400 hover:underline underline-offset-4">Buka ChurnScope</a>
+              <a href="https://github.com/fcahyanto4-cmyk/portofolio/blob/main/ml-churn/prediksi_churn_internet_rumah.ipynb" target="_blank" rel="noopener noreferrer" class="text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Lihat notebook</a>
+            </div>
+          </div>
+        </article>
+
         <!-- 3. Otomasi -->
         <article id="automation-showcase" class="project-card card reveal rounded-2xl overflow-hidden flex flex-col border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/60 scroll-mt-28" data-category="web">
           <a href="automation-showcase.html" target="_blank" rel="noopener noreferrer" class="reveal-img block h-48 sm:h-56 bg-zinc-200 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800">
@@ -391,13 +431,52 @@
             <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed flex-1">
               Aplikasi web untuk komunitas minisoccer dengan jadwal mabar otomatis, kunci kuota pemain, pembayaran Midtrans QRIS/VA,
               pesanan yang kedaluwarsa sendiri, dan program loyalitas member. Sudah live di Vercel.
-              Dilengkapi laporan bulanan untuk tim di Canva: tren kunjungan profil, klik jadwal, keterisian slot per sesi,
-              dan rekomendasi langkah berikutnya.
             </p>
-            <p class="text-xs text-zinc-500 dark:text-zinc-500">Next.js 16, React 19, Supabase, Tailwind v4, Canva</p>
-            <div class="pt-3 border-t border-zinc-100 dark:border-zinc-800 text-sm flex items-center justify-between gap-3 flex-wrap">
+            <p class="text-xs text-zinc-500 dark:text-zinc-500">Next.js 16, React 19, Supabase, Tailwind v4</p>
+            <div class="pt-3 border-t border-zinc-100 dark:border-zinc-800 text-sm">
               <a href="https://aplikasi-booking-system-adfw.vercel.app" target="_blank" rel="noopener noreferrer" class="font-semibold text-brand-600 dark:text-brand-400 hover:underline underline-offset-4">Buka aplikasi</a>
-              <a href="https://www.canva.com/d/0liSbqerDhWt-TI" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"><img src="assets/images/logos/canva.svg" alt="" class="w-4 h-4 object-contain" />Laporan bulanan (Canva)</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Excel -->
+        <article class="project-card card reveal rounded-2xl overflow-hidden flex flex-col border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/60" data-category="excel">
+          <a href="excel-anggaran-17an.html" target="_blank" rel="noopener noreferrer" class="reveal-img block h-48 sm:h-56 bg-zinc-200 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800">
+            <img src="assets/images/excel-anggaran-17an.png" alt="Dashboard Excel anggaran lomba 17 Agustus 2023 sampai 2025" loading="lazy" class="w-full h-full object-cover object-top" />
+          </a>
+          <div class="p-5 sm:p-6 flex flex-col flex-1 gap-3">
+            <p class="text-xs font-medium text-zinc-500">Excel</p>
+            <h3 data-words class="text-lg font-bold text-zinc-900 dark:text-zinc-100 leading-snug" style="--d:250ms">Dashboard anggaran lomba 17 Agustus 2023–2025</h3>
+            <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed flex-1">
+              Workbook Excel untuk Karang Taruna yang membandingkan anggaran hadiah lomba dan perlengkapan selama tiga tahun (total Rp13,9 juta). Rekap per tahun ditarik otomatis ke satu Excel Table, lalu menggerakkan dashboard dengan slicer tahun, Top 10 dinamis, 17 grafik native, dan rekonsiliasi selisih dengan proposal.
+            </p>
+            <p class="text-xs text-zinc-500 dark:text-zinc-500">Excel Table, slicer, LET / FILTER / SORT, SUMIFS dan SUBTOTAL</p>
+            <div class="pt-3 border-t border-zinc-100 dark:border-zinc-800 text-sm flex items-center justify-between gap-3">
+              <a href="excel-anggaran-17an.html" target="_blank" rel="noopener noreferrer" class="font-semibold text-brand-600 dark:text-brand-400 hover:underline underline-offset-4">Buka studi kasus Excel</a>
+              <a href="assets/documents/Dashboard_Anggaran_17_Agustus_2023-2025.xlsx" download class="text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Unduh .xlsx</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Canva -->
+        <article class="project-card card reveal rounded-2xl overflow-hidden flex flex-col border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/60" data-category="canva" style="--d:120ms">
+          <a href="https://antelope-ws017b.my.canva.site/" target="_blank" rel="noopener noreferrer" class="reveal-img block h-48 sm:h-56 bg-zinc-200 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800">
+            <img src="assets/images/canva-ymb-dashboard.png" alt="Dashboard operasional Yuk Main Bola Oktober 2026 yang dibuat di Canva" loading="lazy" class="w-full h-full object-cover object-top" />
+          </a>
+          <div class="p-5 sm:p-6 flex flex-col flex-1 gap-3">
+            <p class="text-xs font-medium text-zinc-500">Canva</p>
+            <h3 data-words class="text-lg font-bold text-zinc-900 dark:text-zinc-100 leading-snug" style="--d:250ms">Dashboard operasional Yuk Main Bola, Oktober 2026</h3>
+            <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed flex-1">
+              Dashboard interaktif yang dibuat di Canva untuk komunitas minisoccer Yuk Main Bola di Jakarta. Merangkum kehadiran
+              (144 slot terpakai, keterisian Sabtu pagi 95%), tren kunjungan profil Instagram, topik pertanyaan pemain yang paling
+              sering masuk, serta stok peralatan dan P3K yang perlu dilengkapi. Empat tab dengan filter indikator dan bulan, memakai data simulasi.
+              Dilengkapi presentasi rekap bulanan 7 slide untuk rapat tim: tren kunjungan dan klik jadwal, keterisian slot per sesi,
+              dan dua rekomendasi untuk bulan berikutnya.
+            </p>
+            <p class="text-xs text-zinc-500 dark:text-zinc-500">Canva Websites, Canva Presentations, desain dashboard, visualisasi KPI</p>
+            <div class="pt-3 border-t border-zinc-100 dark:border-zinc-800 text-sm flex items-center justify-between gap-3 flex-wrap">
+              <a href="https://antelope-ws017b.my.canva.site/" target="_blank" rel="noopener noreferrer" class="font-semibold text-brand-600 dark:text-brand-400 hover:underline underline-offset-4">Buka dashboard Canva</a>
+              <a href="https://www.canva.com/d/0liSbqerDhWt-TI" target="_blank" rel="noopener noreferrer" class="text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Lihat presentasi rekap</a>
             </div>
           </div>
         </article>

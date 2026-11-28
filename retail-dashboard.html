@@ -780,7 +780,7 @@
       ['toko', '3. Toko & Wilayah'],
       ['produk', '4. Produk & Kategori']
     ];
-    const MET = ['Net Sales', 'Gross Profit', 'Units Sold', 'Gross Margin %', 'Target Achievement %'];
+    const MET = ['Penjualan Bersih', 'Laba Kotor', 'Unit Terjual', 'Margin Laba Kotor (%)', 'Pencapaian Target (%)'];
     const st = { y: new Set(), r: new Set(), c: new Set(), sub: new Set(), met: 0, n: 10, dr: [], ex: new Set(), so: { ab: ['ns', -1], tt: ['ns', -1] } };
     const ok = (S, v) => !S.size || S.has(v);
     const nz = v => v != null && isFinite(v);
@@ -868,7 +868,7 @@
       $('#nv').innerHTML = PG.map(p => `<a href="#${p[0]}" class="${p[0] === P ? 'on' : ''}">${p[1]}</a>`).join('');
       
       const subDescriptions = {
-        overview: 'Halaman 1 / 4 • Ringkasan kinerja eksekutif: Net Sales, margin kotor, pencapaian target, dan sebaran spasial toko nasional',
+        overview: 'Halaman 1 / 4 • Ringkasan kinerja eksekutif: Penjualan Bersih, margin kotor, pencapaian target, dan sebaran spasial toko nasional',
         penjualan: 'Halaman 2 / 4 • Kecepatan penjualan: tren margin kotor bulanan, matriks hari & bulan, dan kontribusi kuartal',
         toko: 'Halaman 3 / 4 • Efisiensi gerai ritel: ranking toko teratas, pencapaian target toko, dan produktivitas sales/m²',
         produk: 'Halaman 4 / 4 • Merchandising & portofolio: klasifikasi ABC, drill-down hierarki produk, dan kurva kumulatif Pareto'
